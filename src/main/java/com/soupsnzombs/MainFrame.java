@@ -10,6 +10,7 @@ public class MainFrame {
         GamePanel game = new GamePanel();
         frame.add(game);
         frame.pack();
+        frame.setTitle("Soups N Zombs");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         // frame.setUndecorated(true);
