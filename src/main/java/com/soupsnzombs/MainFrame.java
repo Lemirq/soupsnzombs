@@ -2,7 +2,7 @@ package com.soupsnzombs;
 
 import javax.swing.*;
 
-public class MainFrame extends JFrame{
+public class MainFrame extends JFrame {
     GamePanel game;
 
     public static void main(String[] args) {
@@ -14,7 +14,7 @@ public class MainFrame extends JFrame{
     }
 
     MainFrame() {
-        this.setTitle("Soup N Zomboobs");
+        this.setTitle("Soup N Zombs");
         game = new GamePanel();
         this.add(game);
         this.pack();

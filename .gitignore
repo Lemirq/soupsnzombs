@@ -4,5 +4,3 @@ src/.DS_Store
 target/.DS_Store
 .DS_Store
 .idea
-target/*
-/target
