@@ -22,6 +22,7 @@ public class GamePanel extends JPanel {
     public static boolean leftPressed = false;
     public static boolean rightPressed = false;
     public static boolean shootPressed = false;
+    public static int direction = 0;
 
     public boolean idle = true;
 
@@ -36,11 +37,55 @@ public class GamePanel extends JPanel {
     GamePanel() {
         // setup timer
 
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int key = e.getKeyCode();
+                if (key == KeyEvent.VK_W) {
+                    upPressed = true;
+                    System.out.println("up");
+                    direction = 0;
+                } else if (key == KeyEvent.VK_S) {
+                    downPressed = true;
+                    direction = 2;
+                } else if (key == KeyEvent.VK_A) {
+                    leftPressed = true;
+                    direction = -1;
+                } else if (key == KeyEvent.VK_D) {
+                    rightPressed = true;
+                    direction = 1;
+                } else if (key == KeyEvent.VK_SPACE) {
+                    shootPressed = true;
+                } else if (key == KeyEvent.VK_SHIFT) {
+                    MOVE_SPEED = 30;
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                int key = e.getKeyCode();
+                if (key == KeyEvent.VK_W) {
+                    upPressed = false;
+                } else if (key == KeyEvent.VK_S) {
+                    downPressed = false;
+                } else if (key == KeyEvent.VK_A) {
+                    leftPressed = false;
+                } else if (key == KeyEvent.VK_D) {
+                    rightPressed = false;
+                } else if (key == KeyEvent.VK_E) {
+                    shootPressed = false;
+                } else if (key == KeyEvent.VK_SHIFT) {
+                    MOVE_SPEED = 6;
+                }
+            }
+        });
+
         Timer timer = new Timer(17, new ActionListener() { // roughly 60 frames per second as 1000ms / 60fps =
             // 16.6666666667ms
             @Override
             public void actionPerformed(ActionEvent e) {
                 moveMap();
+
                 // if (shootPressed) {
                 // gun.shootBullet(player);
                 // shootPressed = false; // Prevent continuous shooting
@@ -92,7 +137,7 @@ public class GamePanel extends JPanel {
         // Update the color and draw some rectangles
         g2d.setPaint(Color.RED);
         g2d.drawRect(20, 40, 250, 40);
-        g2d.fillRect(0, 0, 20, 10);
+        g2d.fillRect(offsetX, offsetY, 20, 10);
         g2d.setPaint(Color.BLACK);
         g2d.drawRect(220, 140, 50, 40);
         g2d.fillRect(120, 240, 50, 40);
