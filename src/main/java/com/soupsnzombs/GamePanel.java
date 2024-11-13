@@ -78,7 +78,7 @@ public class GamePanel extends JPanel {
         // make solid lines 3 pixels wide
         g2.setStroke(new BasicStroke(3));
         // Update the color and draw some rectangles
-        g2.setPaint(Color.BLUE);
+        g2.setPaint(Color.RED);
         g2.drawRect(20, 40, 250, 40);
         g2.fillRect(0, 0, 20, 10);
         g2.setPaint(Color.YELLOW);
