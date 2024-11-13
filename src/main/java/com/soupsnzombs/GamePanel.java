@@ -69,21 +69,33 @@ public class GamePanel extends JPanel {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        // draw underlying grid
+        // Set the stroke width for the grid lines
+        g2d.setStroke(new BasicStroke(4)); // Change the value to make the lines thicker or thinner
+
+        // Draw the grid
+        g2d.setColor(Theme.GRID);
+        for (int x = offsetX % GRID_SIZE; x < getWidth(); x += GRID_SIZE) {
+            g2d.drawLine(x, 0, x, getHeight());
+        }
+        for (int y = offsetY % GRID_SIZE; y < getHeight(); y += GRID_SIZE) {
+            g2d.drawLine(0, y, getWidth(), y);
+        }
 
         // get Graphics2D object for more advanced graphics
-        Graphics2D g2 = (Graphics2D) g;
         // turn on antialiasing
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // make solid lines 3 pixels wide
-        g2.setStroke(new BasicStroke(3));
+        // d make solid lines 3 pixels wide
+        g2d.setStroke(new BasicStroke(3));
         // Update the color and draw some rectangles
-        g2.setPaint(Color.RED);
-        g2.drawRect(20, 40, 250, 40);
-        g2.fillRect(0, 0, 20, 10);
-        g2.setPaint(Color.BLACK);
-        g2.drawRect(220, 140, 50, 40);
-        g2.fillRect(120, 240, 50, 40);
+        g2d.setPaint(Color.RED);
+        g2d.drawRect(20, 40, 250, 40);
+        g2d.fillRect(0, 0, 20, 10);
+        g2d.setPaint(Color.BLACK);
+        g2d.drawRect(220, 140, 50, 40);
+        g2d.fillRect(120, 240, 50, 40);
     }
 
 }
