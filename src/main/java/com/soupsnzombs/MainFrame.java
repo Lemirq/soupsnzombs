@@ -5,11 +5,10 @@ import javax.swing.JFrame;
 public class MainFrame {
     public static void main(String[] args) {
 
-        JFrame frame = new JFrame("2D Game");
+        JFrame frame = new JFrame("Soups N Zombs");
         GamePanel game = new GamePanel();
         frame.add(game);
         frame.pack();
-        frame.setTitle("Soups N Zombs");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         // frame.setUndecorated(true);
