@@ -5,9 +5,11 @@ import java.awt.*;
 
 public class GamePanel extends JPanel {
     public static void main(String[] args) {
-        System.out.println("Ryan is hot");
-        System.out.println("Ryan x katie");
-        System.out.println("The");
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new GamePanel();
+            }
+        });
     }
 
 }
