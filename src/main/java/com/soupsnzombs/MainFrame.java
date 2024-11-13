@@ -12,6 +12,8 @@ public class MainFrame {
         frame.setTitle("Soups N Zombs");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        // set as full screen
+        // frame.setUndecorated(true);
         // frame.setUndecorated(true);
 
         frame.setVisible(true);
