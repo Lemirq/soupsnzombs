@@ -81,7 +81,7 @@ public class GamePanel extends JPanel {
         g2.setPaint(Color.BLUE);
         g2.drawRect(20, 40, 250, 40);
         g2.fillRect(0, 0, 20, 10);
-        g2.setPaint(Color.YELLOW);
+        g2.setPaint(Color.BLACK);
         g2.drawRect(220, 140, 50, 40);
         g2.fillRect(120, 240, 50, 40);
     }
