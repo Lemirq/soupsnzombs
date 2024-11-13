@@ -14,7 +14,7 @@ public class MainFrame extends JFrame {
     }
 
     MainFrame() {
-        this.setTitle("Soup N Zomboobs");
+        this.setTitle("Soup N Zombs");
         game = new GamePanel();
         this.add(game);
         this.pack();
