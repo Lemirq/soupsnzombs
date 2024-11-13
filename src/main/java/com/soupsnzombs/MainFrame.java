@@ -2,7 +2,7 @@ package com.soupsnzombs;
 
 import javax.swing.*;
 
-public class MainFrame extends JFrame{
+public class MainFrame extends JFrame {
     GamePanel game;
 
     public static void main(String[] args) {
