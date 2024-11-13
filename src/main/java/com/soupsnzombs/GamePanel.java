@@ -9,7 +9,7 @@ public class GamePanel extends JPanel {
 
     public static int offsetX = 0; // Offset for the grid's X position
     public static int offsetY = 0; // Offset for the grid's Y position
-    private int MOVE_SPEED = 6; // Speed of movement
+    private int MOVE_SPEED = 50000; // Speed of movement
     private final int GRID_SIZE = 50; // Size of each grid cell
     private final int[] X_Bounds = { -2000, 2000 };
     private final int[] Y_Bounds = { -700, 700 };
