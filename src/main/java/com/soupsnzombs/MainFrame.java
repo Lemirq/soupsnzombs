@@ -1,22 +1,29 @@
 package com.soupsnzombs;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
-public class MainFrame {
+public class MainFrame extends JFrame{
+    GamePanel game;
+
     public static void main(String[] args) {
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new MainFrame();
+            }
+        });
+    }
 
-        JFrame frame = new JFrame("Soups N Zombs");
-        GamePanel game = new GamePanel();
-        frame.add(game);
-        frame.pack();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    MainFrame() {
+        this.setTitle("Soup N Zomboobs");
+        game = new GamePanel();
+        this.add(game);
+        this.pack();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         // set as full screen
-        // frame.setUndecorated(true);
+        // this.setUndecorated(true);
         // frame.setUndecorated(true);
 
-        frame.setVisible(true);
-        System.out.println();
-
+        this.setVisible(true);
     }
 }
