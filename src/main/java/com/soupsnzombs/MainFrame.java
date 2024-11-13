@@ -5,7 +5,6 @@ import javax.swing.JFrame;
 public class MainFrame {
     public static void main(String[] args) {
 
-        System.out.println("Ryan x Katie B");
         JFrame frame = new JFrame("2D Game");
         GamePanel game = new GamePanel();
         frame.add(game);
