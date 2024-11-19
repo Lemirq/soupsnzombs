@@ -6,6 +6,13 @@
 	"configurations": [
 		{
 			"type": "java",
+			"name": "HiWorld",
+			"request": "launch",
+			"mainClass": "com.soupsnzombs.HiWorld",
+			"projectName": "soupsnzombs"
+		},
+		{
+			"type": "java",
 			"name": "GamePanel",
 			"request": "launch",
 			"mainClass": "com.soupsnzombs.GamePanel",

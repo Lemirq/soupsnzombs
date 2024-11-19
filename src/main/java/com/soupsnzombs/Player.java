@@ -29,6 +29,6 @@ public class Player extends Entity implements GameObject {
     public void draw(Graphics2D g2d) {
         // yellow rectangle
         g2d.setColor(Color.YELLOW);
-        g2d.fillRect(GamePanel.screenWidth - 200, 0, 200, 50);
+        g2d.fillRect(GamePanel.screenWidth / 2, GamePanel.screenHeight / 2, 20, 10);
     }
 }

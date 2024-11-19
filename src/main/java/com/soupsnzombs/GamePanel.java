@@ -10,13 +10,13 @@ public class GamePanel extends JPanel {
     public static int offsetX = 0; // Offset for the grid's X position
     public static int offsetY = 0; // Offset for the grid's Y position
     public static boolean gameRunning = false;
-    private int MOVE_SPEED = 50000; // Speed of movement
+    public static int MOVE_SPEED = 5; // Speed of movement
     private final int GRID_SIZE = 50; // Size of each grid cell
-    private final int[] X_Bounds = { -2000, 2000 };
-    private final int[] Y_Bounds = { -700, 700 };
+    // private final int[] X_Bounds = { -2000, 2000 };
+    // private final int[] Y_Bounds = { -700, 700 };
     public static AffineTransform oldTransformation;
-    public static int screenWidth = 1920;
-    public static int screenHeight = 1080;
+    public static int screenWidth = 1600;
+    public static int screenHeight = 1200;
 
     public static boolean upPressed = false;
     public static boolean downPressed = false;
@@ -29,60 +29,12 @@ public class GamePanel extends JPanel {
 
     public boolean idle = true;
 
-    // public static void main(String[] args) {
-    // javax.swing.SwingUtilities.invokeLater(new Runnable() {
-    // public void run() {
-    // new GamePanel();
-    // }
-    // });
-    // }
-
     GamePanel() {
         // setup timer
+        setBackground(Theme.BG);
         Images.loadImages();
-
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                int key = e.getKeyCode();
-                if (key == KeyEvent.VK_W) {
-                    upPressed = true;
-                    System.out.println("up");
-                    direction = 0;
-                } else if (key == KeyEvent.VK_S) {
-                    downPressed = true;
-                    direction = 2;
-                } else if (key == KeyEvent.VK_A) {
-                    leftPressed = true;
-                    direction = -1;
-                } else if (key == KeyEvent.VK_D) {
-                    rightPressed = true;
-                    direction = 1;
-                } else if (key == KeyEvent.VK_SPACE) {
-                    shootPressed = true;
-                } else if (key == KeyEvent.VK_SHIFT) {
-                    MOVE_SPEED = 30;
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                int key = e.getKeyCode();
-                if (key == KeyEvent.VK_W) {
-                    upPressed = false;
-                } else if (key == KeyEvent.VK_S) {
-                    downPressed = false;
-                } else if (key == KeyEvent.VK_A) {
-                    leftPressed = false;
-                } else if (key == KeyEvent.VK_D) {
-                    rightPressed = false;
-                } else if (key == KeyEvent.VK_E) {
-                    shootPressed = false;
-                } else if (key == KeyEvent.VK_SHIFT) {
-                    MOVE_SPEED = 6;
-                }
-            }
-        });
+        setFocusable(true);
+        requestFocusInWindow();
 
         Timer timer = new Timer(17, new ActionListener() { // roughly 60 frames per second as 1000ms / 60fps =
             // 16.6666666667ms
@@ -103,18 +55,24 @@ public class GamePanel extends JPanel {
     }
 
     private void moveMap() {
-        if (upPressed && offsetY < Y_Bounds[1]) {
+        if (upPressed) {
+            System.out.println("up");
             offsetY += MOVE_SPEED;
         }
-        if (downPressed && offsetY > Y_Bounds[0]) {
+        if (downPressed) {
+            System.out.println("down");
             offsetY -= MOVE_SPEED;
         }
-        if (leftPressed && offsetX < X_Bounds[1]) {
+        if (leftPressed) {
+            System.out.println("left");
             offsetX += MOVE_SPEED;
         }
-        if (rightPressed && offsetX > X_Bounds[0]) {
+        if (rightPressed) {
+            System.out.println("right");
             offsetX -= MOVE_SPEED;
         }
+
+        System.out.println(offsetX);
     }
 
     public void paintComponent(Graphics g) {
@@ -122,22 +80,7 @@ public class GamePanel extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // if (!gameRunning) {
-        // menu.drawMenu(g2d);
-        // return;
-        // }
-        // draw underlying grid
-        // Set the stroke width for the grid lines
-        g2d.setStroke(new BasicStroke(4)); // Change the value to make the lines thicker or thinner
-
-        // draw bg
-        int centerX = screenWidth / 2;
-        int centerY = screenHeight / 2;
-
-        // Set the stroke width for the grid lines
-        g2d.setStroke(new BasicStroke(4)); // Change the value to make the lines thicker or thinner
-
-        // Draw the grid
+        g2d.setStroke(new BasicStroke(4));
         g2d.setColor(Theme.GRID);
         for (int x = offsetX % GRID_SIZE; x < getWidth(); x += GRID_SIZE) {
             g2d.drawLine(x, 0, x, getHeight());
@@ -145,6 +88,7 @@ public class GamePanel extends JPanel {
         for (int y = offsetY % GRID_SIZE; y < getHeight(); y += GRID_SIZE) {
             g2d.drawLine(0, y, getWidth(), y);
         }
+        player.draw(g2d);
 
         // Reset the transform
 
