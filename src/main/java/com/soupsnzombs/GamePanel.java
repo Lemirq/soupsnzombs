@@ -9,6 +9,7 @@ public class GamePanel extends JPanel {
 
     public static int offsetX = 0; // Offset for the grid's X position
     public static int offsetY = 0; // Offset for the grid's Y position
+    public static boolean gameRunning = false;
     private int MOVE_SPEED = 50000; // Speed of movement
     private final int GRID_SIZE = 50; // Size of each grid cell
     private final int[] X_Bounds = { -2000, 2000 };
@@ -23,6 +24,8 @@ public class GamePanel extends JPanel {
     public static boolean rightPressed = false;
     public static boolean shootPressed = false;
     public static int direction = 0;
+    public Player player = new Player();
+    public MenuGUI menu = new MenuGUI();
 
     public boolean idle = true;
 
@@ -36,6 +39,7 @@ public class GamePanel extends JPanel {
 
     GamePanel() {
         // setup timer
+        Images.loadImages();
 
         addKeyListener(new KeyAdapter() {
             @Override
@@ -94,6 +98,7 @@ public class GamePanel extends JPanel {
                 repaint();
             }
         });
+
         timer.start();
     }
 
@@ -115,10 +120,18 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
+
+        if (!gameRunning) {
+            menu.drawMenu(g2d);
+            return;
+        }
         // draw underlying grid
         // Set the stroke width for the grid lines
         g2d.setStroke(new BasicStroke(4)); // Change the value to make the lines thicker or thinner
 
+        // draw bg
+        g2d.setColor(Theme.BG);
+        g2d.fillRect(0, 0, getWidth(), getHeight());
         // Draw the grid
         g2d.setColor(Theme.GRID);
         for (int x = offsetX % GRID_SIZE; x < getWidth(); x += GRID_SIZE) {
@@ -141,6 +154,7 @@ public class GamePanel extends JPanel {
         g2d.setPaint(Color.BLACK);
         g2d.drawRect(220, 140, 50, 40);
         g2d.fillRect(120, 240, 50, 40);
+        player.draw(g2d);
     }
 
 }

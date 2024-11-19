@@ -14,16 +14,13 @@ public class MainFrame extends JFrame {
     }
 
     MainFrame() {
-        this.setTitle("Soup N Zombs");
+        setTitle("Soup N Zombs");
         game = new GamePanel();
-        this.add(game);
-        this.pack();
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        // set as full screen
-        // this.setUndecorated(true);
-        // frame.setUndecorated(true);
-
-        this.setVisible(true);
+        add(game);
+        // setSize(800, 600);
+        pack();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setVisible(true);
     }
 }
