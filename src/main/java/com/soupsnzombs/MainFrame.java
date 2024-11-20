@@ -15,24 +15,20 @@ public class MainFrame extends JFrame {
             int key = e.getKeyCode();
             switch (key) {
                 case KeyEvent.VK_W:
-                    System.out.println("W key pressed");
                     GamePanel.upPressed = true;
                     break;
 
                 case KeyEvent.VK_S:
-                    System.out.println("S key pressed");
 
                     GamePanel.downPressed = true;
                     // Add more cases if needed
                     break;
                 case KeyEvent.VK_A:
-                    System.out.println("A key pressed");
 
                     GamePanel.leftPressed = true;
                     break;
 
                 case KeyEvent.VK_D:
-                    System.out.println("D key pressed");
 
                     GamePanel.rightPressed = true;
                     break;
@@ -44,24 +40,20 @@ public class MainFrame extends JFrame {
             int key = e.getKeyCode();
             switch (key) {
                 case KeyEvent.VK_W:
-                    System.out.println("W key released");
 
                     GamePanel.upPressed = false;
                     break;
 
                 case KeyEvent.VK_S:
-                    System.out.println("S key released");
 
                     GamePanel.downPressed = false;
                     break;
                 case KeyEvent.VK_A:
-                    System.out.println("A key released");
 
                     GamePanel.leftPressed = false;
                     break;
 
                 case KeyEvent.VK_D:
-                    System.out.println("D key released");
 
                     GamePanel.rightPressed = false;
                     break;
