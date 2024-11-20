@@ -105,6 +105,10 @@ public class GamePanel extends JPanel {
         // g2d.drawRect(220, 140, 50, 40);
         // g2d.fillRect(120, 240, 50, 40);
         player.draw(g2d);
+
+        // draw menu screen
+        MenuGUI menu = new MenuGUI();
+        menu.drawMenu(g2d);
     }
 
 }
