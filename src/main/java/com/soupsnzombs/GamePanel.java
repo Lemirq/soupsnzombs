@@ -6,7 +6,11 @@ import java.awt.geom.AffineTransform;
 import java.awt.*;
 
 public class GamePanel extends JPanel {
+    enum GameState {
+        MAIN, OPTIONS, GAME, PAUSE, GAMEOVER
+    }
 
+    public static GamePanel.GameState gameState;
     public static int offsetX = 0; // Offset for the grid's X position
     public static int offsetY = 0; // Offset for the grid's Y position
     public static boolean gameRunning = true;
@@ -26,6 +30,7 @@ public class GamePanel extends JPanel {
     public static int direction = 0;
     public Player player = new Player();
     public MenuGUI menu = new MenuGUI();
+    Boundary boundary = new Boundary();
 
     public boolean idle = true;
 
@@ -57,19 +62,15 @@ public class GamePanel extends JPanel {
 
     private void moveMap() {
         if (upPressed) {
-            System.out.println("up");
             offsetY += MOVE_SPEED;
         }
         if (downPressed) {
-            System.out.println("down");
             offsetY -= MOVE_SPEED;
         }
         if (leftPressed) {
-            System.out.println("left");
             offsetX += MOVE_SPEED;
         }
         if (rightPressed) {
-            System.out.println("right");
             offsetX -= MOVE_SPEED;
         }
 
@@ -79,8 +80,21 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
+        oldTransformation = g2d.getTransform();
+
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+        // menu screen
+        menu.drawMenu(g2d);
+        menu.checkPlay();
+        if (gameState == GameState.MAIN) {
+            return;
+        }
+
+        int centerX = screenWidth / 2;
+        int centerY = screenHeight / 2;
+
+        // draw grid
         g2d.setStroke(new BasicStroke(4));
         g2d.setColor(Theme.GRID);
         for (int x = offsetX % GRID_SIZE; x < getWidth(); x += GRID_SIZE) {
@@ -89,27 +103,19 @@ public class GamePanel extends JPanel {
         for (int y = offsetY % GRID_SIZE; y < getHeight(); y += GRID_SIZE) {
             g2d.drawLine(0, y, getWidth(), y);
         }
+
+        g2d.setTransform(oldTransformation);
+        // macbook
+        int leftBoundary = offsetX - centerX - centerX / 2;
+        int rightBoundary = -(offsetX + centerX) - centerX / 2;
+        int topBoundary = offsetY - centerY + 200;
+        int bottomBoundary = -(offsetY + centerY) + 200;
+
+        boundary.draw(g2d, leftBoundary, rightBoundary, topBoundary, bottomBoundary);
         player.draw(g2d);
-
-        // Reset the transform
-
-        // get Graphics2D object for more advanced graphics
-        // turn on antialiasing
 
         // d make solid lines 3 pixels wide
         g2d.setStroke(new BasicStroke(3));
-        // Update the color and draw some rectangles
-        // g2d.setPaint(Color.RED);
-        // g2d.drawRect(20, 40, 250, 40);
-        // g2d.fillRect(offsetX, offsetY, 20, 10);
-        // g2d.setPaint(Color.BLACK);
-        // g2d.drawRect(220, 140, 50, 40);
-        // g2d.fillRect(120, 240, 50, 40);
-        player.draw(g2d);
-
-        // menu screen
-        menu.drawMenu(g2d);
-        menu.checkPlay();
 
         // draw horizontal line in middle of screen
         g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
