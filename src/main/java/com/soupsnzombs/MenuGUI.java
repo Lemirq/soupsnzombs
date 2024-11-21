@@ -12,18 +12,12 @@ public class MenuGUI {
         MAIN, OPTIONS, GAME, PAUSE, GAMEOVER
     }
 
-    private BufferedImage backgroundImage;
-    private BufferedImage playButtonImage;
-    private BufferedImage creditsButtonImage;
     private MenuState menuState;
     public static int selected = 1; // 1 for button1, 2 for button2
     public static boolean play = false;
 
     public MenuGUI() {
         // Load the images
-        backgroundImage = loadImage("src/main/resources/bg.png");
-        playButtonImage = loadImage("src/main/resources/playButton.png");
-        creditsButtonImage = loadImage("src/main/resources/creditsButton.png");
         menuState = MenuState.MAIN;
     }
 
@@ -44,8 +38,8 @@ public class MenuGUI {
     public void drawMenu(Graphics2D g2d) {
         if (menuState == MenuState.MAIN) {
             // Draw the background
-            if (backgroundImage != null) {
-                g2d.drawImage(backgroundImage, 0, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);
+            if (Images.background != null) {
+                g2d.drawImage(Images.background, 0, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);
             }
 
             // Draw buttons centered on the screen
@@ -54,8 +48,8 @@ public class MenuGUI {
             int centerX = GamePanel.screenWidth / 2 - buttonWidth / 2;
 
             // Draw the "Play" button
-            if (playButtonImage != null) {
-                g2d.drawImage(playButtonImage, centerX, 300, buttonWidth, buttonHeight, null);
+            if (Images.playButton != null) {
+                g2d.drawImage(Images.playButton, centerX, 450, buttonWidth, buttonHeight, null);
             } else {
                 // Fallback: draw a green rectangle with "PLAY" text
                 g2d.setColor(Color.GREEN);
@@ -66,8 +60,8 @@ public class MenuGUI {
             }
 
             // Draw the "Credits" button
-            if (creditsButtonImage != null) {
-                g2d.drawImage(creditsButtonImage, centerX, 450, buttonWidth, buttonHeight, null);
+            if (Images.creditsButton != null) {
+                g2d.drawImage(Images.creditsButton, centerX, 300, buttonWidth, buttonHeight, null);
             } else {
                 // Fallback: draw a blue rectangle with "CREDITS" text
                 g2d.setColor(Color.BLUE);
@@ -88,7 +82,7 @@ public class MenuGUI {
     }
 
     public void checkPlay() {
-        if (selected == 2 && play) { // Assuming selected == 1 means "Play"
+        if (selected == 1 && play) { // Assuming selected == 1 means "Play"
             GamePanel.gameRunning = true; // Transition game state
             menuState = MenuState.GAME;
         }

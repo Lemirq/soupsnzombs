@@ -15,14 +15,16 @@ public class MainFrame extends JFrame {
             int key = e.getKeyCode();
             switch (key) {
                 case KeyEvent.VK_W:
-                    GamePanel.upPressed = true;
                     MenuGUI.selected = 1;
+                    if (GamePanel.gameRunning)
+                        GamePanel.upPressed = true;
                     break;
 
                 case KeyEvent.VK_S:
 
-                    GamePanel.downPressed = true;
                     MenuGUI.selected = 2;
+                    if (GamePanel.gameRunning)
+                        GamePanel.downPressed = true;
                     // Add more cases if needed
                     break;
                 case KeyEvent.VK_A:
