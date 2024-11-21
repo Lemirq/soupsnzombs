@@ -16,6 +16,7 @@ public class MenuGUI {
     private BufferedImage playButtonImage;
     private BufferedImage creditsButtonImage;
     private MenuState menuState;
+    public static int selected = 1; // 1 for button1, 2 for button2
 
     public MenuGUI() {
         // Load the images
@@ -79,6 +80,14 @@ public class MenuGUI {
                 g2d.setColor(Color.BLACK);
                 g2d.setFont(new Font("Arial", Font.BOLD, 24));
                 g2d.drawString("CREDITS", centerX + 40, 510);
+            }
+
+            // Position and dimension of the starting rectangles
+            g2d.setColor(Color.GREEN);
+            if (selected == 1) {
+                g2d.drawRect(centerX, 300, buttonWidth, buttonHeight);
+            } else {
+                g2d.drawRect(centerX, 450, buttonWidth, buttonHeight);
             }
         }
     }

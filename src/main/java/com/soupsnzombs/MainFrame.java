@@ -16,11 +16,13 @@ public class MainFrame extends JFrame {
             switch (key) {
                 case KeyEvent.VK_W:
                     GamePanel.upPressed = true;
+                    MenuGUI.selected = 1;
                     break;
 
                 case KeyEvent.VK_S:
 
                     GamePanel.downPressed = true;
+                    MenuGUI.selected = 2;
                     // Add more cases if needed
                     break;
                 case KeyEvent.VK_A:

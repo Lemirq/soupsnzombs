@@ -6,6 +6,13 @@
 	"configurations": [
 		{
 			"type": "java",
+			"name": "MenuGUI",
+			"request": "launch",
+			"mainClass": "com.soupsnzombs.MenuGUI",
+			"projectName": "soupsnzombs"
+		},
+		{
+			"type": "java",
 			"name": "HiWorld",
 			"request": "launch",
 			"mainClass": "com.soupsnzombs.HiWorld",
