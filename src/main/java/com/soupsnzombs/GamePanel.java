@@ -1,7 +1,10 @@
 package com.soupsnzombs;
 
 import javax.swing.*;
-import java.awt.event.*;
+
+import com.soupsnzombs.buildings.Building;
+import com.soupsnzombs.buildings.GenericBuilding;
+
 import java.awt.geom.AffineTransform;
 import java.awt.*;
 
@@ -15,19 +18,21 @@ public class GamePanel extends JPanel implements Runnable {
     private boolean running = false;
     private Thread gameThread;
     private long lastTime;
-    private final int FPS = 60;
+    private final int FPS = 120;
     private final double TIME_PER_TICK = 1000000000 / FPS;
 
     public static int offsetX = 0; // Offset for the grid's X position
     public static int offsetY = 0; // Offset for the grid's Y position
     public static boolean gameRunning = true;
     public static int MOVE_SPEED = 5; // Speed of movement
-    private final int GRID_SIZE = 50; // Size of each grid cell
-    private final int[] X_Bounds = { -2000, 2000 };
-    private final int[] Y_Bounds = { -700, 700 };
     public static AffineTransform oldTransformation;
     public static int screenWidth = 1200;
     public static int screenHeight = 900;
+
+    private final int GRID_SIZE = 50; // Size of each grid cell
+    private final int[] X_Bounds = { -2000, 2000 };
+    private final int[] Y_Bounds = { -700, 700 };
+    Building building = new GenericBuilding(100, 100, 100, 100);
 
     public static boolean upPressed = false;
     public static boolean downPressed = false;
@@ -75,8 +80,6 @@ public class GamePanel extends JPanel implements Runnable {
     private void update() {
         moveMap();
     }
-
-    public boolean idle = true;
 
     GamePanel() {
         // setup timer
@@ -173,6 +176,11 @@ public class GamePanel extends JPanel implements Runnable {
 
         boundary.draw(g2d, leftBoundary, rightBoundary, topBoundary, bottomBoundary);
         player.draw(g2d);
+        building.draw(g2d);
+        // int buildingX = (int) building.getX() + offsetX;
+        // int buildingY = (int) building.getY() + offsetY;
+        // g2d.drawRect(buildingX, buildingY, (int) building.getWidth(), (int)
+        // building.getHeight());
 
         // DEBUG CONTENT
 
