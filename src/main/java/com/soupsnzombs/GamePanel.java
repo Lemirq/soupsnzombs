@@ -9,14 +9,14 @@ public class GamePanel extends JPanel {
 
     public static int offsetX = 0; // Offset for the grid's X position
     public static int offsetY = 0; // Offset for the grid's Y position
-    public static boolean gameRunning = false;
+    public static boolean gameRunning = true;
     public static int MOVE_SPEED = 5; // Speed of movement
     private final int GRID_SIZE = 50; // Size of each grid cell
     // private final int[] X_Bounds = { -2000, 2000 };
     // private final int[] Y_Bounds = { -700, 700 };
     public static AffineTransform oldTransformation;
-    public static int screenWidth = 1600;
-    public static int screenHeight = 1200;
+    public static int screenWidth = 1200;
+    public static int screenHeight = 900;
 
     public static boolean upPressed = false;
     public static boolean downPressed = false;
@@ -106,9 +106,14 @@ public class GamePanel extends JPanel {
         // g2d.fillRect(120, 240, 50, 40);
         player.draw(g2d);
 
-        //menu screen
+        // menu screen
         menu.drawMenu(g2d);
         menu.checkPlay();
+
+        // draw horizontal line in middle of screen
+        g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
+        // draw vertical line in middle of screen
+        g2d.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
     }
 
 }

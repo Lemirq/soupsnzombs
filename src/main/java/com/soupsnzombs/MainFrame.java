@@ -85,7 +85,7 @@ public class MainFrame extends JFrame {
         setTitle("Soup N Zombs");
         game = new GamePanel();
         add(game);
-        setPreferredSize(new Dimension(1600, 1200));
+        setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));
         pack();
         setFocusable(true);
         setResizable(false);

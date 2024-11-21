@@ -5,7 +5,8 @@ import java.awt.*;
 public class Player extends Entity implements GameObject {
     boolean isDead = false;
     int money;
-    int pw = 20, ph = 50;
+    int pw = 20;
+    int ph = 50;
 
     // Method to decrease health
     public void decreaseHealth(int healthAmount) {
@@ -30,6 +31,8 @@ public class Player extends Entity implements GameObject {
     public void draw(Graphics2D g2d) {
         // yellow rectangle
         g2d.setColor(Color.YELLOW);
-        g2d.fillRect((GamePanel.screenWidth / 2) - pw / 2, (GamePanel.screenHeight / 2) - ph / 2, pw, ph);
+        // fill a rectangle in the middle of the screen
+        g2d.fillRect(GamePanel.screenWidth / 2 - pw / 2, GamePanel.screenHeight / 2 - ph / 2, pw, ph);
+
     }
 }
