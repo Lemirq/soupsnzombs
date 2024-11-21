@@ -33,6 +33,7 @@ public class GamePanel extends JPanel {
         // setup timer
         setBackground(Theme.BG);
         Images.loadImages();
+        setPreferredSize(new Dimension(screenWidth, screenHeight));
         setFocusable(true);
         requestFocusInWindow();
 

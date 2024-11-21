@@ -31,8 +31,14 @@ public class Player extends Entity implements GameObject {
     public void draw(Graphics2D g2d) {
         // yellow rectangle
         g2d.setColor(Color.YELLOW);
+        int centerX = GamePanel.screenWidth / 2 - pw / 2;
+        int centerY = GamePanel.screenHeight / 2 - ph / 2;
         // fill a rectangle in the middle of the screen
-        g2d.fillRect(GamePanel.screenWidth / 2 - pw / 2, GamePanel.screenHeight / 2 - ph / 2, pw, ph);
+        g2d.fillRect(centerX, centerY, pw, ph);
+        // draw map coordinates next to player for debugging
+        g2d.setColor(Color.BLACK);
+        g2d.drawString("X: " + GamePanel.offsetX + " Y: " + GamePanel.offsetY, GamePanel.screenWidth / 2 - pw / 2,
+                GamePanel.screenHeight / 2 - ph / 2);
 
     }
 }
