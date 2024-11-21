@@ -9,12 +9,12 @@ public class MenuGUI {
 
     public MenuGUI() {
         // Load the images
-        GamePanel.gameState = GamePanel.GameState.MAIN;
+        // GamePanel.gameState = GamePanel.GameState.MAIN;
     }
 
     // Draw the menu screen
     public void drawMenu(Graphics2D g2d) {
-        if (GamePanel.gameState == GamePanel.GameState.MAIN) {
+        if (GamePanel.gameState == GamePanel.GameState.MAIN_MENU) {
             // Draw the background
             if (Images.background != null) {
                 g2d.drawImage(Images.background, 0, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);

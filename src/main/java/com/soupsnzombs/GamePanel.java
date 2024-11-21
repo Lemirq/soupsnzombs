@@ -7,17 +7,17 @@ import java.awt.*;
 
 public class GamePanel extends JPanel {
     enum GameState {
-        MAIN, OPTIONS, GAME, PAUSE, GAMEOVER
+        MAIN_MENU, OPTIONS, GAME, PAUSE, GAMEOVER
     }
 
-    public static GamePanel.GameState gameState;
+    public static GamePanel.GameState gameState = GameState.GAME;
     public static int offsetX = 0; // Offset for the grid's X position
     public static int offsetY = 0; // Offset for the grid's Y position
     public static boolean gameRunning = true;
     public static int MOVE_SPEED = 5; // Speed of movement
     private final int GRID_SIZE = 50; // Size of each grid cell
-    // private final int[] X_Bounds = { -2000, 2000 };
-    // private final int[] Y_Bounds = { -700, 700 };
+    private final int[] X_Bounds = { -2000, 2000 };
+    private final int[] Y_Bounds = { -700, 700 };
     public static AffineTransform oldTransformation;
     public static int screenWidth = 1200;
     public static int screenHeight = 900;
@@ -38,7 +38,6 @@ public class GamePanel extends JPanel {
         // setup timer
         setBackground(Theme.BG);
         Images.loadImages();
-        setPreferredSize(new Dimension(screenWidth, screenHeight));
         setFocusable(true);
         requestFocusInWindow();
 
@@ -61,20 +60,35 @@ public class GamePanel extends JPanel {
     }
 
     private void moveMap() {
-        if (upPressed) {
+        int playerWidth = (int) player.getWidth();
+        int playerHeight = (int) player.getHeight();
+
+        System.out.println("player width: " + playerWidth);
+        System.out.println("player height: " + playerHeight);
+
+        if (upPressed && offsetY + MOVE_SPEED + playerHeight <= Y_Bounds[1]) {
             offsetY += MOVE_SPEED;
-        }
-        if (downPressed) {
-            offsetY -= MOVE_SPEED;
-        }
-        if (leftPressed) {
-            offsetX += MOVE_SPEED;
-        }
-        if (rightPressed) {
-            offsetX -= MOVE_SPEED;
+        } else if (upPressed) {
+            offsetY = Y_Bounds[1] - playerHeight;
         }
 
-        System.out.println(offsetX);
+        if (downPressed && offsetY - MOVE_SPEED >= Y_Bounds[0]) {
+            offsetY -= MOVE_SPEED;
+        } else if (downPressed) {
+            offsetY = Y_Bounds[0];
+        }
+
+        if (leftPressed && offsetX + MOVE_SPEED + playerWidth <= X_Bounds[1]) {
+            offsetX += MOVE_SPEED;
+        } else if (leftPressed) {
+            offsetX = X_Bounds[1] - playerWidth;
+        }
+
+        if (rightPressed && offsetX - MOVE_SPEED >= X_Bounds[0]) {
+            offsetX -= MOVE_SPEED;
+        } else if (rightPressed) {
+            offsetX = X_Bounds[0];
+        }
     }
 
     public void paintComponent(Graphics g) {
@@ -85,9 +99,9 @@ public class GamePanel extends JPanel {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         // menu screen
-        menu.drawMenu(g2d);
-        menu.checkPlay();
-        if (gameState == GameState.MAIN) {
+        if (gameState == GameState.MAIN_MENU) {
+            menu.drawMenu(g2d);
+            menu.checkPlay();
             return;
         }
 
@@ -106,21 +120,22 @@ public class GamePanel extends JPanel {
 
         g2d.setTransform(oldTransformation);
         // macbook
-        int leftBoundary = offsetX - centerX - centerX / 2;
-        int rightBoundary = -(offsetX + centerX) - centerX / 2;
+        int leftBoundary = (offsetX - centerX - centerX / 2) - 500;
+        int rightBoundary = (-(offsetX + centerX) - centerX / 2) - 500;
         int topBoundary = offsetY - centerY + 200;
         int bottomBoundary = -(offsetY + centerY) + 200;
 
         boundary.draw(g2d, leftBoundary, rightBoundary, topBoundary, bottomBoundary);
         player.draw(g2d);
 
-        // d make solid lines 3 pixels wide
-        g2d.setStroke(new BasicStroke(3));
+        // DEBUG CONTENT
 
+        // make solid lines 3 pixels wide
+        // g2d.setStroke(new BasicStroke(3));
         // draw horizontal line in middle of screen
-        g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
-        // draw vertical line in middle of screen
-        g2d.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
+        // g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
+        // // draw vertical line in middle of screen
+        // g2d.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
     }
 
 }

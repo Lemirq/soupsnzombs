@@ -5,8 +5,11 @@ import java.awt.*;
 public class Player extends Entity implements GameObject {
     boolean isDead = false;
     int money;
-    int pw = 20;
-    int ph = 50;
+
+    public Player() {
+        super(20, 50, 100, GamePanel.MOVE_SPEED);
+        this.money = 0;
+    }
 
     // Method to decrease health
     public void decreaseHealth(int healthAmount) {
@@ -31,14 +34,14 @@ public class Player extends Entity implements GameObject {
     public void draw(Graphics2D g2d) {
         // yellow rectangle
         g2d.setColor(Color.YELLOW);
-        int centerX = GamePanel.screenWidth / 2 - pw / 2;
-        int centerY = GamePanel.screenHeight / 2 - ph / 2;
+        int centerX = GamePanel.screenWidth / 2 - width / 2;
+        int centerY = GamePanel.screenHeight / 2 - height / 2;
         // fill a rectangle in the middle of the screen
-        g2d.fillRect(centerX, centerY, pw, ph);
+        g2d.fillRect(centerX, centerY, width, height);
         // draw map coordinates next to player for debugging
-        g2d.setColor(Color.BLACK);
-        g2d.drawString("X: " + GamePanel.offsetX + " Y: " + GamePanel.offsetY, GamePanel.screenWidth / 2 - pw / 2,
-                GamePanel.screenHeight / 2 - ph / 2);
+        g2d.setColor(Color.RED);
+        g2d.drawString("X: " + GamePanel.offsetX + " Y: " + GamePanel.offsetY, 20,
+                20);
 
     }
 }

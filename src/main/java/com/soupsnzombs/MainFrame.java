@@ -13,6 +13,14 @@ public class MainFrame extends JFrame {
         @Override
         public void keyPressed(KeyEvent e) {
             int key = e.getKeyCode();
+            if (e.isShiftDown()) {
+                GamePanel.MOVE_SPEED = 30;
+            } else if (e.isAltDown()) {
+                GamePanel.MOVE_SPEED = 1;
+            } else {
+                GamePanel.MOVE_SPEED = 5;
+            }
+
             switch (key) {
                 case KeyEvent.VK_W:
                     MenuGUI.selected = 1;
@@ -40,6 +48,7 @@ public class MainFrame extends JFrame {
 
                     MenuGUI.play = true;
                     break;
+
             }
         }
 
@@ -85,13 +94,14 @@ public class MainFrame extends JFrame {
         setTitle("Soup N Zombs");
         setUndecorated(true);
         game = new GamePanel();
+        game.setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));
         add(game);
         pack();
         setFocusable(true);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addKeyListener(new KeyHandler());
-        setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 }
