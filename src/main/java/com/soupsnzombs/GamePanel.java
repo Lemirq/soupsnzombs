@@ -5,12 +5,19 @@ import java.awt.event.*;
 import java.awt.geom.AffineTransform;
 import java.awt.*;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements Runnable {
     enum GameState {
         MAIN_MENU, OPTIONS, GAME, PAUSE, GAMEOVER
     }
 
     public static GamePanel.GameState gameState = GameState.GAME;
+
+    private boolean running = false;
+    private Thread gameThread;
+    private long lastTime;
+    private final int FPS = 60;
+    private final double TIME_PER_TICK = 1000000000 / FPS;
+
     public static int offsetX = 0; // Offset for the grid's X position
     public static int offsetY = 0; // Offset for the grid's Y position
     public static boolean gameRunning = true;
@@ -32,6 +39,43 @@ public class GamePanel extends JPanel {
     public MenuGUI menu = new MenuGUI();
     Boundary boundary = new Boundary();
 
+    public synchronized void start() {
+        running = true;
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+
+    public synchronized void stop() {
+        running = false;
+        try {
+            gameThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void run() {
+        lastTime = System.nanoTime();
+        double delta = 0;
+
+        while (running) {
+            long now = System.nanoTime();
+            delta += (now - lastTime) / TIME_PER_TICK;
+            lastTime = now;
+
+            if (delta >= 1) {
+                update();
+                repaint();
+                delta--;
+            }
+        }
+    }
+
+    private void update() {
+        moveMap();
+    }
+
     public boolean idle = true;
 
     GamePanel() {
@@ -41,22 +85,24 @@ public class GamePanel extends JPanel {
         setFocusable(true);
         requestFocusInWindow();
 
-        Timer timer = new Timer(17, new ActionListener() { // roughly 60 frames per second as 1000ms / 60fps =
-            // 16.6666666667ms
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                moveMap();
+        // Timer timer = new Timer(17, new ActionListener() { // roughly 60 frames per
+        // second as 1000ms / 60fps =
+        // // 16.6666666667ms
+        // @Override
+        // public void actionPerformed(ActionEvent e) {
+        // moveMap();
 
-                // if (shootPressed) {
-                // gun.shootBullet(player);
-                // shootPressed = false; // Prevent continuous shooting
-                // }
-                // updateGame();
-                repaint();
-            }
-        });
+        // // if (shootPressed) {
+        // // gun.shootBullet(player);
+        // // shootPressed = false; // Prevent continuous shooting
+        // // }
+        // // updateGame();
+        // repaint();
+        // }
+        // });
 
-        timer.start();
+        // timer.start();
+        start();
     }
 
     private void moveMap() {
