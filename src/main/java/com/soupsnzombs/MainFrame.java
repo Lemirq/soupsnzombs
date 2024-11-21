@@ -83,15 +83,15 @@ public class MainFrame extends JFrame {
 
     MainFrame() {
         setTitle("Soup N Zombs");
+        setUndecorated(true);
         game = new GamePanel();
         add(game);
-        setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));
         pack();
         setFocusable(true);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addKeyListener(new KeyHandler());
-        // setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));
         setVisible(true);
     }
 }
