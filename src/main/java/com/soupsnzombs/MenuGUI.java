@@ -17,6 +17,7 @@ public class MenuGUI {
     private BufferedImage creditsButtonImage;
     private MenuState menuState;
     public static int selected = 1; // 1 for button1, 2 for button2
+    public static boolean play = false;
 
     public MenuGUI() {
         // Load the images
@@ -35,12 +36,6 @@ public class MenuGUI {
             System.out.println(e.toString());
             JOptionPane.showMessageDialog(null, "An image failed to load: " + filename, "Error",
                     JOptionPane.ERROR_MESSAGE);
-        }
-        // DEBUG
-        if (img == null) {
-            System.out.println("Failed to load image: " + filename);
-        } else {
-            System.out.printf("Loaded image '%s': w=%d, h=%d%n", filename, img.getWidth(), img.getHeight());
         }
         return img;
     }
@@ -89,6 +84,13 @@ public class MenuGUI {
             } else {
                 g2d.drawRect(centerX, 450, buttonWidth, buttonHeight);
             }
+        }
+    }
+
+    public void checkPlay() {
+        if (selected == 2 && play) { // Assuming selected == 1 means "Play"
+            GamePanel.gameRunning = true; // Transition game state
+            menuState = MenuState.GAME;
         }
     }
 }

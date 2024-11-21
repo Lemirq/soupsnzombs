@@ -34,6 +34,10 @@ public class MainFrame extends JFrame {
 
                     GamePanel.rightPressed = true;
                     break;
+                case KeyEvent.VK_ENTER:
+
+                    MenuGUI.play = true;
+                    break;
             }
         }
 
@@ -58,6 +62,10 @@ public class MainFrame extends JFrame {
                 case KeyEvent.VK_D:
 
                     GamePanel.rightPressed = false;
+                    break;
+                case KeyEvent.VK_ENTER:
+
+                    MenuGUI.play = false;
                     break;
             }
         }
