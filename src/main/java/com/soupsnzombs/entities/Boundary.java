@@ -1,7 +1,9 @@
-package com.soupsnzombs;
+package com.soupsnzombs.entities;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+
+import com.soupsnzombs.GamePanel;
 
 public class Boundary {
     public void draw(Graphics2D g2d, int leftBoundary, int rightBoundary, int topBoundary, int bottomBoundary) {

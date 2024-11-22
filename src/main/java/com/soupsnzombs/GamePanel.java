@@ -4,6 +4,12 @@ import javax.swing.*;
 
 import com.soupsnzombs.UI.MenuGUI;
 import com.soupsnzombs.buildings.AllBuildings;
+import com.soupsnzombs.entities.Boundary;
+import com.soupsnzombs.entities.Player;
+import com.soupsnzombs.utils.CRectangle;
+import com.soupsnzombs.utils.CollisionManager;
+import com.soupsnzombs.utils.Images;
+import com.soupsnzombs.utils.Theme;
 
 import java.awt.geom.AffineTransform;
 import java.awt.*;
@@ -89,10 +95,22 @@ public class GamePanel extends JPanel implements Runnable {
     GamePanel() {
         // setup timer
         setBackground(Theme.BG);
-        Images.loadImages();
         setFocusable(true);
         requestFocusInWindow();
 
+        new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                Images.loadImages();
+                return null;
+            }
+
+            @Override
+            protected void done() {
+                // Any code that needs to run after images are loaded can go here
+                start();
+            }
+        }.execute();
         // Timer timer = new Timer(17, new ActionListener() { // roughly 60 frames per
         // second as 1000ms / 60fps =
         // // 16.6666666667ms

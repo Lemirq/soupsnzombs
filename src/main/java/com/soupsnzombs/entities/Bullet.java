@@ -1,6 +1,8 @@
-package com.soupsnzombs;
+package com.soupsnzombs.entities;
 
 import java.awt.*;
+
+import com.soupsnzombs.utils.CRectangle;
 
 public class Bullet extends CRectangle {
     private int width, height, speed = 10;

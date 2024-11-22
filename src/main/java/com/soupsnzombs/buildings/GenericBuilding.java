@@ -4,8 +4,8 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import com.soupsnzombs.CRectangle;
 import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.utils.CRectangle;
 
 public class GenericBuilding extends Building {
     int mapX, mapY;

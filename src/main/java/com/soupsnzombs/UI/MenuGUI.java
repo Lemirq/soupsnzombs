@@ -3,7 +3,7 @@ package com.soupsnzombs.UI;
 import java.awt.*;
 
 import com.soupsnzombs.GamePanel;
-import com.soupsnzombs.Images;
+import com.soupsnzombs.utils.Images;
 
 public class MenuGUI {
     public static int selected = 0;

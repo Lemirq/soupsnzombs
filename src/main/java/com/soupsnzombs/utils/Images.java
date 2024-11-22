@@ -1,4 +1,4 @@
-package com.soupsnzombs;
+package com.soupsnzombs.utils;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;

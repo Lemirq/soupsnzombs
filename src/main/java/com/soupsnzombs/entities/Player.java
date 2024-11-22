@@ -1,6 +1,8 @@
-package com.soupsnzombs;
+package com.soupsnzombs.entities;
 
 import java.awt.*;
+
+import com.soupsnzombs.GamePanel;
 
 public class Player extends Entity implements GameObject {
     boolean isDead = false;

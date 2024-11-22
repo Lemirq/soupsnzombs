@@ -1,4 +1,4 @@
-package com.soupsnzombs;
+package com.soupsnzombs.utils;
 
 import java.util.ArrayList;
 

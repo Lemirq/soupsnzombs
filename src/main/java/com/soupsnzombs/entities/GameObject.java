@@ -1,6 +1,8 @@
-package com.soupsnzombs;
+package com.soupsnzombs.entities;
 
 import java.awt.Graphics2D;
+
+import com.soupsnzombs.utils.CRectangle;
 
 public interface GameObject {
 

@@ -3,9 +3,9 @@ package com.soupsnzombs.buildings;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import com.soupsnzombs.CRectangle;
-import com.soupsnzombs.GameObject;
 import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.entities.GameObject;
+import com.soupsnzombs.utils.CRectangle;
 
 public abstract class Building extends CRectangle implements GameObject {
 
