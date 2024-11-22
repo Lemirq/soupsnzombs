@@ -2,6 +2,7 @@ package com.soupsnzombs;
 
 import javax.swing.*;
 
+import com.soupsnzombs.buildings.AllBuildings;
 import com.soupsnzombs.buildings.Building;
 import com.soupsnzombs.buildings.GenericBuilding;
 
@@ -32,8 +33,8 @@ public class GamePanel extends JPanel implements Runnable {
     private final int GRID_SIZE = 50; // Size of each grid cell
     private final int[] X_Bounds = { -2000, 2000 };
     private final int[] Y_Bounds = { -700, 700 };
-    Building building = new GenericBuilding(100, 100, 100, 100);
-
+    CollisionManager collisionManager = new CollisionManager();
+    AllBuildings buildings = new AllBuildings(collisionManager);
     public static boolean upPressed = false;
     public static boolean downPressed = false;
     public static boolean leftPressed = false;
@@ -79,6 +80,15 @@ public class GamePanel extends JPanel implements Runnable {
 
     private void update() {
         moveMap();
+        checkCollisions();
+    }
+
+    private void checkCollisions() {
+        if (collisionManager.isColliding(player)) {
+            System.out.print("Colliding ");
+        } else {
+            System.out.print("Not colliding ");
+        }
     }
 
     GamePanel() {
@@ -105,6 +115,9 @@ public class GamePanel extends JPanel implements Runnable {
         // });
 
         // timer.start();
+
+        // add collidables to collision manager
+        collisionManager.addCollidable(player);
         start();
     }
 
@@ -112,29 +125,39 @@ public class GamePanel extends JPanel implements Runnable {
         int playerWidth = (int) player.getWidth();
         int playerHeight = (int) player.getHeight();
 
-        System.out.println("player width: " + playerWidth);
-        System.out.println("player height: " + playerHeight);
-
+        // System.out.println("player width: " + playerWidth);
+        // System.out.println("player height: " + playerHeight);
+        // if (!collisionManager.isColliding(player)) {
+        // System.out.println("not colliding");
+        // } else {
+        // System.out.println("colliding");
+        // }
         if (upPressed && offsetY + MOVE_SPEED + playerHeight <= Y_Bounds[1]) {
             offsetY += MOVE_SPEED;
         } else if (upPressed) {
             offsetY = Y_Bounds[1] - playerHeight;
         }
 
-        if (downPressed && offsetY - MOVE_SPEED >= Y_Bounds[0]) {
+        if (downPressed && offsetY - MOVE_SPEED - playerHeight >= Y_Bounds[0]) {
+
             offsetY -= MOVE_SPEED;
+
         } else if (downPressed) {
             offsetY = Y_Bounds[0];
         }
 
         if (leftPressed && offsetX + MOVE_SPEED + playerWidth <= X_Bounds[1]) {
+
             offsetX += MOVE_SPEED;
+
         } else if (leftPressed) {
             offsetX = X_Bounds[1] - playerWidth;
         }
 
-        if (rightPressed && offsetX - MOVE_SPEED >= X_Bounds[0]) {
+        if (rightPressed && offsetX - MOVE_SPEED - playerWidth >= X_Bounds[0]) {
+
             offsetX -= MOVE_SPEED;
+
         } else if (rightPressed) {
             offsetX = X_Bounds[0];
         }
@@ -176,7 +199,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         boundary.draw(g2d, leftBoundary, rightBoundary, topBoundary, bottomBoundary);
         player.draw(g2d);
-        building.draw(g2d);
+        buildings.draw(g2d);
         // int buildingX = (int) building.getX() + offsetX;
         // int buildingY = (int) building.getY() + offsetY;
         // g2d.drawRect(buildingX, buildingY, (int) building.getWidth(), (int)

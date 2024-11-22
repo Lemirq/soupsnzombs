@@ -3,14 +3,11 @@ package com.soupsnzombs;
 import java.awt.Rectangle;
 
 public abstract class Entity extends Rectangle {
-    int width, height;
     int health;
     int movementSpeed;
 
-    public Entity(int w, int h, int health, int movementSpeed) {
-        super(w, h);
-        this.width = w;
-        this.height = h;
+    public Entity(int x, int y, int w, int h, int health, int movementSpeed) {
+        super(x, y, w, h);
         this.health = health;
         this.movementSpeed = movementSpeed;
     }

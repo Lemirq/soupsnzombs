@@ -1,7 +1,6 @@
 package com.soupsnzombs;
 
 public class Zombie extends Entity {
-    private int positionX, positionY;
     private int movementSpeed = 10;
     private int health = 100;
     public int moneyDropped = 10;
@@ -17,15 +16,13 @@ public class Zombie extends Entity {
 
     public void ZombieMovement() {
         while (alive) {
-            positionX += movementSpeed;
-            positionY += movementSpeed;
+            x += movementSpeed;
+            y += movementSpeed;
         }
     }
 
     public Zombie() {
-        super(20, 20, 100, 10);
-        this.positionX = 0;
-        this.positionY = 0;
+        super(0, 0, 20, 20, 100, 10);
     }
 
 }

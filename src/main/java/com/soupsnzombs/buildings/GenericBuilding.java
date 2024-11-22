@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+import com.soupsnzombs.GamePanel;
+
 public class GenericBuilding extends Building {
     public GenericBuilding(int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -13,17 +15,24 @@ public class GenericBuilding extends Building {
     void drawBuilding(Graphics2D g2d, int x, int y, int w, int h) {
         // Draw a square
         g2d.setColor(Color.BLUE);
-        g2d.fillRect(x, y, w, h);
+        int buildingX = (int) getX() + GamePanel.offsetX;
+        int buildingY = (int) getY() + GamePanel.offsetY;
+        int buildingWidth = (int) getWidth();
+        int buildingHeight = (int) getHeight();
+        g2d.fillRect(buildingX, buildingY, buildingWidth, buildingHeight);
+
+        // for debugging
+        // draw rect x,y,w,h
+        g2d.setColor(Color.RED);
 
     }
 
     public boolean isColliding(Rectangle rect) {
-        Rectangle shopRect = new Rectangle(x, y, width, height);
-        return shopRect.intersects(rect);
+        return intersects(rect);
     }
 
     @Override
     public Rectangle getBounds() {
-        return new Rectangle(super.x, super.y, width, height);
+        return new Rectangle(super.x, super.y, super.width, super.height);
     }
 }

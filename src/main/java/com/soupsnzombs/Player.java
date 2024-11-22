@@ -7,7 +7,8 @@ public class Player extends Entity implements GameObject {
     int money;
 
     public Player() {
-        super(20, 50, 100, GamePanel.MOVE_SPEED);
+        super(GamePanel.screenWidth / 2 - 20 / 2, GamePanel.screenHeight / 2 - 50 / 2, 20, 50, 100,
+                GamePanel.MOVE_SPEED);
         this.money = 0;
     }
 
@@ -43,5 +44,8 @@ public class Player extends Entity implements GameObject {
         g2d.drawString("X: " + GamePanel.offsetX + " Y: " + GamePanel.offsetY, 20,
                 20);
 
+        // draw rectangle x,y,w,h
+        g2d.setColor(Color.RED);
+        g2d.drawString("X: " + x + " Y: " + y + " W: " + width + " H: " + height, GamePanel.screenWidth - 300, 40);
     }
 }

@@ -36,12 +36,6 @@ public abstract class Building extends Rectangle {
         // left edge show it
         int leftEdge = GamePanel.offsetX + (GamePanel.screenWidth / 2);
         int topEdge = GamePanel.offsetY + (GamePanel.screenHeight / 2);
-
-        System.out.println("leftEdge: " + leftEdge + " topEdge: " + topEdge);
-        int buildingX = (int) getX() + GamePanel.offsetX;
-        int buildingY = (int) getY() + GamePanel.offsetY;
-        int buildingWidth = (int) getWidth();
-        int buildingHeight = (int) getHeight();
-        g2d.fillRect(buildingX, buildingY, buildingWidth, buildingHeight);
+        drawBuilding(g2d, x, y, leftEdge, topEdge);
     }
 }
