@@ -12,7 +12,7 @@ public class Images {
 
     public static void loadImages() {
         try {
-            background = ImageIO.read(Images.class.getResource("/bg.png"));
+            background = ImageIO.read(Images.class.getResource("/bg.jpeg"));
             playButton = ImageIO.read(Images.class.getResource("/playButton.png"));
             creditsButton = ImageIO.read(Images.class.getResource("/creditsButton.png"));
         } catch (IOException e) {

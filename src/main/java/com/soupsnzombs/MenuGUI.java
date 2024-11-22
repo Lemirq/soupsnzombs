@@ -29,7 +29,7 @@ public class MenuGUI {
             if (Images.playButton != null) {
                 g2d.drawImage(Images.playButton, centerX, 450, buttonWidth, buttonHeight, null);
             } else {
-                // Fallback: draw a green rectangle with "PLAY" text
+                // Fallback: draw a green CRectangle with "PLAY" text
                 g2d.setColor(Color.GREEN);
                 g2d.fillRect(centerX, 300, buttonWidth, buttonHeight);
                 g2d.setColor(Color.BLACK);
@@ -41,7 +41,7 @@ public class MenuGUI {
             if (Images.creditsButton != null) {
                 g2d.drawImage(Images.creditsButton, centerX, 300, buttonWidth, buttonHeight, null);
             } else {
-                // Fallback: draw a blue rectangle with "CREDITS" text
+                // Fallback: draw a blue CRectangle with "CREDITS" text
                 g2d.setColor(Color.BLUE);
                 g2d.fillRect(centerX, 450, buttonWidth, buttonHeight);
                 g2d.setColor(Color.BLACK);
@@ -49,7 +49,7 @@ public class MenuGUI {
                 g2d.drawString("CREDITS", centerX + 40, 510);
             }
 
-            // Position and dimension of the starting rectangles
+            // Position and dimension of the starting CRectangles
             g2d.setColor(Color.GREEN);
             if (selected == 1) {
                 g2d.drawRect(centerX, 300, buttonWidth, buttonHeight);

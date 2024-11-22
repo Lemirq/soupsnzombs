@@ -2,29 +2,29 @@ package com.soupsnzombs;
 
 import java.awt.*;
 
-
-public class Bullet extends Rectangle {
+public class Bullet extends CRectangle {
     private int width, height, speed = 10;
 
     Bullet(int w, int h) {
+        super(0, 0, w, h);
         width = w;
         height = h;
     }
 
     void update(int direction) {
         switch (direction) {
-            //1: right, -1: left, 0: up, 2: down 
+            // 1: right, -1: left, 0: up, 2: down
             case 1:
-                x+=speed;
+                x += speed;
                 break;
             case -1:
-                x-=speed;
+                x -= speed;
                 break;
             case 0:
-                y+=speed;
+                y += speed;
                 break;
             case 2:
-                y-=speed;
+                y -= speed;
                 break;
         }
     }

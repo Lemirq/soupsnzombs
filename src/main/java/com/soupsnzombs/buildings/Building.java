@@ -2,11 +2,12 @@ package com.soupsnzombs.buildings;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 
+import com.soupsnzombs.CRectangle;
+import com.soupsnzombs.GameObject;
 import com.soupsnzombs.GamePanel;
 
-public abstract class Building extends Rectangle {
+public abstract class Building extends CRectangle implements GameObject {
 
     public Building(int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -25,7 +26,7 @@ public abstract class Building extends Rectangle {
 
     abstract void drawBuilding(Graphics2D g2d, int x, int y, int leftEdge, int topEdge);
 
-    public abstract Rectangle getBounds();
+    public abstract CRectangle getBounds();
 
     public void draw(Graphics2D g2d) {
         // Display render coordinates in the top-right corner (for debugging)

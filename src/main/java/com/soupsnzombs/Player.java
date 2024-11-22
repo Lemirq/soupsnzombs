@@ -7,7 +7,7 @@ public class Player extends Entity implements GameObject {
     int money;
 
     public Player() {
-        super((GamePanel.screenWidth / 2 - 10 / 2) - 10, (GamePanel.screenHeight / 2 - 40 / 2) - 10, 40, 70, 100,
+        super(GamePanel.screenWidth / 2 - 40 / 2, GamePanel.screenHeight / 2 - 70 / 2, 40, 70, 100,
                 GamePanel.MOVE_SPEED);
         this.money = 0;
     }
@@ -44,9 +44,9 @@ public class Player extends Entity implements GameObject {
         int centerX = GamePanel.screenWidth / 2 - width / 2;
         int centerY = GamePanel.screenHeight / 2 - height / 2;
 
-        // yellow rectangle
+        // yellow CRectangle
         g2d.setColor(Color.YELLOW);
-        // fill a rectangle in the middle of the screen
+        // fill a CRectangle in the middle of the screen
         g2d.fillRect(centerX, centerY, width, height);
         // draw map coordinates next to player for debugging
         g2d.setColor(Color.RED);
@@ -55,8 +55,11 @@ public class Player extends Entity implements GameObject {
         g2d.drawString("OX: " + GamePanel.offsetX + " OY: " + GamePanel.offsetY, 20,
                 20);
 
-        // draw rectangle x,y,w,h
+        // draw CRectangle x,y,w,h
         g2d.setColor(Color.RED);
         g2d.drawString("X: " + x + " Y: " + y + " W: " + width + " H: " + height, GamePanel.screenWidth - 300, 40);
+
+        g2d.drawRect(x, y, width, height);
+
     }
 }

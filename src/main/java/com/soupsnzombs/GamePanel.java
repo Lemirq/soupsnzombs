@@ -2,6 +2,8 @@ package com.soupsnzombs;
 
 import javax.swing.*;
 import com.soupsnzombs.buildings.AllBuildings;
+import com.soupsnzombs.buildings.GenericBuilding;
+
 import java.awt.geom.AffineTransform;
 import java.awt.*;
 
@@ -21,7 +23,7 @@ public class GamePanel extends JPanel implements Runnable {
     public static int offsetX = 0; // Offset for the grid's X position
     public static int offsetY = 0; // Offset for the grid's Y position
     public static boolean gameRunning = true;
-    public static int MOVE_SPEED = 5; // Speed of movement
+    public static int MOVE_SPEED = 1; // Speed of movement
     public static AffineTransform oldTransformation;
     public static int screenWidth = 1200;
     public static int screenHeight = 900;
@@ -107,40 +109,55 @@ public class GamePanel extends JPanel implements Runnable {
         // });
 
         // timer.start();
-
-        // add collidables to collision manager
-        collisionManager.addCollidable(player);
         start();
     }
 
     private void moveMap() {
         int playerWidth = (int) player.getWidth();
         int playerHeight = (int) player.getHeight();
-
+        int vx = 0;
+        int vy = 0;
         // Check vertical movement
-        if (upPressed && offsetY + MOVE_SPEED + playerHeight < Y_Bounds[1]) {
-            offsetY += MOVE_SPEED;
-        } else if (upPressed) {
-            offsetY = Y_Bounds[1] - playerHeight;
-        }
+        if (upPressed || downPressed || leftPressed || rightPressed) {
 
-        if (downPressed && offsetY - MOVE_SPEED - playerHeight > Y_Bounds[0]) {
-            offsetY -= MOVE_SPEED;
-        } else if (downPressed) {
-            offsetY = Y_Bounds[0] + playerHeight;
-        }
+            if (upPressed && offsetY + MOVE_SPEED + playerHeight < Y_Bounds[1]) {
+                vy = MOVE_SPEED;
+            } else if (upPressed) {
+                offsetY = Y_Bounds[1] - playerHeight;
+            }
 
-        // Check horizontal movement
-        if (leftPressed && offsetX + MOVE_SPEED + playerWidth < X_Bounds[1]) {
-            offsetX += MOVE_SPEED;
-        } else if (leftPressed) {
-            offsetX = X_Bounds[1] - playerWidth;
-        }
+            if (downPressed && offsetY - MOVE_SPEED - playerHeight > Y_Bounds[0]) {
+                vy = -MOVE_SPEED;
+            } else if (downPressed) {
+                offsetY = Y_Bounds[0] + playerHeight;
+            }
 
-        if (rightPressed && offsetX - MOVE_SPEED - playerWidth > X_Bounds[0]) {
-            offsetX -= MOVE_SPEED;
-        } else if (rightPressed) {
-            offsetX = X_Bounds[0] + playerWidth;
+            // Check horizontal movement
+            if (leftPressed && offsetX + MOVE_SPEED + playerWidth < X_Bounds[1]) {
+                vx = MOVE_SPEED;
+            } else if (leftPressed) {
+                offsetX = X_Bounds[1] - playerWidth;
+            }
+
+            if (rightPressed && offsetX - MOVE_SPEED - playerWidth > X_Bounds[0]) {
+                vx = -MOVE_SPEED;
+            } else if (rightPressed) {
+                offsetX = X_Bounds[0] + playerWidth;
+            }
+
+            System.out.println("Vx: " + vx + " Vy: " + vy);
+
+            // decide if collision happens
+            CRectangle newPosition = new CRectangle(player.x - vx, player.y - vy, playerWidth, playerHeight);
+
+            System.out.println("New position: X: " + newPosition.x + " Y: " + newPosition.y + " W: " + newPosition.width
+                    + " H: " + newPosition.height);
+            if (collisionManager.isColliding(newPosition)) {
+                System.out.println("Collision detected");
+            } else {
+                offsetX += vx;
+                offsetY += vy;
+            }
         }
     }
 
@@ -179,8 +196,9 @@ public class GamePanel extends JPanel implements Runnable {
         int bottomBoundary = -(offsetY + centerY) + 200;
 
         boundary.draw(g2d, leftBoundary, rightBoundary, topBoundary, bottomBoundary);
-        player.draw(g2d);
         buildings.draw(g2d);
+        player.draw(g2d);
+        // buildings.draw(g2d);
         // int buildingX = (int) building.getX() + offsetX;
         // int buildingY = (int) building.getY() + offsetY;
         // g2d.drawRect(buildingX, buildingY, (int) building.getWidth(), (int)

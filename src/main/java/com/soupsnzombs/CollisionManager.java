@@ -1,23 +1,25 @@
 package com.soupsnzombs;
 
-import java.awt.Rectangle;
 import java.util.ArrayList;
 
 public class CollisionManager {
-    private ArrayList<Rectangle> collidables = new ArrayList<>();
+    private ArrayList<CRectangle> collidables = new ArrayList<>();
 
-    public void addCollidable(Rectangle b) {
+    public void addCollidable(CRectangle b) {
         collidables.add(b);
     }
 
-    public boolean isColliding(Rectangle rect) {
-        for (Rectangle collidable : collidables) {
-            if (collidable.intersects(rect)) {
+    public boolean isColliding(CRectangle rect) {
+        // print collidable details
+        for (CRectangle collidable : collidables) {
+            System.out.println("Collidable: " + collidable.x + " " + collidable.y + " " + collidable.width + " "
+                    + collidable.height);
+            if (collidable.collidesWith(rect)) {
+                System.out.println("Collision detected with: " + collidable);
                 return true;
             }
-
-            return false;
         }
+        System.out.println("Returning false");
         return false;
     }
 }
