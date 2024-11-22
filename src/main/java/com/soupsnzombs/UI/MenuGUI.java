@@ -1,6 +1,9 @@
-package com.soupsnzombs;
+package com.soupsnzombs.UI;
 
 import java.awt.*;
+
+import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.Images;
 
 public class MenuGUI {
 

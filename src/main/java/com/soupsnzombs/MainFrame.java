@@ -6,6 +6,8 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 
+import com.soupsnzombs.UI.MenuGUI;
+
 public class MainFrame extends JFrame {
     GamePanel game;
 
