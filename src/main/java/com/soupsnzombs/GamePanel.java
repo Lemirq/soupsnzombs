@@ -13,7 +13,7 @@ public class GamePanel extends JPanel implements Runnable {
         MAIN_MENU, OPTIONS, GAME, PAUSE, GAMEOVER
     }
 
-    public static GamePanel.GameState gameState = GameState.MAIN_MENU;
+    public static GameState gameState = GameState.MAIN_MENU;
 
     private boolean running = false;
     private Thread gameThread;
@@ -23,7 +23,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public static int offsetX = 0; // Offset for the grid's X position
     public static int offsetY = 0; // Offset for the grid's Y position
-    public static boolean gameRunning = true;
+    public static boolean gameRunning = false;
     public static int MOVE_SPEED = 1; // Speed of movement
     public static AffineTransform oldTransformation;
     public static int screenWidth = 1200;
@@ -214,7 +214,7 @@ public class GamePanel extends JPanel implements Runnable {
         // // draw vertical line in middle of screen
         // g2d.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
         // draw dot at offset x,y
-        g2d.fillOval(offsetX, offsetY, 10, 10);
+        // g2d.fillOval(offsetX, offsetY, 10, 10);
     }
 
 }

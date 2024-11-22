@@ -6,8 +6,8 @@ import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.Images;
 
 public class MenuGUI {
+    public static int selected = 0;
 
-    public static int selected = 1; // 1 for button1, 2 for button2
     public static boolean play = false;
 
     public MenuGUI() {
@@ -15,7 +15,6 @@ public class MenuGUI {
         // GamePanel.gameState = GamePanel.GameState.MAIN;
     }
 
-    // Draw the menu screen
     public void drawMenu(Graphics2D g2d) {
         if (GamePanel.gameState == GamePanel.GameState.MAIN_MENU) {
             // Draw the background
@@ -23,47 +22,70 @@ public class MenuGUI {
                 g2d.drawImage(Images.background, 0, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);
             }
 
-            // Draw buttons centered on the screen
-            int buttonWidth = 200;
-            int buttonHeight = 100;
-            int centerX = GamePanel.screenWidth / 2 - buttonWidth / 2;
+            // Define the spacing between buttons
+            int buttonSpacing = 20; // Adjust the spacing as needed
+
+            // Calculate the starting x position for the first button
+            int totalWidth = Images.playButton.getWidth() + Images.scoresButton.getWidth()
+                    + Images.creditsButton.getWidth()
+                    + 2 * buttonSpacing; // Add spacing between buttons
+            int startX = (GamePanel.screenWidth - totalWidth) / 2;
+            int yPosition = 600; // Adjust the y position as needed
+
+            int playButtonX = startX;
+            int scoresButtonX = startX + Images.playButton.getWidth() + buttonSpacing;
+            int creditsButtonX = startX + Images.playButton.getWidth() + Images.scoresButton.getWidth()
+                    + 2 * buttonSpacing;
 
             // Draw the "Play" button
             if (Images.playButton != null) {
-                g2d.drawImage(Images.playButton, centerX, 450, buttonWidth, buttonHeight, null);
-            } else {
-                // Fallback: draw a green CRectangle with "PLAY" text
-                g2d.setColor(Color.GREEN);
-                g2d.fillRect(centerX, 300, buttonWidth, buttonHeight);
-                g2d.setColor(Color.BLACK);
-                g2d.setFont(new Font("Arial", Font.BOLD, 24));
-                g2d.drawString("PLAY", centerX + 60, 360);
+                g2d.drawImage(Images.playButton, playButtonX, yPosition, Images.playButton.getWidth(),
+                        Images.playButton.getHeight(), null);
+            }
+
+            // Draw the "Scores" button
+            if (Images.scoresButton != null) {
+                g2d.drawImage(Images.scoresButton, scoresButtonX, yPosition, Images.scoresButton.getWidth(),
+                        Images.scoresButton.getHeight(), null);
             }
 
             // Draw the "Credits" button
             if (Images.creditsButton != null) {
-                g2d.drawImage(Images.creditsButton, centerX, 300, buttonWidth, buttonHeight, null);
-            } else {
-                // Fallback: draw a blue CRectangle with "CREDITS" text
-                g2d.setColor(Color.BLUE);
-                g2d.fillRect(centerX, 450, buttonWidth, buttonHeight);
-                g2d.setColor(Color.BLACK);
-                g2d.setFont(new Font("Arial", Font.BOLD, 24));
-                g2d.drawString("CREDITS", centerX + 40, 510);
+                g2d.drawImage(Images.creditsButton, creditsButtonX, yPosition, Images.creditsButton.getWidth(),
+                        Images.creditsButton.getHeight(), null);
             }
 
-            // Position and dimension of the starting CRectangles
-            g2d.setColor(Color.GREEN);
-            if (selected == 1) {
-                g2d.drawRect(centerX, 300, buttonWidth, buttonHeight);
-            } else {
-                g2d.drawRect(centerX, 450, buttonWidth, buttonHeight);
+            // Draw arrows around the selected button
+            if (Images.arrowImage != null) {
+                int arrowWidth = Images.arrowImage.getWidth();
+                int arrowHeight = Images.arrowImage.getHeight();
+                int arrowX, arrowYTop, arrowYBottom;
+
+                if (selected == 0) {
+                    arrowX = playButtonX + (Images.playButton.getWidth() - arrowWidth) / 2;
+                    arrowYTop = yPosition - arrowHeight - 5; // Adjust the spacing as needed
+                    arrowYBottom = yPosition + Images.playButton.getHeight() + 5; // Adjust the spacing as needed
+                } else if (selected == 1) {
+                    arrowX = scoresButtonX + (Images.scoresButton.getWidth() - arrowWidth) / 2;
+                    arrowYTop = yPosition - arrowHeight - 5; // Adjust the spacing as needed
+                    arrowYBottom = yPosition + Images.scoresButton.getHeight() + 5; // Adjust the spacing as needed
+                } else {
+                    arrowX = creditsButtonX + (Images.creditsButton.getWidth() - arrowWidth) / 2;
+                    arrowYTop = yPosition - arrowHeight - 5; // Adjust the spacing as needed
+                    arrowYBottom = yPosition + Images.creditsButton.getHeight() + 5; // Adjust the spacing as needed
+                }
+
+                g2d.drawImage(Images.arrowImage, arrowX, arrowYTop, null);
+                // transform to flip the arrow
+
+                g2d.drawImage(Images.arrowImage, arrowX, arrowYBottom + arrowHeight, arrowWidth, -arrowHeight, null);
+
             }
         }
     }
 
     public void checkPlay() {
-        if (selected == 1 && play) { // Assuming selected == 1 means "Play"
+        if (selected == 0 && play) { // Assuming selected == 1 means "Play"
             GamePanel.gameRunning = true; // Transition game state
             GamePanel.gameState = GamePanel.GameState.GAME;
         }

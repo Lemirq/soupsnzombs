@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 
+import com.soupsnzombs.GamePanel.GameState;
 import com.soupsnzombs.UI.MenuGUI;
 
 public class MainFrame extends JFrame {
@@ -25,26 +26,37 @@ public class MainFrame extends JFrame {
 
             switch (key) {
                 case KeyEvent.VK_W:
-                    MenuGUI.selected = 1;
-                    if (GamePanel.gameRunning)
-                        GamePanel.upPressed = true;
+                    GamePanel.upPressed = true;
                     break;
 
                 case KeyEvent.VK_S:
-
-                    MenuGUI.selected = 2;
-                    if (GamePanel.gameRunning)
-                        GamePanel.downPressed = true;
+                    GamePanel.downPressed = true;
                     // Add more cases if needed
                     break;
                 case KeyEvent.VK_A:
 
-                    GamePanel.leftPressed = true;
+                    // check if game hasnt started, use this to move the selection
+                    if (GamePanel.gameState == GameState.MAIN_MENU) {
+                        if (MenuGUI.selected == 0) {
+                            MenuGUI.selected = 2;
+                        } else {
+                            MenuGUI.selected--;
+                        }
+                    }
+                    if (GamePanel.gameRunning)
+                        GamePanel.leftPressed = true;
                     break;
 
                 case KeyEvent.VK_D:
-
-                    GamePanel.rightPressed = true;
+                    if (GamePanel.gameState == GameState.MAIN_MENU) {
+                        if (MenuGUI.selected == 2) {
+                            MenuGUI.selected = 0;
+                        } else {
+                            MenuGUI.selected++;
+                        }
+                    }
+                    if (GamePanel.gameRunning)
+                        GamePanel.rightPressed = true;
                     break;
                 case KeyEvent.VK_ENTER:
 
@@ -75,10 +87,6 @@ public class MainFrame extends JFrame {
                 case KeyEvent.VK_D:
 
                     GamePanel.rightPressed = false;
-                    break;
-                case KeyEvent.VK_ENTER:
-
-                    MenuGUI.play = false;
                     break;
             }
         }
