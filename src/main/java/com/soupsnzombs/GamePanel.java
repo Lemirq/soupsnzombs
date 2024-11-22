@@ -1,12 +1,14 @@
 package com.soupsnzombs;
 
 import javax.swing.*;
+
+import com.soupsnzombs.UI.MenuGUI;
 import com.soupsnzombs.buildings.AllBuildings;
 import java.awt.geom.AffineTransform;
 import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
-    enum GameState {
+    public  enum GameState {
         MAIN_MENU, OPTIONS, GAME, PAUSE, GAMEOVER
     }
 
