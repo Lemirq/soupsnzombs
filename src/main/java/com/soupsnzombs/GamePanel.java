@@ -4,7 +4,6 @@ import javax.swing.*;
 
 import com.soupsnzombs.UI.MenuGUI;
 import com.soupsnzombs.buildings.AllBuildings;
-import com.soupsnzombs.buildings.GenericBuilding;
 
 import java.awt.geom.AffineTransform;
 import java.awt.*;
