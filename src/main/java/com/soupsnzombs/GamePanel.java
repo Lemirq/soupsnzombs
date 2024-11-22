@@ -4,7 +4,6 @@ import javax.swing.*;
 
 import com.soupsnzombs.UI.MenuGUI;
 import com.soupsnzombs.buildings.AllBuildings;
-import com.soupsnzombs.buildings.GenericBuilding;
 
 import java.awt.geom.AffineTransform;
 import java.awt.*;
@@ -14,7 +13,7 @@ public class GamePanel extends JPanel implements Runnable {
         MAIN_MENU, OPTIONS, GAME, PAUSE, GAMEOVER
     }
 
-    public static GamePanel.GameState gameState = GameState.GAME;
+    public static GamePanel.GameState gameState = GameState.MAIN_MENU;
 
     private boolean running = false;
     private Thread gameThread;
