@@ -15,6 +15,8 @@ public class CollisionManager {
             if (collidable.intersects(rect)) {
                 return true;
             }
+
+            return false;
         }
         return false;
     }

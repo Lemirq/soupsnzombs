@@ -14,12 +14,12 @@ public class AllBuildings {
     }
 
     public AllBuildings(CollisionManager mgr) {
-        buildings.add(new GenericBuilding(100, 100, 50, 50));
-        buildings.add(new GenericBuilding(200, 200, 50, 50));
-        buildings.add(new GenericBuilding(300, 300, 50, 50));
+        buildings.add(new GenericBuilding(-100, 100, 50, 50));
+        buildings.add(new GenericBuilding(-200, 200, 50, 50));
+        buildings.add(new GenericBuilding(-300, 300, 50, 50));
 
         for (Building b : buildings) {
-            mgr.addCollidable(b.getBounds());
+            mgr.addCollidable(b);
         }
 
     }

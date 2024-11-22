@@ -1,11 +1,7 @@
 package com.soupsnzombs;
 
 import javax.swing.*;
-
 import com.soupsnzombs.buildings.AllBuildings;
-import com.soupsnzombs.buildings.Building;
-import com.soupsnzombs.buildings.GenericBuilding;
-
 import java.awt.geom.AffineTransform;
 import java.awt.*;
 
@@ -78,17 +74,13 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    private void update() {
-        moveMap();
-        checkCollisions();
+    public enum CollisionDirection {
+        NONE, TOP, BOTTOM, LEFT, RIGHT
     }
 
-    private void checkCollisions() {
-        if (collisionManager.isColliding(player)) {
-            System.out.print("Colliding ");
-        } else {
-            System.out.print("Not colliding ");
-        }
+    private void update() {
+
+        moveMap();
     }
 
     GamePanel() {
@@ -125,41 +117,30 @@ public class GamePanel extends JPanel implements Runnable {
         int playerWidth = (int) player.getWidth();
         int playerHeight = (int) player.getHeight();
 
-        // System.out.println("player width: " + playerWidth);
-        // System.out.println("player height: " + playerHeight);
-        // if (!collisionManager.isColliding(player)) {
-        // System.out.println("not colliding");
-        // } else {
-        // System.out.println("colliding");
-        // }
-        if (upPressed && offsetY + MOVE_SPEED + playerHeight <= Y_Bounds[1]) {
+        // Check vertical movement
+        if (upPressed && offsetY + MOVE_SPEED + playerHeight < Y_Bounds[1]) {
             offsetY += MOVE_SPEED;
         } else if (upPressed) {
             offsetY = Y_Bounds[1] - playerHeight;
         }
 
-        if (downPressed && offsetY - MOVE_SPEED - playerHeight >= Y_Bounds[0]) {
-
+        if (downPressed && offsetY - MOVE_SPEED - playerHeight > Y_Bounds[0]) {
             offsetY -= MOVE_SPEED;
-
         } else if (downPressed) {
-            offsetY = Y_Bounds[0];
+            offsetY = Y_Bounds[0] + playerHeight;
         }
 
-        if (leftPressed && offsetX + MOVE_SPEED + playerWidth <= X_Bounds[1]) {
-
+        // Check horizontal movement
+        if (leftPressed && offsetX + MOVE_SPEED + playerWidth < X_Bounds[1]) {
             offsetX += MOVE_SPEED;
-
         } else if (leftPressed) {
             offsetX = X_Bounds[1] - playerWidth;
         }
 
-        if (rightPressed && offsetX - MOVE_SPEED - playerWidth >= X_Bounds[0]) {
-
+        if (rightPressed && offsetX - MOVE_SPEED - playerWidth > X_Bounds[0]) {
             offsetX -= MOVE_SPEED;
-
         } else if (rightPressed) {
-            offsetX = X_Bounds[0];
+            offsetX = X_Bounds[0] + playerWidth;
         }
     }
 
@@ -213,6 +194,8 @@ public class GamePanel extends JPanel implements Runnable {
         // g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
         // // draw vertical line in middle of screen
         // g2d.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
+        // draw dot at offset x,y
+        g2d.fillOval(offsetX, offsetY, 10, 10);
     }
 
 }
