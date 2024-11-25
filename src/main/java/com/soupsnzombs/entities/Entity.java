@@ -1,4 +1,6 @@
-package com.soupsnzombs;
+package com.soupsnzombs.entities;
+
+import com.soupsnzombs.utils.CRectangle;
 
 public abstract class Entity extends CRectangle {
     int health;

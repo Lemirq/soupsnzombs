@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-import com.soupsnzombs.CollisionManager;
+import com.soupsnzombs.utils.CollisionManager;
 
 public class AllBuildings {
     ArrayList<Building> buildings = new ArrayList<>();

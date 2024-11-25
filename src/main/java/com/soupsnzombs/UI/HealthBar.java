@@ -1,10 +1,13 @@
-package com.soupsnzombs;
+package com.soupsnzombs.UI;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
+
+import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.utils.Theme;
 
 public class HealthBar {
     // Constants for the health bar dimensions and position

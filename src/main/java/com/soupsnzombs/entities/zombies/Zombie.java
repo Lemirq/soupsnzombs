@@ -1,4 +1,6 @@
-package com.soupsnzombs;
+package com.soupsnzombs.entities.zombies;
+
+import com.soupsnzombs.entities.Entity;
 
 public class Zombie extends Entity {
     private int movementSpeed = 10;
