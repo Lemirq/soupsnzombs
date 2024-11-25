@@ -5,9 +5,9 @@ import java.awt.Graphics2D;
 
 import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.entities.GameObject;
-import com.soupsnzombs.utils.CRectangle;
+import java.awt.Rectangle;
 
-public abstract class Building extends CRectangle implements GameObject {
+public abstract class Building extends Rectangle implements GameObject {
 
     public Building(int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -26,7 +26,7 @@ public abstract class Building extends CRectangle implements GameObject {
 
     abstract void drawBuilding(Graphics2D g2d, int x, int y, int leftEdge, int topEdge);
 
-    public abstract CRectangle getBounds();
+    public abstract Rectangle getBounds();
 
     public void draw(Graphics2D g2d) {
         // Display render coordinates in the top-right corner (for debugging)
