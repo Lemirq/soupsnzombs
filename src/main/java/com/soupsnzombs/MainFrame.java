@@ -88,6 +88,10 @@ public class MainFrame extends JFrame {
 
                     GamePanel.rightPressed = false;
                     break;
+                case KeyEvent.VK_ENTER:
+
+                    MenuGUI.play = false;
+                    break;
             }
         }
     }

@@ -19,7 +19,7 @@ public class GamePanel extends JPanel implements Runnable {
         MAIN_MENU, OPTIONS, GAME, PAUSE, GAMEOVER
     }
 
-    public static GameState gameState = GameState.GAME;
+    public static GameState gameState = GameState.MAIN_MENU;
 
     // Game loop variables
     private boolean running = false;
