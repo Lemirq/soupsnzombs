@@ -6,7 +6,7 @@ import com.soupsnzombs.UI.MenuGUI;
 import com.soupsnzombs.buildings.AllBuildings;
 import com.soupsnzombs.entities.Boundary;
 import com.soupsnzombs.entities.Player;
-import com.soupsnzombs.utils.CRectangle;
+import java.awt.Rectangle;
 import com.soupsnzombs.utils.CollisionManager;
 import com.soupsnzombs.utils.Images;
 import com.soupsnzombs.utils.Theme;
@@ -154,7 +154,7 @@ public class GamePanel extends JPanel implements Runnable {
             System.out.println("Vx: " + vx + " Vy: " + vy);
 
             // decide if collision happens
-            CRectangle newPosition = new CRectangle(player.x - vx, player.y - vy, playerWidth, playerHeight);
+            Rectangle newPosition = new Rectangle(player.x - vx, player.y - vy, playerWidth, playerHeight);
 
             System.out.println("New position: X: " + newPosition.x + " Y: " + newPosition.y + " W: " + newPosition.width
                     + " H: " + newPosition.height);

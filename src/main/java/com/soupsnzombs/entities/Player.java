@@ -46,9 +46,9 @@ public class Player extends Entity implements GameObject {
         int centerX = GamePanel.screenWidth / 2 - width / 2;
         int centerY = GamePanel.screenHeight / 2 - height / 2;
 
-        // yellow CRectangle
+        // yellow Rectangle
         g2d.setColor(Color.YELLOW);
-        // fill a CRectangle in the middle of the screen
+        // fill a Rectangle in the middle of the screen
         g2d.fillRect(centerX, centerY, width, height);
         // draw map coordinates next to player for debugging
         g2d.setColor(Color.RED);
@@ -57,7 +57,7 @@ public class Player extends Entity implements GameObject {
         g2d.drawString("OX: " + GamePanel.offsetX + " OY: " + GamePanel.offsetY, 20,
                 20);
 
-        // draw CRectangle x,y,w,h
+        // draw Rectangle x,y,w,h
         g2d.setColor(Color.RED);
         g2d.drawString("X: " + x + " Y: " + y + " W: " + width + " H: " + height, GamePanel.screenWidth - 300, 40);
 

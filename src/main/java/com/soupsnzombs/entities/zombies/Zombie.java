@@ -1,6 +1,7 @@
 package com.soupsnzombs.entities.zombies;
 
 import com.soupsnzombs.entities.Entity;
+import com.soupsnzombs.entities.Player;
 
 public class Zombie extends Entity {
     private int movementSpeed = 10;
@@ -44,6 +45,5 @@ public class Zombie extends Entity {
             y -= movementSpeed;
         }
     }
-
 
 }
