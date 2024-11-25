@@ -67,9 +67,9 @@ public class Player extends Entity implements GameObject {
 
     }
 
-    public Rectangle getBounds() {
-        return new Rectangle(GamePanel.offsetX + (Images.player_idle.getWidth() / 2),
-                GamePanel.offsetY + (Images.player_idle.getHeight() / 2), Images.player_idle.getWidth(),
-                Images.player_idle.getHeight());
-    }
+    //public Rectangle getBounds() {
+        //return new Rectangle(GamePanel.offsetX + (Images.player_idle.getWidth() / 2),
+        //GamePanel.offsetY + (Images.player_idle.getHeight() / 2), Images.player_idle.getWidth(),
+        //Images.player_idle.getHeight());
+    //}
 }
