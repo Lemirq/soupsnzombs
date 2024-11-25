@@ -9,7 +9,7 @@ public class Images {
     // public static ArrayList<BufferedImage> player_running = new ArrayList<>();
     // public static ArrayList<BufferedImage> gunfire = new ArrayList<>();
     public static BufferedImage player_idle, circle, gun, bullet, tree, shop, gameMenu, background,
-            playButton, creditsButton, scoresButton, arrowImage;
+            playButton, creditsButton, scoresButton, arrowImage, zombie;
 
     public static void loadImages() {
         try {

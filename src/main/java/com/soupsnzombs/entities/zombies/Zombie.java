@@ -3,6 +3,7 @@ package com.soupsnzombs.entities.zombies;
 import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.entities.Entity;
 import com.soupsnzombs.entities.Player;
+import com.soupsnzombs.utils.Images;
 
 import java.awt.*;
 
@@ -10,15 +11,14 @@ public class Zombie extends Entity {
     private int movementSpeed = 10;
     private int health = 100;
     private Image zombieSprite;
-    //private int width = Images.player_idle.getWidth();
-    //private int height = Images.player_idle.getHeight();
+    public int width = Images.zombie.getWidth();
+    public int height = Images.zombie.getHeight();
     public int moneyDropped = 10;
     public int pointsDropped = 10;
     public boolean alive = true;
 
     public Zombie(int startX, int startY) {
-        super(startX, startY, 10, 10, 100, 10);
-                //Images.player_idle.getWidth(), Images.player_idle.getHeight());
+        super(startX, startY, Images.player_idle.getWidth(), Images.player_idle.getHeight(), 100, 10);
         this.x = startX;
         this.y = startY;
         this.movementSpeed = 10;
@@ -82,15 +82,5 @@ public class Zombie extends Entity {
     public Rectangle getBounds() {
         return new Rectangle(x, y, width, height);
     }
-
-
-
-
-
-
-
-
-
-
 
 }
