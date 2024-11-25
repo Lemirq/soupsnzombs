@@ -86,7 +86,6 @@ public class MenuGUI {
 
     public void checkPlay() {
         if (selected == 0 && play) { // Assuming selected == 1 means "Play"
-            GamePanel.gameRunning = true; // Transition game state
             GamePanel.gameState = GamePanel.GameState.GAME;
         }
     }
