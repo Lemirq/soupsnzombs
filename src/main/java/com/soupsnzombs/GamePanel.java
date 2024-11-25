@@ -31,7 +31,6 @@ public class GamePanel extends JPanel implements Runnable {
     // Movement variables
     public static int offsetX = 0; // Offset for the grid's X position
     public static int offsetY = 0; // Offset for the grid's Y position
-    public static boolean gameRunning = true;
     public static int MOVE_SPEED = 1; // Speed of movement
     public static AffineTransform oldTransformation;
     public static int screenWidth = 1200;
@@ -205,13 +204,8 @@ public class GamePanel extends JPanel implements Runnable {
         boundary.draw(g2d, leftBoundary, rightBoundary, topBoundary, bottomBoundary);
         buildings.draw(g2d);
         player.draw(g2d);
-        // buildings.draw(g2d);
-        // int buildingX = (int) building.getX() + offsetX;
-        // int buildingY = (int) building.getY() + offsetY;
-        // g2d.drawRect(buildingX, buildingY, (int) building.getWidth(), (int)
-        // building.getHeight());
 
-        // DEBUG CONTENT
+        // DEBUG drawings
 
         // make solid lines 3 pixels wide
         // g2d.setStroke(new BasicStroke(3));
