@@ -1,8 +1,8 @@
 package com.soupsnzombs.entities;
 
-import com.soupsnzombs.utils.CRectangle;
+import java.awt.Rectangle;
 
-public abstract class Entity extends CRectangle {
+public abstract class Entity extends Rectangle {
     int health;
     int movementSpeed;
 
@@ -21,7 +21,7 @@ public abstract class Entity extends CRectangle {
         return this.contains(e);
     }
 
-    public boolean collidesWith(CRectangle other) {
+    public boolean collidesWith(Rectangle other) {
         return this.x < other.x + other.width &&
                 this.x + this.width > other.x &&
                 this.y < other.y + other.height &&

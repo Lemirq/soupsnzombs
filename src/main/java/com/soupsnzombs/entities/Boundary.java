@@ -8,7 +8,7 @@ import com.soupsnzombs.GamePanel;
 public class Boundary {
     public void draw(Graphics2D g2d, int leftBoundary, int rightBoundary, int topBoundary, int bottomBoundary) {
 
-        // Draw black CRectangles outside the map bounds
+        // Draw black Rectangles outside the map bounds
         g2d.setColor(Color.BLACK);
         // if left boundary is between zero and negative centerx
         if (leftBoundary > 0) {
