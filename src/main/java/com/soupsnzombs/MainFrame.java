@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import com.soupsnzombs.GamePanel.GameState;
 import com.soupsnzombs.UI.MenuGUI;
+import com.soupsnzombs.UI.Shop;
 
 public class MainFrame extends JFrame {
     GamePanel game;
@@ -59,10 +60,18 @@ public class MainFrame extends JFrame {
                         GamePanel.rightPressed = true;
                     break;
                 case KeyEvent.VK_ENTER:
-
                     MenuGUI.play = true;
                     break;
 
+                    case KeyEvent.VK_P:
+                    Shop.shop = !Shop.shop;
+                    if (Shop.shop && GamePanel.gameState != GamePanel.GameState.MAIN_MENU) {
+                        GamePanel.gameState = GameState.SHOP;
+                    } else {
+                        return;
+                    }
+                    break;
+                
             }
         }
 
@@ -85,11 +94,9 @@ public class MainFrame extends JFrame {
                     break;
 
                 case KeyEvent.VK_D:
-
                     GamePanel.rightPressed = false;
                     break;
                 case KeyEvent.VK_ENTER:
-
                     MenuGUI.play = false;
                     break;
             }
