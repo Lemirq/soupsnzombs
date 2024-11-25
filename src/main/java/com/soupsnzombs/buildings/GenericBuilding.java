@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import com.soupsnzombs.GamePanel;
-import com.soupsnzombs.utils.CRectangle;
+import java.awt.Rectangle;
 
 public class GenericBuilding extends Building {
     int mapX, mapY;
@@ -35,12 +35,12 @@ public class GenericBuilding extends Building {
 
     }
 
-    public boolean isColliding(CRectangle rect) {
+    public boolean isColliding(Rectangle rect) {
         return intersects(rect);
     }
 
     @Override
-    public CRectangle getBounds() {
-        return new CRectangle(super.x, super.y, super.width, super.height);
+    public Rectangle getBounds() {
+        return new Rectangle(super.x, super.y, super.width, super.height);
     }
 }

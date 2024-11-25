@@ -6,7 +6,7 @@ import com.soupsnzombs.UI.MenuGUI;
 import com.soupsnzombs.buildings.AllBuildings;
 import com.soupsnzombs.entities.Boundary;
 import com.soupsnzombs.entities.Player;
-import com.soupsnzombs.utils.CRectangle;
+import java.awt.Rectangle;
 import com.soupsnzombs.utils.CollisionManager;
 import com.soupsnzombs.utils.Images;
 import com.soupsnzombs.utils.Theme;
@@ -19,7 +19,7 @@ public class GamePanel extends JPanel implements Runnable {
         MAIN_MENU, OPTIONS, GAME, PAUSE, GAMEOVER
     }
 
-    public static GameState gameState = GameState.GAME;
+    public static GameState gameState = GameState.MAIN_MENU;
 
     // Game loop variables
     private boolean running = false;
@@ -31,7 +31,6 @@ public class GamePanel extends JPanel implements Runnable {
     // Movement variables
     public static int offsetX = 0; // Offset for the grid's X position
     public static int offsetY = 0; // Offset for the grid's Y position
-    public static boolean gameRunning = true;
     public static int MOVE_SPEED = 1; // Speed of movement
     public static AffineTransform oldTransformation;
     public static int screenWidth = 1200;
@@ -155,7 +154,7 @@ public class GamePanel extends JPanel implements Runnable {
             System.out.println("Vx: " + vx + " Vy: " + vy);
 
             // decide if collision happens
-            CRectangle newPosition = new CRectangle(player.x - vx, player.y - vy, playerWidth, playerHeight);
+            Rectangle newPosition = new Rectangle(player.x - vx, player.y - vy, playerWidth, playerHeight);
 
             System.out.println("New position: X: " + newPosition.x + " Y: " + newPosition.y + " W: " + newPosition.width
                     + " H: " + newPosition.height);
@@ -205,13 +204,8 @@ public class GamePanel extends JPanel implements Runnable {
         boundary.draw(g2d, leftBoundary, rightBoundary, topBoundary, bottomBoundary);
         buildings.draw(g2d);
         player.draw(g2d);
-        // buildings.draw(g2d);
-        // int buildingX = (int) building.getX() + offsetX;
-        // int buildingY = (int) building.getY() + offsetY;
-        // g2d.drawRect(buildingX, buildingY, (int) building.getWidth(), (int)
-        // building.getHeight());
 
-        // DEBUG CONTENT
+        // DEBUG drawings
 
         // make solid lines 3 pixels wide
         // g2d.setStroke(new BasicStroke(3));

@@ -43,7 +43,7 @@ public class MainFrame extends JFrame {
                             MenuGUI.selected--;
                         }
                     }
-                    if (GamePanel.gameRunning)
+                    if (GamePanel.gameState == GameState.GAME)
                         GamePanel.leftPressed = true;
                     break;
 
@@ -55,7 +55,7 @@ public class MainFrame extends JFrame {
                             MenuGUI.selected++;
                         }
                     }
-                    if (GamePanel.gameRunning)
+                    if (GamePanel.gameState == GameState.GAME)
                         GamePanel.rightPressed = true;
                     break;
                 case KeyEvent.VK_ENTER:
@@ -87,6 +87,10 @@ public class MainFrame extends JFrame {
                 case KeyEvent.VK_D:
 
                     GamePanel.rightPressed = false;
+                    break;
+                case KeyEvent.VK_ENTER:
+
+                    MenuGUI.play = false;
                     break;
             }
         }
