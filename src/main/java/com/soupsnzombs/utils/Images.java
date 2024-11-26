@@ -46,11 +46,6 @@ public class Images {
                 spriteImages.put(sprite.name, croppedImage);
             }
 
-            // print hashmap
-            for (String key : spriteImages.keySet()) {
-                System.out.println(key);
-            }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -67,18 +62,11 @@ public class Images {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
         try {
-
-            // optional, but recommended
-            // process XML securely, avoid attacks like XML External Entities (XXE)
             dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
 
             // parse XML file
             DocumentBuilder db = dbf.newDocumentBuilder();
-
             Document doc = db.parse(Images.class.getResourceAsStream("/s.xml"));
-
-            // optional, but recommended
-            // http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
             doc.getDocumentElement().normalize();
 
             System.out.println("Root Element :" + doc.getDocumentElement().getNodeName());

@@ -49,7 +49,11 @@ public class Player extends Entity implements GameObject {
         // yellow Rectangle
         g2d.setColor(Color.YELLOW);
         // fill a Rectangle in the middle of the screen
-        g2d.fillRect(centerX, centerY, width, height);
+        // g2d.fillRect(centerX, centerY, width, height);
+
+        g2d.drawImage(com.soupsnzombs.utils.Images.spriteImages.get("manBlue_stand.png"), centerX, centerY, width,
+                height, null);
+
         // draw map coordinates next to player for debugging
         g2d.setColor(Color.RED);
         g2d.drawString("CX: " + centerX + " CY: " + centerY, 20,
@@ -61,7 +65,7 @@ public class Player extends Entity implements GameObject {
         g2d.setColor(Color.RED);
         g2d.drawString("X: " + x + " Y: " + y + " W: " + width + " H: " + height, GamePanel.screenWidth - 300, 40);
 
-        g2d.drawRect(x, y, width, height);
+        // g2d.drawRect(x, y, width, height);
 
     }
 }
