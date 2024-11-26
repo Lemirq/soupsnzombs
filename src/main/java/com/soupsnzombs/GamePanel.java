@@ -6,7 +6,6 @@ import com.soupsnzombs.UI.MenuGUI;
 import com.soupsnzombs.buildings.AllBuildings;
 import com.soupsnzombs.entities.Boundary;
 import com.soupsnzombs.entities.Player;
-import java.awt.Rectangle;
 import com.soupsnzombs.utils.CollisionManager;
 import com.soupsnzombs.utils.Images;
 import com.soupsnzombs.utils.Theme;
@@ -17,6 +16,10 @@ import java.awt.*;
 public class GamePanel extends JPanel implements Runnable {
     public enum GameState {
         MAIN_MENU, OPTIONS, GAME, PAUSE, GAMEOVER
+    }
+
+    public enum PlayerDir {
+        UP, DOWN, LEFT, RIGHT
     }
 
     public static GameState gameState = GameState.MAIN_MENU;
@@ -47,8 +50,8 @@ public class GamePanel extends JPanel implements Runnable {
     public static boolean leftPressed = false;
     public static boolean rightPressed = false;
     public static boolean shootPressed = false;
-    public static int direction = 0;
-    public Player player = new Player();
+    public static PlayerDir direction = PlayerDir.UP;
+    public Player player;
     public MenuGUI menu = new MenuGUI();
     Boundary boundary = new Boundary();
 
@@ -101,6 +104,7 @@ public class GamePanel extends JPanel implements Runnable {
         requestFocusInWindow();
 
         Images.loadImages();
+        player = new Player();
         // // Load images in background thread
         // new SwingWorker<Void, Void>() {
         // @Override
@@ -149,6 +153,12 @@ public class GamePanel extends JPanel implements Runnable {
                 vx = -MOVE_SPEED;
             } else if (rightPressed) {
                 offsetX = X_Bounds[0] + playerWidth;
+            }
+
+            // Normalize diagonal movement
+            if ((upPressed || downPressed) && (leftPressed || rightPressed)) {
+                vx /= Math.sqrt(2);
+                vy /= Math.sqrt(2);
             }
 
             // System.out.println("Vx: " + vx + " Vy: " + vy);

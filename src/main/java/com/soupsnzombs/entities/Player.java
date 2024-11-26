@@ -1,16 +1,28 @@
 package com.soupsnzombs.entities;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.GamePanel.PlayerDir;
+import com.soupsnzombs.utils.Images;
 
 public class Player extends Entity implements GameObject {
     boolean isDead = false;
     int money;
+    BufferedImage playerImg;
 
     public Player() {
-        super(GamePanel.screenWidth / 2 - 40 / 2, GamePanel.screenHeight / 2 - 70 / 2, 40, 70, 100,
+        super(0, 0, 0, 0, 100,
                 GamePanel.MOVE_SPEED);
+
+        playerImg = Images.spriteImages.get("manBrown_gun.png");
+
+        this.width = playerImg.getWidth();
+        this.height = playerImg.getHeight();
+        this.x = GamePanel.screenWidth / 2 - width / 2;
+        this.y = GamePanel.screenHeight / 2 - height / 2;
+        this.health = 100;
         this.money = 0;
     }
 
@@ -43,20 +55,41 @@ public class Player extends Entity implements GameObject {
     }
 
     public void draw(Graphics2D g2d) {
-        int centerX = GamePanel.screenWidth / 2 - width / 2;
-        int centerY = GamePanel.screenHeight / 2 - height / 2;
+        int centerXPlayer = GamePanel.screenWidth / 2 - width / 2;
+        int centerYPlayer = GamePanel.screenHeight / 2 - height / 2;
 
+        // without image: testing
         // yellow Rectangle
-        g2d.setColor(Color.YELLOW);
+        // g2d.setColor(Color.YELLOW);
         // fill a Rectangle in the middle of the screen
         // g2d.fillRect(centerX, centerY, width, height);
 
-        g2d.drawImage(com.soupsnzombs.utils.Images.spriteImages.get("manBlue_stand.png"), centerX, centerY, width,
-                height, null);
+        // transform accordingly to direction, affine transform
+        switch (GamePanel.direction) {
+            case UP:
+                g2d.rotate(Math.toRadians(270), GamePanel.screenWidth / 2, GamePanel.screenHeight / 2);
+                break;
+
+            case DOWN:
+                g2d.rotate(Math.toRadians(90), GamePanel.screenWidth / 2, GamePanel.screenHeight / 2);
+                break;
+
+            case LEFT:
+                g2d.rotate(Math.toRadians(180), GamePanel.screenWidth / 2, GamePanel.screenHeight / 2);
+                break;
+            case RIGHT:
+                g2d.rotate(Math.toRadians(0), GamePanel.screenWidth / 2, GamePanel.screenHeight / 2);
+                break;
+            default:
+                break;
+        }
+        g2d.drawImage(playerImg, centerXPlayer, centerYPlayer, null);
+
+        g2d.setTransform(GamePanel.oldTransformation);
 
         // draw map coordinates next to player for debugging
         g2d.setColor(Color.RED);
-        g2d.drawString("CX: " + centerX + " CY: " + centerY, 20,
+        g2d.drawString("CX: " + centerXPlayer + " CY: " + centerYPlayer, 20,
                 10);
         g2d.drawString("OX: " + GamePanel.offsetX + " OY: " + GamePanel.offsetY, 20,
                 20);
@@ -65,7 +98,7 @@ public class Player extends Entity implements GameObject {
         g2d.setColor(Color.RED);
         g2d.drawString("X: " + x + " Y: " + y + " W: " + width + " H: " + height, GamePanel.screenWidth - 300, 40);
 
-        // g2d.drawRect(x, y, width, height);
+        g2d.drawRect(x, y, width, height);
 
     }
 }
