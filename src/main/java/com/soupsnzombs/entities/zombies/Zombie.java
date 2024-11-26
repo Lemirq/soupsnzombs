@@ -47,7 +47,7 @@ public class Zombie extends Entity {
         int playerX = player.x - GamePanel.offsetX;
         int playerY = player.y - GamePanel.offsetY;
 
-        System.out.println("Player X: " + playerX + " Player Y: " + playerY);
+        // System.out.println("Player X: " + playerX + " Player Y: " + playerY);
 
         if (x < GamePanel.offsetX) {
             x += movementSpeed;

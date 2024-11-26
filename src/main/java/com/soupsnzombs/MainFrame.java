@@ -14,7 +14,7 @@ import com.soupsnzombs.UI.Shop.MainShop;
 
 public class MainFrame extends JFrame {
     GamePanel game;
-
+    Boolean released = true; //trigger for non-automatic guns
     private class KeyHandler extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
@@ -81,7 +81,10 @@ public class MainFrame extends JFrame {
                     break;
 
                 case KeyEvent.VK_SPACE:
-                    GamePanel.shootPressed = true;
+                    if (released) {
+                        GamePanel.shootPressed = true;
+                        released = false;
+                    }
                     break;
             }
         }
@@ -111,7 +114,9 @@ public class MainFrame extends JFrame {
                     MenuGUI.play = false;
                     break;
 
-                
+                case KeyEvent.VK_SPACE:
+                    released = true;
+                    break;
             }
         }
     }
