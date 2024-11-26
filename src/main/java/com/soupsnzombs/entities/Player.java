@@ -4,25 +4,22 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import com.soupsnzombs.GamePanel;
-
-import com.soupsnzombs.GamePanel.PlayerDir;
 import com.soupsnzombs.utils.Images;
-
 
 public class Player extends Entity implements GameObject {
     boolean isDead = false;
     int money;
-  int health;
-BufferedImage playerImg;
+    int health;
+    BufferedImage sprite;
 
     public Player() {
         super(0, 0, 0, 0, 100,
                 GamePanel.MOVE_SPEED);
 
-        playerImg = Images.spriteImages.get("manBrown_gun.png");
+        sprite = Images.spriteImages.get("manBrown_gun.png");
 
-        this.width = playerImg.getWidth();
-        this.height = playerImg.getHeight();
+        this.width = sprite.getWidth();
+        this.height = sprite.getHeight();
         this.x = GamePanel.screenWidth / 2 - width / 2;
         this.y = GamePanel.screenHeight / 2 - height / 2;
         this.health = 100;
@@ -87,7 +84,7 @@ BufferedImage playerImg;
             default:
                 break;
         }
-        g2d.drawImage(playerImg, centerXPlayer, centerYPlayer, null);
+        g2d.drawImage(sprite, centerXPlayer, centerYPlayer, null);
 
         g2d.setTransform(GamePanel.oldTransformation);
 
@@ -107,8 +104,6 @@ BufferedImage playerImg;
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(GamePanel.offsetX + (Images.player_idle.getWidth() / 2),
-        GamePanel.offsetY + (Images.player_idle.getHeight() / 2), Images.player_idle.getWidth(),
-        Images.player_idle.getHeight());
+        return new Rectangle(x, y, width, height);
     }
 }

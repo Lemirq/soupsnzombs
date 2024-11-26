@@ -35,7 +35,6 @@ public class GenericBuilding extends Building {
         g2d.setStroke(new BasicStroke(1));
         g2d.drawRect(this.x, this.y, (int) getWidth(), (int) getHeight());
         // draw image on top of the building
-        g2d.drawImage(Images.spriteImages.get("hitman1_gun.png"), buildingX, buildingY, width, height, null);
     }
 
     public boolean isColliding(Rectangle rect) {
