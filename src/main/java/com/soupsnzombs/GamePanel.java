@@ -1,7 +1,6 @@
 package com.soupsnzombs;
 
 import javax.swing.*;
-
 import com.soupsnzombs.UI.MainMenu.MenuGUI;
 import com.soupsnzombs.UI.Shop.MainShop;
 import com.soupsnzombs.buildings.AllBuildings;
@@ -164,8 +163,8 @@ public class GamePanel extends JPanel implements Runnable {
 
             // Normalize diagonal movement
             if ((upPressed || downPressed) && (leftPressed || rightPressed)) {
-                vx /= Math.sqrt(2);
-                vy /= Math.sqrt(2);
+                vx /= 1.25;
+                vy /= 1.25;
             }
 
             // System.out.println("Vx: " + vx + " Vy: " + vy);
