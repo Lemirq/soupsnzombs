@@ -169,6 +169,7 @@ public class Gun extends Entity {
         // Draw the bullets
         for (Bullet bullet : Gun.bullets) {
             bullet.draw(g2d);
+            //System.out.println("Bullet is at: " + bullet.cx + " " + bullet.cy);
         }
     }
 }
