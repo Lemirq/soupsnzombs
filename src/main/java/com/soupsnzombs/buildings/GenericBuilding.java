@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.utils.Images;
+
 import java.awt.Rectangle;
 
 public class GenericBuilding extends Building {
@@ -32,7 +34,8 @@ public class GenericBuilding extends Building {
         g2d.setColor(Color.RED);
         g2d.setStroke(new BasicStroke(1));
         g2d.drawRect(this.x, this.y, (int) getWidth(), (int) getHeight());
-
+        // draw image on top of the building
+        g2d.drawImage(Images.spriteImages.get("hitman1_gun.png"), buildingX, buildingY, width, height, null);
     }
 
     public boolean isColliding(Rectangle rect) {

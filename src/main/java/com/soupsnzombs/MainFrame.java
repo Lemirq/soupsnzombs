@@ -7,6 +7,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.*;
 
 import com.soupsnzombs.GamePanel.GameState;
+import com.soupsnzombs.GamePanel.PlayerDir;
+
 import com.soupsnzombs.UI.MainMenu.MenuGUI;
 import com.soupsnzombs.UI.Shop.MainShop;
 
@@ -28,10 +30,12 @@ public class MainFrame extends JFrame {
             switch (key) {
                 case KeyEvent.VK_W:
                     GamePanel.upPressed = true;
+                    GamePanel.direction = PlayerDir.UP;
                     break;
 
                 case KeyEvent.VK_S:
                     GamePanel.downPressed = true;
+                    GamePanel.direction = PlayerDir.DOWN;
                     // Add more cases if needed
                     break;
                 case KeyEvent.VK_A:
@@ -44,8 +48,10 @@ public class MainFrame extends JFrame {
                             MenuGUI.selected--;
                         }
                     }
-                    if (GamePanel.gameState == GameState.GAME)
+                    if (GamePanel.gameState == GameState.GAME) {
                         GamePanel.leftPressed = true;
+                        GamePanel.direction = PlayerDir.LEFT;
+                    }
                     break;
 
                 case KeyEvent.VK_D:
@@ -56,8 +62,10 @@ public class MainFrame extends JFrame {
                             MenuGUI.selected++;
                         }
                     }
-                    if (GamePanel.gameState == GameState.GAME)
+                    if (GamePanel.gameState == GameState.GAME) {
                         GamePanel.rightPressed = true;
+                        GamePanel.direction = PlayerDir.RIGHT;
+                    }
                     break;
                 case KeyEvent.VK_ENTER:
                     MenuGUI.play = true;

@@ -7,7 +7,6 @@ import com.soupsnzombs.UI.Shop.MainShop;
 import com.soupsnzombs.buildings.AllBuildings;
 import com.soupsnzombs.entities.Boundary;
 import com.soupsnzombs.entities.Player;
-import java.awt.Rectangle;
 import com.soupsnzombs.utils.CollisionManager;
 import com.soupsnzombs.utils.Images;
 import com.soupsnzombs.utils.Theme;
@@ -18,6 +17,10 @@ import java.awt.*;
 public class GamePanel extends JPanel implements Runnable {
     public enum GameState {
         MAIN_MENU, OPTIONS, GAME, PAUSE, GAMEOVER, SHOP
+    }
+
+    public enum PlayerDir {
+        UP, DOWN, LEFT, RIGHT
     }
 
     public static GameState gameState = GameState.MAIN_MENU;
@@ -48,8 +51,8 @@ public class GamePanel extends JPanel implements Runnable {
     public static boolean leftPressed = false;
     public static boolean rightPressed = false;
     public static boolean shootPressed = false;
-    public static int direction = 0;
-    public Player player = new Player();
+    public static PlayerDir direction = PlayerDir.UP;
+    public Player player;
     public MenuGUI menu = new MenuGUI();
     public MainShop shop = new MainShop();
     Boundary boundary = new Boundary();
@@ -102,20 +105,21 @@ public class GamePanel extends JPanel implements Runnable {
         setFocusable(true);
         requestFocusInWindow();
 
-        // Load images in background thread
-        new SwingWorker<Void, Void>() {
-            @Override
-            protected Void doInBackground() throws Exception {
-                Images.loadImages();
-                return null;
-            }
+        Images.loadImages();
+        player = new Player();
+        // // Load images in background thread
+        // new SwingWorker<Void, Void>() {
+        // @Override
+        // protected Void doInBackground() throws Exception {
+        // return null;
+        // }
 
-            @Override
-            protected void done() {
-                // Any code that needs to run after images are loaded can go here
-                start();
-            }
-        }.execute();
+        // @Override
+        // protected void done() {
+        // // Any code that needs to run after images are loaded can go here
+        // start();
+        // }
+        // }.execute();
 
         start();
     }
@@ -153,15 +157,22 @@ public class GamePanel extends JPanel implements Runnable {
                 offsetX = X_Bounds[0] + playerWidth;
             }
 
-            System.out.println("Vx: " + vx + " Vy: " + vy);
+            // Normalize diagonal movement
+            if ((upPressed || downPressed) && (leftPressed || rightPressed)) {
+                vx /= Math.sqrt(2);
+                vy /= Math.sqrt(2);
+            }
+
+            // System.out.println("Vx: " + vx + " Vy: " + vy);
 
             // decide if collision happens
             Rectangle newPosition = new Rectangle(player.x - vx, player.y - vy, playerWidth, playerHeight);
 
-            System.out.println("New position: X: " + newPosition.x + " Y: " + newPosition.y + " W: " + newPosition.width
-                    + " H: " + newPosition.height);
+            // System.out.println("New position: X: " + newPosition.x + " Y: " +
+            // newPosition.y + " W: " + newPosition.width
+            // + " H: " + newPosition.height);
             if (collisionManager.isColliding(newPosition)) {
-                System.out.println("Collision detected");
+                // System.out.println("Collision detected");
             } else {
                 offsetX += vx;
                 offsetY += vy;
