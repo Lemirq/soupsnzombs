@@ -13,14 +13,15 @@ public class CollisionManager {
     public boolean isColliding(Rectangle rect) {
         // print collidable details
         for (Rectangle collidable : collidables) {
-            System.out.println("Collidable: " + collidable.x + " " + collidable.y + " " + collidable.width + " "
-                    + collidable.height);
+            // System.out.println("Collidable: " + collidable.x + " " + collidable.y + " " +
+            // collidable.width + " "
+            // + collidable.height);
             if (collidable.intersects(rect)) {
-                System.out.println("Collision detected with: " + collidable);
+                // System.out.println("Collision detected with: " + collidable);
                 return true;
             }
         }
-        System.out.println("Returning false");
+        // System.out.println("Returning false");
         return false;
     }
 }

@@ -100,20 +100,20 @@ public class GamePanel extends JPanel implements Runnable {
         setFocusable(true);
         requestFocusInWindow();
 
-        // Load images in background thread
-        new SwingWorker<Void, Void>() {
-            @Override
-            protected Void doInBackground() throws Exception {
-                Images.loadImages();
-                return null;
-            }
+        Images.loadImages();
+        // // Load images in background thread
+        // new SwingWorker<Void, Void>() {
+        // @Override
+        // protected Void doInBackground() throws Exception {
+        // return null;
+        // }
 
-            @Override
-            protected void done() {
-                // Any code that needs to run after images are loaded can go here
-                start();
-            }
-        }.execute();
+        // @Override
+        // protected void done() {
+        // // Any code that needs to run after images are loaded can go here
+        // start();
+        // }
+        // }.execute();
 
         start();
     }
@@ -151,15 +151,16 @@ public class GamePanel extends JPanel implements Runnable {
                 offsetX = X_Bounds[0] + playerWidth;
             }
 
-            System.out.println("Vx: " + vx + " Vy: " + vy);
+            // System.out.println("Vx: " + vx + " Vy: " + vy);
 
             // decide if collision happens
             Rectangle newPosition = new Rectangle(player.x - vx, player.y - vy, playerWidth, playerHeight);
 
-            System.out.println("New position: X: " + newPosition.x + " Y: " + newPosition.y + " W: " + newPosition.width
-                    + " H: " + newPosition.height);
+            // System.out.println("New position: X: " + newPosition.x + " Y: " +
+            // newPosition.y + " W: " + newPosition.width
+            // + " H: " + newPosition.height);
             if (collisionManager.isColliding(newPosition)) {
-                System.out.println("Collision detected");
+                // System.out.println("Collision detected");
             } else {
                 offsetX += vx;
                 offsetY += vy;
