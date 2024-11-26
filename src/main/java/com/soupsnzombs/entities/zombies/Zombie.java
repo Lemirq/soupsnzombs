@@ -6,28 +6,31 @@ import com.soupsnzombs.entities.Player;
 import com.soupsnzombs.utils.Images;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Zombie extends Entity {
     private int movementSpeed = 10;
     private int health = 100;
-    private Image zombieSprite;
-    public int width = Images.zombie.getWidth();
-    public int height = Images.zombie.getHeight();
+    private BufferedImage zombieSprite;
     public int moneyDropped = 10;
     public int pointsDropped = 10;
     public boolean alive = true;
 
     public Zombie(int startX, int startY) {
-        super(startX, startY, Images.player_idle.getWidth(), Images.player_idle.getHeight(), 100, 10);
+        super(startX, startY, 0, 0, 100, 10);
         this.x = startX;
         this.y = startY;
+
+        this.zombieSprite = Images.spriteImages.get("zoimbie1_gun.png");
+        this.width = zombieSprite.getWidth();
+        this.height = zombieSprite.getHeight();
         this.movementSpeed = 10;
     }
 
     public void takeDamage(int damage) {
         health -= damage;
         if (health <= 0) {
-            //System.out.println("Zombie is dead");
+            // System.out.println("Zombie is dead");
             alive = false;
         }
     }
@@ -44,7 +47,8 @@ public class Zombie extends Entity {
         int topEdge = GamePanel.offsetY + (GamePanel.screenHeight / 2);
         if (leftEdge > x - width) {
             g2d.drawImage(zombieSprite, leftEdge - x, topEdge - y, null);
-            //drawHealthBar(g2d, leftEdge - x, topEdge - y - 10); // Draw health bar above the zombie
+            // drawHealthBar(g2d, leftEdge - x, topEdge - y - 10); // Draw health bar above
+            // the zombie
 
         }
     }

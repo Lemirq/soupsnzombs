@@ -18,8 +18,8 @@ public class MenuGUI {
     public void drawMenu(Graphics2D g2d) {
         if (GamePanel.gameState == GamePanel.GameState.MAIN_MENU) {
             // Draw the background
-            if (Images.Menubackground != null) {
-                g2d.drawImage(Images.Menubackground, 0, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);
+            if (Images.background != null) {
+                g2d.drawImage(Images.background, 0, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);
             }
 
             // Define the spacing between buttons
@@ -30,7 +30,7 @@ public class MenuGUI {
                     + Images.creditsButton.getWidth()
                     + 2 * buttonSpacing;
             int startX = (GamePanel.screenWidth - totalWidth) / 2;
-            int yPosition = 600; 
+            int yPosition = 600;
 
             int playButtonX = startX;
             int scoresButtonX = startX + Images.playButton.getWidth() + buttonSpacing;
