@@ -71,15 +71,18 @@ public class MainFrame extends JFrame {
                     MenuGUI.play = true;
                     break;
 
-                    case KeyEvent.VK_P:
+                case KeyEvent.VK_P:
                     MainShop.open = !MainShop.open;
                     if (MainShop.open && GamePanel.gameState != GamePanel.GameState.MAIN_MENU) {
                         GamePanel.gameState = GameState.SHOP;
                     } else {
-                        return;
+                        break;
                     }
                     break;
-                
+
+                case KeyEvent.VK_SPACE:
+                    GamePanel.shootPressed = true;
+                    break;
             }
         }
 
@@ -107,6 +110,8 @@ public class MainFrame extends JFrame {
                 case KeyEvent.VK_ENTER:
                     MenuGUI.play = false;
                     break;
+
+                
             }
         }
     }

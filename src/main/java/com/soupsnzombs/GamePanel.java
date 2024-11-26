@@ -6,6 +6,7 @@ import com.soupsnzombs.UI.MainMenu.MenuGUI;
 import com.soupsnzombs.UI.Shop.MainShop;
 import com.soupsnzombs.buildings.AllBuildings;
 import com.soupsnzombs.entities.Boundary;
+import com.soupsnzombs.entities.Gun;
 import com.soupsnzombs.entities.Player;
 import com.soupsnzombs.utils.CollisionManager;
 import com.soupsnzombs.utils.Images;
@@ -57,6 +58,7 @@ public class GamePanel extends JPanel implements Runnable {
     public MainShop shop = new MainShop();
     Boundary boundary = new Boundary();
 
+    public Gun gun = new Gun(5, 5, 5, 5, 5, 5, 5);
     public synchronized void start() {
         running = true;
         gameThread = new Thread(this);
@@ -225,6 +227,15 @@ public class GamePanel extends JPanel implements Runnable {
         buildings.draw(g2d);
         player.draw(g2d);
 
+        
+
+        gun.draw(g2d, centerX, centerY, player);
+        
+        if (shootPressed) {
+                gun.shootBullet(player);
+                shootPressed = false;
+            }
+        
         // DEBUG drawings
 
         // make solid lines 3 pixels wide
