@@ -2,8 +2,8 @@ package com.soupsnzombs;
 
 import javax.swing.*;
 
-import com.soupsnzombs.UI.MenuGUI;
-import com.soupsnzombs.UI.Shop;
+import com.soupsnzombs.UI.MainMenu.MenuGUI;
+import com.soupsnzombs.UI.Shop.MainShop;
 import com.soupsnzombs.buildings.AllBuildings;
 import com.soupsnzombs.entities.Boundary;
 import com.soupsnzombs.entities.Player;
@@ -51,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable {
     public static int direction = 0;
     public Player player = new Player();
     public MenuGUI menu = new MenuGUI();
-    public Shop shop = new Shop();
+    public MainShop shop = new MainShop();
     Boundary boundary = new Boundary();
 
     public synchronized void start() {

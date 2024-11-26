@@ -7,8 +7,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.*;
 
 import com.soupsnzombs.GamePanel.GameState;
-import com.soupsnzombs.UI.MenuGUI;
-import com.soupsnzombs.UI.Shop;
+import com.soupsnzombs.UI.MainMenu.MenuGUI;
+import com.soupsnzombs.UI.Shop.MainShop;
 
 public class MainFrame extends JFrame {
     GamePanel game;
@@ -64,8 +64,8 @@ public class MainFrame extends JFrame {
                     break;
 
                     case KeyEvent.VK_P:
-                    Shop.shop = !Shop.shop;
-                    if (Shop.shop && GamePanel.gameState != GamePanel.GameState.MAIN_MENU) {
+                    MainShop.open = !MainShop.open;
+                    if (MainShop.open && GamePanel.gameState != GamePanel.GameState.MAIN_MENU) {
                         GamePanel.gameState = GameState.SHOP;
                     } else {
                         return;

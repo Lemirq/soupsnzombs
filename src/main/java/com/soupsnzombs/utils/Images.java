@@ -8,21 +8,27 @@ import javax.imageio.ImageIO;
 public class Images {
     // public static ArrayList<BufferedImage> player_running = new ArrayList<>();
     // public static ArrayList<BufferedImage> gunfire = new ArrayList<>();
-    public static BufferedImage player_idle, circle, gun, bullet, tree, shop, gameMenu, background,
-            playButton, creditsButton, scoresButton, arrowImage, zombie;
+    public static BufferedImage player_idle, circle, gun, bullet, tree, shop, gameMenu, Menubackground,
+            playButton, creditsButton, scoresButton, arrowImage, zombie, shopBackground;
 
     public static void loadImages() {
         try {
-            background = ImageIO.read(Images.class.getResource("/bg.jpeg"));
+            //main menu images
+            Menubackground = ImageIO.read(Images.class.getResource("/bg.jpeg"));
             playButton = ImageIO.read(Images.class.getResource("/buttons/play.png"));
             scoresButton = ImageIO.read(Images.class.getResource("/buttons/scores.png"));
             creditsButton = ImageIO.read(Images.class.getResource("/buttons/credits.png"));
             arrowImage = ImageIO.read(Images.class.getResource("/arrow.png"));
-
+            //shop menu buttons
             playButton = scaleImage(playButton, 150, 50);
             scoresButton = scaleImage(scoresButton, 150, 50);
             creditsButton = scaleImage(creditsButton, 150, 50);
             arrowImage = scaleImage(arrowImage, 51, 130 / 2);
+
+            //shop menu images
+            shopBackground = ImageIO.read(Images.class.getResource("/SoupsNZombsShop.png"));
+
+            //shop menu buttons
 
         } catch (IOException e) {
             e.printStackTrace();
