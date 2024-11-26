@@ -60,7 +60,7 @@ public class GamePanel extends JPanel implements Runnable {
     public MainShop shop = new MainShop();
     Boundary boundary = new Boundary();
 
-    public Gun gun = new Gun(5, 5, 5, 5, 5, 5, 5);
+    // public Gun gun = new Gun(5, 5, 5, 5, 5, 5, 5);
     public synchronized void start() {
         running = true;
         gameThread = new Thread(this);
@@ -231,15 +231,13 @@ public class GamePanel extends JPanel implements Runnable {
         zombies.draw(g2d, player);
         player.draw(g2d);
 
-        
+        // gun.draw(g2d, centerX, centerY, player);
 
-        gun.draw(g2d, centerX, centerY, player);
-        
-        if (shootPressed) {
-                gun.shootBullet(player);
-                shootPressed = false;
-            }
-        
+        // if (shootPressed) {
+        // gun.shootBullet(player);
+        // shootPressed = false;
+        // }
+
         // DEBUG drawings
 
         // make solid lines 3 pixels wide
