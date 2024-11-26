@@ -4,13 +4,16 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import com.soupsnzombs.GamePanel;
+
 import com.soupsnzombs.GamePanel.PlayerDir;
 import com.soupsnzombs.utils.Images;
+
 
 public class Player extends Entity implements GameObject {
     boolean isDead = false;
     int money;
-    BufferedImage playerImg;
+  int health;
+BufferedImage playerImg;
 
     public Player() {
         super(0, 0, 0, 0, 100,
@@ -24,6 +27,7 @@ public class Player extends Entity implements GameObject {
         this.y = GamePanel.screenHeight / 2 - height / 2;
         this.health = 100;
         this.money = 0;
+        this.health = 100;
     }
 
     // Method to decrease health
@@ -100,5 +104,11 @@ public class Player extends Entity implements GameObject {
 
         g2d.drawRect(x, y, width, height);
 
+    }
+
+    public Rectangle getBounds() {
+        return new Rectangle(GamePanel.offsetX + (Images.player_idle.getWidth() / 2),
+        GamePanel.offsetY + (Images.player_idle.getHeight() / 2), Images.player_idle.getWidth(),
+        Images.player_idle.getHeight());
     }
 }
