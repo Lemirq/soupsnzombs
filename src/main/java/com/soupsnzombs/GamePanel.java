@@ -7,6 +7,7 @@ import com.soupsnzombs.UI.Shop.MainShop;
 import com.soupsnzombs.buildings.AllBuildings;
 import com.soupsnzombs.entities.Boundary;
 import com.soupsnzombs.entities.Player;
+import com.soupsnzombs.entities.zombies.AllZombies;
 import com.soupsnzombs.utils.CollisionManager;
 import com.soupsnzombs.utils.Images;
 import com.soupsnzombs.utils.Theme;
@@ -46,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
     private final int[] Y_Bounds = { -2000, 2000 };
     CollisionManager collisionManager = new CollisionManager();
     AllBuildings buildings = new AllBuildings(collisionManager);
+    AllZombies zombies;
     public static boolean upPressed = false;
     public static boolean downPressed = false;
     public static boolean leftPressed = false;
@@ -107,6 +109,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         Images.loadImages();
         player = new Player();
+        zombies = new AllZombies(collisionManager);
         // // Load images in background thread
         // new SwingWorker<Void, Void>() {
         // @Override
@@ -223,6 +226,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         boundary.draw(g2d, leftBoundary, rightBoundary, topBoundary, bottomBoundary);
         buildings.draw(g2d);
+        zombies.draw(g2d, player);
         player.draw(g2d);
 
         // DEBUG drawings

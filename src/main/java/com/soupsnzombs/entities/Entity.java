@@ -3,8 +3,8 @@ package com.soupsnzombs.entities;
 import java.awt.Rectangle;
 
 public abstract class Entity extends Rectangle {
-    int health;
-    int movementSpeed;
+    public int health;
+    public int movementSpeed;
 
     public Entity(int x, int y, int w, int h, int health, int movementSpeed) {
         super(x, y, w, h);
