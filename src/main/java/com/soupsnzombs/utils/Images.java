@@ -23,7 +23,7 @@ public class Images {
     // public static ArrayList<BufferedImage> gunfire = new ArrayList<>();
 
     public static BufferedImage player_idle, circle, gun, bullet, tree, shop, gameMenu, background,
-            playButton, creditsButton, scoresButton, arrowImage, shopBackground;
+            playButton, creditsButton, scoresButton, arrowImage, shopBackground ,scoresbg;
     public static HashMap<String, BufferedImage> spriteImages = new HashMap<>();
 
     public static void loadImages() {
@@ -52,6 +52,9 @@ public class Images {
             shopBackground = ImageIO.read(Images.class.getResource("/SoupsNZombsShop.png"));
 
             // shop menu buttons
+
+            //scores image
+            scoresbg = ImageIO.read(Images.class.getResource("/SCORES.png"));
 
         } catch (IOException e) {
             e.printStackTrace();

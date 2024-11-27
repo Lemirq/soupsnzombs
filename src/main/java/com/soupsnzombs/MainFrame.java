@@ -10,6 +10,7 @@ import com.soupsnzombs.GamePanel.GameState;
 import com.soupsnzombs.GamePanel.PlayerDir;
 
 import com.soupsnzombs.UI.MainMenu.MenuGUI;
+import com.soupsnzombs.UI.MainMenu.Scores;
 import com.soupsnzombs.UI.Shop.MainShop;
 
 public class MainFrame extends JFrame {
@@ -68,17 +69,18 @@ public class MainFrame extends JFrame {
                     }
                     break;
                 case KeyEvent.VK_ENTER:
-                    MenuGUI.play = true;
+                    MenuGUI.pressed = true;
                     break;
 
-                case KeyEvent.VK_P:
-                    MainShop.open = !MainShop.open;
-                    if (MainShop.open && GamePanel.gameState != GamePanel.GameState.MAIN_MENU) {
-                        GamePanel.gameState = GameState.SHOP;
-                    } else {
-                        break;
+                    case KeyEvent.VK_P:
+                    if (GamePanel.gameState == GameState.SCORES) {
+                        GamePanel.gameState = GameState.MAIN_MENU;
+                    } else if (GamePanel.gameState == GameState.GAME || GamePanel.gameState == GameState.SHOP) {
+                        MainShop.open = !MainShop.open;
+                        GamePanel.gameState = MainShop.open ? GameState.SHOP : GameState.GAME;
                     }
                     break;
+                
 
                 case KeyEvent.VK_SPACE:
                     GamePanel.shootPressed = true;
@@ -108,10 +110,10 @@ public class MainFrame extends JFrame {
                     GamePanel.rightPressed = false;
                     break;
                 case KeyEvent.VK_ENTER:
-                    MenuGUI.play = false;
+                    MenuGUI.pressed = false;
                     break;
 
-                
+
             }
         }
     }
