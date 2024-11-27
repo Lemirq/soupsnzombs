@@ -1,7 +1,6 @@
 package com.soupsnzombs;
 
 import javax.swing.*;
-
 import com.soupsnzombs.UI.MainMenu.MenuGUI;
 import com.soupsnzombs.UI.Shop.MainShop;
 import com.soupsnzombs.UI.MainMenu.Scores;
@@ -62,7 +61,8 @@ public class GamePanel extends JPanel implements Runnable {
     public Scores scores = new Scores();
     Boundary boundary = new Boundary();
 
-    // public Gun gun = new Gun(5, 5, 5, 5, 5, 5, 5);
+    public Gun gun = new Gun(5, 5, 600, 5, 5, 5, 5);
+    
     public synchronized void start() {
         running = true;
         gameThread = new Thread(this);
@@ -101,7 +101,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void update() {
-
+        if (shootPressed) {
+            gun.shootBullet(player);
+            shootPressed = false;
+        }
         moveMap();
     }
 
@@ -166,8 +169,8 @@ public class GamePanel extends JPanel implements Runnable {
 
             // Normalize diagonal movement
             if ((upPressed || downPressed) && (leftPressed || rightPressed)) {
-                vx /= Math.sqrt(2);
-                vy /= Math.sqrt(2);
+                vx /= 1.25;
+                vy /= 1.25;
             }
 
             // System.out.println("Vx: " + vx + " Vy: " + vy);
@@ -240,8 +243,8 @@ public class GamePanel extends JPanel implements Runnable {
         zombies.draw(g2d, player);
         player.draw(g2d);
 
-        // gun.draw(g2d, centerX, centerY, player);
-
+        gun.draw(g2d, player);
+        
         // if (shootPressed) {
         // gun.shootBullet(player);
         // shootPressed = false;

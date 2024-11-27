@@ -14,7 +14,7 @@ public class Bullet {
     private int x, y;
     private int startX, startY;
     private PlayerDir direction;
-    private int speed = 10; // Adjust speed as needed
+    private int speed = 2; // Adjust speed as needed
     private int width = 10; // Adjust bullet width as needed
     private int height = 10; // Adjust bullet height as needed
     private int maxDistance; // Maximum distance the bullet can travel
@@ -46,6 +46,8 @@ public class Bullet {
             y += speed;
             cy -= speed;
         }
+
+        
 
         // Check if the bullet has traveled the maximum distance
         if (Math.abs(x - startX) > maxDistance || Math.abs(y - startY) > maxDistance) {
