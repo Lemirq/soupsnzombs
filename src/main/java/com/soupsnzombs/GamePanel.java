@@ -15,6 +15,7 @@ import com.soupsnzombs.utils.Theme;
 
 import java.awt.geom.AffineTransform;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable {
     public enum GameState {
@@ -46,8 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
     private final int GRID_SIZE = 50; // Size of each grid cell
     private final int[] X_Bounds = { -5000, 5000 };
     private final int[] Y_Bounds = { -2000, 2000 };
-    CollisionManager collisionManager = new CollisionManager();
-    AllBuildings buildings = new AllBuildings(collisionManager);
+    AllBuildings buildings = new AllBuildings();
     AllZombies zombies;
     public static boolean upPressed = false;
     public static boolean downPressed = false;
@@ -116,7 +116,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         Images.loadImages();
         player = new Player();
-        zombies = new AllZombies(collisionManager);
+                CollisionManager.addCollidable(player);
+        zombies = new AllZombies();
         // // Load images in background thread
         // new SwingWorker<Void, Void>() {
         // @Override
@@ -177,13 +178,13 @@ public class GamePanel extends JPanel implements Runnable {
 
             // decide if collision happens
             Rectangle newPosition = new Rectangle(player.x - vx, player.y - vy, playerWidth, playerHeight);
+            ArrayList<Rectangle> n = CollisionManager.collidables;
+            n.remove(player);
 
             // System.out.println("New position: X: " + newPosition.x + " Y: " +
             // newPosition.y + " W: " + newPosition.width
             // + " H: " + newPosition.height);
-            if (collisionManager.isColliding(newPosition)) {
-                // System.out.println("Collision detected");
-            } else {
+            if (!CollisionManager.isColliding(newPosition, n)) {
                 offsetX += vx;
                 offsetY += vy;
             }

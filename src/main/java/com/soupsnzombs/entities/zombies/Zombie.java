@@ -3,10 +3,13 @@ package com.soupsnzombs.entities.zombies;
 import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.entities.Entity;
 import com.soupsnzombs.entities.GameObject;
+import com.soupsnzombs.utils.CollisionManager;
 import com.soupsnzombs.utils.Images;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class Zombie extends Entity implements GameObject {
     private static int direction;
@@ -70,23 +73,33 @@ public class Zombie extends Entity implements GameObject {
     }
 
 
+
     public void chasePlayer(Rectangle player) {
-        int playerX = player.x - GamePanel.offsetX;
-        int playerY = player.y - GamePanel.offsetY;
+        int vy = 0;
+        int vx = 0;
 
         // System.out.println("Player X: " + playerX + " Player Y: " + playerY);
 
         if (x < GamePanel.offsetX) {
-            x += movementSpeed;
+            vx += movementSpeed;
         } else if (x > GamePanel.offsetX) {
-            x -= movementSpeed;
+            vx -= movementSpeed;
         }
 
         if (y < GamePanel.offsetY) {
-            y += movementSpeed;
+            vy += movementSpeed;
         } else if (y > GamePanel.offsetY) {
-            y -= movementSpeed;
+            vy -= movementSpeed;
         }
+
+        Rectangle rect = new Rectangle(x + vx, y + vy, width, height);
+        ArrayList<Rectangle> newCollisions = CollisionManager.collidables;
+        newCollisions.remove(this);
+        if(!CollisionManager.isColliding(rect, newCollisions)){
+            x += vx;
+            y+= vy;
+        }
+
     }
 
 

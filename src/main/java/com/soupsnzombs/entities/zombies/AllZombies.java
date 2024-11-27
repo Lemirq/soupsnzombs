@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.buildings.Building;
 import com.soupsnzombs.entities.Bullet;
 import com.soupsnzombs.entities.Gun;
 import com.soupsnzombs.utils.CollisionManager;
@@ -19,7 +20,7 @@ public class AllZombies {
         zombies.add(z);
     }
 
-    public AllZombies(CollisionManager mgr) {
+    public AllZombies() {
         zombies.add(new Zombie(-10, -10));
         //zombies.add(new Zombie(100, 100));
         //zombies.add(new Zombie(200, 200));
@@ -29,7 +30,9 @@ public class AllZombies {
         // for (Zombie z : zombies) {
         // mgr.addCollidable(z);
         // }
-
+        for (Zombie z : zombies) {
+            CollisionManager.addCollidable(z);
+        }
     }
 
     public void draw(Graphics2D g2d, Rectangle player) {
