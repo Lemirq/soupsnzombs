@@ -97,4 +97,11 @@ public class MenuGUI {
             System.out.println(GamePanel.gameState);
         }
     }
+
+    public void checkCredits() {
+        if (selected == 2 && pressed) { //selected == 2 means "Instructions"
+            GamePanel.gameState = GamePanel.GameState.CREDITS;
+            System.out.println(GamePanel.gameState);
+        }
+    }
 }

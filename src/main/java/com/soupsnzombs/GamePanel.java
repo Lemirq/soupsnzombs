@@ -2,6 +2,7 @@ package com.soupsnzombs;
 
 import javax.swing.*;
 
+import com.soupsnzombs.UI.MainMenu.Credits;
 import com.soupsnzombs.UI.MainMenu.Instructions;
 import com.soupsnzombs.UI.MainMenu.MenuGUI;
 import com.soupsnzombs.UI.Shop.MainShop;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable {
     public enum GameState {
-        MAIN_MENU, OPTIONS, GAME, PAUSE, GAMEOVER, SHOP, SCORES, INSTRUCTIONS
+        MAIN_MENU, OPTIONS, GAME, PAUSE, GAMEOVER, SHOP, SCORES, INSTRUCTIONS, CREDITS
     }
 
     public enum PlayerDir {
@@ -62,6 +63,7 @@ public class GamePanel extends JPanel implements Runnable {
     public MainShop shop = new MainShop();
     public Scores scores = new Scores();
     public Instructions instruct = new Instructions();
+    public Credits credits = new Credits();
     Boundary boundary = new Boundary();
 
     public Gun gun = new Gun(5, 5, 600, 5, 5, 5, 5);
@@ -211,12 +213,20 @@ public class GamePanel extends JPanel implements Runnable {
             menu.drawMenu(g2d);
             menu.checkPlay();
             menu.checkScores();
+            menu.checkCredits();
             return;
         }
 
         // Instrucitons
         if (gameState == GameState.INSTRUCTIONS){
             instruct.drawInstructions(g2d);
+            return;
+        }
+
+        //Credits
+        if (gameState == GameState.CREDITS){
+            credits.drawCredits(g2d);
+            return;
         }
 
         // shop
