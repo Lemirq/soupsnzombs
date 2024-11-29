@@ -15,7 +15,9 @@ import com.soupsnzombs.UI.Shop.MainShop;
 
 public class MainFrame extends JFrame {
     GamePanel game;
-    Boolean released = true; //trigger for non-automatic guns
+    Boolean released = true; // trigger for non-automatic guns
+    // KeyHandler class to handle key events
+
     private class KeyHandler extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
@@ -72,7 +74,7 @@ public class MainFrame extends JFrame {
                     MenuGUI.pressed = true;
                     break;
 
-                    case KeyEvent.VK_P:
+                case KeyEvent.VK_P:
                     if (GamePanel.gameState == GameState.SCORES) {
                         GamePanel.gameState = GameState.MAIN_MENU;
                     } else if (GamePanel.gameState == GameState.GAME || GamePanel.gameState == GameState.SHOP) {
@@ -83,7 +85,6 @@ public class MainFrame extends JFrame {
 
                     }
                     break;
-                
 
                 case KeyEvent.VK_SPACE:
                     if (released) {
@@ -118,8 +119,7 @@ public class MainFrame extends JFrame {
                 case KeyEvent.VK_ENTER:
                     MenuGUI.pressed = false;
                     break;
-
-case KeyEvent.VK_SPACE:
+                case KeyEvent.VK_SPACE:
                     released = true;
                     break;
             }
