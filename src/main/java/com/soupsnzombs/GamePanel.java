@@ -1,6 +1,8 @@
 package com.soupsnzombs;
 
 import javax.swing.*;
+
+import com.soupsnzombs.UI.MainMenu.Instructions;
 import com.soupsnzombs.UI.MainMenu.MenuGUI;
 import com.soupsnzombs.UI.Shop.MainShop;
 import com.soupsnzombs.UI.MainMenu.Scores;
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable {
     public enum GameState {
-        MAIN_MENU, OPTIONS, GAME, PAUSE, GAMEOVER, SHOP, SCORES
+        MAIN_MENU, OPTIONS, GAME, PAUSE, GAMEOVER, SHOP, SCORES, INSTRUCTIONS
     }
 
     public enum PlayerDir {
@@ -40,11 +42,11 @@ public class GamePanel extends JPanel implements Runnable {
     public static int offsetY = 0; // Offset for the grid's Y position
     public static int MOVE_SPEED = 1; // Speed of movement
     public static AffineTransform oldTransformation;
+    Map map = new Map();
     public static int screenWidth = 1200;
     public static int screenHeight = 900;
 
     // Grid variables
-    private final int GRID_SIZE = 50; // Size of each grid cell
     private final int[] X_Bounds = { -5000, 5000 };
     private final int[] Y_Bounds = { -2000, 2000 };
     AllBuildings buildings = new AllBuildings();
@@ -59,10 +61,11 @@ public class GamePanel extends JPanel implements Runnable {
     public MenuGUI menu = new MenuGUI();
     public MainShop shop = new MainShop();
     public Scores scores = new Scores();
+    public Instructions instruct = new Instructions();
     Boundary boundary = new Boundary();
 
     public Gun gun = new Gun(5, 5, 600, 5, 5, 5, 5);
-    
+
     public synchronized void start() {
         running = true;
         gameThread = new Thread(this);
@@ -116,7 +119,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         Images.loadImages();
         player = new Player();
-                CollisionManager.addCollidable(player);
+        CollisionManager.addCollidable(player);
         zombies = new AllZombies();
         // // Load images in background thread
         // new SwingWorker<Void, Void>() {
@@ -191,6 +194,11 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * Paints the game panel
+     * 
+     * @param g Graphics objecta
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
@@ -204,6 +212,11 @@ public class GamePanel extends JPanel implements Runnable {
             menu.checkPlay();
             menu.checkScores();
             return;
+        }
+
+        // Instrucitons
+        if (gameState == GameState.INSTRUCTIONS){
+            instruct.drawInstructions(g2d);
         }
 
         // shop
@@ -222,15 +235,7 @@ public class GamePanel extends JPanel implements Runnable {
         int centerX = screenWidth / 2;
         int centerY = screenHeight / 2;
 
-        // draw grid
-        g2d.setStroke(new BasicStroke(4));
-        g2d.setColor(Theme.GRID);
-        for (int x = offsetX % GRID_SIZE; x < getWidth(); x += GRID_SIZE) {
-            g2d.drawLine(x, 0, x, getHeight());
-        }
-        for (int y = offsetY % GRID_SIZE; y < getHeight(); y += GRID_SIZE) {
-            g2d.drawLine(0, y, getWidth(), y);
-        }
+        map.draw(g2d, getWidth(), getHeight());
 
         g2d.setTransform(oldTransformation);
         // macbook
@@ -245,7 +250,7 @@ public class GamePanel extends JPanel implements Runnable {
         player.draw(g2d);
 
         gun.draw(g2d, player);
-        
+
         // if (shootPressed) {
         // gun.shootBullet(player);
         // shootPressed = false;
