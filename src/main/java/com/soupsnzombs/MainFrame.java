@@ -78,6 +78,9 @@ public class MainFrame extends JFrame {
                     } else if (GamePanel.gameState == GameState.GAME || GamePanel.gameState == GameState.SHOP) {
                         MainShop.open = !MainShop.open;
                         GamePanel.gameState = MainShop.open ? GameState.SHOP : GameState.GAME;
+                    } else if(GamePanel.gameState == GameState.INSTRUCTIONS){
+                        GamePanel.gameState = GameState.GAME;
+
                     }
                     break;
                 
