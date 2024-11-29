@@ -40,11 +40,11 @@ public class GamePanel extends JPanel implements Runnable {
     public static int offsetY = 0; // Offset for the grid's Y position
     public static int MOVE_SPEED = 1; // Speed of movement
     public static AffineTransform oldTransformation;
+    Map map = new Map();
     public static int screenWidth = 1200;
     public static int screenHeight = 900;
 
     // Grid variables
-    private final int GRID_SIZE = 50; // Size of each grid cell
     private final int[] X_Bounds = { -5000, 5000 };
     private final int[] Y_Bounds = { -2000, 2000 };
     AllBuildings buildings = new AllBuildings();
