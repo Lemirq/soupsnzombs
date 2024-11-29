@@ -27,22 +27,34 @@ public class Player extends Entity implements GameObject {
         this.health = 100;
     }
 
-    // Method to decrease health
+    /**
+     * @return the health
+     * @param healthAmount the health to set
+     */
     public void decreaseHealth(int healthAmount) {
         this.health -= healthAmount;
     }
 
-    // Method to increase health
+    /**
+     * @return the health
+     * @param healthAmount the health to set
+     */
     public void increaseHealth(int healthAmount) {
         this.health += healthAmount;
     }
 
-    // Method to add cash
+    /**
+     * @return the money
+     * @param moneyAmount the money to set
+     */
     public void addMoney(int moneyAmount) {
         money += moneyAmount;
     }
 
-    // Method to remove cash
+    /**
+     * @return the money
+     * @param moneyAmount the money to set
+     */
     public void removeMoney(int moneyAmount) {
         money -= moneyAmount;
     }

@@ -43,9 +43,9 @@ public class GamePanel extends JPanel implements Runnable {
     public static int screenHeight = 900;
 
     // Grid variables
-    private final int GRID_SIZE = 50; // Size of each grid cell
-    private final int[] X_Bounds = { -5000, 5000 };
-    private final int[] Y_Bounds = { -2000, 2000 };
+    public static final int[] X_Bounds = { -5000, 5000 };
+    public static final int[] Y_Bounds = { -2000, 2000 };
+    Map map = new Map();
     CollisionManager collisionManager = new CollisionManager();
     AllBuildings buildings = new AllBuildings(collisionManager);
     AllZombies zombies;
@@ -60,7 +60,6 @@ public class GamePanel extends JPanel implements Runnable {
     public MainShop shop = new MainShop();
     Boundary boundary = new Boundary();
 
-    // public Gun gun = new Gun(5, 5, 5, 5, 5, 5, 5);
     public synchronized void start() {
         running = true;
         gameThread = new Thread(this);
@@ -99,7 +98,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void update() {
-
         moveMap();
     }
 
@@ -185,6 +183,11 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    /**
+     * Paints the game panel
+     * 
+     * @param g Graphics objecta
+     */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
@@ -209,15 +212,7 @@ public class GamePanel extends JPanel implements Runnable {
         int centerX = screenWidth / 2;
         int centerY = screenHeight / 2;
 
-        // draw grid
-        g2d.setStroke(new BasicStroke(4));
-        g2d.setColor(Theme.GRID);
-        for (int x = offsetX % GRID_SIZE; x < getWidth(); x += GRID_SIZE) {
-            g2d.drawLine(x, 0, x, getHeight());
-        }
-        for (int y = offsetY % GRID_SIZE; y < getHeight(); y += GRID_SIZE) {
-            g2d.drawLine(0, y, getWidth(), y);
-        }
+        map.draw(g2d, getWidth(), getHeight());
 
         g2d.setTransform(oldTransformation);
         // macbook

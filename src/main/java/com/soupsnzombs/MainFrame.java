@@ -15,6 +15,7 @@ import com.soupsnzombs.UI.Shop.MainShop;
 public class MainFrame extends JFrame {
     GamePanel game;
 
+    // KeyHandler class to handle key events
     private class KeyHandler extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
@@ -111,7 +112,6 @@ public class MainFrame extends JFrame {
                     MenuGUI.play = false;
                     break;
 
-                
             }
         }
     }

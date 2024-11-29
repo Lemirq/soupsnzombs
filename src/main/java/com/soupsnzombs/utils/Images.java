@@ -23,11 +23,13 @@ public class Images {
     // public static ArrayList<BufferedImage> gunfire = new ArrayList<>();
 
     public static BufferedImage player_idle, circle, gun, bullet, tree, shop, gameMenu, background,
-            playButton, creditsButton, scoresButton, arrowImage, shopBackground;
+            playButton, creditsButton, scoresButton, arrowImage, shopBackground, grass;
     public static HashMap<String, BufferedImage> spriteImages = new HashMap<>();
+    public static HashMap<String, BufferedImage> tileImages = new HashMap<>();
 
     public static void loadImages() {
-        ArrayList<SpriteImage> sprites = readXML();
+        ArrayList<SpriteImage> sprites = readXML("s.xml");
+        ArrayList<SpriteImage> tilesheet = readXML("t.xml");
         try {
             // main menu images
             background = ImageIO.read(Images.class.getResource("/bg.jpeg"));
@@ -35,11 +37,13 @@ public class Images {
             scoresButton = ImageIO.read(Images.class.getResource("/buttons/scores.png"));
             creditsButton = ImageIO.read(Images.class.getResource("/buttons/credits.png"));
             arrowImage = ImageIO.read(Images.class.getResource("/arrow.png"));
+            grass = ImageIO.read(Images.class.getResource("/grass.png"));
             // shop menu buttons
             playButton = scaleImage(playButton, 150, 50);
             scoresButton = scaleImage(scoresButton, 150, 50);
             creditsButton = scaleImage(creditsButton, 150, 50);
             arrowImage = scaleImage(arrowImage, 51, 130 / 2);
+            shopBackground = ImageIO.read(Images.class.getResource("/SoupsNZombsShop.png"));
 
             // get the spritesheet, crop image, and set the spriteImages hashmap
             BufferedImage spriteSheet = ImageIO.read(Images.class.getResource("/spritesheet.png"));
@@ -48,10 +52,13 @@ public class Images {
                 spriteImages.put(sprite.name, croppedImage);
                 shopBackground = ImageIO.read(Images.class.getResource("/SoupsNZombsShop.png"));
             }
-            // shop menu images
-            shopBackground = ImageIO.read(Images.class.getResource("/SoupsNZombsShop.png"));
 
-            // shop menu buttons
+            // get the tilesheet, crop image, and set the tileImages hashmap
+            BufferedImage tileSheet = ImageIO.read(Images.class.getResource("/tilesheet.png"));
+            for (SpriteImage tile : tilesheet) {
+                BufferedImage croppedImage = tileSheet.getSubimage(tile.x, tile.y, tile.width, tile.height);
+                tileImages.put(tile.name, croppedImage);
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -65,7 +72,7 @@ public class Images {
         return bufferedScaledImage;
     }
 
-    private static ArrayList<SpriteImage> readXML() {
+    private static ArrayList<SpriteImage> readXML(String path) {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
         try {
@@ -73,7 +80,7 @@ public class Images {
 
             // parse XML file
             DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(Images.class.getResourceAsStream("/s.xml"));
+            Document doc = db.parse(Images.class.getResourceAsStream("/" + path));
             doc.getDocumentElement().normalize();
 
             System.out.println("Root Element :" + doc.getDocumentElement().getNodeName());
