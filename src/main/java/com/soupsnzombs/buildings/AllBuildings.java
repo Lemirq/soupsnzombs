@@ -13,7 +13,7 @@ public class AllBuildings {
         buildings.add(b);
     }
 
-    public AllBuildings(CollisionManager mgr) {
+    public AllBuildings() {
         buildings.add(new GenericBuilding(-10, -10, 300, 50));
         buildings.add(new GenericBuilding(100, 100, 50, 50));
         buildings.add(new GenericBuilding(200, 200, 50, 50));
@@ -21,7 +21,7 @@ public class AllBuildings {
         buildings.add(new GenericBuilding(400, 400, 50, 50));
         buildings.add(new GenericBuilding(500, 500, 50, 50));
         for (Building b : buildings) {
-            mgr.addCollidable(b);
+            CollisionManager.addCollidable(b);
         }
 
     }

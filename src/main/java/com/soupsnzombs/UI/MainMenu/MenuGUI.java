@@ -8,7 +8,7 @@ import com.soupsnzombs.utils.Images;
 public class MenuGUI {
     public static int selected = 0;
 
-    public static boolean play = false;
+    public static boolean pressed = false;
 
     public MenuGUI() {
         // Load the images
@@ -85,8 +85,15 @@ public class MenuGUI {
     }
 
     public void checkPlay() {
-        if (selected == 0 && play) { // Assuming selected == 1 means "Play"
+        if (selected == 0 && pressed) { //selected == 0 means "Play"
             GamePanel.gameState = GamePanel.GameState.GAME;
+        }
+    }
+
+    public void checkScores() {
+        if (selected == 1 && pressed) { //selected == 1 means "Scores"
+            GamePanel.gameState = GamePanel.GameState.SCORES;
+            System.out.println(GamePanel.gameState);
         }
     }
 }

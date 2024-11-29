@@ -4,15 +4,17 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 
 public class CollisionManager {
-    private ArrayList<Rectangle> collidables = new ArrayList<>();
+    public static ArrayList<Rectangle> collidables = new ArrayList<>();
 
-    public void addCollidable(Rectangle b) {
+    public static void addCollidable(Rectangle b) {
         collidables.add(b);
     }
 
-    public boolean isColliding(Rectangle rect) {
-        // print collidable details
-        for (Rectangle collidable : collidables) {
+    public static ArrayList<Rectangle> getCollidables() {
+        return collidables;
+    }
+    public static boolean isColliding(Rectangle rect, ArrayList<Rectangle>c) {
+        for (Rectangle collidable : c) {
             // System.out.println("Collidable: " + collidable.x + " " + collidable.y + " " +
             // collidable.width + " "
             // + collidable.height);

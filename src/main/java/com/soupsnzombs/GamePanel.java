@@ -1,9 +1,9 @@
 package com.soupsnzombs;
 
 import javax.swing.*;
-
 import com.soupsnzombs.UI.MainMenu.MenuGUI;
 import com.soupsnzombs.UI.Shop.MainShop;
+import com.soupsnzombs.UI.MainMenu.Scores;
 import com.soupsnzombs.buildings.AllBuildings;
 import com.soupsnzombs.entities.Boundary;
 import com.soupsnzombs.entities.Gun;
@@ -15,10 +15,11 @@ import com.soupsnzombs.utils.Theme;
 
 import java.awt.geom.AffineTransform;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable {
     public enum GameState {
-        MAIN_MENU, OPTIONS, GAME, PAUSE, GAMEOVER, SHOP
+        MAIN_MENU, OPTIONS, GAME, PAUSE, GAMEOVER, SHOP, SCORES
     }
 
     public enum PlayerDir {
@@ -43,11 +44,10 @@ public class GamePanel extends JPanel implements Runnable {
     public static int screenHeight = 900;
 
     // Grid variables
-    public static final int[] X_Bounds = { -5000, 5000 };
-    public static final int[] Y_Bounds = { -2000, 2000 };
-    Map map = new Map();
-    CollisionManager collisionManager = new CollisionManager();
-    AllBuildings buildings = new AllBuildings(collisionManager);
+    private final int GRID_SIZE = 50; // Size of each grid cell
+    private final int[] X_Bounds = { -5000, 5000 };
+    private final int[] Y_Bounds = { -2000, 2000 };
+    AllBuildings buildings = new AllBuildings();
     AllZombies zombies;
     public static boolean upPressed = false;
     public static boolean downPressed = false;
@@ -58,7 +58,10 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player;
     public MenuGUI menu = new MenuGUI();
     public MainShop shop = new MainShop();
+    public Scores scores = new Scores();
     Boundary boundary = new Boundary();
+
+    public Gun gun = new Gun(5, 5, 600, 5, 5, 5, 5);
 
     public synchronized void start() {
         running = true;
@@ -98,6 +101,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void update() {
+        if (shootPressed) {
+            gun.shootBullet(player);
+            shootPressed = false;
+        }
         moveMap();
     }
 
@@ -109,7 +116,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         Images.loadImages();
         player = new Player();
-        zombies = new AllZombies(collisionManager);
+        CollisionManager.addCollidable(player);
+        zombies = new AllZombies();
         // // Load images in background thread
         // new SwingWorker<Void, Void>() {
         // @Override
@@ -162,21 +170,21 @@ public class GamePanel extends JPanel implements Runnable {
 
             // Normalize diagonal movement
             if ((upPressed || downPressed) && (leftPressed || rightPressed)) {
-                vx /= Math.sqrt(2);
-                vy /= Math.sqrt(2);
+                vx /= 1.25;
+                vy /= 1.25;
             }
 
             // System.out.println("Vx: " + vx + " Vy: " + vy);
 
             // decide if collision happens
             Rectangle newPosition = new Rectangle(player.x - vx, player.y - vy, playerWidth, playerHeight);
+            ArrayList<Rectangle> n = CollisionManager.collidables;
+            n.remove(player);
 
             // System.out.println("New position: X: " + newPosition.x + " Y: " +
             // newPosition.y + " W: " + newPosition.width
             // + " H: " + newPosition.height);
-            if (collisionManager.isColliding(newPosition)) {
-                // System.out.println("Collision detected");
-            } else {
+            if (!CollisionManager.isColliding(newPosition, n)) {
                 offsetX += vx;
                 offsetY += vy;
             }
@@ -199,6 +207,7 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == GameState.MAIN_MENU) {
             menu.drawMenu(g2d);
             menu.checkPlay();
+            menu.checkScores();
             return;
         }
 
@@ -206,6 +215,12 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == GameState.SHOP) {
             shop.drawShop(g2d);
             shop.checkShop();
+            return;
+        }
+
+        // scores
+        if (gameState == GameState.SCORES) {
+            scores.drawScores(g2d);
             return;
         }
 
@@ -226,7 +241,7 @@ public class GamePanel extends JPanel implements Runnable {
         zombies.draw(g2d, player);
         player.draw(g2d);
 
-        // gun.draw(g2d, centerX, centerY, player);
+        gun.draw(g2d, player);
 
         // if (shootPressed) {
         // gun.shootBullet(player);

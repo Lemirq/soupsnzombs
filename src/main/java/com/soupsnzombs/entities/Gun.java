@@ -17,7 +17,7 @@ public class Gun extends Entity {
     private int reloadTime;
     private int bulletSpeed;
     public static ArrayList<Bullet> bullets = new ArrayList<>();
-    
+    //boolean released ; //for the basic gun, you need to spam space; perhaps for automatics, this can be removed. 
 
     public Gun(int damage, int fireRate, int range, int ammo, int maxAmmo, int reloadTime, int bulletSpeed) {
         super(0, 0, 0, 0, 0, 0);
@@ -109,22 +109,42 @@ public class Gun extends Entity {
         int centerX = GamePanel.screenWidth / 2;
         int centerY = GamePanel.screenHeight / 2;
 
-        if (GamePanel.direction == PlayerDir.LEFT) {
-            gunMouthX = centerX - Images.gun.getWidth();
-            gunMouthY = centerY + 35;
-        } else {
-            gunMouthX = centerX + player.width / 2 - 40;
-            gunMouthY = centerY + 35;
+        switch (GamePanel.direction) {
+            case UP:
+                gunMouthX = centerX + 50;
+                gunMouthY = centerY + player.height/2;  
+                break;
+        
+            case LEFT:
+                gunMouthX = centerX - 50;
+                gunMouthY = centerY + player.height/2;
+                break;
+
+            case RIGHT:
+                gunMouthX = centerX + 50;
+                gunMouthY = (centerY + player.height/2) - 10;
+                break;
+
+            case DOWN:
+                gunMouthY = centerY;
+                break;
         }
+ 
+            gunMouthX = centerX;
+            gunMouthY = centerY;
+  
+        
 
         // Create a new bullet object
 
-        // calculate x and y position of the gun mouth
+        // calculate x and y position of the gun mouth 
         int collisionX = player.getBounds().x;
         int collisionY = player.getBounds().y + 20;
         Bullet newBullet = new Bullet(gunMouthX, gunMouthY, collisionX, collisionY, GamePanel.direction, this.range);
         // Add the bullet to the list of bullets
         bullets.add(newBullet);
+
+       System.out.println(bullets.size() );
     }
 
     public void updateBullets() {
@@ -135,30 +155,21 @@ public class Gun extends Entity {
             bullet.update();
             if (Math.abs(bullet.getX() - bullet.getStartX()) > bullet.getMaxDistance() ||
                     Math.abs(bullet.getY() - bullet.getStartY()) > bullet.getMaxDistance()) {
+                        System.out.println("Removing " + bullet);
                 iterator.remove();
             }
         }
     }
 
-    public void draw(Graphics2D g2d, int centerXPlayer, int centerYPlayer, Player player) {
+    public void draw(Graphics2D g2d, Player player) {
         updateBullets();
-
-        // Draw the gun
-        if (GamePanel.direction == PlayerDir.LEFT) {
-            g2d.translate(centerXPlayer - 70 + player.width / 2,
-                    centerYPlayer + 40 + player.height / 2);
-            g2d.scale(-1, 1);
-            g2d.drawImage(Images.gun, -Images.gun.getWidth(), -Images.gun.getHeight() / 2, null);
-        } else {
-            g2d.translate(centerXPlayer + player.width / 2,
-                    centerYPlayer + 40 + player.height / 2);
-            g2d.drawImage(Images.gun, 0, -Images.gun.getHeight() / 2, null);
-        }
-        g2d.setTransform(GamePanel.oldTransformation);
-
+        int centerXPlayer = GamePanel.screenWidth / 2 - width / 2;
+        int centerYPlayer = GamePanel.screenHeight / 2 - height / 2;
+        g2d.drawRect(centerXPlayer, centerYPlayer, 20, 20);
         // Draw the bullets
         for (Bullet bullet : Gun.bullets) {
             bullet.draw(g2d);
+            //System.out.println("Bullet is at: " + bullet.cx + " " + bullet.cy);
         }
     }
 }

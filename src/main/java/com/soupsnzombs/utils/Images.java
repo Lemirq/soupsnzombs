@@ -23,7 +23,7 @@ public class Images {
     // public static ArrayList<BufferedImage> gunfire = new ArrayList<>();
 
     public static BufferedImage player_idle, circle, gun, bullet, tree, shop, gameMenu, background,
-            playButton, creditsButton, scoresButton, arrowImage, shopBackground, grass;
+            playButton, creditsButton, scoresButton, arrowImage, shopBackground, scoresbg, grass;
     public static HashMap<String, BufferedImage> spriteImages = new HashMap<>();
     public static HashMap<String, BufferedImage> tileImages = new HashMap<>();
 
@@ -59,6 +59,9 @@ public class Images {
                 BufferedImage croppedImage = tileSheet.getSubimage(tile.x, tile.y, tile.width, tile.height);
                 tileImages.put(tile.name, croppedImage);
             }
+
+            // scores image
+            scoresbg = ImageIO.read(Images.class.getResource("/SCORES.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
