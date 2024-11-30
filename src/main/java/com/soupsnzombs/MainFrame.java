@@ -81,7 +81,9 @@ public class MainFrame extends JFrame {
                         MainShop.open = !MainShop.open;
                         GamePanel.gameState = MainShop.open ? GameState.SHOP : GameState.GAME;
                     } else if(GamePanel.gameState == GameState.INSTRUCTIONS){
-                        GamePanel.gameState = GameState.GAME;
+                        GamePanel.gameState = GameState.NAME_SELECT;
+                    // } else if(GamePanel.gameState == GameState.NAME_SELECT){
+                    //     GamePanel.gameState = GameState.GAME;
                     }else if (GamePanel.gameState == GameState.CREDITS){
                         GamePanel.gameState = GameState.MAIN_MENU;
                     }

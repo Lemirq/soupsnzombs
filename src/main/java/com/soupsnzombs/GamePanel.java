@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable {
     public enum GameState {
-        MAIN_MENU, OPTIONS, GAME, PAUSE, GAMEOVER, SHOP, SCORES, INSTRUCTIONS, CREDITS
+        MAIN_MENU, OPTIONS, GAME, PAUSE, GAMEOVER, SHOP, SCORES, INSTRUCTIONS, CREDITS, NAME_SELECT
     }
 
     public enum PlayerDir {
