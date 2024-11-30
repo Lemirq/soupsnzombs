@@ -11,7 +11,6 @@ public class Instructions {
     }
 
     public void drawInstructions(Graphics2D g2d) {
-        if (GamePanel.gameState == GamePanel.GameState.INSTRUCTIONS) {
             // Draw the background
             g2d.drawImage(Images.scoresbg, 0, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);
             // g2d.setColor(Color.DARK_GRAY);
@@ -20,7 +19,6 @@ public class Instructions {
             g2d.setFont(new Font("Lucida Console", Font.BOLD, 45));
             g2d.drawString("Instructions (unfinished) p to exit", GamePanel.screenWidth / 2 - ("Instructions (unfinished) p to exit".length() * 28) / 2, GamePanel.screenHeight / 4);
 
-        }
     }
 
 

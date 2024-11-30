@@ -6,10 +6,12 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 
+import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.GamePanel.GameState;
 import com.soupsnzombs.GamePanel.PlayerDir;
 
 import com.soupsnzombs.UI.MainMenu.MenuGUI;
+import com.soupsnzombs.UI.MainMenu.NameSelect;
 import com.soupsnzombs.UI.MainMenu.Scores;
 import com.soupsnzombs.UI.Shop.MainShop;
 
@@ -34,11 +36,25 @@ public class MainFrame extends JFrame {
                 case KeyEvent.VK_W:
                     GamePanel.upPressed = true;
                     GamePanel.direction = PlayerDir.UP;
+
+                    if (GamePanel.gameState == GameState.NAME_SELECT) {
+                        NameSelect.cursorRow = Math.max(0, NameSelect.cursorRow - 1);
+                        NameSelect.adjustCursorForSpaceBackspace();
+                        game.repaint();
+                        game.revalidate();
+
+                    }
                     break;
 
                 case KeyEvent.VK_S:
                     GamePanel.downPressed = true;
                     GamePanel.direction = PlayerDir.DOWN;
+                    if (GamePanel.gameState == GameState.NAME_SELECT) {
+                        NameSelect.cursorRow = Math.min(NameSelect.keyboardLayout.length - 1, NameSelect.cursorRow + 1);
+                        NameSelect.adjustCursorForSpaceBackspace();
+                        game.repaint();
+                        game.revalidate();
+                    }
                     // Add more cases if needed
                     break;
                 case KeyEvent.VK_A:
@@ -50,6 +66,11 @@ public class MainFrame extends JFrame {
                         } else {
                             MenuGUI.selected--;
                         }
+                    } else if (GamePanel.gameState == GameState.NAME_SELECT) {
+                        NameSelect.cursorCol = Math.max(0, NameSelect.cursorCol - 1);
+                        NameSelect.adjustCursorForSpaceBackspace();
+                        game.repaint();
+                        game.revalidate();
                     }
                     if (GamePanel.gameState == GameState.GAME) {
                         GamePanel.leftPressed = true;
@@ -64,6 +85,12 @@ public class MainFrame extends JFrame {
                         } else {
                             MenuGUI.selected++;
                         }
+                    } else if (GamePanel.gameState == GameState.NAME_SELECT) {
+                        NameSelect.cursorCol = Math.min(NameSelect.keyboardLayout[NameSelect.cursorRow].length - 1,
+                                NameSelect.cursorCol + 1);
+                        NameSelect.adjustCursorForSpaceBackspace();
+                        game.repaint();
+                        game.revalidate();
                     }
                     if (GamePanel.gameState == GameState.GAME) {
                         GamePanel.rightPressed = true;
@@ -71,20 +98,42 @@ public class MainFrame extends JFrame {
                     }
                     break;
                 case KeyEvent.VK_ENTER:
+                    if (GamePanel.gameState == GameState.NAME_SELECT) {
+                        if ("Space".equals(NameSelect.keyboardLayout[NameSelect.cursorRow][NameSelect.cursorCol])) {
+                            if (NameSelect.name.length() < NameSelect.MAX_NAME_LENGTH) {
+                                NameSelect.name.append(" ");
+                            }
+                        } else if ("Backspace"
+                                .equals(NameSelect.keyboardLayout[NameSelect.cursorRow][NameSelect.cursorCol])) {
+                            if (NameSelect.name.length() > 0) {
+                                NameSelect.name.deleteCharAt(NameSelect.name.length() - 1);
+                            }
+                        } else {
+                            if (NameSelect.name.length() < NameSelect.MAX_NAME_LENGTH) {
+                                NameSelect.name
+                                        .append(NameSelect.keyboardLayout[NameSelect.cursorRow][NameSelect.cursorCol]);
+                            }
+                        }
+                        game.repaint();
+                        game.revalidate();
+                    }
                     MenuGUI.pressed = true;
                     break;
 
                 case KeyEvent.VK_P:
                     if (GamePanel.gameState == GameState.SCORES) {
                         GamePanel.gameState = GameState.MAIN_MENU;
+                    } else if (GamePanel.gameState == GameState.INSTRUCTIONS) {
+                        GamePanel.gameState = GameState.NAME_SELECT;
+                    } else if (GamePanel.gameState == GameState.NAME_SELECT) {
+                        System.out.println("done");
+                        // write a setter method for leader board name using this(for Ryan):
+                        //NameSelect.name.toString();
+                        GamePanel.gameState = GameState.GAME;
                     } else if (GamePanel.gameState == GameState.GAME || GamePanel.gameState == GameState.SHOP) {
                         MainShop.open = !MainShop.open;
                         GamePanel.gameState = MainShop.open ? GameState.SHOP : GameState.GAME;
-                    } else if(GamePanel.gameState == GameState.INSTRUCTIONS){
-                        GamePanel.gameState = GameState.NAME_SELECT;
-                    // } else if(GamePanel.gameState == GameState.NAME_SELECT){
-                    //     GamePanel.gameState = GameState.GAME;
-                    }else if (GamePanel.gameState == GameState.CREDITS){
+                    } else if (GamePanel.gameState == GameState.CREDITS) {
                         GamePanel.gameState = GameState.MAIN_MENU;
                     }
                     break;

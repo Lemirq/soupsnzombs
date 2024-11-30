@@ -5,6 +5,7 @@ import javax.swing.*;
 import com.soupsnzombs.UI.MainMenu.Credits;
 import com.soupsnzombs.UI.MainMenu.Instructions;
 import com.soupsnzombs.UI.MainMenu.MenuGUI;
+import com.soupsnzombs.UI.MainMenu.NameSelect;
 import com.soupsnzombs.UI.Shop.MainShop;
 import com.soupsnzombs.UI.MainMenu.Scores;
 import com.soupsnzombs.buildings.AllBuildings;
@@ -60,6 +61,7 @@ public class GamePanel extends JPanel implements Runnable {
     public static PlayerDir direction = PlayerDir.UP;
     public Player player;
     public MenuGUI menu = new MenuGUI();
+    public NameSelect name = new NameSelect();
     public MainShop shop = new MainShop();
     public Scores scores = new Scores();
     public Instructions instruct = new Instructions();
@@ -218,13 +220,21 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         // Instrucitons
-        if (gameState == GameState.INSTRUCTIONS){
+        if (gameState == GameState.INSTRUCTIONS) {
             instruct.drawInstructions(g2d);
             return;
         }
 
-        //Credits
-        if (gameState == GameState.CREDITS){
+        // prompt name
+        if (gameState == GameState.NAME_SELECT) {
+            name.drawKeyboard(g2d);
+            name.drawName(g2d);
+            name.drawInstructions(g2d);
+            return;
+        }
+
+        // Credits
+        if (gameState == GameState.CREDITS) {
             credits.drawCredits(g2d);
             return;
         }
@@ -283,5 +293,4 @@ public class GamePanel extends JPanel implements Runnable {
         g2d.drawString("Top: " + topBoundary, 10, getHeight() - 50);
         g2d.drawString("Bottom: " + bottomBoundary, 10, getHeight() - 70);
     }
-
 }
