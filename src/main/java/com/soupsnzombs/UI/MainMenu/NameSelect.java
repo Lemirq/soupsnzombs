@@ -1,6 +1,5 @@
 package com.soupsnzombs.UI.MainMenu;
 
-import com.soupsnzombs.GamePanel;
 import java.awt.*;
 
 public class NameSelect {
@@ -11,8 +10,6 @@ public class NameSelect {
         {"Z", "X", "C", "V", "B", "N", "M"},
         {"Space", "Backspace"}
     };
-
-    private GamePanel gamePanel;
     public static int cursorRow = 0;
     public static int cursorCol = 0;
     public static StringBuilder name = new StringBuilder();
