@@ -100,18 +100,20 @@ public class Player extends Entity implements GameObject {
 
         g2d.setTransform(GamePanel.oldTransformation);
 
-        // draw map coordinates next to player for debugging
-        g2d.setColor(Color.RED);
-        g2d.drawString("CX: " + centerXPlayer + " CY: " + centerYPlayer, 20,
-                10);
-        g2d.drawString("OX: " + GamePanel.offsetX + " OY: " + GamePanel.offsetY, 20,
-                20);
+        if (GamePanel.debugging) {
+            // draw map coordinates next to player for debugging
+            g2d.setColor(Color.RED);
+            g2d.drawString("CX: " + centerXPlayer + " CY: " + centerYPlayer, 20,
+                    10);
+            g2d.drawString("OX: " + GamePanel.offsetX + " OY: " + GamePanel.offsetY, 20,
+                    20);
 
-        // draw Rectangle x,y,w,h
-        g2d.setColor(Color.RED);
-        g2d.drawString("X: " + x + " Y: " + y + " W: " + width + " H: " + height, GamePanel.screenWidth - 300, 40);
+            // draw Rectangle x,y,w,h
+            g2d.drawString("X: " + x + " Y: " + y + " W: " + width + " H: " + height, GamePanel.screenWidth - 300, 40);
 
-        g2d.drawRect(x, y, width, height);
+            g2d.setColor(Color.green);
+            g2d.drawRect(x, y, width, height);
+        }
 
     }
 

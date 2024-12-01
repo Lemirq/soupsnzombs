@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import com.soupsnzombs.GamePanel;
-import com.soupsnzombs.utils.Images;
 
 import java.awt.Rectangle;
 
@@ -20,21 +19,24 @@ public class GenericBuilding extends Building {
 
     @Override
     void drawBuilding(Graphics2D g2d, int x, int y, int w, int h) {
-        this.x = mapX + GamePanel.offsetX;
-        this.y = mapY + GamePanel.offsetY;
+        // Calculate the building's position on the screen
+        int buildingX = mapX + GamePanel.offsetX;
+        int buildingY = mapY + GamePanel.offsetY;
 
-        // Draw a square
+        // Draw the building
         g2d.setColor(Color.BLUE);
-        int buildingX = (int) mapX + GamePanel.offsetX; // adding to offset the building
-        int buildingY = (int) mapY + GamePanel.offsetY; // adding to offset the building
         g2d.fillRect(buildingX, buildingY, width, height);
+        if (GamePanel.debugging) {
 
-        // for debugging
-        // draw rect x,y,w,h
-        g2d.setColor(Color.RED);
-        g2d.setStroke(new BasicStroke(1));
-        g2d.drawRect(this.x, this.y, (int) getWidth(), (int) getHeight());
-        // draw image on top of the building
+            // Draw the building's border
+            g2d.setColor(Color.RED);
+            g2d.setStroke(new BasicStroke(1));
+            g2d.drawRect(buildingX, buildingY, width, height);
+
+            // For debugging: draw the building's rectangle
+            g2d.setColor(Color.GREEN);
+            g2d.drawRect(x, y, width, height);
+        }
     }
 
     public boolean isColliding(Rectangle rect) {

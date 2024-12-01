@@ -3,16 +3,16 @@ package com.soupsnzombs.entities.zombies;
 import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.entities.Entity;
 import com.soupsnzombs.entities.GameObject;
+import com.soupsnzombs.entities.Player;
 import com.soupsnzombs.utils.CollisionManager;
 import com.soupsnzombs.utils.Images;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Zombie extends Entity implements GameObject {
-    private static int direction;
+    // private static int direction;
     private int health = 100;
     private BufferedImage sprite;
     public int moneyDropped = 10;
@@ -38,29 +38,32 @@ public class Zombie extends Entity implements GameObject {
     }
 
     public void draw(Graphics2D g2d) {
+        // Calculate the screen position based on the world position and camera offsets
+        int screenX = x + GamePanel.offsetX;
+        int screenY = y + GamePanel.offsetY;
 
-        int leftEdge = GamePanel.offsetX + (GamePanel.screenWidth / 2);
-        int topEdge = GamePanel.offsetY + (GamePanel.screenHeight / 2);
-        if (leftEdge > x - width) {
-            g2d.drawImage(sprite, leftEdge - x, topEdge - y, null);
-            drawHealthBar(g2d, leftEdge - x - 10, topEdge - y - 10); // Draw health bar above the zombie
+        // Draw the zombie at the calculated screen position
+        g2d.drawImage(sprite, screenX, screenY, null);
+
+        // Draw health bar above the zombie
+        drawHealthBar(g2d, screenX, screenY - 10);
+        // For debugging: draw the zombie's rectangle
+        if (GamePanel.debugging) {
+            g2d.setColor(Color.RED);
+            g2d.setStroke(new BasicStroke(1));
+            g2d.drawRect(x, y, width, height);
         }
-        g2d.setColor(Color.RED);
-        g2d.setStroke(new BasicStroke(1));
-        g2d.drawRect(leftEdge - x, topEdge - y, (int) getWidth(), (int) getHeight());
-        
     }
 
     private void drawHealthBar(Graphics2D g2d, int x, int y) {
         int barWidth = 50;
         int barHeight = 10;
         int healthBarWidth = (int) ((health / 100.0) * barWidth);
-
         g2d.setColor(Color.RED);
-        g2d.fillRect(x, y, barWidth, barHeight);
+        g2d.fillRoundRect(x, y, barWidth, barHeight, 10, 10);
 
         g2d.setColor(Color.GREEN);
-        g2d.fillRect(x, y, healthBarWidth, barHeight);
+        g2d.fillRoundRect(x, y, healthBarWidth, barHeight, 10, 10);
     }
 
     public boolean isColliding(Rectangle rect) {
@@ -72,37 +75,36 @@ public class Zombie extends Entity implements GameObject {
         return new Rectangle(super.x, super.y, super.width, super.height);
     }
 
-
-
-    public void chasePlayer(Rectangle player) {
+    public void chasePlayer(Player p) {
         int vy = 0;
         int vx = 0;
 
-        // System.out.println("Player X: " + playerX + " Player Y: " + playerY);
+        // make zombie walk on hypotenuse towards player
+        double movementSpeed = 1;
 
-        if (x < GamePanel.offsetX) {
+        if (x < p.x) {
             vx += movementSpeed;
-        } else if (x > GamePanel.offsetX) {
+        } else if (x > p.x) {
             vx -= movementSpeed;
         }
 
-        if (y < GamePanel.offsetY) {
+        if (y < p.y) {
             vy += movementSpeed;
-        } else if (y > GamePanel.offsetY) {
+        } else if (y > p.y) {
             vy -= movementSpeed;
         }
 
         Rectangle rect = new Rectangle(x + vx, y + vy, width, height);
         ArrayList<Rectangle> newCollisions = CollisionManager.collidables;
+        // find the current zombie in list of collisions
         newCollisions.remove(this);
-        if(!CollisionManager.isColliding(rect, newCollisions)){
+
+        if (!CollisionManager.isColliding(rect, newCollisions)) {
             x += vx;
-            y+= vy;
+            y += vy;
         }
 
     }
-
-
 
     public double getX() {
         return x;
@@ -116,12 +118,5 @@ public class Zombie extends Entity implements GameObject {
     public int getHealth() {
         return health;
     }
-
-
-
-
-
-
-
 
 }

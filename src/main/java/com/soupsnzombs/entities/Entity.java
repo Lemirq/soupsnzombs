@@ -4,12 +4,12 @@ import java.awt.Rectangle;
 
 public abstract class Entity extends Rectangle {
     public int health;
-    public int movementSpeed;
+    public int speed;
 
     public Entity(int x, int y, int w, int h, int health, int movementSpeed) {
         super(x, y, w, h);
         this.health = health;
-        this.movementSpeed = movementSpeed;
+        this.speed = movementSpeed;
     }
 
     // methods to check intersection

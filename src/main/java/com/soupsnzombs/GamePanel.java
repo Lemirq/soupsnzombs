@@ -5,7 +5,6 @@ import com.soupsnzombs.UI.MainMenu.MenuGUI;
 import com.soupsnzombs.UI.Shop.MainShop;
 import com.soupsnzombs.UI.MainMenu.Scores;
 import com.soupsnzombs.buildings.AllBuildings;
-import com.soupsnzombs.entities.Boundary;
 import com.soupsnzombs.entities.Gun;
 import com.soupsnzombs.entities.Player;
 import com.soupsnzombs.entities.zombies.AllZombies;
@@ -26,7 +25,9 @@ public class GamePanel extends JPanel implements Runnable {
         UP, DOWN, LEFT, RIGHT
     }
 
-    public static GameState gameState = GameState.MAIN_MENU;
+    public static boolean debugging = false;
+
+    public static GameState gameState = GameState.GAME;
 
     // Game loop variables
     private boolean running = false;
@@ -45,8 +46,8 @@ public class GamePanel extends JPanel implements Runnable {
     public static int screenHeight = 900;
 
     // Grid variables
-    private final int[] X_Bounds = { -5000, 5000 };
-    private final int[] Y_Bounds = { -2000, 2000 };
+    public static final int[] X_Bounds = { -5000, 5000 };
+    public static final int[] Y_Bounds = { -2000, 2000 };
     AllBuildings buildings = new AllBuildings();
     AllZombies zombies;
     public static boolean upPressed = false;
@@ -59,7 +60,6 @@ public class GamePanel extends JPanel implements Runnable {
     public MenuGUI menu = new MenuGUI();
     public MainShop shop = new MainShop();
     public Scores scores = new Scores();
-    Boundary boundary = new Boundary();
 
     public Gun gun = new Gun(5, 5, 600, 5, 5, 5, 5);
 
@@ -105,6 +105,7 @@ public class GamePanel extends JPanel implements Runnable {
             gun.shootBullet(player);
             shootPressed = false;
         }
+        gun.updateBullets();
         moveMap();
     }
 
@@ -118,20 +119,6 @@ public class GamePanel extends JPanel implements Runnable {
         player = new Player();
         CollisionManager.addCollidable(player);
         zombies = new AllZombies();
-        // // Load images in background thread
-        // new SwingWorker<Void, Void>() {
-        // @Override
-        // protected Void doInBackground() throws Exception {
-        // return null;
-        // }
-
-        // @Override
-        // protected void done() {
-        // // Any code that needs to run after images are loaded can go here
-        // start();
-        // }
-        // }.execute();
-
         start();
     }
 
@@ -187,6 +174,8 @@ public class GamePanel extends JPanel implements Runnable {
             if (!CollisionManager.isColliding(newPosition, n)) {
                 offsetX += vx;
                 offsetY += vy;
+                player.x -= vx;
+                player.y -= vy;
             }
         }
     }
@@ -224,29 +213,19 @@ public class GamePanel extends JPanel implements Runnable {
             return;
         }
 
-        int centerX = screenWidth / 2;
-        int centerY = screenHeight / 2;
-
         map.draw(g2d, getWidth(), getHeight());
 
         g2d.setTransform(oldTransformation);
         // macbook
-        int leftBoundary = offsetX - centerX - X_Bounds[1] + screenWidth;
-        int rightBoundary = -(offsetX + centerX) + X_Bounds[0] + screenWidth;
-        int topBoundary = offsetY - centerY - Y_Bounds[1] + screenHeight;
-        int bottomBoundary = -(offsetY + centerY) + Y_Bounds[0] + screenHeight;
 
-        boundary.draw(g2d, leftBoundary, rightBoundary, topBoundary, bottomBoundary);
         buildings.draw(g2d);
         zombies.draw(g2d, player);
         player.draw(g2d);
 
         gun.draw(g2d, player);
 
-        // if (shootPressed) {
-        // gun.shootBullet(player);
-        // shootPressed = false;
-        // }
+        // bottom right corner, bullet positions
+        g2d.setColor(Color.RED);
 
         // DEBUG drawings
 
@@ -259,11 +238,6 @@ public class GamePanel extends JPanel implements Runnable {
         // draw dot at offset x,y
         // g2d.fillOval(offsetX, offsetY, 10, 10);
 
-        // bottom left corner, draw stringgs for left,right,top,bottom boundaries
-        g2d.drawString("Left: " + leftBoundary, 10, getHeight() - 10);
-        g2d.drawString("Right: " + rightBoundary, 10, getHeight() - 30);
-        g2d.drawString("Top: " + topBoundary, 10, getHeight() - 50);
-        g2d.drawString("Bottom: " + bottomBoundary, 10, getHeight() - 70);
     }
 
 }

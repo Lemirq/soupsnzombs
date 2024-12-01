@@ -3,26 +3,17 @@ package com.soupsnzombs.entities;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.Timer;
 
 import com.soupsnzombs.GamePanel.PlayerDir;
-import com.soupsnzombs.utils.Images;
 
-public class Bullet {
-    private int x, y;
+public class Bullet extends Entity {
     private int startX, startY;
     private PlayerDir direction;
-    private int speed = 2; // Adjust speed as needed
-    private int width = 10; // Adjust bullet width as needed
-    private int height = 10; // Adjust bullet height as needed
     private int maxDistance; // Maximum distance the bullet can travel
     private int cx, cy;
 
     public Bullet(int x, int y, int cx, int cy, PlayerDir direction, int range) {
-        this.x = x;
-        this.y = y;
+        super(x, y, 10, 10, 0, 2);
         this.startX = x;
         this.startY = y;
         this.cx = cx;
@@ -45,14 +36,6 @@ public class Bullet {
         } else if (direction == PlayerDir.DOWN) {
             y += speed;
             cy -= speed;
-        }
-
-        
-
-        // Check if the bullet has traveled the maximum distance
-        if (Math.abs(x - startX) > maxDistance || Math.abs(y - startY) > maxDistance) {
-            // Remove the bullet from the game
-
         }
     }
 
@@ -77,14 +60,6 @@ public class Bullet {
     // timer.start();
     // }
 
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
     public int getStartX() {
         return startX;
     }
@@ -99,7 +74,6 @@ public class Bullet {
 
     public void draw(Graphics2D g2d) {
         // Update bullet position
-        update();
         // Set bullet color to yellow
         g2d.setColor(Color.YELLOW);
         // Draw the bullet
