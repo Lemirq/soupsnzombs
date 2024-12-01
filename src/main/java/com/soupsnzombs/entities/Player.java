@@ -11,6 +11,7 @@ public class Player extends Entity implements GameObject {
     int money;
     int health;
     BufferedImage sprite;
+    public HealthBar bar = new HealthBar(100);
 
     public Player() {
         super(0, 0, 0, 0, 100,
@@ -32,7 +33,21 @@ public class Player extends Entity implements GameObject {
      * @param healthAmount the health to set
      */
     public void decreaseHealth(int healthAmount) {
-        this.health -= healthAmount;
+        this.health = Math.max(0, this.health - healthAmount);
+        bar.setHealthValue(this.health);
+        if (this.health < 99 && !isDead) {
+            isDead = true;
+            System.out.println("Player is dead");
+        }
+    }
+
+    /**
+     * @return the health
+     * @param health the health to set
+     */
+    public void setHealth(int health) {
+        this.bar = new HealthBar(health);
+        this.health = health;
     }
 
     /**
@@ -68,6 +83,8 @@ public class Player extends Entity implements GameObject {
     }
 
     public void draw(Graphics2D g2d) {
+        bar.draw(g2d);
+
         int centerXPlayer = GamePanel.screenWidth / 2 - width / 2;
         int centerYPlayer = GamePanel.screenHeight / 2 - height / 2;
 

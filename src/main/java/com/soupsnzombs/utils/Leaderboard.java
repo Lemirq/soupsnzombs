@@ -1,7 +1,11 @@
 package com.soupsnzombs.utils;
 
-import javax.swing.*;
+import com.soupsnzombs.UI.MainMenu.NameSelect;
+
 import java.util.*;
+
+import javax.swing.JOptionPane;
+
 import java.io.*;
 
 public class Leaderboard {
@@ -12,8 +16,9 @@ public class Leaderboard {
     static BufferedWriter bw;
     static String line;
     static Scanner sc = new Scanner(System.in);
+    HashMap<String, Integer> scores = new HashMap<String, Integer>();
 
-    public static void writeScores() {
+    public static void setupLeaderboard() {
         if (leaderboard.exists()) {
             System.out.println("Leaderboard already exists.");
         } else {
@@ -40,20 +45,37 @@ public class Leaderboard {
 
     public static void readScores() {
         try {
-                System.out.println("Enter your name:");
-                String name = sc.next();
-                
+            // add scores and names to hashmp
+            fr = new FileReader(leaderboard);
+            br = new BufferedReader(fr);
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(" ");
+                String name = parts[0];
+                int score = Integer.parseInt(parts[1]);
+                System.out.println(name + " " + score);
+            }
+            br.close();
+            fr.close();
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            JOptionPane.showMessageDialog(null, "Error reading file.");
         }
     }
 
-
-    public static void main(String[] args) {
-        writeScores();
-        readScores();
-
-
+    public static void writeScores() {
+        try {
+            if (!leaderboard.exists()) {
+                leaderboard.createNewFile();
+            }
+            fw = new FileWriter(leaderboard, true);
+            bw = new BufferedWriter(fw);
+            bw.write(NameSelect.name + " " + "score");
+            bw.newLine();
+            bw.close();
+            fw.close();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error writing to file.");
+            System.err.println("IOException: " + e.getMessage());
+        }
     }
 }

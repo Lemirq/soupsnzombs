@@ -35,25 +35,15 @@ public class KeyHandler extends KeyAdapter {
                 GamePanel.upPressed = true;
                 GamePanel.direction = PlayerDir.UP;
 
-                if (GamePanel.gameState == GameState.NAME_SELECT) {
-                    NameSelect.cursorRow = Math.max(0, NameSelect.cursorRow - 1);
-                    NameSelect.adjustCursorForSpaceBackspace();
-                    game.repaint();
-                    game.revalidate();
-
-                }
+                if (GamePanel.gameState == GameState.NAME_SELECT)
+                    NameSelect.selectUp(game);
                 break;
 
             case KeyEvent.VK_S:
                 GamePanel.downPressed = true;
                 GamePanel.direction = PlayerDir.DOWN;
-                if (GamePanel.gameState == GameState.NAME_SELECT) {
-                    NameSelect.cursorRow = Math.min(NameSelect.keyboardLayout.length - 1, NameSelect.cursorRow + 1);
-                    NameSelect.adjustCursorForSpaceBackspace();
-                    game.repaint();
-                    game.revalidate();
-                }
-                // Add more cases if needed
+                if (GamePanel.gameState == GameState.NAME_SELECT)
+                    NameSelect.selectDown(game);
                 break;
             case KeyEvent.VK_A:
 
@@ -65,10 +55,7 @@ public class KeyHandler extends KeyAdapter {
                         MenuGUI.selected--;
                     }
                 } else if (GamePanel.gameState == GameState.NAME_SELECT) {
-                    NameSelect.cursorCol = Math.max(0, NameSelect.cursorCol - 1);
-                    NameSelect.adjustCursorForSpaceBackspace();
-                    game.repaint();
-                    game.revalidate();
+                    NameSelect.selectLeft(game);
                 }
                 if (GamePanel.gameState == GameState.GAME) {
                     GamePanel.leftPressed = true;
@@ -84,11 +71,7 @@ public class KeyHandler extends KeyAdapter {
                         MenuGUI.selected++;
                     }
                 } else if (GamePanel.gameState == GameState.NAME_SELECT) {
-                    NameSelect.cursorCol = Math.min(NameSelect.keyboardLayout[NameSelect.cursorRow].length - 1,
-                            NameSelect.cursorCol + 1);
-                    NameSelect.adjustCursorForSpaceBackspace();
-                    game.repaint();
-                    game.revalidate();
+                    NameSelect.selectRight(game);
                 }
                 if (GamePanel.gameState == GameState.GAME) {
                     GamePanel.rightPressed = true;
@@ -97,23 +80,7 @@ public class KeyHandler extends KeyAdapter {
                 break;
             case KeyEvent.VK_ENTER:
                 if (GamePanel.gameState == GameState.NAME_SELECT) {
-                    if ("Space".equals(NameSelect.keyboardLayout[NameSelect.cursorRow][NameSelect.cursorCol])) {
-                        if (NameSelect.name.length() < NameSelect.MAX_NAME_LENGTH) {
-                            NameSelect.name.append(" ");
-                        }
-                    } else if ("Backspace"
-                            .equals(NameSelect.keyboardLayout[NameSelect.cursorRow][NameSelect.cursorCol])) {
-                        if (NameSelect.name.length() > 0) {
-                            NameSelect.name.deleteCharAt(NameSelect.name.length() - 1);
-                        }
-                    } else {
-                        if (NameSelect.name.length() < NameSelect.MAX_NAME_LENGTH) {
-                            NameSelect.name
-                                    .append(NameSelect.keyboardLayout[NameSelect.cursorRow][NameSelect.cursorCol]);
-                        }
-                    }
-                    game.repaint();
-                    game.revalidate();
+                    NameSelect.selectEnter(game);
                 }
                 MenuGUI.pressed = true;
                 break;

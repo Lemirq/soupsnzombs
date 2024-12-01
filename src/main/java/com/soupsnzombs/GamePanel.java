@@ -14,6 +14,7 @@ import com.soupsnzombs.entities.Player;
 import com.soupsnzombs.entities.zombies.AllZombies;
 import com.soupsnzombs.utils.CollisionManager;
 import com.soupsnzombs.utils.Images;
+import com.soupsnzombs.utils.Leaderboard;
 import com.soupsnzombs.utils.Theme;
 
 import java.awt.geom.AffineTransform;
@@ -29,12 +30,13 @@ public class GamePanel extends JPanel implements Runnable {
         UP, DOWN, LEFT, RIGHT
     }
 
-    public static boolean debugging = false;
+    public static boolean debugging = true;
 
     public static GameState gameState = GameState.MAIN_MENU;
 
     // Game loop variables
     private boolean running = false;
+    private double elapsedTime = 0;
     private Thread gameThread;
     private long lastTime;
     private final int FPS = 120;
@@ -93,13 +95,22 @@ public class GamePanel extends JPanel implements Runnable {
         while (running) {
             long now = System.nanoTime();
             delta += (now - lastTime) / TIME_PER_TICK;
+            if (gameState == GameState.GAME)
+                elapsedTime += (now - lastTime) / 1_000_000_000.0; // Update elapsed time
             lastTime = now;
+
+            // game over testing
+            // if (elapsedTime >= 2) {
+            // gameState = GameState.GAMEOVER;
+
+            // }
 
             if (delta >= 1) {
                 update();
                 repaint();
                 delta--;
             }
+
         }
     }
 
@@ -108,6 +119,12 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void update() {
+        if (gameState == GameState.GAMEOVER) {
+            // write score to leaderboard
+            Leaderboard.writeScores();
+            return;
+        }
+
         if (shootPressed) {
             gun.shootBullet(player);
             shootPressed = false;
@@ -241,11 +258,21 @@ public class GamePanel extends JPanel implements Runnable {
             return;
         }
 
+        if (gameState == GameState.GAMEOVER) {
+            g2d.setColor(Color.RED);
+            g2d.setFont(new Font("Arial", Font.PLAIN, 40));
+            g2d.drawString("Game Over", 500, 500);
+            return;
+        }
+
+        // Otherwise, draw the game
+
         map.draw(g2d, getWidth(), getHeight());
 
         g2d.setTransform(oldTransformation);
         // macbook
 
+        player.bar.draw(g2d);
         buildings.draw(g2d);
         zombies.draw(g2d, player);
         player.draw(g2d);

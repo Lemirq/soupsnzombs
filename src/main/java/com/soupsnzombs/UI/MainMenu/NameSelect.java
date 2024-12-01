@@ -2,13 +2,15 @@ package com.soupsnzombs.UI.MainMenu;
 
 import java.awt.*;
 
+import com.soupsnzombs.GamePanel;
+
 public class NameSelect {
 
     public static final String[][] keyboardLayout = {
-        {"Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"},
-        {"A", "S", "D", "F", "G", "H", "J", "K", "L"},
-        {"Z", "X", "C", "V", "B", "N", "M"},
-        {"Space", "Backspace"}
+            { "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P" },
+            { "A", "S", "D", "F", "G", "H", "J", "K", "L" },
+            { "Z", "X", "C", "V", "B", "N", "M" },
+            { "Space", "Backspace" }
     };
     public static int cursorRow = 0;
     public static int cursorCol = 0;
@@ -63,31 +65,79 @@ public class NameSelect {
     public void drawName(Graphics2D g2d) {
         g2d.setColor(Color.BLACK);
         g2d.setFont(new Font("Arial", Font.PLAIN, 24));
-        
+
         String nameText = "Name: " + name.toString();
-        
+
         int boxX = 50, boxY = 100, padding = 10;
         int boxWidth = 400;
         int boxHeight = 40;
-        
+
         g2d.setColor(Color.WHITE);
         g2d.fillRect(boxX - padding, boxY - padding, boxWidth, boxHeight);
-        
+
         g2d.setColor(Color.BLACK);
         g2d.drawRect(boxX - padding, boxY - padding, boxWidth, boxHeight);
-        
+
         g2d.setColor(Color.BLACK);
         g2d.drawString(nameText, boxX, boxY + g2d.getFontMetrics().getAscent());
     }
 
     public void drawInstructions(Graphics2D g2d) {
-        
+
         g2d.setColor(Color.GREEN);
         g2d.setFont(new Font("Arial", Font.PLAIN, 40));
         String instructionText = "Enter a name - Press P to enter";
-        g2d.drawString(instructionText, 50, 50); 
+        g2d.drawString(instructionText, 50, 50);
 
-        
     }
-    
+
+    public static void selectUp(GamePanel game) {
+        cursorRow = Math.max(0, cursorRow - 1);
+        adjustCursorForSpaceBackspace();
+        game.repaint();
+        game.revalidate();
+    }
+
+    public static void selectDown(GamePanel game) {
+        cursorRow = Math.min(keyboardLayout.length - 1, cursorRow + 1);
+        adjustCursorForSpaceBackspace();
+        game.repaint();
+        game.revalidate();
+    }
+
+    public static void selectLeft(GamePanel game) {
+        cursorCol = Math.max(0, cursorCol - 1);
+        adjustCursorForSpaceBackspace();
+        game.repaint();
+        game.revalidate();
+    }
+
+    public static void selectRight(GamePanel game) {
+        cursorCol = Math.min(keyboardLayout[cursorRow].length - 1,
+                cursorCol + 1);
+        adjustCursorForSpaceBackspace();
+        game.repaint();
+        game.revalidate();
+    }
+
+    public static void selectEnter(GamePanel game) {
+        if ("Space".equals(NameSelect.keyboardLayout[NameSelect.cursorRow][NameSelect.cursorCol])) {
+            if (NameSelect.name.length() < NameSelect.MAX_NAME_LENGTH) {
+                NameSelect.name.append(" ");
+            }
+        } else if ("Backspace"
+                .equals(NameSelect.keyboardLayout[NameSelect.cursorRow][NameSelect.cursorCol])) {
+            if (NameSelect.name.length() > 0) {
+                NameSelect.name.deleteCharAt(NameSelect.name.length() - 1);
+            }
+        } else {
+            if (NameSelect.name.length() < NameSelect.MAX_NAME_LENGTH) {
+                NameSelect.name
+                        .append(NameSelect.keyboardLayout[NameSelect.cursorRow][NameSelect.cursorCol]);
+            }
+        }
+        game.repaint();
+        game.revalidate();
+    }
+
 }

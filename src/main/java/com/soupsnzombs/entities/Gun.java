@@ -162,9 +162,11 @@ public class Gun extends Entity {
         // Draw the bullets
         for (Bullet bullet : Gun.bullets) {
             bullet.draw(g2d);
-            for (int i = 0; i < Gun.bullets.size(); i++) {
-                g2d.drawString("Bullet " + i + " X: " + Gun.bullets.get(i).x + " Y: " + Gun.bullets.get(i).y,
-                        GamePanel.screenWidth - 300, i * 20 + 700);
+            if (GamePanel.debugging) {
+                for (int i = 0; i < Gun.bullets.size(); i++) {
+                    g2d.drawString("Bullet " + i + " X: " + Gun.bullets.get(i).x + " Y: " + Gun.bullets.get(i).y,
+                            GamePanel.screenWidth - 300, i * 20 + 700);
+                }
             }
         }
     }

@@ -36,8 +36,14 @@ public class AllZombies {
 
     public void draw(Graphics2D g2d, Player player) {
         for (Zombie z : zombies) {
-            z.chasePlayer(player);
-            z.draw(g2d);
+            if (!z.alive) {
+                zombies.remove(z);
+                break;
+            }
+            {
+                z.chasePlayer(player);
+                z.draw(g2d);
+            }
             // draw rect x,y,w,h
 
             if (GamePanel.debugging) {

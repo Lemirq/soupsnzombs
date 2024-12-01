@@ -4,20 +4,18 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
+import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.GamePanel.PlayerDir;
 
 public class Bullet extends Entity {
     private int startX, startY;
     private PlayerDir direction;
     private int maxDistance; // Maximum distance the bullet can travel
-    private int cx, cy;
 
     public Bullet(int x, int y, int cx, int cy, PlayerDir direction, int range) {
         super(x, y, 10, 10, 0, 2);
         this.startX = x;
         this.startY = y;
-        this.cx = cx;
-        this.cy = cy;
         this.maxDistance = range;
         this.direction = direction;
     }
@@ -26,16 +24,16 @@ public class Bullet extends Entity {
         // Update bullet position based on direction
         if (direction == PlayerDir.RIGHT) {
             x += speed;
-            cx -= speed;
+            // cx -= speed;
         } else if (direction == PlayerDir.LEFT) {
             x -= speed;
-            cx += speed;
+            // cx += speed;
         } else if (direction == PlayerDir.UP) {
             y -= speed;
-            cy += speed;
+            // cy += speed;
         } else if (direction == PlayerDir.DOWN) {
             y += speed;
-            cy -= speed;
+            // cy -= speed;
         }
     }
 
@@ -77,12 +75,17 @@ public class Bullet extends Entity {
         // Set bullet color to yellow
         g2d.setColor(Color.YELLOW);
         // Draw the bullet
-        g2d.fillOval(x, y, width, height);
+        g2d.fillOval(x + GamePanel.offsetX, y + GamePanel.offsetY, width, height);
+
+        if (GamePanel.debugging) {
+            g2d.setColor(Color.GREEN);
+            g2d.drawRect(x, y, width, height);
+        }
     }
 
     public Rectangle getBounds() {
         // System.out.println("Bullet x:" + cx + " y: " + cy);
         // translate the x and y so that intersection is correct
-        return new Rectangle(cx, cy, width, height);
+        return new Rectangle(x, y, width, height);
     }
 }
