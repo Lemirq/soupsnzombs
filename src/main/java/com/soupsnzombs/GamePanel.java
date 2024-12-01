@@ -1,7 +1,11 @@
 package com.soupsnzombs;
 
 import javax.swing.*;
+
+import com.soupsnzombs.UI.MainMenu.Credits;
+import com.soupsnzombs.UI.MainMenu.Instructions;
 import com.soupsnzombs.UI.MainMenu.MenuGUI;
+import com.soupsnzombs.UI.MainMenu.NameSelect;
 import com.soupsnzombs.UI.Shop.MainShop;
 import com.soupsnzombs.UI.MainMenu.Scores;
 import com.soupsnzombs.buildings.AllBuildings;
@@ -18,7 +22,7 @@ import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable {
     public enum GameState {
-        MAIN_MENU, OPTIONS, GAME, PAUSE, GAMEOVER, SHOP, SCORES
+        MAIN_MENU, OPTIONS, GAME, PAUSE, GAMEOVER, SHOP, SCORES, INSTRUCTIONS, CREDITS, NAME_SELECT
     }
 
     public enum PlayerDir {
@@ -58,8 +62,12 @@ public class GamePanel extends JPanel implements Runnable {
     public static PlayerDir direction = PlayerDir.UP;
     public Player player;
     public MenuGUI menu = new MenuGUI();
+    public NameSelect name = new NameSelect();
     public MainShop shop = new MainShop();
     public Scores scores = new Scores();
+    public Instructions instruct = new Instructions();
+    public Credits credits = new Credits();
+    Boundary boundary = new Boundary();
 
     public Gun gun = new Gun(5, 5, 600, 5, 5, 5, 5);
 
@@ -197,6 +205,27 @@ public class GamePanel extends JPanel implements Runnable {
             menu.drawMenu(g2d);
             menu.checkPlay();
             menu.checkScores();
+            menu.checkCredits();
+            return;
+        }
+
+        // Instrucitons
+        if (gameState == GameState.INSTRUCTIONS) {
+            instruct.drawInstructions(g2d);
+            return;
+        }
+
+        // prompt name
+        if (gameState == GameState.NAME_SELECT) {
+            name.drawKeyboard(g2d);
+            name.drawName(g2d);
+            name.drawInstructions(g2d);
+            return;
+        }
+
+        // Credits
+        if (gameState == GameState.CREDITS) {
+            credits.drawCredits(g2d);
             return;
         }
 
@@ -239,5 +268,4 @@ public class GamePanel extends JPanel implements Runnable {
         // g2d.fillOval(offsetX, offsetY, 10, 10);
 
     }
-
 }
