@@ -31,7 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public static boolean debugging = false;
 
-    public static GameState gameState = GameState.GAME;
+    public static GameState gameState = GameState.MAIN_MENU;
 
     // Game loop variables
     private boolean running = false;
@@ -67,7 +67,6 @@ public class GamePanel extends JPanel implements Runnable {
     public Scores scores = new Scores();
     public Instructions instruct = new Instructions();
     public Credits credits = new Credits();
-    Boundary boundary = new Boundary();
 
     public Gun gun = new Gun(5, 5, 600, 5, 5, 5, 5);
 
