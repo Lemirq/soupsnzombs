@@ -2,18 +2,14 @@ package com.soupsnzombs.entities.zombies;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import com.soupsnzombs.GamePanel;
-import com.soupsnzombs.entities.Bullet;
-import com.soupsnzombs.entities.Gun;
 import com.soupsnzombs.entities.Player;
 import com.soupsnzombs.utils.CollisionManager;
 
 public class AllZombies {
-    ArrayList<Zombie> zombies = new ArrayList<>();
+    public static ArrayList<Zombie> zombies = new ArrayList<>();
 
     public void addZombie(Zombie z) {
         zombies.add(z);
@@ -40,10 +36,8 @@ public class AllZombies {
                 zombies.remove(z);
                 break;
             }
-            {
-                z.chasePlayer(player);
-                z.draw(g2d);
-            }
+            z.chasePlayer(player);
+            z.draw(g2d);
             // draw rect x,y,w,h
 
             if (GamePanel.debugging) {
@@ -53,27 +47,6 @@ public class AllZombies {
                         zombies.indexOf(z) * 20 + 500);
             }
 
-        }
-
-        // bullet collision logic, doesn't work because bullet bounds and zombie bounds
-        // never intersect if you print out coords
-        Iterator<Bullet> bulletIterator = Gun.bullets.iterator();
-        while (bulletIterator.hasNext()) {
-            Bullet bullet = bulletIterator.next();
-            Rectangle bulletBounds = bullet.getBounds();
-
-            for (Zombie zombie : zombies) {
-                Rectangle zombieBounds = zombie.getBounds();
-                System.out.println("Zombie x: " + zombieBounds.getX() + " y: " +
-                        zombieBounds.getY());
-                if (bulletBounds.intersects(zombieBounds)) {
-                    System.out.println("Bullet collided with zombie");
-                    bulletIterator.remove();
-                    // Decrease the zombie's health
-                    zombie.takeDamage(10);
-                    break;
-                }
-            }
         }
 
     }

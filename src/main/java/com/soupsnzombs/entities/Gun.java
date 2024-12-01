@@ -1,6 +1,8 @@
 package com.soupsnzombs.entities;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -158,13 +160,18 @@ public class Gun extends Entity {
     public void draw(Graphics2D g2d, Player player) {
         int centerXPlayer = GamePanel.screenWidth / 2 - width / 2;
         int centerYPlayer = GamePanel.screenHeight / 2 - height / 2;
-        g2d.drawRect(centerXPlayer, centerYPlayer, 20, 20);
+        if (GamePanel.debugging) {
+            g2d.setColor(Color.red);
+            g2d.drawRect(centerXPlayer, centerYPlayer, 20, 20);
+        }
+
         // Draw the bullets
-        for (Bullet bullet : Gun.bullets) {
+        for (Bullet bullet : bullets) {
             bullet.draw(g2d);
+
             if (GamePanel.debugging) {
-                for (int i = 0; i < Gun.bullets.size(); i++) {
-                    g2d.drawString("Bullet " + i + " X: " + Gun.bullets.get(i).x + " Y: " + Gun.bullets.get(i).y,
+                for (int i = 0; i < bullets.size(); i++) {
+                    g2d.drawString("Bullet " + i + " X: " + bullets.get(i).x + " Y: " + bullets.get(i).y,
                             GamePanel.screenWidth - 300, i * 20 + 700);
                 }
             }

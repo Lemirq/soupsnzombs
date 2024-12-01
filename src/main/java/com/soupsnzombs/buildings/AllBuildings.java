@@ -8,7 +8,7 @@ import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.utils.CollisionManager;
 
 public class AllBuildings {
-    ArrayList<Building> buildings = new ArrayList<>();
+    public ArrayList<Building> buildings = new ArrayList<>();
 
     public void addBuilding(Building b) {
         buildings.add(b);

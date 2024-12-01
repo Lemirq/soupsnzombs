@@ -9,9 +9,11 @@ import com.soupsnzombs.UI.MainMenu.NameSelect;
 import com.soupsnzombs.UI.Shop.MainShop;
 import com.soupsnzombs.UI.MainMenu.Scores;
 import com.soupsnzombs.buildings.AllBuildings;
+import com.soupsnzombs.entities.Bullet;
 import com.soupsnzombs.entities.Gun;
 import com.soupsnzombs.entities.Player;
 import com.soupsnzombs.entities.zombies.AllZombies;
+import com.soupsnzombs.entities.zombies.Zombie;
 import com.soupsnzombs.utils.CollisionManager;
 import com.soupsnzombs.utils.Images;
 import com.soupsnzombs.utils.Leaderboard;
@@ -20,8 +22,15 @@ import com.soupsnzombs.utils.Theme;
 import java.awt.geom.AffineTransform;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class GamePanel extends JPanel implements Runnable {
+
+    /*
+     * flow:
+     * main menu -> instructions -> game -> name select (option to not record score)
+     * -> game over -> main menu
+     */
     public enum GameState {
         MAIN_MENU, OPTIONS, GAME, PAUSE, GAMEOVER, SHOP, SCORES, INSTRUCTIONS, CREDITS, NAME_SELECT
     }
@@ -30,13 +39,14 @@ public class GamePanel extends JPanel implements Runnable {
         UP, DOWN, LEFT, RIGHT
     }
 
-    public static boolean debugging = true;
+    public static boolean debugging = false;
 
-    public static GameState gameState = GameState.MAIN_MENU;
+    public static GameState gameState = GameState.GAME;
 
     // Game loop variables
     private boolean running = false;
     private double elapsedTime = 0;
+    private long lastDamageTime = 0; // for player invincibility
     private Thread gameThread;
     private long lastTime;
     private final int FPS = 120;
@@ -80,6 +90,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     public synchronized void stop() {
         running = false;
+        if (gameState == GameState.GAMEOVER) {
+            // write score to leaderboard
+            Leaderboard.writeScores();
+            return;
+        }
         try {
             gameThread.join();
         } catch (InterruptedException e) {
@@ -119,18 +134,57 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void update() {
-        if (gameState == GameState.GAMEOVER) {
-            // write score to leaderboard
-            Leaderboard.writeScores();
+        if (!player.alive) {
+            gameState = GameState.NAME_SELECT;
             return;
         }
-
         if (shootPressed) {
             gun.shootBullet(player);
             shootPressed = false;
         }
         gun.updateBullets();
+        checkCollisions();
         moveMap();
+    }
+
+    private void checkCollisions() {
+        Iterator<Zombie> zombieIterator = AllZombies.zombies.iterator();
+        while (zombieIterator.hasNext()) {
+            Zombie z = zombieIterator.next();
+            Rectangle zBounds = z.getBounds();
+
+            for (Bullet b : Gun.bullets) {
+                Rectangle bBounds = b.getBounds();
+                if (bBounds.intersects(zBounds)) {
+                    Gun.bullets.remove(b);
+                    z.takeDamage(10);
+                    break;
+                }
+            }
+
+            // check against player, if yes, decrease player health
+            if (zBounds.intersects(player.getBounds())) {
+                long currentTime = System.currentTimeMillis();
+                if (currentTime - lastDamageTime >= z.damageTime) { // Check if 500 ms have passed
+                    player.decreaseHealth(10);
+                    lastDamageTime = currentTime; // Update the last damage time
+                }
+            }
+        }
+
+        // if bullets collide with buildings, remove bullet
+        Iterator<Bullet> bulletIterator = Gun.bullets.iterator();
+        while (bulletIterator.hasNext()) {
+            Bullet b = bulletIterator.next();
+            Rectangle bBounds = b.getBounds();
+            for (Rectangle r : buildings.buildings) {
+                if (bBounds.intersects(r)) {
+                    bulletIterator.remove();
+                    break;
+                }
+            }
+        }
+
     }
 
     GamePanel() {

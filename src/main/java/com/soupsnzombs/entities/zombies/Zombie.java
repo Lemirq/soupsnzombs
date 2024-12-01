@@ -17,7 +17,7 @@ public class Zombie extends Entity implements GameObject {
     private BufferedImage sprite;
     public int moneyDropped = 10;
     public int pointsDropped = 10;
-    public boolean alive = true;
+    public int damageTime = 500;
 
     public Zombie(int startX, int startY) {
         super(startX, startY, 0, 0, 100, 1);

@@ -2,12 +2,11 @@ package com.soupsnzombs.entities;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-
 import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.UI.HealthBar;
 import com.soupsnzombs.utils.Images;
 
 public class Player extends Entity implements GameObject {
-    boolean isDead = false;
     int money;
     int health;
     BufferedImage sprite;
@@ -35,10 +34,6 @@ public class Player extends Entity implements GameObject {
     public void decreaseHealth(int healthAmount) {
         this.health = Math.max(0, this.health - healthAmount);
         bar.setHealthValue(this.health);
-        if (this.health < 99 && !isDead) {
-            isDead = true;
-            System.out.println("Player is dead");
-        }
     }
 
     /**
@@ -72,14 +67,6 @@ public class Player extends Entity implements GameObject {
      */
     public void removeMoney(int moneyAmount) {
         money -= moneyAmount;
-    }
-
-    // Method to check if player is dead
-    public boolean isDead() {
-        if (health <= 0) {
-            isDead = true;
-        }
-        return isDead;
     }
 
     public void draw(Graphics2D g2d) {
