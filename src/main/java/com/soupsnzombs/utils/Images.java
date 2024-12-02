@@ -23,7 +23,7 @@ public class Images {
     // public static ArrayList<BufferedImage> gunfire = new ArrayList<>();
 
     public static BufferedImage player_idle, circle, gun, bullet, tree, shop, gameMenu, background,
-            playButton, creditsButton, scoresButton, arrowImage, shopBackground, scoresbg, grass;
+            playButton, creditsButton, scoresButton, arrowImage, instructions, credits, shopBackground, scoresbg, grass;
     public static HashMap<String, BufferedImage> spriteImages = new HashMap<>();
     public static HashMap<String, BufferedImage> tileImages = new HashMap<>();
 
@@ -37,13 +37,18 @@ public class Images {
             scoresButton = ImageIO.read(Images.class.getResource("/buttons/scores.png"));
             creditsButton = ImageIO.read(Images.class.getResource("/buttons/credits.png"));
             arrowImage = ImageIO.read(Images.class.getResource("/arrow.png"));
-            grass = ImageIO.read(Images.class.getResource("/grass.png"));
+            instructions = ImageIO.read(Images.class.getResource("/instructions.png"));
+            credits = ImageIO.read(Images.class.getResource("/credits.png"));
+
             // shop menu buttons
             playButton = scaleImage(playButton, 150, 50);
             scoresButton = scaleImage(scoresButton, 150, 50);
             creditsButton = scaleImage(creditsButton, 150, 50);
             arrowImage = scaleImage(arrowImage, 51, 130 / 2);
             shopBackground = ImageIO.read(Images.class.getResource("/SoupsNZombsShop.png"));
+
+            //map
+            grass = ImageIO.read(Images.class.getResource("/grass.png"));
 
             // get the spritesheet, crop image, and set the spriteImages hashmap
             BufferedImage spriteSheet = ImageIO.read(Images.class.getResource("/spritesheet.png"));
