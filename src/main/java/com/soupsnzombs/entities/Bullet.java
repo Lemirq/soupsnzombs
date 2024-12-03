@@ -12,7 +12,7 @@ public class Bullet extends Entity {
     private PlayerDir direction;
     private int maxDistance; // Maximum distance the bullet can travel
 
-    public Bullet(int x, int y, int cx, int cy, PlayerDir direction, int range) {
+    public Bullet(int x, int y, PlayerDir direction, int range) {
         super(x, y, 10, 10, 0, 6);
         this.startX = x;
         this.startY = y;

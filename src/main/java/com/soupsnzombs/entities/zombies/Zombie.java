@@ -8,6 +8,7 @@ import com.soupsnzombs.utils.CollisionManager;
 import com.soupsnzombs.utils.Images;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -37,16 +38,28 @@ public class Zombie extends Entity implements GameObject {
         }
     }
 
-    public void draw(Graphics2D g2d) {
+    public void draw(Graphics2D g2d, Player p) {
         // Calculate the screen position based on the world position and camera offsets
         int screenX = x + GamePanel.offsetX;
         int screenY = y + GamePanel.offsetY;
 
+        // Calculate the angle of the velocity vector
+        double angle = Math.atan2(p.y - y, p.x - x);
+
+        // Save the original transform
+
+        // Apply the rotation transformation
+        g2d.rotate(angle, screenX + width / 2, screenY + height / 2);
+
         // Draw the zombie at the calculated screen position
         g2d.drawImage(sprite, screenX, screenY, null);
 
+        // Reset the transformation
+        g2d.setTransform(GamePanel.oldTransformation);
+
         // Draw health bar above the zombie
         drawHealthBar(g2d, screenX, screenY - 10);
+
         // For debugging: draw the zombie's rectangle
         if (GamePanel.debugging) {
             g2d.setColor(Color.RED);
@@ -76,25 +89,34 @@ public class Zombie extends Entity implements GameObject {
     }
 
     public void chasePlayer(Player p) {
-        int vy = 0;
-        int vx = 0;
+        // int vy = 0;
+        // int vx = 0;
+        double deltaX = p.x - this.x;
+        double deltaY = p.y - this.y;
+        double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        // Normalize the direction vector
+        double directionX = deltaX / distance;
+        double directionY = deltaY / distance;
+        // Calculate the velocity components
+        double vx = directionX * speed;
+        double vy = directionY * speed;
 
         // make zombie walk on hypotenuse towards player
-        double movementSpeed = 1;
 
         if (x < p.x) {
-            vx += movementSpeed;
+            vx += speed;
         } else if (x > p.x) {
-            vx -= movementSpeed;
+            vx -= speed;
         }
 
         if (y < p.y) {
-            vy += movementSpeed;
+            vy += speed;
         } else if (y > p.y) {
-            vy -= movementSpeed;
+            vy -= speed;
         }
 
-        Rectangle rect = new Rectangle(x + vx, y + vy, width, height);
+        Rectangle rect = new Rectangle(x + (int) vx, y + (int) vy, width, height);
         ArrayList<Rectangle> newCollisions = CollisionManager.collidables;
         // find the current zombie in list of collisions
         newCollisions.remove(this);
@@ -104,6 +126,9 @@ public class Zombie extends Entity implements GameObject {
             y += vy;
         }
 
+    }
+
+    public void draw(Graphics2D g2d) {
     }
 
     public double getX() {

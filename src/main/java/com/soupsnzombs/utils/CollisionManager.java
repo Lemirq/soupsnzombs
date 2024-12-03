@@ -20,7 +20,7 @@ public class CollisionManager {
             // collidable.width + " "
             // + collidable.height);
             if (collidable.intersects(rect)) {
-                System.out.println(rect + "collided with: " + collidable);
+                // System.out.println(rect + "collided with: " + collidable);
                 return true;
             }
         }

@@ -39,9 +39,9 @@ public class GamePanel extends JPanel implements Runnable {
         UP, DOWN, LEFT, RIGHT
     }
 
-    public static boolean debugging = false;
+    public static boolean debugging = true;
 
-    public static GameState gameState = GameState.GAME;
+    public static GameState gameState = GameState.MAIN_MENU;
 
     // Game loop variables
     private boolean running = false;

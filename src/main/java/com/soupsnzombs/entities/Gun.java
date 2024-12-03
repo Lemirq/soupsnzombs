@@ -104,13 +104,13 @@ public class Gun extends Entity {
     }
 
     public void shootBullet(Player player) {
-        int gunMouthX;
-        int gunMouthY;
+        int gunMouthX = 0;
+        int gunMouthY = 0;
 
         switch (GamePanel.direction) {
             case UP:
-                gunMouthX = player.x + 50;
-                gunMouthY = player.y + player.height / 2;
+                gunMouthX = player.x + player.width / 2;
+                gunMouthY = player.y + player.height / 2 + 20;
                 break;
 
             case LEFT:
@@ -128,15 +128,15 @@ public class Gun extends Entity {
                 break;
         }
 
-        gunMouthX = player.x;
-        gunMouthY = player.y + 20;
+        // gunMouthX = player.x;
+        // gunMouthY = player.y + 20;
 
         // Create a new bullet object
 
         // calculate x and y position of the gun mouth
-        int collisionX = player.getBounds().x;
-        int collisionY = player.getBounds().y + 20;
-        Bullet newBullet = new Bullet(gunMouthX, gunMouthY, collisionX, collisionY, GamePanel.direction, this.range);
+        // int collisionX = player.getBounds().x;
+        // int collisionY = player.getBounds().y + 20;
+        Bullet newBullet = new Bullet(gunMouthX, gunMouthY, GamePanel.direction, this.range);
         // Add the bullet to the list of bullets
         bullets.add(newBullet);
 
@@ -171,6 +171,7 @@ public class Gun extends Entity {
 
             if (GamePanel.debugging) {
                 for (int i = 0; i < bullets.size(); i++) {
+                    g2d.drawString("Bullet Amt: " + bullets.size(), GamePanel.screenWidth - 300, 600);
                     g2d.drawString("Bullet " + i + " X: " + bullets.get(i).x + " Y: " + bullets.get(i).y,
                             GamePanel.screenWidth - 300, i * 20 + 700);
                 }

@@ -34,6 +34,11 @@ public class Player extends Entity implements GameObject {
     public void decreaseHealth(int healthAmount) {
         this.health = Math.max(0, this.health - healthAmount);
         bar.setHealthValue(this.health);
+
+        if (this.health <= 0) {
+            // Game over
+            this.alive = false;
+        }
     }
 
     /**
@@ -43,6 +48,10 @@ public class Player extends Entity implements GameObject {
     public void setHealth(int health) {
         this.bar = new HealthBar(health);
         this.health = health;
+        if (this.health <= 0) {
+            // Game over
+            this.alive = false;
+        }
     }
 
     /**

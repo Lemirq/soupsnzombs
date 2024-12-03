@@ -64,11 +64,11 @@ public class HealthBar {
         g2d.setTransform(originalTransform);
 
         // Set a larger font size for the health value text
-        g2d.setFont(new Font("Impact", Font.BOLD, 24));
+        g2d.setFont(new Font("DejaVuSans 12", Font.BOLD, 24));
 
         // Draw the health value text
         g2d.setColor(Color.WHITE);
-        g2d.drawString(String.valueOf(healthValue), X_POSITION + BAR_WIDTH + 16, Y_POSITION + BAR_HEIGHT - 10);
+        g2d.drawString(String.valueOf(healthValue), X_POSITION + BAR_WIDTH + 18, Y_POSITION + BAR_HEIGHT - 10);
 
         // clear the font
         g2d.setFont(new Font("DejaVuSans 12", Font.PLAIN, 12));

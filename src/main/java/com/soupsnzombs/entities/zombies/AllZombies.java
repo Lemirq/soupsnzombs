@@ -37,7 +37,7 @@ public class AllZombies {
                 break;
             }
             z.chasePlayer(player);
-            z.draw(g2d);
+            z.draw(g2d, player);
             // draw rect x,y,w,h
 
             if (GamePanel.debugging) {
