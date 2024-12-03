@@ -90,11 +90,6 @@ public class GamePanel extends JPanel implements Runnable {
 
     public synchronized void stop() {
         running = false;
-        if (gameState == GameState.GAMEOVER) {
-            // write score to leaderboard
-            Leaderboard.writeScores();
-            return;
-        }
         try {
             gameThread.join();
         } catch (InterruptedException e) {
@@ -134,7 +129,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void update() {
-        if (!player.alive) {
+        if (!player.alive && gameState != GameState.GAMEOVER) {
             gameState = GameState.NAME_SELECT;
             return;
         }
@@ -285,6 +280,13 @@ public class GamePanel extends JPanel implements Runnable {
             return;
         }
 
+        if (gameState == GameState.GAMEOVER) {
+            g2d.setColor(Color.RED);
+            g2d.setFont(new Font("Arial", Font.PLAIN, 40));
+            g2d.drawString("Game Over", 500, 500);
+            return;
+        }
+
         // prompt name
         if (gameState == GameState.NAME_SELECT) {
             name.drawKeyboard(g2d);
@@ -309,13 +311,6 @@ public class GamePanel extends JPanel implements Runnable {
         // scores
         if (gameState == GameState.SCORES) {
             scores.drawScores(g2d);
-            return;
-        }
-
-        if (gameState == GameState.GAMEOVER) {
-            g2d.setColor(Color.RED);
-            g2d.setFont(new Font("Arial", Font.PLAIN, 40));
-            g2d.drawString("Game Over", 500, 500);
             return;
         }
 

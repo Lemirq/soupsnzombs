@@ -70,19 +70,18 @@ public class NameSelect {
 
         time++;
 
-        if(time%100 == 0){
+        if (time % 100 == 0) {
             blink = !blink;
         }
         String nameText;
 
-        if (blink){
-            nameText = "Name: " + name.toString() +"|";
-            System.out.println("test1");
-        }else{
+        if (blink) {
+            nameText = "Name: " + name.toString() + "|";
+            // System.out.println("test1");
+        } else {
             nameText = "Name: " + name.toString();
-            System.out.println("test2");
+            // System.out.println("test2");
         }
-        
 
         int boxX = 50, boxY = 100, padding = 10;
         int boxWidth = 400;

@@ -1,6 +1,7 @@
 package com.soupsnzombs.utils;
 
 import com.soupsnzombs.UI.MainMenu.NameSelect;
+import com.soupsnzombs.entities.Player;
 
 import java.util.*;
 
@@ -9,7 +10,7 @@ import javax.swing.JOptionPane;
 import java.io.*;
 
 public class Leaderboard {
-    static File leaderboard = new File("leaderboard.txt");
+    static File leaderboard = new File("src/main/resources/leaderboard.txt");
     static FileReader fr;
     static BufferedReader br;
     static FileWriter fw;
@@ -69,7 +70,7 @@ public class Leaderboard {
             }
             fw = new FileWriter(leaderboard, true);
             bw = new BufferedWriter(fw);
-            bw.write(NameSelect.name + " " + "score");
+            bw.write("name:" + NameSelect.name + " " + "score:" + Player.score);
             bw.newLine();
             bw.close();
             fw.close();

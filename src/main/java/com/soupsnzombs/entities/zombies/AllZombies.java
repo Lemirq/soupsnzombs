@@ -16,15 +16,14 @@ public class AllZombies {
     }
 
     public AllZombies() {
-        zombies.add(new Zombie(500, 10));
-        // zombies.add(new Zombie(100, 100));
-        // zombies.add(new Zombie(200, 200));
-        // zombies.add(new Zombie(300, 300));
-        // zombies.add(new Zombie(400, 400));
-        // zombies.add(new Zombie(500, 500));
-        // for (Zombie z : zombies) {
-        // mgr.addCollidable(z);
-        // }
+
+        // random zombie spawn x between -1000,1000 and y between -1000,1000
+        for (int i = 0; i < 5; i++) {
+            int x = (int) (Math.random() * 2000 - 1000);
+            int y = (int) (Math.random() * 2000 - 1000);
+            zombies.add(new Zombie(x, y));
+        }
+
         for (Zombie z : zombies) {
             CollisionManager.addCollidable(z);
         }
@@ -33,6 +32,7 @@ public class AllZombies {
     public void draw(Graphics2D g2d, Player player) {
         for (Zombie z : zombies) {
             if (!z.alive) {
+                Player.score += z.pointsDropped;
                 zombies.remove(z);
                 break;
             }

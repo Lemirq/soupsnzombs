@@ -92,9 +92,9 @@ public class KeyHandler extends KeyAdapter {
                     GamePanel.gameState = GameState.GAME;
                 } else if (GamePanel.gameState == GameState.NAME_SELECT) {
                     GamePanel.gameState = GameState.GAMEOVER;
-                    // write a setter method for leader board name using this(for Ryan):
-                    // NameSelect.name.toString();
-                    GamePanel.gameState = GameState.GAME;
+                    // write the name to the file
+                    Leaderboard.writeScores();
+
                 } else if (GamePanel.gameState == GameState.GAME || GamePanel.gameState == GameState.SHOP) {
                     MainShop.open = !MainShop.open;
                     GamePanel.gameState = MainShop.open ? GameState.SHOP : GameState.GAME;
