@@ -19,6 +19,8 @@ public class NameSelect {
     public static final int largeKeyWidth = 120, largeKeyHeight = 60;
     public static final int KEYBOARD_X = 50, KEYBOARD_Y = 200;
     public static final int MAX_NAME_LENGTH = 15;
+    public static boolean blink;
+    public static int time;
 
     public static void adjustCursorForSpaceBackspace() {
         if (cursorRow == 3) {
@@ -66,7 +68,21 @@ public class NameSelect {
         g2d.setColor(Color.BLACK);
         g2d.setFont(new Font("Arial", Font.PLAIN, 24));
 
-        String nameText = "Name: " + name.toString();
+        time++;
+
+        if(time%100 == 0){
+            blink = !blink;
+        }
+        String nameText;
+
+        if (blink){
+            nameText = "Name: " + name.toString() +"|";
+            System.out.println("test1");
+        }else{
+            nameText = "Name: " + name.toString();
+            System.out.println("test2");
+        }
+        
 
         int boxX = 50, boxY = 100, padding = 10;
         int boxWidth = 400;
