@@ -109,6 +109,10 @@ public class KeyHandler extends KeyAdapter {
                     released = false;
                 }
                 break;
+
+            case KeyEvent.VK_F:
+                GamePanel.debugging = !GamePanel.debugging;
+                break;
         }
     }
 
