@@ -16,7 +16,6 @@ import com.soupsnzombs.entities.zombies.AllZombies;
 import com.soupsnzombs.entities.zombies.Zombie;
 import com.soupsnzombs.utils.CollisionManager;
 import com.soupsnzombs.utils.Images;
-import com.soupsnzombs.utils.Leaderboard;
 import com.soupsnzombs.utils.Theme;
 
 import java.awt.geom.AffineTransform;
@@ -39,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
         UP, DOWN, LEFT, RIGHT
     }
 
-    public static boolean debugging = true;
+    public static boolean debugging = false;
 
     public static GameState gameState = GameState.MAIN_MENU;
 
