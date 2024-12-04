@@ -108,22 +108,22 @@ public class Gun extends Entity {
 
         switch (GamePanel.direction) {
             case UP:
-                gunMouthX = player.x + player.width / 2;
-                gunMouthY = player.y + player.height / 2 + 20;
+                gunMouthX = player.x + player.width / 2 + 6;
+                gunMouthY = player.y + player.height / 2 - 30;
                 break;
 
             case LEFT:
-                gunMouthX = player.x - 50;
-                gunMouthY = player.y + player.height / 2;
+                gunMouthX = player.x + player.width / 2 - 28;
+                gunMouthY = player.y + player.height / 2 - 15;
                 break;
 
             case RIGHT:
-                gunMouthX = player.x + 50;
-                gunMouthY = (player.y + player.height / 2) - 10;
+                gunMouthX = player.x + player.width / 2 + 17;
+                gunMouthY = (player.y + player.height / 2) + 5;
                 break;
 
             case DOWN:
-                gunMouthX = player.x + player.width / 2;
+                gunMouthX = player.x + player.width / 2 - 14;
                 gunMouthY = player.y + player.height / 2 + 20;
                 break;
         }
