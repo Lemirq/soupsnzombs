@@ -13,7 +13,7 @@ public class Tree extends Building {
 
     @Override
     void drawBuilding(Graphics2D g2d, int x, int y, int leftEdge, int topEdge) {
-        
+
     }
 
     @Override

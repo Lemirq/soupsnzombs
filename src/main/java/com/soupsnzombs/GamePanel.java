@@ -9,6 +9,7 @@ import com.soupsnzombs.UI.MainMenu.NameSelect;
 import com.soupsnzombs.UI.Shop.MainShop;
 import com.soupsnzombs.UI.MainMenu.Scores;
 import com.soupsnzombs.buildings.AllBuildings;
+import com.soupsnzombs.buildings.AllTrees;
 import com.soupsnzombs.entities.Bullet;
 import com.soupsnzombs.entities.Gun;
 import com.soupsnzombs.entities.Player;
@@ -64,6 +65,7 @@ public class GamePanel extends JPanel implements Runnable {
     public static final int[] X_Bounds = { -5000, 5000 };
     public static final int[] Y_Bounds = { -2000, 2000 };
     AllBuildings buildings = new AllBuildings();
+    AllTrees trees = new AllTrees();
     AllZombies zombies;
     public static boolean upPressed = false;
     public static boolean downPressed = false;
@@ -322,6 +324,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         player.bar.draw(g2d);
         buildings.draw(g2d);
+        trees.draw(g2d);
         zombies.draw(g2d, player);
         player.draw(g2d);
 
