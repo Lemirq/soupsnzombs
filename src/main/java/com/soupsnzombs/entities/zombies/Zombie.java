@@ -124,11 +124,10 @@ public class Zombie extends Entity implements GameObject {
             x += vx;
             y += vy;
         }
-
     }
 
     public void draw(Graphics2D g2d) {
-    }
+    };
 
     public double getX() {
         return x;
