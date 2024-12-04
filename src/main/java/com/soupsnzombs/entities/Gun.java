@@ -123,7 +123,8 @@ public class Gun extends Entity {
                 break;
 
             case DOWN:
-                gunMouthY = player.y + 20;
+                gunMouthX = player.x + player.width / 2;
+                gunMouthY = player.y + player.height / 2 + 20;
                 break;
         }
 
