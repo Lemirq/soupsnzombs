@@ -42,7 +42,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public static boolean debugging = false;
 
-    public static GameState gameState = GameState.MAIN_MENU;
+    public static GameState gameState = GameState.NAME_SELECT;
 
     // Game loop variables
     private boolean running = false;
