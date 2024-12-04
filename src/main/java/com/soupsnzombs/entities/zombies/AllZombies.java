@@ -24,6 +24,7 @@ public class AllZombies {
             zombies.add(new Zombie(x, y));
         }
 
+        System.out.println("zombie size: " + zombies.size());
         for (Zombie z : zombies) {
             CollisionManager.addCollidable(z);
         }
