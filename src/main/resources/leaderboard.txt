@@ -6,3 +6,4 @@ name:QQQQQWWWWEEE score:20
 name: score:0
 name:RYAN score:0
 name:RYAN score:10
+name:RYAN score:0
