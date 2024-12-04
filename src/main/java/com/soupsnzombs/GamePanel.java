@@ -15,6 +15,7 @@ import com.soupsnzombs.entities.Player;
 import com.soupsnzombs.entities.zombies.AllZombies;
 import com.soupsnzombs.entities.zombies.Zombie;
 import com.soupsnzombs.utils.CollisionManager;
+import com.soupsnzombs.utils.FontLoader;
 import com.soupsnzombs.utils.Images;
 import com.soupsnzombs.utils.Theme;
 
@@ -188,6 +189,7 @@ public class GamePanel extends JPanel implements Runnable {
         requestFocusInWindow();
 
         Images.loadImages();
+        FontLoader.loadFont();
         player = new Player();
         CollisionManager.addCollidable(player);
         zombies = new AllZombies();

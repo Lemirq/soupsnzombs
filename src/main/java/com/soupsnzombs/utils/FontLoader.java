@@ -7,13 +7,13 @@ import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 
 public class FontLoader {
+    public static Font font;
+
     public static void loadFont() {
         // Load the font
         try {
-            InputStream is = Font.class.getResource("/fonts/8bitOperatorPlus8-Regular.ttf").openStream();
-            Font font = Font.createFont(Font.TRUETYPE_FONT, is);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(font);
+            InputStream stream = ClassLoader.getSystemClassLoader().getResourceAsStream("f.ttf");
+            font = Font.createFont(Font.TRUETYPE_FONT, stream).deriveFont(48f);
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
         }

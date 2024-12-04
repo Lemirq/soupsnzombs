@@ -3,6 +3,7 @@ package com.soupsnzombs.UI.MainMenu;
 import java.awt.*;
 
 import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.utils.FontLoader;
 
 public class NameSelect {
 
@@ -33,6 +34,7 @@ public class NameSelect {
     }
 
     public void drawKeyboard(Graphics2D g2d) {
+        g2d.setFont(FontLoader.font);
         g2d.setColor(Color.LIGHT_GRAY);
         for (int row = 0; row < keyboardLayout.length; row++) {
             for (int col = 0; col < keyboardLayout[row].length; col++) {
