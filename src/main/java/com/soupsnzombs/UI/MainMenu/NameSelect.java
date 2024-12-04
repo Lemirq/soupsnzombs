@@ -139,19 +139,19 @@ public class NameSelect {
     }
 
     public static void selectEnter(GamePanel game) {
-        if ("Space".equals(NameSelect.keyboardLayout[NameSelect.cursorRow][NameSelect.cursorCol])) {
-            if (NameSelect.name.length() < NameSelect.MAX_NAME_LENGTH) {
-                NameSelect.name.append(" ");
+        if ("Space".equals(keyboardLayout[cursorRow][cursorCol])) {
+            if (name.length() < MAX_NAME_LENGTH) {
+                name.append(" ");
             }
         } else if ("Backspace"
-                .equals(NameSelect.keyboardLayout[NameSelect.cursorRow][NameSelect.cursorCol])) {
-            if (NameSelect.name.length() > 0) {
-                NameSelect.name.deleteCharAt(NameSelect.name.length() - 1);
+                .equals(keyboardLayout[cursorRow][cursorCol])) {
+            if (name.length() > 0) {
+                name.deleteCharAt(name.length() - 1);
             }
         } else {
-            if (NameSelect.name.length() < NameSelect.MAX_NAME_LENGTH) {
-                NameSelect.name
-                        .append(NameSelect.keyboardLayout[NameSelect.cursorRow][NameSelect.cursorCol]);
+            if (name.length() < MAX_NAME_LENGTH) {
+                name
+                        .append(keyboardLayout[cursorRow][cursorCol]);
             }
         }
         game.repaint();
