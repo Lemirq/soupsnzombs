@@ -3,6 +3,7 @@ package com.soupsnzombs.UI.MainMenu;
 import java.awt.*;
 
 import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.utils.FontLoader;
 
 public class NameSelect {
 
@@ -33,6 +34,7 @@ public class NameSelect {
     }
 
     public void drawKeyboard(Graphics2D g2d) {
+        g2d.setFont(FontLoader.font24);
         g2d.setBackground(Color.BLACK);
         g2d.setColor(Color.LIGHT_GRAY);
         for (int row = 0; row < keyboardLayout.length; row++) {
@@ -67,7 +69,7 @@ public class NameSelect {
 
     public void drawName(Graphics2D g2d) {
         g2d.setColor(Color.BLACK);
-        g2d.setFont(new Font("Arial", Font.PLAIN, 24));
+        g2d.setFont(FontLoader.font24);
 
         time++;
 
@@ -101,7 +103,7 @@ public class NameSelect {
     public void drawInstructions(Graphics2D g2d) {
 
         g2d.setColor(Color.WHITE);
-        g2d.setFont(new Font("Arial", Font.PLAIN, 40));
+        g2d.setFont(FontLoader.font36);
         String instructionText = "Enter a name - Press P to enter";
         g2d.drawString(instructionText, 50, 50);
 
@@ -137,19 +139,19 @@ public class NameSelect {
     }
 
     public static void selectEnter(GamePanel game) {
-        if ("Space".equals(NameSelect.keyboardLayout[NameSelect.cursorRow][NameSelect.cursorCol])) {
-            if (NameSelect.name.length() < NameSelect.MAX_NAME_LENGTH) {
-                NameSelect.name.append(" ");
+        if ("Space".equals(keyboardLayout[cursorRow][cursorCol])) {
+            if (name.length() < MAX_NAME_LENGTH) {
+                name.append(" ");
             }
         } else if ("Backspace"
-                .equals(NameSelect.keyboardLayout[NameSelect.cursorRow][NameSelect.cursorCol])) {
-            if (NameSelect.name.length() > 0) {
-                NameSelect.name.deleteCharAt(NameSelect.name.length() - 1);
+                .equals(keyboardLayout[cursorRow][cursorCol])) {
+            if (name.length() > 0) {
+                name.deleteCharAt(name.length() - 1);
             }
         } else {
-            if (NameSelect.name.length() < NameSelect.MAX_NAME_LENGTH) {
-                NameSelect.name
-                        .append(NameSelect.keyboardLayout[NameSelect.cursorRow][NameSelect.cursorCol]);
+            if (name.length() < MAX_NAME_LENGTH) {
+                name
+                        .append(keyboardLayout[cursorRow][cursorCol]);
             }
         }
         game.repaint();
