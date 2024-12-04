@@ -16,15 +16,12 @@ public class CollisionManager {
 
     public static boolean isColliding(Rectangle rect, ArrayList<Rectangle> c) {
         for (Rectangle collidable : c) {
-            // System.out.println("Collidable: " + collidable.x + " " + collidable.y + " " +
-            // collidable.width + " "
-            // + collidable.height);
             if (collidable.intersects(rect)) {
-                // System.out.println(rect + "collided with: " + collidable);
+                // write name of all things that are collidable, with true and false beside each
+                System.out.println("Colliding with: " + collidable);
                 return true;
             }
         }
-        // System.out.println("Returning false");
         return false;
     }
 }
