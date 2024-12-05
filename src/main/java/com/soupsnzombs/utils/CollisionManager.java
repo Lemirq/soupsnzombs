@@ -3,6 +3,8 @@ package com.soupsnzombs.utils;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import com.soupsnzombs.GamePanel;
+
 public class CollisionManager {
     public static ArrayList<Rectangle> collidables = new ArrayList<>();
 
@@ -18,7 +20,7 @@ public class CollisionManager {
         for (Rectangle collidable : c) {
             if (collidable.intersects(rect)) {
                 // write name of all things that are collidable, with true and false beside each
-                System.out.println("Colliding with: " + collidable);
+                if (GamePanel.debugging) System.out.println("Colliding with: " + collidable);
                 return true;
             }
         }
