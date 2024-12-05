@@ -7,3 +7,4 @@ name: score:0
 name:RYAN score:0
 name:ZWQWSZX XZXSSCF score:0
 name:RYAN score:10
+name:RYAN score:0
