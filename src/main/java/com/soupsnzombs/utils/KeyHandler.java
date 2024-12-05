@@ -20,7 +20,7 @@ public class KeyHandler extends KeyAdapter {
     //boolean released = true; // trigger for non-automatic guns
     // KeyHandler class to handle key events
 
-    public static boolean canShoot = true;
+    boolean canShoot = true;
     boolean released = true;
     Timer t;
     Timer coolDown;
@@ -34,6 +34,7 @@ public class KeyHandler extends KeyAdapter {
                 t.stop(); 
                 coolDown.stop();
                 Player.shotCoolDownTime = 100;
+                Player.showFireRateBar = false;
             }
         });
 
@@ -138,6 +139,7 @@ public class KeyHandler extends KeyAdapter {
                 if (released) {
                     if (canShoot) {
                         GamePanel.shootPressed = true; 
+                        Player.showFireRateBar = true;
                         canShoot = false;
                         t.start();
                         coolDown.start(); 

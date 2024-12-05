@@ -12,7 +12,7 @@ public class Player extends Entity implements GameObject {
     BufferedImage sprite;
     public HealthBar bar = new HealthBar(100);
     public static int shotCoolDownTime = 100; //always 100, see keyhandler for how the time is subtracted in relation to the firerate of the gun
-
+    public static boolean showFireRateBar = false;
     public Player() {
         super(0, 0, 0, 0, 100,
                 GamePanel.MOVE_SPEED);
@@ -83,7 +83,7 @@ public class Player extends Entity implements GameObject {
         int barWidth = 50;
         int barHeight = 10;
         int fireRateBarWidth = (int) ((shotCoolDownTime / 100.0) * barWidth); 
-        if (shotCoolDownTime != 100) {
+        if (showFireRateBar) {
            // g2d.setColor(Color.BLACK);
            // g2d.fillRoundRect(x-10, y-2, barWidth, barHeight, 10, 10); 
 

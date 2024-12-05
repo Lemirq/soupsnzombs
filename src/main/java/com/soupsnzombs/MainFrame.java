@@ -1,9 +1,6 @@
 package com.soupsnzombs;
 
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.*;
 import com.soupsnzombs.utils.KeyHandler;
 public class MainFrame extends JFrame {
