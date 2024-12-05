@@ -34,7 +34,7 @@ public class NameSelect {
     }
 
     public void drawKeyboard(Graphics2D g2d) {
-        g2d.setFont(FontLoader.font24);
+        g2d.setFont(FontLoader.font20);
         g2d.setBackground(Color.BLACK);
         g2d.setColor(Color.LIGHT_GRAY);
         for (int row = 0; row < keyboardLayout.length; row++) {
@@ -69,7 +69,7 @@ public class NameSelect {
 
     public void drawName(Graphics2D g2d) {
         g2d.setColor(Color.BLACK);
-        g2d.setFont(FontLoader.font54);
+        g2d.setFont(FontLoader.font50);
 
         time++;
 
@@ -103,7 +103,7 @@ public class NameSelect {
     public void drawInstructions(Graphics2D g2d) {
 
         g2d.setColor(Color.WHITE);
-        g2d.setFont(FontLoader.font54);
+        g2d.setFont(FontLoader.font60);
         String instructionText = "Enter a name - Press P to enter";
         g2d.drawString(instructionText, 50, 125);
 

@@ -58,7 +58,7 @@ public class GamePanel extends JPanel implements Runnable {
     public static int offsetY = 0; // Offset for the grid's Y position
     public static int MOVE_SPEED = 1; // Speed of movement
     public static AffineTransform oldTransformation;
-    Map map = new Map();
+    GameMap map = new GameMap();
     public static int screenWidth = 1200;
     public static int screenHeight = 900;
 
