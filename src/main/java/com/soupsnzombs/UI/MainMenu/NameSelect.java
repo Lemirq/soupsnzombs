@@ -55,12 +55,14 @@ public class NameSelect {
                     g2d.setColor(Color.BLACK);
                 }
                 g2d.fillRect(x, y, keyWidthToUse, keyHeightToUse);
-                g2d.setColor(Color.white);
                 g2d.drawRect(x, y, keyWidthToUse, keyHeightToUse);
                 FontMetrics fm = g2d.getFontMetrics();
                 String textToDraw = keyboardLayout[row][col];
                 int textX = x + (keyWidthToUse - fm.stringWidth(textToDraw)) / 2;
                 int textY = y + (keyHeightToUse + fm.getAscent()) / 2 - 5;
+                g2d.setColor(new Color(0, 102, 0));
+                g2d.drawString(textToDraw, textX+1, textY+1);
+                g2d.setColor(Color.white);
                 g2d.drawString(textToDraw, textX, textY);
             }
         }
@@ -93,7 +95,7 @@ public class NameSelect {
         g2d.setColor(Color.WHITE);
         g2d.fillRect(boxX - padding, boxY - padding, boxWidth, boxHeight);
 
-        g2d.setColor(Color.BLACK);
+        g2d.setColor(Color.GREEN);
         g2d.drawRect(boxX - padding, boxY - padding, boxWidth, boxHeight);
 
         g2d.setColor(Color.BLACK);
@@ -101,10 +103,11 @@ public class NameSelect {
     }
 
     public void drawInstructions(Graphics2D g2d) {
-
-        g2d.setColor(Color.WHITE);
         g2d.setFont(FontLoader.font60);
         String instructionText = "Enter a name - Press P to enter";
+        g2d.setColor(new Color(0, 102, 0));
+        g2d.drawString(instructionText, 52, 127);
+        g2d.setColor(Color.WHITE);
         g2d.drawString(instructionText, 50, 125);
 
     }
