@@ -1,5 +1,7 @@
 package com.soupsnzombs.utils;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -9,14 +11,39 @@ import com.soupsnzombs.GamePanel.PlayerDir;
 import com.soupsnzombs.UI.MainMenu.MenuGUI;
 import com.soupsnzombs.UI.MainMenu.NameSelect;
 import com.soupsnzombs.UI.Shop.MainShop;
+import com.soupsnzombs.entities.Player;
+
+import javax.swing.Timer;
 
 public class KeyHandler extends KeyAdapter {
     GamePanel game;
-    boolean released = true; // trigger for non-automatic guns
+    //boolean released = true; // trigger for non-automatic guns
     // KeyHandler class to handle key events
+
+    public static boolean canShoot = true;
+    boolean released = true;
+    Timer t;
+    Timer coolDown;
 
     public KeyHandler(GamePanel game) {
         this.game = game;
+        t = new Timer(game.getGun().getFireRate(), new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                canShoot = true; // Enable shooting
+                t.stop(); 
+                coolDown.stop();
+                Player.shotCoolDownTime = 100;
+            }
+        });
+
+        coolDown = new Timer(20, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Player.shotCoolDownTime -= 7;
+            }
+        });
+       
     }
 
     @Override
@@ -103,15 +130,21 @@ public class KeyHandler extends KeyAdapter {
                 }
                 break;
 
-            case KeyEvent.VK_SPACE:
-                if (released) {
-                    GamePanel.shootPressed = true;
-                    released = false;
-                }
-                break;
-
             case KeyEvent.VK_F:
                 GamePanel.debugging = !GamePanel.debugging;
+                break;
+
+            case KeyEvent.VK_SPACE:
+                if (released) {
+                    if (canShoot) {
+                        GamePanel.shootPressed = true; 
+                        canShoot = false;
+                        t.start();
+                        coolDown.start(); 
+                        
+                    }
+                    released = false; 
+                }
                 break;
         }
     }

@@ -125,10 +125,6 @@ public class Zombie extends Entity implements GameObject {
             y += vy;
         }
     }
-
-    public void draw(Graphics2D g2d) {
-    };
-
     public double getX() {
         return x;
     }
@@ -140,6 +136,11 @@ public class Zombie extends Entity implements GameObject {
     // Getters for the zombie's health
     public int getHealth() {
         return health;
+    }
+
+    @Override
+    public void draw(Graphics2D g2d) {
+
     }
 
 }

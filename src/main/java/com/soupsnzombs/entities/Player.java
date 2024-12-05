@@ -5,13 +5,13 @@ import java.awt.image.BufferedImage;
 import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.UI.HealthBar;
 import com.soupsnzombs.utils.Images;
-
 public class Player extends Entity implements GameObject {
     int money;
     public static int score;
     int health;
     BufferedImage sprite;
     public HealthBar bar = new HealthBar(100);
+    public static int shotCoolDownTime = 100; //always 100, see keyhandler for how the time is subtracted in relation to the firerate of the gun
 
     public Player() {
         super(0, 0, 0, 0, 100,
@@ -79,9 +79,22 @@ public class Player extends Entity implements GameObject {
         money -= moneyAmount;
     }
 
+    public void drawFireRateBar(Graphics2D g2d, int x, int y) {
+        int barWidth = 50;
+        int barHeight = 10;
+        int fireRateBarWidth = (int) ((shotCoolDownTime / 100.0) * barWidth); 
+        if (shotCoolDownTime != 100) {
+           // g2d.setColor(Color.BLACK);
+           // g2d.fillRoundRect(x-10, y-2, barWidth, barHeight, 10, 10); 
+
+            g2d.setColor(Color.WHITE);
+            g2d.fillRoundRect(x-10, y-2, fireRateBarWidth, barHeight, 10, 10); 
+        }
+    }
+
     public void draw(Graphics2D g2d) {
         bar.draw(g2d);
-
+        drawFireRateBar(g2d, x+GamePanel.offsetX+8, y+GamePanel.offsetY-12);
         int centerXPlayer = GamePanel.screenWidth / 2 - width / 2;
         int centerYPlayer = GamePanel.screenHeight / 2 - height / 2;
 

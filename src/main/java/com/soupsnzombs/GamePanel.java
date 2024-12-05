@@ -82,7 +82,11 @@ public class GamePanel extends JPanel implements Runnable {
     public Instructions instruct = new Instructions();
     public Credits credits = new Credits();
 
-    public Gun gun = new Gun(5, 5, 600, 5, 5, 5, 5);
+    public Gun gun = new Gun(5, 500, 600, 5, 5, 5, 5);
+
+    public Gun getGun() {
+        return gun;
+    }
 
     public synchronized void start() {
         running = true;
@@ -197,6 +201,7 @@ public class GamePanel extends JPanel implements Runnable {
         zombies = new AllZombies();
         start();
     }
+
 
     private void moveMap() {
         int playerWidth = (int) player.getWidth();
