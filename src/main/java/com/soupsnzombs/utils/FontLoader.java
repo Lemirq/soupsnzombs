@@ -10,6 +10,7 @@ public class FontLoader {
     public static Font font12;
     public static Font font24;
     public static Font font36;
+    public static Font font54;
 
     public static void loadFont() {
         // Load the font
@@ -23,6 +24,7 @@ public class FontLoader {
             font12 = font.deriveFont(12f);
             font24 = font.deriveFont(24f);
             font36 = font.deriveFont(36f);
+            font54 = font.deriveFont(54f);
 
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
