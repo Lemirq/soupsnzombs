@@ -23,28 +23,22 @@ public class KeyHandler extends KeyAdapter {
     boolean canShoot = true;
     boolean released = true;
     Timer t;
-    Timer coolDown;
 
     public KeyHandler(GamePanel game) {
         this.game = game;
-        t = new Timer(game.getGun().getFireRate(), new ActionListener() {
+        t = new Timer(20, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                canShoot = true; // Enable shooting
-                t.stop(); 
-                coolDown.stop();
-                Player.shotCoolDownTime = 100;
-                Player.showFireRateBar = false;
+                Player.shotCoolDownTime -= 100/(game.getGun().getFireRate()/20); //100 is the firerate bar val, 20 is the timer delay
+                if (Player.shotCoolDownTime <= 0) {
+                    canShoot = true;
+                    t.stop(); 
+                    Player.showFireRateBar = false;
+                    Player.shotCoolDownTime = 100;
+                }
+                 // Enable shooting
             }
         });
-
-        coolDown = new Timer(20, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Player.shotCoolDownTime -= 7;
-            }
-        });
-       
     }
 
     @Override
@@ -142,7 +136,6 @@ public class KeyHandler extends KeyAdapter {
                         Player.showFireRateBar = true;
                         canShoot = false;
                         t.start();
-                        coolDown.start(); 
                         
                     }
                     released = false; 

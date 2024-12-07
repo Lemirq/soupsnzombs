@@ -69,7 +69,7 @@ public class HealthBar {
         // Draw the health value text
         g2d.setColor(Color.WHITE);
         //g2d.drawString(String.valueOf(healthValue), X_POSITION + BAR_WIDTH + 18, Y_POSITION + BAR_HEIGHT - 10);
-        g2d.drawString(String.valueOf(healthValue), X_POSITION + BAR_WIDTH - 100, Y_POSITION + BAR_HEIGHT - 200); //quick fix
+        g2d.drawString(String.valueOf(healthValue), X_POSITION + BAR_WIDTH - 225, Y_POSITION + BAR_HEIGHT - 200); //quick fix
         // clear the font
         g2d.setFont(new Font("DejaVuSans 12", Font.PLAIN, 12));
     }

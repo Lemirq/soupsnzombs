@@ -82,7 +82,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Instructions instruct = new Instructions();
     public Credits credits = new Credits();
 
-    public Gun gun = new Gun(5, 500, 600, 5, 5, 5, 5);
+    public Gun gun = new Gun(5, 400, 600, 5, 5, 5, 5); 
 
     public Gun getGun() {
         return gun;

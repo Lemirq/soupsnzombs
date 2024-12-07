@@ -94,7 +94,7 @@ public class Player extends Entity implements GameObject {
 
     public void draw(Graphics2D g2d) {
         bar.draw(g2d);
-        drawFireRateBar(g2d, x+GamePanel.offsetX+8, y+GamePanel.offsetY-12);
+        drawFireRateBar(g2d, x+GamePanel.offsetX+8, y+GamePanel.offsetY-13);
         int centerXPlayer = GamePanel.screenWidth / 2 - width / 2;
         int centerYPlayer = GamePanel.screenHeight / 2 - height / 2;
 
