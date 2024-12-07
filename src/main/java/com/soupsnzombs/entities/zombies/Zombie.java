@@ -72,10 +72,10 @@ public class Zombie extends Entity implements GameObject {
         int barHeight = 10;
         int healthBarWidth = (int) ((health / 100.0) * barWidth);
         g2d.setColor(Color.RED);
-        g2d.fillRoundRect(x, y, barWidth, barHeight, 10, 10);
+        g2d.fillRoundRect(x-10, y-2, barWidth, barHeight, 10, 10); //subtract 10 to center the rectangle onto zombie
 
         g2d.setColor(Color.GREEN);
-        g2d.fillRoundRect(x, y, healthBarWidth, barHeight, 10, 10);
+        g2d.fillRoundRect(x-10, y-2, healthBarWidth, barHeight, 10, 10); //subtract 10 to center the rectangle onto zombie
     }
 
     public boolean isColliding(Rectangle rect) {
@@ -125,10 +125,6 @@ public class Zombie extends Entity implements GameObject {
             y += vy;
         }
     }
-
-    public void draw(Graphics2D g2d) {
-    };
-
     public double getX() {
         return x;
     }
@@ -140,6 +136,11 @@ public class Zombie extends Entity implements GameObject {
     // Getters for the zombie's health
     public int getHealth() {
         return health;
+    }
+
+    @Override
+    public void draw(Graphics2D g2d) {
+
     }
 
 }

@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 import com.soupsnzombs.entities.Boundary;
 import com.soupsnzombs.utils.Images;
 
-public class Map {
+public class GameMap {
     public static final int GRID_SIZE = 50;
     public int leftBoundary, rightBoundary, topBoundary, bottomBoundary;
     Boundary boundary = new Boundary();

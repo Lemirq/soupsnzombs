@@ -44,24 +44,73 @@ public class Leaderboard {
         }
     }
 
-    public static void readScores() {
+    // public static void readScores() {
+    //     try {
+    //         // add scores and names to hashmp
+    //         fr = new FileReader(leaderboard);
+    //         br = new BufferedReader(fr);
+    //         while ((line = br.readLine()) != null) {
+    //             String[] parts = line.split(" ");
+    //             String name = parts[0];
+    //             int score = Integer.parseInt(parts[1]);
+    //             System.out.println(name + " " + score);
+    //         }
+    //         br.close();
+    //         fr.close();
+
+    //     } catch (Exception e) {
+    //         JOptionPane.showMessageDialog(null, "Error reading file.");
+    //     }
+    // }
+
+    public static HashMap<String, Integer> readScores() {
+        HashMap<String, Integer> leaderboardMap = new HashMap<>();
+        
         try {
-            // add scores and names to hashmp
-            fr = new FileReader(leaderboard);
-            br = new BufferedReader(fr);
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(" ");
-                String name = parts[0];
-                int score = Integer.parseInt(parts[1]);
-                System.out.println(name + " " + score);
+            FileReader fr = new FileReader(leaderboard);
+            BufferedReader br = new BufferedReader(fr);
+    
+            String line;
+            int count = 0;
+    
+            while ((line = br.readLine()) != null && count < 10) { 
+                String[] parts = line.split(" score:");
+                if (parts.length == 2) {
+                    String name = parts[0].replace("name:", "").trim();
+                    String scoreStr = parts[1].trim();
+                    
+                    try {
+                        int score = Integer.parseInt(scoreStr);
+                        leaderboardMap.put(name, score);
+                    } catch (NumberFormatException e) {
+                        System.err.println("Invalid score format: " + scoreStr);
+                    }
+                } else {
+                    System.err.println("Invalid line format: " + line);
+                }
+                count++;
             }
+    
             br.close();
             fr.close();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error reading file.");
+        } catch (IOException e) {
+            System.err.println("Error reading the file: " + e.getMessage());
         }
+    
+        List<Map.Entry<String, Integer>> leaderboardList = new ArrayList<>(leaderboardMap.entrySet());
+        
+        leaderboardList.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+        
+        HashMap<String, Integer> sortedLeaderboardMap = new LinkedHashMap<>();
+        for (Map.Entry<String, Integer> entry : leaderboardList) {
+            sortedLeaderboardMap.put(entry.getKey(), entry.getValue());
+        }
+    
+        return sortedLeaderboardMap;
     }
+    
+    
+    
 
     public static void writeScores() {
         try {

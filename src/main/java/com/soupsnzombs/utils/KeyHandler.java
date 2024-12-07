@@ -1,5 +1,7 @@
 package com.soupsnzombs.utils;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -9,22 +11,42 @@ import com.soupsnzombs.GamePanel.PlayerDir;
 import com.soupsnzombs.UI.MainMenu.MenuGUI;
 import com.soupsnzombs.UI.MainMenu.NameSelect;
 import com.soupsnzombs.UI.Shop.MainShop;
+import com.soupsnzombs.entities.Player;
+
+import javax.swing.Timer;
 
 public class KeyHandler extends KeyAdapter {
     GamePanel game;
-    boolean released = true; // trigger for non-automatic guns
+    //boolean shootReleased = true; // trigger for non-automatic guns
     // KeyHandler class to handle key events
+
+    public static boolean canShoot = true;
+    boolean shootReleased = true;
+    public static Timer t;
 
     public KeyHandler(GamePanel game) {
         this.game = game;
+        t = new Timer(20, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Player.shotCoolDownTime -= 100/(game.getPlayer().getGun().getFireRate()/20); //100 is the firerate bar val, 20 is the timer delay
+                if (Player.shotCoolDownTime <= 0) {
+                    canShoot = true;
+                    t.stop(); 
+                    Player.showFireRateBar = false;
+                    Player.shotCoolDownTime = 100;
+                }
+                 // Enable shooting
+            }
+        });
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        if (e.isShiftDown()) {
+        if (e.isShiftDown() && GamePanel.debugging) {
             GamePanel.MOVE_SPEED = 30;
-        } else if (e.isAltDown()) {
+        } else if (e.isAltDown() && GamePanel.debugging) {
             GamePanel.MOVE_SPEED = 1;
         } else {
             GamePanel.MOVE_SPEED = 5;
@@ -103,18 +125,32 @@ public class KeyHandler extends KeyAdapter {
                 }
                 break;
 
-            case KeyEvent.VK_SPACE:
-                if (released) {
-                    GamePanel.shootPressed = true;
-                    released = false;
-                }
-                break;
-
             case KeyEvent.VK_F:
                 GamePanel.debugging = !GamePanel.debugging;
                 break;
+
+            case KeyEvent.VK_SPACE:
+                if (game.getPlayer().getGun().getAutomaticState() == -1) {
+                    if (shootReleased && canShoot) {
+                            GamePanel.shootPressed = true; 
+                            Player.showFireRateBar = true;
+                            canShoot = false;
+                            t.start();
+                        }
+                        shootReleased = false; 
+                }
+                else if (game.getPlayer().getGun().getAutomaticState() == 1) {
+                    if (canShoot) {
+                        GamePanel.shootPressed = true; 
+                        Player.showFireRateBar = true;
+                        canShoot = false;
+                        t.start();
+                    }
+                }
+                break;
         }
     }
+
 
     @Override
     public void keyReleased(KeyEvent e) {
@@ -141,7 +177,7 @@ public class KeyHandler extends KeyAdapter {
                 MenuGUI.pressed = false;
                 break;
             case KeyEvent.VK_SPACE:
-                released = true;
+                if (game.getPlayer().getGun().getAutomaticState() == -1) shootReleased = true;
                 break;
         }
     }

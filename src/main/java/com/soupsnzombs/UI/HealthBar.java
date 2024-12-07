@@ -19,7 +19,6 @@ public class HealthBar {
 
     public HealthBar(int value) {
         this.healthValue = value;
-
     }
 
     // Setter to update health
@@ -27,6 +26,7 @@ public class HealthBar {
         this.healthValue = value;
     }
 
+    
     public void draw(Graphics2D g2d) {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
@@ -68,9 +68,10 @@ public class HealthBar {
 
         // Draw the health value text
         g2d.setColor(Color.WHITE);
-        g2d.drawString(String.valueOf(healthValue), X_POSITION + BAR_WIDTH + 18, Y_POSITION + BAR_HEIGHT - 10);
-
+        //g2d.drawString(String.valueOf(healthValue), X_POSITION + BAR_WIDTH + 18, Y_POSITION + BAR_HEIGHT - 10);
+        g2d.drawString(String.valueOf(healthValue), X_POSITION + BAR_WIDTH - 225, Y_POSITION + BAR_HEIGHT - 200); //quick fix
         // clear the font
         g2d.setFont(new Font("DejaVuSans 12", Font.PLAIN, 12));
     }
+        
 }

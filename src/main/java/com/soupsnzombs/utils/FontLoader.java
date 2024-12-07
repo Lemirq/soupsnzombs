@@ -7,9 +7,15 @@ import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 
 public class FontLoader {
-    public static Font font12;
-    public static Font font24;
-    public static Font font36;
+    public static Font font10;
+    public static Font font20;
+    public static Font font30;
+    public static Font font40;
+    public static Font font45;
+    public static Font font50;
+    public static Font font60;
+    public static Font font70;
+    public static Font font80;
 
     public static void loadFont() {
         // Load the font
@@ -20,9 +26,15 @@ public class FontLoader {
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(font);
 
-            font12 = font.deriveFont(12f);
-            font24 = font.deriveFont(24f);
-            font36 = font.deriveFont(36f);
+            font10 = font.deriveFont(10f);
+            font20 = font.deriveFont(20f);
+            font30 = font.deriveFont(30f);
+            font40 = font.deriveFont(40f);
+            font40 = font.deriveFont(45f);
+            font50 = font.deriveFont(50f);
+            font60 = font.deriveFont(60f);
+            font70 = font.deriveFont(70f);
+            font80 = font.deriveFont(80f);
 
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();

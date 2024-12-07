@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.utils.KeyHandler;
 
 public class Gun extends Entity {
     private int damage;
@@ -15,11 +16,12 @@ public class Gun extends Entity {
     private int maxAmmo;
     private int reloadTime;
     private int bulletSpeed;
+    private int automatic; //-1 = false, 0 = semi, 1 = automatic 
     public static ArrayList<Bullet> bullets = new ArrayList<>();
     // boolean released ; //for the basic gun, you need to spam space; perhaps for
     // automatics, this can be removed.
 
-    public Gun(int damage, int fireRate, int range, int ammo, int maxAmmo, int reloadTime, int bulletSpeed) {
+    public Gun(int damage, int fireRate, int range, int ammo, int maxAmmo, int reloadTime, int bulletSpeed, int automatic) {
         super(0, 0, 0, 0, 0, 0);
         this.damage = damage;
         this.fireRate = fireRate;
@@ -28,6 +30,11 @@ public class Gun extends Entity {
         this.maxAmmo = maxAmmo;
         this.reloadTime = reloadTime;
         this.bulletSpeed = bulletSpeed;
+        this.automatic = automatic;
+    }
+
+    public int getAutomaticState() {
+        return this.automatic;
     }
 
     public int getDamage() {
@@ -36,6 +43,7 @@ public class Gun extends Entity {
 
     public void setDamage(int damage) {
         this.damage = damage;
+        
     }
 
     public int getFireRate() {
