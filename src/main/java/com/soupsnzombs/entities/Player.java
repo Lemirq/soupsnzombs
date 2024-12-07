@@ -36,8 +36,13 @@ public class Player extends Entity implements GameObject {
     }
 
     public void setGun(Gun g) {
-        KeyHandler.t.stop();
+        //prevent timers from overlapping but unsure if really needed
+        KeyHandler.shootCooldown.stop();
+        KeyHandler.automaticGunTimer.stop();
         KeyHandler.canShoot = true;
+        showFireRateBar = false;
+        //
+        
         this.gun = g;
     }
 

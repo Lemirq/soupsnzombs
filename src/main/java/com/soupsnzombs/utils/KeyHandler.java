@@ -22,19 +22,33 @@ public class KeyHandler extends KeyAdapter {
 
     public static boolean canShoot = true;
     boolean shootReleased = true;
-    public static Timer t;
+    public static Timer shootCooldown;
+    public static Timer automaticGunTimer;
 
     public KeyHandler(GamePanel game) {
         this.game = game;
-        t = new Timer(20, new ActionListener() {
+        shootCooldown = new Timer(20, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Player.shotCoolDownTime -= 100/(game.getPlayer().getGun().getFireRate()/20); //100 is the firerate bar val, 20 is the timer delay
                 if (Player.shotCoolDownTime <= 0) {
                     canShoot = true;
-                    t.stop(); 
+                    shootCooldown.stop(); 
                     Player.showFireRateBar = false;
                     Player.shotCoolDownTime = 100;
+                }
+                 // Enable shooting
+            }
+        });
+
+        automaticGunTimer = new Timer(20, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (canShoot && GamePanel.gameState == GameState.GAME) {
+                    GamePanel.shootPressed = true;
+                    Player.showFireRateBar = true;
+                    canShoot = false;
+                    shootCooldown.start(); // Start the cooldown timer
                 }
                  // Enable shooting
             }
@@ -131,21 +145,19 @@ public class KeyHandler extends KeyAdapter {
 
             case KeyEvent.VK_SPACE:
                 if (game.getPlayer().getGun().getAutomaticState() == -1) {
-                    if (shootReleased && canShoot) {
+                    if (shootReleased && canShoot && GamePanel.gameState == GameState.GAME) {
                             GamePanel.shootPressed = true; 
                             Player.showFireRateBar = true;
                             canShoot = false;
-                            t.start();
+                            shootCooldown.start();
                         }
-                        shootReleased = false; 
+                    shootReleased = false; 
                 }
                 else if (game.getPlayer().getGun().getAutomaticState() == 1) {
-                    if (canShoot) {
-                        GamePanel.shootPressed = true; 
-                        Player.showFireRateBar = true;
-                        canShoot = false;
-                        t.start();
+                    if (!automaticGunTimer.isRunning()) {
+                        automaticGunTimer.start(); // start firing when space held, a timer will ensure shooting won't get stuck when other keys are pressed
                     }
+                    shootReleased = false;
                 }
                 break;
         }
@@ -177,7 +189,8 @@ public class KeyHandler extends KeyAdapter {
                 MenuGUI.pressed = false;
                 break;
             case KeyEvent.VK_SPACE:
-                if (game.getPlayer().getGun().getAutomaticState() == -1) shootReleased = true;
+                shootReleased = true;
+                if (game.getPlayer().getGun().getAutomaticState() == 1) automaticGunTimer.stop(); //stop firing when space released
                 break;
         }
     }
