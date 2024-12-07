@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.UI.HealthBar;
 import com.soupsnzombs.utils.Images;
+import com.soupsnzombs.utils.KeyHandler;
 public class Player extends Entity implements GameObject {
     int money;
     public static int score;
@@ -13,7 +14,8 @@ public class Player extends Entity implements GameObject {
     public HealthBar bar = new HealthBar(100);
     public static int shotCoolDownTime = 100; //always 100, see keyhandler for how the time is subtracted in relation to the firerate of the gun
     public static boolean showFireRateBar = false;
-    public Player() {
+    private Gun gun;
+    public Player(Gun gun) {
         super(0, 0, 0, 0, 100,
                 GamePanel.MOVE_SPEED);
 
@@ -26,6 +28,17 @@ public class Player extends Entity implements GameObject {
         this.health = 100;
         this.money = 0;
         this.health = 100;
+        this.gun = gun;
+    }
+
+    public Gun getGun() {
+        return this.gun;
+    }
+
+    public void setGun(Gun g) {
+        KeyHandler.t.stop();
+        KeyHandler.canShoot = true;
+        this.gun = g;
     }
 
     /**

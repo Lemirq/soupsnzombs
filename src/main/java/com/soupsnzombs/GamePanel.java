@@ -13,6 +13,7 @@ import com.soupsnzombs.buildings.AllTrees;
 import com.soupsnzombs.entities.Bullet;
 import com.soupsnzombs.entities.Gun;
 import com.soupsnzombs.entities.Player;
+import com.soupsnzombs.entities.TestGun;
 import com.soupsnzombs.entities.zombies.AllZombies;
 import com.soupsnzombs.entities.zombies.Zombie;
 import com.soupsnzombs.utils.CollisionManager;
@@ -74,20 +75,19 @@ public class GamePanel extends JPanel implements Runnable {
     public static boolean rightPressed = false;
     public static boolean shootPressed = false;
     public static PlayerDir direction = PlayerDir.UP;
-    public Player player;
+    private Player player;
     public MenuGUI menu = new MenuGUI();
     public NameSelect name = new NameSelect();
     public MainShop shop = new MainShop();
     public Scores scores = new Scores();
     public Instructions instruct = new Instructions();
     public Credits credits = new Credits();
-
-    public Gun gun = new Gun(5, 400, 600, 5, 5, 5, 5); 
-
-    public Gun getGun() {
-        return gun;
+    public TestGun prototypeGun1 = new TestGun(50, 300, 50, 500, -1, Color.RED);
+    public TestGun prototypeGun2 = new TestGun(75, 500, 10, 100, 1, Color.YELLOW);
+    public Player getPlayer() {
+        return this.player;
     }
-
+    
     public synchronized void start() {
         running = true;
         gameThread = new Thread(this);
@@ -140,11 +140,11 @@ public class GamePanel extends JPanel implements Runnable {
             return;
         }
         if (shootPressed) {
-            gun.shootBullet(player);
+            player.getGun().shootBullet(player);
             
             shootPressed = false;
         }
-        gun.updateBullets();
+        player.getGun().updateBullets();
         checkCollisions();
         moveMap();
     }
@@ -159,7 +159,7 @@ public class GamePanel extends JPanel implements Runnable {
                 Rectangle bBounds = b.getBounds();
                 if (bBounds.intersects(zBounds)) {
                     Gun.bullets.remove(b);
-                    z.takeDamage(10);
+                    z.takeDamage(player.getGun().getDamage());
                     break;
                 }
             }
@@ -197,7 +197,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         Images.loadImages();
         FontLoader.loadFont();
-        player = new Player();
+
+        player = new Player(new Gun(5, 200, 600, 5, 5, 5, 5, -1));
         CollisionManager.addCollidable(player);
         zombies = new AllZombies();
         start();
@@ -335,8 +336,10 @@ public class GamePanel extends JPanel implements Runnable {
         trees.draw(g2d);
         zombies.draw(g2d, player);
         player.draw(g2d);
+        prototypeGun1.draw(g2d, player);
+        prototypeGun2.draw(g2d, player);
 
-        gun.draw(g2d, player);
+        player.getGun().draw(g2d, player);
 
         // bottom right corner, bullet positions
         g2d.setColor(Color.RED);
