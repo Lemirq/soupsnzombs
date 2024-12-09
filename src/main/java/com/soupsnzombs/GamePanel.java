@@ -6,7 +6,7 @@ import com.soupsnzombs.UI.MainMenu.Credits;
 import com.soupsnzombs.UI.MainMenu.Instructions;
 import com.soupsnzombs.UI.MainMenu.MenuGUI;
 import com.soupsnzombs.UI.MainMenu.NameSelect;
-import com.soupsnzombs.UI.Shop.MainShop;
+import com.soupsnzombs.UI.Shop.Shop;
 import com.soupsnzombs.UI.MainMenu.Scores;
 import com.soupsnzombs.buildings.AllBuildings;
 import com.soupsnzombs.buildings.AllTrees;
@@ -78,7 +78,7 @@ public class GamePanel extends JPanel implements Runnable {
     private Player player;
     public MenuGUI menu = new MenuGUI();
     public NameSelect name = new NameSelect();
-    public MainShop shop = new MainShop();
+    public Shop shop = new Shop();
     public Scores scores = new Scores();
     public Instructions instruct = new Instructions();
     public Credits credits = new Credits();

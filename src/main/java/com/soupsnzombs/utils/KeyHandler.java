@@ -10,7 +10,7 @@ import com.soupsnzombs.GamePanel.GameState;
 import com.soupsnzombs.GamePanel.PlayerDir;
 import com.soupsnzombs.UI.MainMenu.MenuGUI;
 import com.soupsnzombs.UI.MainMenu.NameSelect;
-import com.soupsnzombs.UI.Shop.MainShop;
+import com.soupsnzombs.UI.Shop.Shop;
 import com.soupsnzombs.entities.Player;
 
 import javax.swing.Timer;
@@ -132,8 +132,8 @@ public class KeyHandler extends KeyAdapter {
                     Leaderboard.writeScores();
 
                 } else if (GamePanel.gameState == GameState.GAME || GamePanel.gameState == GameState.SHOP) {
-                    MainShop.open = !MainShop.open;
-                    GamePanel.gameState = MainShop.open ? GameState.SHOP : GameState.GAME;
+                    Shop.open = !Shop.open;
+                    GamePanel.gameState = Shop.open ? GameState.SHOP : GameState.GAME;
                 } else if (GamePanel.gameState == GameState.CREDITS) {
                     GamePanel.gameState = GameState.MAIN_MENU;
                 }
