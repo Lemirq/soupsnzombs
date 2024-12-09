@@ -71,9 +71,8 @@ public class Leaderboard {
             BufferedReader br = new BufferedReader(fr);
     
             String line;
-            int count = 0;
     
-            while ((line = br.readLine()) != null && count < 10) { 
+            while ((line = br.readLine()) != null) { 
                 String[] parts = line.split(" score:");
                 if (parts.length == 2) {
                     String name = parts[0].replace("name:", "").trim();
