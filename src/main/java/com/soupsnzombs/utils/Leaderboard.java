@@ -87,7 +87,6 @@ public class Leaderboard {
                 } else {
                     System.err.println("Invalid line format: " + line);
                 }
-                count++;
             }
     
             br.close();
