@@ -100,8 +100,12 @@ public class Leaderboard {
         leaderboardList.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
         
         HashMap<String, Integer> sortedLeaderboardMap = new LinkedHashMap<>();
+        
+        int count = 0;
         for (Map.Entry<String, Integer> entry : leaderboardList) {
             sortedLeaderboardMap.put(entry.getKey(), entry.getValue());
+            count++;
+            if (count == 10)break;
         }
     
         return sortedLeaderboardMap;
