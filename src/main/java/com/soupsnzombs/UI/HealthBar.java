@@ -46,7 +46,7 @@ public class HealthBar {
         AffineTransform originalTransform = g2d.getTransform();
 
         // Apply translation and skew transformation
-        AffineTransform skewTransform = new AffineTransform();
+        AffineTransform skewTransform = new AffineTransform(); //translated and skewed
         skewTransform.translate(X_POSITION, Y_POSITION);
         skewTransform.shear(-0.5, 0); // Skew horizontally by 0.5
         g2d.setTransform(skewTransform);
@@ -63,15 +63,21 @@ public class HealthBar {
         // Restore the original transform
         g2d.setTransform(originalTransform);
 
+        AffineTransform translatedTransform = new AffineTransform(); //no translation
+        translatedTransform.translate(X_POSITION, Y_POSITION);
+        g2d.setTransform(translatedTransform);
+
         // Set a larger font size for the health value text
-        g2d.setFont(new Font("DejaVuSans 12", Font.BOLD, 24));
+        g2d.setFont(new Font("DejaVuSans 12", Font.BOLD, 28));
 
         // Draw the health value text
         g2d.setColor(Color.WHITE);
-        //g2d.drawString(String.valueOf(healthValue), X_POSITION + BAR_WIDTH + 18, Y_POSITION + BAR_HEIGHT - 10);
-        g2d.drawString(String.valueOf(healthValue), X_POSITION + BAR_WIDTH - 225, Y_POSITION + BAR_HEIGHT - 200); //quick fix
-        // clear the font
+        
+        g2d.drawString(String.valueOf(healthValue), 0, 0-26);
+
+        // clear the font and transformation
         g2d.setFont(new Font("DejaVuSans 12", Font.PLAIN, 12));
+        g2d.setTransform(originalTransform);
     }
         
 }
