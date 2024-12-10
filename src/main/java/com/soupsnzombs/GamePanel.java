@@ -86,7 +86,7 @@ public class GamePanel extends JPanel implements Runnable {
     public TestGun prototypeGun1 = new TestGun(50, 300, 50, 500, -1, Color.RED);
     public TestGun prototypeGun2 = new TestGun(75, 500, 10, 100, 1, Color.YELLOW);
     public EntranceBuilding prototypeBuilding1 = new EntranceBuilding(1000, 1000, 300, 500, 80, 1, 40);
-    public EntranceBuilding prototypeBuilding2 = new EntranceBuilding(1500, 1000, 600, 300, 200, 1, 40);
+    public EntranceBuilding prototypeBuilding2 = new EntranceBuilding(2000, 1000, 1000, 300, 200, 4, 65);
 
     public Player getPlayer() {
         return this.player;
