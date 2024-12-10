@@ -8,10 +8,10 @@ import com.soupsnzombs.GamePanel;
 
 import java.awt.Rectangle;
 
-public class GenericBuilding extends Building {
+public class Wall extends Building {
     int mapX, mapY;
 
-    public GenericBuilding(int x, int y, int width, int height) {
+    public Wall(int x, int y, int width, int height) {
         super(x, y, width, height);
         mapX = x;
         mapY = y;

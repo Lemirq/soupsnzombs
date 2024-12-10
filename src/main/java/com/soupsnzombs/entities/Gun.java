@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.soupsnzombs.GamePanel;
-import com.soupsnzombs.utils.KeyHandler;
 
 public class Gun extends Entity {
     private int damage;

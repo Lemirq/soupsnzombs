@@ -10,6 +10,7 @@ import com.soupsnzombs.UI.Shop.Shop;
 import com.soupsnzombs.UI.MainMenu.Scores;
 import com.soupsnzombs.buildings.AllBuildings;
 import com.soupsnzombs.buildings.AllTrees;
+import com.soupsnzombs.buildings.EntranceBuilding;
 import com.soupsnzombs.entities.Bullet;
 import com.soupsnzombs.entities.Gun;
 import com.soupsnzombs.entities.Player;
@@ -84,6 +85,9 @@ public class GamePanel extends JPanel implements Runnable {
     public Credits credits = new Credits();
     public TestGun prototypeGun1 = new TestGun(50, 300, 50, 500, -1, Color.RED);
     public TestGun prototypeGun2 = new TestGun(75, 500, 10, 100, 1, Color.YELLOW);
+    public EntranceBuilding prototypeBuilding1 = new EntranceBuilding(1000, 1000, 300, 500, 80, 1, 40);
+    public EntranceBuilding prototypeBuilding2 = new EntranceBuilding(1500, 1000, 600, 300, 200, 1, 40);
+
     public Player getPlayer() {
         return this.player;
     }
@@ -179,7 +183,7 @@ public class GamePanel extends JPanel implements Runnable {
         while (bulletIterator.hasNext()) {
             Bullet b = bulletIterator.next();
             Rectangle bBounds = b.getBounds();
-            for (Rectangle r : buildings.buildings) {
+            for (Rectangle r : CollisionManager.collidables) {
                 if (bBounds.intersects(r)) {
                     bulletIterator.remove();
                     break;
@@ -199,7 +203,11 @@ public class GamePanel extends JPanel implements Runnable {
         FontLoader.loadFont();
 
         player = new Player(new Gun(5, 200, 600, 5, 5, 5, 5, -1));
+        buildings.addBuilding(prototypeBuilding1);
+        buildings.addBuilding(prototypeBuilding2);
         CollisionManager.addCollidable(player);
+        buildings.buildings.addAll(prototypeBuilding1.surroundingWalls);
+        buildings.buildings.addAll(prototypeBuilding2.surroundingWalls);
         zombies = new AllZombies();
         start();
     }
@@ -335,17 +343,18 @@ public class GamePanel extends JPanel implements Runnable {
         buildings.draw(g2d);
         trees.draw(g2d);
         zombies.draw(g2d, player);
-        player.draw(g2d);
+        
         prototypeGun1.draw(g2d, player);
         prototypeGun2.draw(g2d, player);
+        
 
         player.getGun().draw(g2d, player);
 
         // bottom right corner, bullet positions
-        g2d.setColor(Color.RED);
+        player.draw(g2d);
 
         // DEBUG drawings
-
+        //g2d.setColor(Color.RED);
         // make solid lines 3 pixels wide
         // g2d.setStroke(new BasicStroke(3));
         // draw horizontal line in middle of screen

@@ -12,15 +12,16 @@ public class AllBuildings {
 
     public void addBuilding(Building b) {
         buildings.add(b);
+     //   CollisionManager.addCollidable(b);
     }
 
     public AllBuildings() {
-        buildings.add(new GenericBuilding(-400, 40, 300, 50));
-        buildings.add(new GenericBuilding(100, 100, 50, 50));
-        buildings.add(new GenericBuilding(200, 200, 50, 50));
-        buildings.add(new GenericBuilding(300, 300, 50, 50));
-        buildings.add(new GenericBuilding(400, 400, 50, 50));
-        buildings.add(new GenericBuilding(500, 500, 50, 50));
+        buildings.add(new Wall(-400, 40, 300, 50));
+        buildings.add(new Wall(100, 100, 50, 50));
+        buildings.add(new Wall(200, 200, 50, 50));
+        buildings.add(new Wall(300, 300, 50, 50));
+        buildings.add(new Wall(400, 400, 50, 50));
+        buildings.add(new Wall(500, 500, 50, 50));
         for (Building b : buildings) {
             CollisionManager.addCollidable(b);
         }
@@ -39,4 +40,7 @@ public class AllBuildings {
         }
 
     }
+
+  
+
 }

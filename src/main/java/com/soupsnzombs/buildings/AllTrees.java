@@ -7,14 +7,14 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class AllTrees {
-    public ArrayList<GenericBuilding> trees = new ArrayList<>();
+    public ArrayList<Wall> trees = new ArrayList<>();
 
     public void addBuilding(Building t) {
-        trees.add((GenericBuilding) t);
+        trees.add((Wall) t);
     }
 
     public AllTrees() {
-        trees.add(new GenericBuilding(-400, 40, 300, 50));
+        trees.add(new Wall(-400, 40, 300, 50));
         for (Building b : trees) {
             CollisionManager.addCollidable(b);
         }
