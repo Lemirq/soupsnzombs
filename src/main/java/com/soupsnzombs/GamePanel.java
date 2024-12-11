@@ -192,6 +192,19 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
 
+        Iterator<GunDrop> gunDropIterator = GamePanel.gunDrops.iterator();
+        while (gunDropIterator.hasNext()) {
+            GunDrop gd = gunDropIterator.next();
+            Rectangle gBounds = gd.getBounds();
+            if (gBounds.intersects(player.getBounds()) && gd.isInteractable()) {
+                gunDropIterator.remove();
+                player.dropGun(gd.x, gd.y);
+                player.setGun(gd.getGunInfo());
+                break;
+            }
+        }
+        
+
     }
 
     GamePanel() {
