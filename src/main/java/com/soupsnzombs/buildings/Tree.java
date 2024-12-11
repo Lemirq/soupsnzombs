@@ -1,37 +1,55 @@
 package com.soupsnzombs.buildings;
 import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.utils.Images;
 
 import java.awt.*;
+import java.awt.image.*;
 
 public class Tree extends Building {
-    int x, y, width, height;
+    int mapX, mapY, treeX, treeY, width, height;
+    BufferedImage treeSprite;
+
 
     public Tree(int x, int y, int width, int height) {
         super(x, y, width, height);
-        System.out.println("Tree created at x:" + x + ", y:" + y);
+        treeSprite = Images.spriteImages.get("manBrown_gun.png");
+        mapX = x;
+        mapY = y;
     }
 
     @Override
-    void drawBuilding(Graphics2D g2d, int x, int y, int leftEdge, int topEdge) {
+    void drawBuilding(Graphics2D g2d, int x, int y, int w, int h) {
+        treeX = mapX + GamePanel.offsetX;
+        treeY = mapY + GamePanel.offsetY;
 
+        g2d.setColor(Color.CYAN);
+        g2d.fillRect(treeX, treeY, width, height);
+
+        if (GamePanel.debugging) {
+
+            // Draw the building's border
+            g2d.setColor(Color.RED);
+            g2d.setStroke(new BasicStroke(1));
+            g2d.drawRect(treeX, treeY, width, height);
+
+            // For debugging: draw the building's rectangle
+            g2d.setColor(Color.GREEN);
+            g2d.drawRect(x, y, width, height);
+        }
     }
 
     @Override
     public Rectangle getBounds() {
-        return null;
+            return new Rectangle(super.x, super.y, super.width, super.height);
     }
 
-    public void setPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
+    /*
     public void setSize(int width, int height) {
         this.width = width;
         this.height = height;
     }
 
-    public void draw(Graphics2D g2d) {
+    public void drawCoords(Graphics2D g2d) {
         // Display render coordinates in the top-right corner (for debugging)
         g2d.setColor(Color.WHITE);
         // g2d.drawString("X: " + renderX + " Y: " + renderY, screenWidth - 100, 20);
@@ -42,4 +60,6 @@ public class Tree extends Building {
         int topEdge = GamePanel.offsetY + (GamePanel.screenHeight / 2);
         drawBuilding(g2d, x, y, leftEdge, topEdge);
     }
+
+     */
 }

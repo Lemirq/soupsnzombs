@@ -355,7 +355,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         player.bar.draw(g2d);
         buildings.draw(g2d);
-        trees.draw(g2d);
+        trees.drawTree(g2d);
         zombies.draw(g2d, player);
         
         for (GunDrop gd:gunDrops) {
