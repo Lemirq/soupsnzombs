@@ -14,7 +14,7 @@ import com.soupsnzombs.buildings.EntranceBuilding;
 import com.soupsnzombs.entities.Bullet;
 import com.soupsnzombs.entities.Gun;
 import com.soupsnzombs.entities.Player;
-import com.soupsnzombs.entities.TestGun;
+import com.soupsnzombs.entities.GunDrop;
 import com.soupsnzombs.entities.zombies.AllZombies;
 import com.soupsnzombs.entities.zombies.Zombie;
 import com.soupsnzombs.utils.CollisionManager;
@@ -83,8 +83,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Scores scores = new Scores();
     public Instructions instruct = new Instructions();
     public Credits credits = new Credits();
-    public TestGun prototypeGun1 = new TestGun(50, 300, 50, 500, -1, Color.RED);
-    public TestGun prototypeGun2 = new TestGun(75, 500, 10, 100, 1, Color.YELLOW);
+    public static ArrayList<GunDrop> gunDrops = new ArrayList<>();
     public EntranceBuilding prototypeBuilding1 = new EntranceBuilding(1000, 1000, 300, 500, 80, 1, 40);
     public EntranceBuilding prototypeBuilding2 = new EntranceBuilding(2000, 1000, 1000, 300, 200, 4, 65);
 
@@ -202,7 +201,9 @@ public class GamePanel extends JPanel implements Runnable {
         Images.loadImages();
         FontLoader.loadFont();
 
-        player = new Player(new Gun(5, 200, 600, 5, 5, 5, 5, -1));
+        player = new Player(new Gun(15, 200, 600, 5, 5, 5, 5, -1, Color.PINK));
+        gunDrops.add(new GunDrop(75, 500, new Gun(10, 100, 600, 0, 0, 0, 5, 1, Color.YELLOW), Color.YELLOW));
+        gunDrops.add(new GunDrop(50, 400, new Gun(50, 500, 600, 0, 0, 0, 5, -1, Color.RED), Color.RED));
         buildings.addBuilding(prototypeBuilding1);
         buildings.addBuilding(prototypeBuilding2);
         CollisionManager.addCollidable(player);
@@ -344,8 +345,9 @@ public class GamePanel extends JPanel implements Runnable {
         trees.draw(g2d);
         zombies.draw(g2d, player);
         
-        prototypeGun1.draw(g2d, player);
-        prototypeGun2.draw(g2d, player);
+        for (GunDrop gd:gunDrops) {
+            gd.draw(g2d, player);
+        }
         
 
         player.getGun().draw(g2d, player);

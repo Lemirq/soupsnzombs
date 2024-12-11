@@ -166,6 +166,14 @@ public class Player extends Entity implements GameObject {
 
     }
 
+    public void dropGun() {
+       // if (this.gun.getDamage() != 0) { //if the player is holding an actual gun
+           // this.setGun(new Gun(0, 0, 0, 0, 0, 0, 0, -1)); allow player to throw guns
+          
+           GamePanel.gunDrops.add(new GunDrop(this.x-100, this.y, this.gun, this.gun.getDropColor()));  
+      //  }
+    }
+
     public Rectangle getBounds() {
         return new Rectangle(x, y, width, height);
     }
