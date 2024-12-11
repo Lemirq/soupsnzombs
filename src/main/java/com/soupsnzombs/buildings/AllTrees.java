@@ -2,27 +2,26 @@ package com.soupsnzombs.buildings;
 
 import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.utils.CollisionManager;
-
 import java.awt.*;
 import java.util.ArrayList;
 
 public class AllTrees {
-    public ArrayList<Wall> trees = new ArrayList<>();
+    public ArrayList<Tree> trees = new ArrayList<>();
 
-    public void addBuilding(Building t) {
-        trees.add((Wall) t);
+    public void addTree(Tree t) {
+        trees.add(t);
     }
 
     public AllTrees() {
-        trees.add(new Wall(-400, 40, 300, 50));
-        for (Building b : trees) {
-            CollisionManager.addCollidable(b);
+        trees.add(new Tree(200, 100,50, 50));
+        for (Tree t : trees) {
+            CollisionManager.addCollidable(t);
         }
 
     }
 
-    public void draw(Graphics2D g2d) {
-        for (Building t : trees) {
+    public void drawTree(Graphics2D g2d) {
+        for (Tree t : trees) {
             t.draw(g2d);
             // draw rect x,y,w,h
             g2d.setColor(Color.RED);
