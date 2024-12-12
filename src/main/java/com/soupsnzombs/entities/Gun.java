@@ -16,12 +16,12 @@ public class Gun extends Entity {
     private int reloadTime;
     private int bulletSpeed;
     private int automatic; //-1 = false, 0 = semi, 1 = automatic 
-    private Color gunDropColor;
+    private GunDrop drop; 
     public static ArrayList<Bullet> bullets = new ArrayList<>();
     // boolean released ; //for the basic gun, you need to spam space; perhaps for
     // automatics, this can be removed.
 
-    public Gun(int damage, int fireRate, int range, int ammo, int maxAmmo, int reloadTime, int bulletSpeed, int automatic, Color gunDropColor) {
+    public Gun(int damage, int fireRate, int range, int ammo, int maxAmmo, int reloadTime, int bulletSpeed, int automatic) {
         super(0, 0, 0, 0, 0, 0);
         this.damage = damage;
         this.fireRate = fireRate;
@@ -31,7 +31,7 @@ public class Gun extends Entity {
         this.reloadTime = reloadTime;
         this.bulletSpeed = bulletSpeed;
         this.automatic = automatic;
-        this.gunDropColor = gunDropColor;
+        this.drop = new GunDrop(0, 0, this, new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
     }
 
     public int getAutomaticState() {
@@ -188,7 +188,15 @@ public class Gun extends Entity {
         }
     }
 
-    public Color getDropColor() {
-        return gunDropColor;
+    public GunDrop getDrop() {
+        return drop;
+    }
+
+    public void dropGun(int x, int y) {
+        drop.x = x;
+        drop.y = y;
+
+        GamePanel.gunDrops.add(drop); 
+        drop.startGrace();
     }
 }

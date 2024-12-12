@@ -194,15 +194,20 @@ public class GamePanel extends JPanel implements Runnable {
         while (gunDropIterator.hasNext()) {
             GunDrop gd = gunDropIterator.next();
             Rectangle gBounds = gd.getBounds();
-            if (gBounds.intersects(player.getBounds()) && gd.isInteractable()) {
-                gunDropIterator.remove();
-                player.dropGun(gd.x, gd.y);
-                player.setGun(gd.getGunInfo());
-                break;
+            if (gBounds.intersects(player.getBounds())) {
+                if (gd.isCollectable()) {
+                    gunDropIterator.remove();
+                    player.getGun().dropGun(gd.x, gd.y);
+                    player.setGun(gd.getGunInfo());
+                    break;
+                }
+                else if (gd.isInteractable()) {
+                    gd.startSwapTimer();
+                    break;
+                } 
             }
+            else if (gd.isSwapTimerRunning()) gd.stopSwapTimer();
         }
-        
-
     }
 
     GamePanel() {
@@ -214,9 +219,9 @@ public class GamePanel extends JPanel implements Runnable {
         Images.loadImages();
         FontLoader.loadFont();
 
-        player = new Player(new Gun(15, 200, 600, 5, 5, 5, 5, -1, Color.PINK));
-        gunDrops.add(new GunDrop(75, 500, new Gun(10, 100, 600, 0, 0, 0, 5, 1, Color.YELLOW), Color.YELLOW));
-        gunDrops.add(new GunDrop(50, 400, new Gun(50, 500, 600, 0, 0, 0, 5, -1, Color.RED), Color.RED));
+        player = new Player(new Gun(15, 200, 600, 5, 5, 5, 5, -1));
+        gunDrops.add(new GunDrop(75, 500, new Gun(10, 100, 600, 0, 0, 0, 5, 1), Color.YELLOW));
+        gunDrops.add(new GunDrop(50, 400, new Gun(50, 500, 600, 0, 0, 0, 5, -1), Color.RED));
         buildings.addBuilding(prototypeBuilding1);
         buildings.addBuilding(prototypeBuilding2);
         CollisionManager.addCollidable(player);
