@@ -19,7 +19,7 @@ public class Bush extends Building {
     }
 
     @Override
-    public void drawBuilding(Graphics2D g2d, int x, int y, int w, int h) {
+    void drawBuilding(Graphics2D g2d, int x, int y, int w, int h) {
         bushX = mapX + GamePanel.offsetX;
         bushY = mapY + GamePanel.offsetY;
 
