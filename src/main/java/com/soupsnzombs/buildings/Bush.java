@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Bush extends Building {
-    int mapX, mapY, bushX, bushY, width, height;
+    int mapX, mapY, bushX, bushY;
     BufferedImage treeSprite;
 
 
@@ -19,13 +19,14 @@ public class Bush extends Building {
     }
 
     @Override
-    void drawBuilding(Graphics2D g2d, int x, int y, int w, int h) {
+    public void drawBuilding(Graphics2D g2d, int x, int y, int w, int h) {
         bushX = mapX + GamePanel.offsetX;
         bushY = mapY + GamePanel.offsetY;
 
         g2d.setColor(Color.CYAN);
-        g2d.fillRect(bushX, bushY, width, height);
-
+        
+        g2d.fillRect(this.bushX, this.bushY, this.width, this.height);
+       // System.out.println("bush drawn");
         if (GamePanel.debugging) {
 
             // Draw the building's border

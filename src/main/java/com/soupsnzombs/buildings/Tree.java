@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.image.*;
 
 public class Tree extends Building {
-    int mapX, mapY, treeX, treeY, width, height;
+    int mapX, mapY, treeX, treeY;
     BufferedImage treeSprite;
 
 
@@ -26,7 +26,6 @@ public class Tree extends Building {
         g2d.fillRect(treeX, treeY, width, height);
 
         if (GamePanel.debugging) {
-
             // Draw the building's border
             g2d.setColor(Color.RED);
             g2d.setStroke(new BasicStroke(1));

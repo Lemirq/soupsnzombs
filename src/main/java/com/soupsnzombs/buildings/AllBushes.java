@@ -23,7 +23,7 @@ public class AllBushes {
 
     public void drawBush(Graphics2D g2d) {
         for (Bush bush : bushes) {
-            bush.draw(g2d);
+            bush.drawBuilding(g2d, 250, 100, 100, 50);
             // draw rect x,y,w,h
             g2d.setColor(Color.RED);
             if (GamePanel.debugging) {
