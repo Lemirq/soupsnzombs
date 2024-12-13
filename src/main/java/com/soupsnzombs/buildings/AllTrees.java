@@ -13,7 +13,7 @@ public class AllTrees {
     }
 
     public AllTrees() {
-        trees.add(new Tree(200, 100,50, 50));
+        trees.add(new Tree(350, 100,50, 50));
         for (Tree t : trees) {
             CollisionManager.addCollidable(t);
         }
