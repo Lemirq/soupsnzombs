@@ -114,15 +114,12 @@ public class KeyHandler extends KeyAdapter {
                 }
                 break;
             case KeyEvent.VK_ENTER:
-                break;
-            case KeyEvent.VK_P:
-               
                 if (GamePanel.gameState == GameState.NAME_SELECT) {
                     NameSelect.selectEnter(game);
-                    break;
                 }
-                
-                else if (GamePanel.gameState == GameState.SCORES) {
+                break;
+            case KeyEvent.VK_P:
+                if (GamePanel.gameState == GameState.SCORES) {
                     GamePanel.gameState = GameState.MAIN_MENU;
                 } else if (GamePanel.gameState == GameState.INSTRUCTIONS) {
                     GamePanel.gameState = GameState.GAME;
