@@ -50,7 +50,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // Game loop variables
     private boolean running = false;
-    private double elapsedTime = 0;
+    public static double elapsedTime = 0;
     private long lastDamageTime = 0; // for player invincibility
     private Thread gameThread;
     private long lastTime;
@@ -119,7 +119,7 @@ public class GamePanel extends JPanel implements Runnable {
         while (running) {
             long now = System.nanoTime();
             delta += (now - lastTime) / TIME_PER_TICK;
-            if (gameState == GameState.GAME) elapsedTime += (now - lastTime) / 1_000_000_000.0; // Update elapsed time
+            if (gameState == GameState.GAME) elapsedTime += (now - lastTime) / 1_000_000_000.0; // Update elapsed time, THIS IS WHERE SCORE IS CALCULATED
             lastTime = now;
 
             // game over testing
@@ -392,9 +392,11 @@ public class GamePanel extends JPanel implements Runnable {
         // bottom right corner, bullet positions
         player.draw(g2d);
 
+        g2d.drawString(String.format("Time Survived: %.2f", elapsedTime), 120, screenHeight-100);
+
         // DEBUG drawings
         //g2d.setColor(Color.RED);
-        // make solid lines 3 pixels wide
+        // make solid lines 3 pixels wide40, 
         // g2d.setStroke(new BasicStroke(3));
         // draw horizontal line in middle of screen
         // g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);

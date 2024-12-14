@@ -1,7 +1,6 @@
 package com.soupsnzombs.buildings;
 
 import com.soupsnzombs.GamePanel;
-import com.soupsnzombs.utils.CollisionManager;
 
 import java.awt.*;
 import java.util.ArrayList;

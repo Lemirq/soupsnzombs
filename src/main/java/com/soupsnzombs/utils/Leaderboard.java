@@ -1,5 +1,6 @@
 package com.soupsnzombs.utils;
 
+import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.UI.MainMenu.NameSelect;
 import com.soupsnzombs.entities.Player;
 
@@ -10,7 +11,7 @@ import javax.swing.JOptionPane;
 import java.io.*;
 
 public class Leaderboard {
-    static File leaderboard = new File("src/main/resources/leaderboard.txt");
+    static File leaderboard = new File("G:\\My Drive\\ICS4U\\Culminating\\Prototype\\soupsnzombs\\src\\main\\resources\\leaderboard.txt");
     static FileReader fr;
     static BufferedReader br;
     static FileWriter fw;
@@ -121,7 +122,7 @@ public class Leaderboard {
             }
             fw = new FileWriter(leaderboard, true);
             bw = new BufferedWriter(fw);
-            bw.write("name:" + NameSelect.name + " " + "score:" + Player.score);
+            bw.write("name:" + NameSelect.name + " " + "score:" + Player.score + " " + "time survived:" + GamePanel.elapsedTime);
             bw.newLine();
             bw.close();
             fw.close();

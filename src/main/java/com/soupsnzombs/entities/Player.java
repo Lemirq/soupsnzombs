@@ -8,7 +8,7 @@ import com.soupsnzombs.utils.Images;
 import com.soupsnzombs.utils.KeyHandler;
 public class Player extends Entity implements GameObject {
     int money;
-    public static int score;
+    public static int score = 0;
     int health;
     BufferedImage sprite;
     public HealthBar bar = new HealthBar(100);
@@ -147,7 +147,8 @@ public class Player extends Entity implements GameObject {
 
         // draw score bottom left corner
         g2d.setColor(Color.WHITE);
-        g2d.drawString("Score: " + score, 20, GamePanel.screenHeight - 20);
+        g2d.setFont(new Font("DejaVuSans 12", Font.PLAIN, 20));
+        g2d.drawString("Score: " + score, 20, GamePanel.screenHeight - 100);
 
         if (GamePanel.debugging) {
             // draw map coordinates next to player for debugging
