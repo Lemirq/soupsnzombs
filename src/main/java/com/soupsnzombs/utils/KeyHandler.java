@@ -21,10 +21,10 @@ public class KeyHandler extends KeyAdapter {
     // KeyHandler class to handle key events
 
     public static boolean canShoot = true;
-    boolean shootReleased = true;
+    private boolean shootReleased = true;
     public static Timer shootCooldown;
     public static Timer automaticGunTimer;
-    boolean dropReleased = true;
+    public boolean dropReleased = true;
 
     public KeyHandler(GamePanel game) {
         this.game = game;
@@ -38,20 +38,18 @@ public class KeyHandler extends KeyAdapter {
                     Player.showFireRateBar = false;
                     Player.shotCoolDownTime = 100;
                 }
-                 // Enable shooting
             }
         });
 
         automaticGunTimer = new Timer(20, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (canShoot && GamePanel.gameState == GameState.GAME) {
+                if (canShoot) {
                     GamePanel.shootPressed = true;
                     Player.showFireRateBar = true;
                     canShoot = false;
                     shootCooldown.start(); // Start the cooldown timer
                 }
-                 // Enable shooting
             }
         });
     }
@@ -164,7 +162,7 @@ public class KeyHandler extends KeyAdapter {
 
             case KeyEvent.VK_C:
                if (dropReleased) {
-                
+                GamePanel.dropPressed = true;
                }
                dropReleased = false;
                break;
@@ -201,6 +199,7 @@ public class KeyHandler extends KeyAdapter {
                 if (game.getPlayer().getGun().getAutomaticState() == 1) automaticGunTimer.stop(); //stop firing when space released
                 break;
             case KeyEvent.VK_C:
+                GamePanel.dropPressed = false;
                 dropReleased = true;
                 break;
         }

@@ -192,11 +192,5 @@ public class Gun extends Entity {
         return drop;
     }
 
-    public void dropGun(int x, int y) {
-        drop.x = x;
-        drop.y = y;
-
-        GamePanel.gunDrops.add(drop); 
-        drop.startGrace();
-    }
+    
 }

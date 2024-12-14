@@ -170,4 +170,16 @@ public class Player extends Entity implements GameObject {
     public Rectangle getBounds() {
         return new Rectangle(x, y, width, height);
     }
+
+    public void dropGun() {
+        this.gun.getDrop().x = this.x;
+        this.gun.getDrop().y = this.y;
+        GamePanel.gunDrops.add(this.gun.getDrop());
+    }
+
+    public void dropGun(int x, int y) {
+        this.gun.getDrop().x = x;
+        this.gun.getDrop().y = y;
+        GamePanel.gunDrops.add(this.gun.getDrop());
+    }
 }

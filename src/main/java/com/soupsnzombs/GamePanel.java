@@ -2,6 +2,7 @@ package com.soupsnzombs;
 
 import javax.swing.*;
 
+import com.soupsnzombs.UI.Inventory;
 import com.soupsnzombs.UI.MainMenu.Credits;
 import com.soupsnzombs.UI.MainMenu.Instructions;
 import com.soupsnzombs.UI.MainMenu.MenuGUI;
@@ -76,6 +77,7 @@ public class GamePanel extends JPanel implements Runnable {
     public static boolean downPressed = false;
     public static boolean leftPressed = false;
     public static boolean rightPressed = false;
+    public static boolean dropPressed = false;
     public static boolean shootPressed = false;
     public static PlayerDir direction = PlayerDir.UP;
     private Player player;
@@ -88,11 +90,12 @@ public class GamePanel extends JPanel implements Runnable {
     public static ArrayList<GunDrop> gunDrops = new ArrayList<>();
     public EntranceBuilding prototypeBuilding1 = new EntranceBuilding(1000, 1000, 300, 500, 80, 1, 40);
     public EntranceBuilding prototypeBuilding2 = new EntranceBuilding(2000, 1000, 1000, 300, 200, 4, 65);
-
+    public Inventory inven;
     public Player getPlayer() {
         return this.player;
     }
     
+
     public synchronized void start() {
         running = true;
         gameThread = new Thread(this);
@@ -145,6 +148,7 @@ public class GamePanel extends JPanel implements Runnable {
             return;
         }
         if (shootPressed) {
+            
             player.getGun().shootBullet(player);
             
             shootPressed = false;
@@ -195,20 +199,31 @@ public class GamePanel extends JPanel implements Runnable {
         Iterator<GunDrop> gunDropIterator = GamePanel.gunDrops.iterator();
         while (gunDropIterator.hasNext()) {
             GunDrop gd = gunDropIterator.next();
-            Rectangle gBounds = gd.getBounds();
-            if (gBounds.intersects(player.getBounds())) {
-                if (gd.isCollectable()) {
-                    gunDropIterator.remove();
-                    player.getGun().dropGun(gd.x, gd.y);
-                    player.setGun(gd.getGunInfo());
-                    break;
-                }
-                else if (gd.isInteractable()) {
-                    gd.startSwapTimer();
-                    break;
-                } 
+            Rectangle gdBounds = gd.getBounds();
+            if (gdBounds.intersects(player.getBounds()) && dropPressed) {
+                gunDropIterator.remove();
+                dropPressed = false;
+                
+                if (player.getGun().getDamage() != 0) player.dropGun(gd.x, gd.y);
+                player.setGun(gd.getGun());
+
+                break;
+               // else if (gd.isInteractable()) {
+               //     gd.startSwapTimer();
+               //     break;
+               // } 
             }
-            else if (gd.isSwapTimerRunning()) gd.stopSwapTimer();
+            else if (gdBounds.intersects(player.getBounds())) gd.setInteractable(true);
+            else gd.setInteractable(false);
+           // else if (gd.isSwapTimerRunning()) gd.stopSwapTimer();
+        }
+
+        if (dropPressed) {
+            if (player.getGun().getDamage() != 0) {
+                dropPressed = false;
+                player.dropGun();
+                player.setGun(new Gun(0, 0, 0, 0, 0, 0, 0 ,0));
+            }           
         }
     }
 
@@ -230,6 +245,7 @@ public class GamePanel extends JPanel implements Runnable {
         buildings.buildings.addAll(prototypeBuilding1.surroundingWalls);
         buildings.buildings.addAll(prototypeBuilding2.surroundingWalls);
         zombies = new AllZombies();
+        inven = new Inventory();
         start();
     }
 
@@ -365,9 +381,10 @@ public class GamePanel extends JPanel implements Runnable {
         bushes.drawBush(g2d);
         trees.drawTree(g2d);
         zombies.draw(g2d, player);
-        
+        inven.draw(g2d, this, player.getGun());
+
         for (GunDrop gd:gunDrops) {
-            gd.draw(g2d, player);
+            gd.draw(g2d);
         }
         
 
