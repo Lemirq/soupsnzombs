@@ -34,6 +34,10 @@ public class Gun extends Entity {
         this.drop = new GunDrop(0, 0, this, new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
     }
 
+    public void setDrop(GunDrop drop) {
+        this.drop = drop;
+    } 
+
     public int getAutomaticState() {
         return this.automatic;
     }

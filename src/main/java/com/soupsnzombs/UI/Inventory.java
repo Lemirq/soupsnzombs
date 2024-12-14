@@ -11,6 +11,6 @@ public class Inventory {
         g2d.setFont(new Font("DejaVuSans 12", Font.PLAIN, 20));
         g2d.drawString("Current gun: ", game.getWidth()-150, game.getHeight()-200);
         g2d.drawRect(game.getWidth()-133, game.getHeight()-185, 80, 80);
-        if (gun.getDamage() != 0) gun.getDrop().draw(g2d, game.getWidth()-108, game.getHeight()-160);
+        if (gun.getDamage() != 0) gun.getDrop().drawInventoryVersion(g2d, game.getWidth()-108, game.getHeight()-160);
     }
 }

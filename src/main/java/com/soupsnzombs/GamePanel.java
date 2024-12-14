@@ -383,7 +383,7 @@ public class GamePanel extends JPanel implements Runnable {
         inven.draw(g2d, this, player.getGun());
 
         for (GunDrop gd:gunDrops) {
-            gd.draw(g2d);
+            gd.draw(g2d, player);
         }
         
 
