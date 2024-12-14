@@ -119,8 +119,7 @@ public class GamePanel extends JPanel implements Runnable {
         while (running) {
             long now = System.nanoTime();
             delta += (now - lastTime) / TIME_PER_TICK;
-            if (gameState == GameState.GAME)
-                elapsedTime += (now - lastTime) / 1_000_000_000.0; // Update elapsed time
+            if (gameState == GameState.GAME) elapsedTime += (now - lastTime) / 1_000_000_000.0; // Update elapsed time
             lastTime = now;
 
             // game over testing

@@ -115,14 +115,14 @@ public class KeyHandler extends KeyAdapter {
                 break;
             case KeyEvent.VK_ENTER:
                 break;
-
             case KeyEvent.VK_P:
+               
                 if (GamePanel.gameState == GameState.NAME_SELECT) {
                     NameSelect.selectEnter(game);
+                    break;
                 }
-                MenuGUI.pressed = true;
-
-                if (GamePanel.gameState == GameState.SCORES) {
+                
+                else if (GamePanel.gameState == GameState.SCORES) {
                     GamePanel.gameState = GameState.MAIN_MENU;
                 } else if (GamePanel.gameState == GameState.INSTRUCTIONS) {
                     GamePanel.gameState = GameState.GAME;
@@ -133,10 +133,12 @@ public class KeyHandler extends KeyAdapter {
 
                 } else if (GamePanel.gameState == GameState.GAME || GamePanel.gameState == GameState.SHOP) {
                     Shop.open = !Shop.open;
-                    GamePanel.gameState = Shop.open ? GameState.SHOP : GameState.GAME;
+                    if (Shop.open) GamePanel.gameState = GameState.SHOP;
+                    else GamePanel.gameState = GameState.GAME;
                 } else if (GamePanel.gameState == GameState.CREDITS) {
                     GamePanel.gameState = GameState.MAIN_MENU;
                 }
+                else  MenuGUI.pressed = true;
                 break;
 
             case KeyEvent.VK_F:
@@ -192,7 +194,7 @@ public class KeyHandler extends KeyAdapter {
             case KeyEvent.VK_D:
                 GamePanel.rightPressed = false;
                 break;
-            case KeyEvent.VK_ENTER:
+            case KeyEvent.VK_P:
                 MenuGUI.pressed = false;
                 break;
             case KeyEvent.VK_SPACE:
