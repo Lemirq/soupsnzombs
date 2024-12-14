@@ -8,18 +8,18 @@ import java.awt.image.BufferedImage;
 
 public class Bush extends Building {
     int mapX, mapY, bushX, bushY;
-    BufferedImage treeSprite;
+    BufferedImage bushSprite;
 
 
     public Bush(int x, int y, int width, int height) {
         super(x, y, width, height);
-        treeSprite = Images.spriteImages.get("manBrown_gun.png");
+        bushSprite = Images.spriteImages.get("");
         mapX = x;
         mapY = y;
     }
 
     @Override
-    public void drawBuilding(Graphics2D g2d, int x, int y, int w, int h) {
+    void drawBuilding(Graphics2D g2d, int x, int y, int w, int h) {
         bushX = mapX + GamePanel.offsetX;
         bushY = mapY + GamePanel.offsetY;
 

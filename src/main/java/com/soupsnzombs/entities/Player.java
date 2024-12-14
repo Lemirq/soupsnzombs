@@ -15,6 +15,7 @@ public class Player extends Entity implements GameObject {
     public static int shotCoolDownTime = 100; //always 100, see keyhandler for how the time is subtracted in relation to the firerate of the gun
     public static boolean showFireRateBar = false;
     private Gun gun;
+
     public Player(Gun gun) {
         super(0, 0, 0, 0, 100,
                 GamePanel.MOVE_SPEED);
@@ -25,7 +26,6 @@ public class Player extends Entity implements GameObject {
         this.height = sprite.getHeight();
         this.x = GamePanel.screenWidth / 2 - width / 2;
         this.y = GamePanel.screenHeight / 2 - height / 2;
-        this.health = 100;
         this.money = 0;
         this.health = 100;
         this.gun = gun;

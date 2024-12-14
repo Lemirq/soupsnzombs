@@ -302,7 +302,7 @@
 	<!-- <SubTexture name="tile_3150000" x="612" y="612" width="68" height="68" frameX="2" frameY="2" frameWidth="64" frameHeight="64"/> -->
 	<!-- <SubTexture name="tile_2730000" x="1156" y="204" width="68" height="68" frameX="2" frameY="2" frameWidth="64" frameHeight="64"/> -->
 	<!-- <SubTexture name="tile_3430000" x="544" y="204" width="68" height="68" frameX="2" frameY="2" frameWidth="64" frameHeight="64"/> -->
-	<!-- <SubTexture name="tile_2660000" x="1412" y="461" width="44" height="40" frameX="-11" frameY="-11" frameWidth="64" frameHeight="64"/> -->
+	<SubTexture name="BUSH.png" x="1412" y="461" width="44" height="40" frameX="-11" frameY="-11" frameWidth="64" frameHeight="64"/> -->
 	<!-- <SubTexture name="tile_3000000" x="204" y="340" width="68" height="68" frameX="2" frameY="2" frameWidth="64" frameHeight="64"/> -->
 	<!-- <SubTexture name="tile_3720000" x="68" y="408" width="68" height="68" frameX="2" frameY="2" frameWidth="64" frameHeight="64"/> -->
 	<!-- <SubTexture name="tile_2790000" x="272" y="952" width="68" height="68" frameX="2" frameY="2" frameWidth="64" frameHeight="64"/> -->

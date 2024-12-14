@@ -14,16 +14,13 @@ public class AllBushes {
     }
 
     public AllBushes() {
-        bushes.add(new Bush(250, 100,100, 50));
-        for (Bush bush : bushes) {
-            CollisionManager.addCollidable(bush);
-        }
+        bushes.add(new Bush(250, 100,50, 50));
 
     }
 
     public void drawBush(Graphics2D g2d) {
         for (Bush bush : bushes) {
-            bush.drawBuilding(g2d, 250, 100, 100, 50);
+            bush.draw(g2d);
             // draw rect x,y,w,h
             g2d.setColor(Color.RED);
             if (GamePanel.debugging) {

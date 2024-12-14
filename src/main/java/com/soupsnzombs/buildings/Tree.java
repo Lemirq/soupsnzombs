@@ -12,7 +12,7 @@ public class Tree extends Building {
 
     public Tree(int x, int y, int width, int height) {
         super(x, y, width, height);
-        treeSprite = Images.spriteImages.get("manBrown_gun.png");
+        treeSprite = Images.spriteImages.get("BUSH.png");
         mapX = x;
         mapY = y;
     }
@@ -23,6 +23,7 @@ public class Tree extends Building {
         treeY = mapY + GamePanel.offsetY;
 
         g2d.setColor(Color.CYAN);
+        g2d.drawImage(treeSprite, treeX, treeY, width, height, null);
         g2d.fillRect(treeX, treeY, width, height);
 
         if (GamePanel.debugging) {
