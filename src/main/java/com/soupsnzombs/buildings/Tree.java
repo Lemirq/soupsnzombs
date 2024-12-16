@@ -12,7 +12,7 @@ public class Tree extends Building {
 
     public Tree(int x, int y, int width, int height) {
         super(x, y, width, height);
-        treeSprite = Images.spriteImages.get("BUSH.png");
+        treeSprite = Images.spriteImages.get("manBlue_gun.png");
         mapX = x;
         mapY = y;
     }

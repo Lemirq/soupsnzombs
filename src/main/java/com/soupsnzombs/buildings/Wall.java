@@ -5,14 +5,19 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.utils.Images;
 
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+
 
 public class Wall extends Building {
+    private BufferedImage wallSprite;
     int mapX, mapY;
 
     public Wall(int x, int y, int width, int height) {
         super(x, y, width, height);
+        this.wallSprite = Images.spriteImages.get("manBlue_gun.png");
         mapX = x;
         mapY = y;
     }
@@ -25,7 +30,10 @@ public class Wall extends Building {
 
         // Draw the building
         g2d.setColor(Color.BLUE);
+        g2d.drawImage(wallSprite, buildingX, buildingY, width, height, null);
+
         g2d.fillRect(buildingX, buildingY, width, height);
+
         if (GamePanel.debugging) {
 
             // Draw the building's border

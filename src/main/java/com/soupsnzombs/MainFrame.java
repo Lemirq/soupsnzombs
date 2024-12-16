@@ -15,7 +15,7 @@ public class MainFrame extends JFrame {
     }
 
     MainFrame() {
-        setTitle("Soup N Zombs");
+        setTitle("Soups 'N' Zombs");
         setUndecorated(true);
         game = new GamePanel();
         game.setPreferredSize(new Dimension(GamePanel.screenWidth, GamePanel.screenHeight));
