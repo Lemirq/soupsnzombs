@@ -18,17 +18,18 @@ import javax.swing.Timer;
 
 public class KeyHandler extends KeyAdapter {
     GamePanel game;
+    Player player;
     //boolean shootReleased = true; // trigger for non-automatic guns
     // KeyHandler class to handle key events
-
     public static boolean canShoot = true;
     private boolean shootReleased = true;
     public static Timer shootCooldown;
     public static Timer automaticGunTimer;
     public boolean dropReleased = true;
-
+    
     public KeyHandler(GamePanel game) {
         this.game = game;
+        this.player = game.getPlayer();
         shootCooldown = new Timer(20, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -124,7 +125,7 @@ public class KeyHandler extends KeyAdapter {
                     GamePanel.gameState = GameState.MAIN_MENU;
                 } else if (GamePanel.gameState == GameState.INSTRUCTIONS) {
                     GamePanel.gameState = GameState.GAME;
-                } else if (GamePanel.gameState == GameState.NAME_SELECT && !Entity.alive) {
+                } else if (GamePanel.gameState == GameState.NAME_SELECT && !player.alive) {
                     GamePanel.gameState = GameState.MAIN_MENU;
                     // write the name to the file
                     Leaderboard.writeScores();
@@ -143,8 +144,9 @@ public class KeyHandler extends KeyAdapter {
                 break;
 
             case KeyEvent.VK_ESCAPE: //for debugging purposes, instantly kills the player
-                Player.alive = false;
+                player.alive = false;
                 System.out.println("Player died.");
+                break;
 
             case KeyEvent.VK_SPACE:
                 if (game.getPlayer().getGun().getAutomaticState() == -1) {

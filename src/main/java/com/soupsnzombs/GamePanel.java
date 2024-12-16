@@ -151,14 +151,14 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     }
 
     private void update() {
-        if (!Entity.alive && gameState != GameState.GAMEOVER && gameState != GameState.NAME_SELECT && gameState != GameState.MAIN_MENU) {
+        if (!player.alive && gameState != GameState.GAMEOVER && gameState != GameState.NAME_SELECT && gameState != GameState.MAIN_MENU) {
             gameState = GameState.GAMEOVER;
             return;
         }
 
         if (gameState == GameState.MAIN_MENU) {
             elapsedTime = 0;        // Reset elapsed time
-            Entity.alive = true;    // Reset alive status
+            player.alive = true;    // Reset alive status
             player.setHealth(100);  // Reset player health
         }
 
