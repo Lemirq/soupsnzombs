@@ -13,7 +13,7 @@ public class Bush extends Building {
 
     public Bush(int x, int y, int width, int height) {
         super(x, y, width, height);
-        bushSprite = Images.spriteImages.get("");
+        bushSprite = Images.spriteImages.get("manBlue_gun.png");
         mapX = x;
         mapY = y;
     }
@@ -24,8 +24,9 @@ public class Bush extends Building {
         bushY = mapY + GamePanel.offsetY;
 
         g2d.setColor(Color.CYAN);
-        
         g2d.fillRect(this.bushX, this.bushY, this.width, this.height);
+        g2d.drawImage(bushSprite, bushX, bushY, width, height, null);
+
        // System.out.println("bush drawn");
         if (GamePanel.debugging) {
 

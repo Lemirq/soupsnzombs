@@ -82,7 +82,7 @@ public class KeyHandler extends KeyAdapter {
                 break;
             case KeyEvent.VK_A:
 
-                // check if game hasnt started, use this to move the selection
+                // check if game hasn't started, use this to move the selection
                 if (GamePanel.gameState == GameState.MAIN_MENU) {
                     if (MenuGUI.selected == 0) {
                         MenuGUI.selected = 2;
@@ -124,10 +124,9 @@ public class KeyHandler extends KeyAdapter {
                 } else if (GamePanel.gameState == GameState.INSTRUCTIONS) {
                     GamePanel.gameState = GameState.GAME;
                 } else if (GamePanel.gameState == GameState.NAME_SELECT) {
-                    GamePanel.gameState = GameState.GAMEOVER;
+                    GamePanel.gameState = GameState.MAIN_MENU;
                     // write the name to the file
                     Leaderboard.writeScores();
-
                 } else if (GamePanel.gameState == GameState.GAME || GamePanel.gameState == GameState.SHOP) {
                     Shop.open = !Shop.open;
                     if (Shop.open) GamePanel.gameState = GameState.SHOP;
@@ -135,7 +134,7 @@ public class KeyHandler extends KeyAdapter {
                 } else if (GamePanel.gameState == GameState.CREDITS) {
                     GamePanel.gameState = GameState.MAIN_MENU;
                 }
-                else  MenuGUI.pressed = true;
+                else MenuGUI.pressed = true;
                 break;
 
             case KeyEvent.VK_F:

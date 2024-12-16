@@ -24,12 +24,18 @@ import com.soupsnzombs.utils.FontLoader;
 import com.soupsnzombs.utils.Images;
 import com.soupsnzombs.utils.Theme;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class GamePanel extends JPanel implements Runnable {
+
+public class GamePanel extends JPanel implements Runnable, ActionListener {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {}
 
     /*
      * flow:
@@ -56,6 +62,12 @@ public class GamePanel extends JPanel implements Runnable {
     private long lastTime;
     private final int FPS = 120;
     private final double TIME_PER_TICK = 1000000000 / FPS;
+
+    Timer timer;
+    int seconds = 0;
+    //private long time1 = 0;
+    //private long time2 = 0;
+    //private boolean gameOverHandled = false;
 
     // Movement variables
     public static int offsetX = 0; // Offset for the grid's X position
@@ -142,14 +154,30 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void update() {
-        if (!player.alive && gameState != GameState.GAMEOVER) {
-            gameState = GameState.NAME_SELECT;
+        if (!player.alive && gameState != GameState.GAMEOVER && gameState != GameState.NAME_SELECT && gameState != GameState.MAIN_MENU) {
+            gameState = GameState.GAMEOVER;
             return;
         }
+
+        if (gameState == GameState.GAMEOVER) {
+            timer.start();
+            if (seconds == 5) {
+                gameState = GameState.NAME_SELECT;
+                return;
+            }
+
+            /*
+            int delay = 5000; // number of milliseconds to sleep
+            long start = System.currentTimeMillis();
+            while(start >= System.currentTimeMillis() - delay);
+            gameState = GameState.NAME_SELECT;
+            return;
+             */
+        }
+
+
         if (shootPressed) {
-            
             player.getGun().shootBullet(player);
-            
             shootPressed = false;
         }
         player.getGun().updateBullets();
@@ -227,6 +255,13 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     GamePanel() {
+        timer = new Timer(1000, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                seconds++;
+            }
+        });
+
+
         // setup timer
         setBackground(Theme.BG);
         setFocusable(true);
@@ -310,7 +345,7 @@ public class GamePanel extends JPanel implements Runnable {
     /**
      * Paints the game panel
      * 
-     * @param g Graphics objecta
+     * @param g Graphics objects
      */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -328,7 +363,7 @@ public class GamePanel extends JPanel implements Runnable {
             return;
         }
 
-        // Instrucitons
+        // Instructions
         if (gameState == GameState.INSTRUCTIONS) {
             instruct.drawInstructions(g2d);
             return;
@@ -336,8 +371,10 @@ public class GamePanel extends JPanel implements Runnable {
 
         if (gameState == GameState.GAMEOVER) {
             g2d.setColor(Color.RED);
-            g2d.setFont(new Font("Arial", Font.PLAIN, 40));
-            g2d.drawString("Game Over", 500, 500);
+            g2d.setFont(new Font("Arial", Font.PLAIN, 100));
+            g2d.drawString("YOU DIED!", 350, 300);
+            g2d.setFont(new Font("Arial", Font.PLAIN, 50));
+            g2d.drawString("Game Over", 475, 500);
             return;
         }
 
