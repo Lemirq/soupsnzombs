@@ -122,7 +122,7 @@ public class Leaderboard {
             }
             fw = new FileWriter(leaderboard, true);
             bw = new BufferedWriter(fw);
-            bw.write("name:" + NameSelect.name + " " + "score:" + Player.score + " " + "time survived:" + GamePanel.elapsedTime);
+            bw.write("name:" + NameSelect.name + " " + "score:" + Player.score + " " + "time survived:" + String.format("%.2f", GamePanel.elapsedTime));
             bw.newLine();
             bw.close();
             fw.close();

@@ -12,3 +12,5 @@ name:RYAN score:40
 name:RYAN score:0
 name: score:0
 name:VIHAAN score:20
+name: score:0 time survived:5.548503901332197
+name:M score:0 time survived:6.11
