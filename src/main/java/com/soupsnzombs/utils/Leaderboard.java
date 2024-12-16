@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import java.io.*;
 
 public class Leaderboard {
-    static File leaderboard = new File("G:\\My Drive\\ICS4U\\Culminating\\Prototype\\soupsnzombs\\src\\main\\resources\\leaderboard.txt");
+    static File leaderboard = new File("src/main/resources/leaderboard.txt");
     static FileReader fr;
     static BufferedReader br;
     static FileWriter fw;
