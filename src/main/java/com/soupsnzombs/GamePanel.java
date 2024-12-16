@@ -13,10 +13,7 @@ import com.soupsnzombs.buildings.AllBuildings;
 import com.soupsnzombs.buildings.AllBushes;
 import com.soupsnzombs.buildings.AllTrees;
 import com.soupsnzombs.buildings.EntranceBuilding;
-import com.soupsnzombs.entities.Bullet;
-import com.soupsnzombs.entities.Gun;
-import com.soupsnzombs.entities.Player;
-import com.soupsnzombs.entities.GunDrop;
+import com.soupsnzombs.entities.*;
 import com.soupsnzombs.entities.zombies.AllZombies;
 import com.soupsnzombs.entities.zombies.Zombie;
 import com.soupsnzombs.utils.CollisionManager;
@@ -154,17 +151,27 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     }
 
     private void update() {
-        if (!player.alive && gameState != GameState.GAMEOVER && gameState != GameState.NAME_SELECT && gameState != GameState.MAIN_MENU) {
+        if (!Entity.alive && gameState != GameState.GAMEOVER && gameState != GameState.NAME_SELECT && gameState != GameState.MAIN_MENU) {
             gameState = GameState.GAMEOVER;
             return;
         }
 
+        if (gameState == GameState.MAIN_MENU) {
+            elapsedTime = 0;        // Reset elapsed time
+            Entity.alive = true;    // Reset alive status
+            player.setHealth(100);  // Reset player health
+        }
+
         if (gameState == GameState.GAMEOVER) {
             timer.start();
-            if (seconds == 5) {
+            if (seconds == 2) {
                 gameState = GameState.NAME_SELECT;
+                seconds = 0;
+                timer.stop();
                 return;
             }
+        }
+
 
             /*
             int delay = 5000; // number of milliseconds to sleep
@@ -173,8 +180,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             gameState = GameState.NAME_SELECT;
             return;
              */
-        }
-
 
         if (shootPressed) {
             player.getGun().shootBullet(player);

@@ -11,6 +11,7 @@ import com.soupsnzombs.GamePanel.PlayerDir;
 import com.soupsnzombs.UI.MainMenu.MenuGUI;
 import com.soupsnzombs.UI.MainMenu.NameSelect;
 import com.soupsnzombs.UI.Shop.Shop;
+import com.soupsnzombs.entities.Entity;
 import com.soupsnzombs.entities.Player;
 
 import javax.swing.Timer;
@@ -123,7 +124,7 @@ public class KeyHandler extends KeyAdapter {
                     GamePanel.gameState = GameState.MAIN_MENU;
                 } else if (GamePanel.gameState == GameState.INSTRUCTIONS) {
                     GamePanel.gameState = GameState.GAME;
-                } else if (GamePanel.gameState == GameState.NAME_SELECT) {
+                } else if (GamePanel.gameState == GameState.NAME_SELECT && !Entity.alive) {
                     GamePanel.gameState = GameState.MAIN_MENU;
                     // write the name to the file
                     Leaderboard.writeScores();
@@ -140,6 +141,10 @@ public class KeyHandler extends KeyAdapter {
             case KeyEvent.VK_F:
                 GamePanel.debugging = !GamePanel.debugging;
                 break;
+
+            case KeyEvent.VK_ESCAPE: //for debugging purposes, instantly kills the player
+                Player.alive = false;
+                System.out.println("Player died.");
 
             case KeyEvent.VK_SPACE:
                 if (game.getPlayer().getGun().getAutomaticState() == -1) {

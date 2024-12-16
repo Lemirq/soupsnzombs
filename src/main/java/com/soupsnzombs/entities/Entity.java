@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 public abstract class Entity extends Rectangle {
     public int health;
     public double speed;
-    public boolean alive = true;
+    public static boolean alive = true;
 
     public Entity(int x, int y, int w, int h, int health, double speed) {
         super(x, y, w, h);
