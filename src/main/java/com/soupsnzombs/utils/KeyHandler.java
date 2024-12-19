@@ -11,7 +11,7 @@ import com.soupsnzombs.GamePanel.PlayerDir;
 import com.soupsnzombs.UI.MainMenu.MenuGUI;
 import com.soupsnzombs.UI.MainMenu.NameSelect;
 import com.soupsnzombs.UI.Shop.Shop;
-import com.soupsnzombs.entities.Entity;
+// import com.soupsnzombs.entities.Entity;
 import com.soupsnzombs.entities.Player;
 
 import javax.swing.Timer;
@@ -72,15 +72,25 @@ public class KeyHandler extends KeyAdapter {
                 GamePanel.upPressed = true;
                 GamePanel.direction = PlayerDir.UP;
 
-                if (GamePanel.gameState == GameState.NAME_SELECT)
+                if (GamePanel.gameState == GameState.SHOP){
+                    Shop.selectUp(game);
+                }
+
+                if (GamePanel.gameState == GameState.NAME_SELECT){
                     NameSelect.selectUp(game);
+                }
+
                 break;
 
             case KeyEvent.VK_S:
                 GamePanel.downPressed = true;
                 GamePanel.direction = PlayerDir.DOWN;
-                if (GamePanel.gameState == GameState.NAME_SELECT)
+                if (GamePanel.gameState == GameState.NAME_SELECT){
                     NameSelect.selectDown(game);
+                }
+                if (GamePanel.gameState == GameState.SHOP){
+                    Shop.selectDown(game);
+                }
                 break;
             case KeyEvent.VK_A:
 
@@ -93,6 +103,8 @@ public class KeyHandler extends KeyAdapter {
                     }
                 } else if (GamePanel.gameState == GameState.NAME_SELECT) {
                     NameSelect.selectLeft(game);
+                }else if (GamePanel.gameState == GameState.SHOP) {
+                    Shop.selectLeft(game);
                 }
                 if (GamePanel.gameState == GameState.GAME) {
                     GamePanel.leftPressed = true;
@@ -109,6 +121,8 @@ public class KeyHandler extends KeyAdapter {
                     }
                 } else if (GamePanel.gameState == GameState.NAME_SELECT) {
                     NameSelect.selectRight(game);
+                }else if (GamePanel.gameState == GameState.SHOP) {
+                    Shop.selectRight(game);
                 }
                 if (GamePanel.gameState == GameState.GAME) {
                     GamePanel.rightPressed = true;

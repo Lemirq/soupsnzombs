@@ -358,7 +358,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         oldTransformation = g2d.getTransform();
 
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
         // menu screen
         if (gameState == GameState.MAIN_MENU) {
             menu.drawMenu(g2d);
@@ -400,6 +399,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // shop
         if (gameState == GameState.SHOP) {
             shop.drawShop(g2d);
+            shop.drawOptions(g2d);
             shop.checkShop();
             return;
         }
