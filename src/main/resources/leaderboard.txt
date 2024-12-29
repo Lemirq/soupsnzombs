@@ -17,3 +17,4 @@ name:M score:0 time survived:6.11
 name:X score:30 time survived:174.86
 name: score:0 time survived:0.00
 name: score:0 time survived:0.00
+name: score:20 time survived:58.16

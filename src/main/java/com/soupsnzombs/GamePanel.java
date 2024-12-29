@@ -1,25 +1,13 @@
 package com.soupsnzombs;
 
 import javax.swing.*;
-
-import com.soupsnzombs.UI.Inventory;
-import com.soupsnzombs.UI.MainMenu.Credits;
-import com.soupsnzombs.UI.MainMenu.Instructions;
-import com.soupsnzombs.UI.MainMenu.MenuGUI;
-import com.soupsnzombs.UI.MainMenu.NameSelect;
+import com.soupsnzombs.UI.*;
+import com.soupsnzombs.UI.MainMenu.*;
 import com.soupsnzombs.UI.Shop.Shop;
-import com.soupsnzombs.UI.MainMenu.Scores;
-import com.soupsnzombs.buildings.AllBuildings;
-import com.soupsnzombs.buildings.AllBushes;
-import com.soupsnzombs.buildings.AllTrees;
-import com.soupsnzombs.buildings.EntranceBuilding;
+import com.soupsnzombs.buildings.*;
 import com.soupsnzombs.entities.*;
-import com.soupsnzombs.entities.zombies.AllZombies;
-import com.soupsnzombs.entities.zombies.Zombie;
-import com.soupsnzombs.utils.CollisionManager;
-import com.soupsnzombs.utils.FontLoader;
-import com.soupsnzombs.utils.Images;
-import com.soupsnzombs.utils.Theme;
+import com.soupsnzombs.entities.zombies.*;
+import com.soupsnzombs.utils.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,11 +16,11 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
 public class GamePanel extends JPanel implements Runnable, ActionListener {
 
     @Override
-    public void actionPerformed(ActionEvent e) {}
+    public void actionPerformed(ActionEvent e) {
+    }
 
     /*
      * flow:
@@ -47,7 +35,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         UP, DOWN, LEFT, RIGHT
     }
 
-    public static boolean debugging = false;
+    // TODO turn off debugging
+    public static boolean debugging = true;
 
     public static GameState gameState = GameState.MAIN_MENU;
 
@@ -62,9 +51,9 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
     Timer timer;
     int seconds = 0;
-    //private long time1 = 0;
-    //private long time2 = 0;
-    //private boolean gameOverHandled = false;
+    // private long time1 = 0;
+    // private long time2 = 0;
+    // private boolean gameOverHandled = false;
 
     // Movement variables
     public static int offsetX = 0; // Offset for the grid's X position
@@ -100,10 +89,10 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public EntranceBuilding prototypeBuilding1 = new EntranceBuilding(1000, 1000, 300, 500, 80, 1, 40);
     public EntranceBuilding prototypeBuilding2 = new EntranceBuilding(2000, 1000, 1000, 300, 200, 4, 65);
     public Inventory inven;
+
     public Player getPlayer() {
         return this.player;
     }
-    
 
     public synchronized void start() {
         running = true;
@@ -128,7 +117,9 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         while (running) {
             long now = System.nanoTime();
             delta += (now - lastTime) / TIME_PER_TICK;
-            if (gameState == GameState.GAME) elapsedTime += (now - lastTime) / 1_000_000_000.0; // Update elapsed time, THIS IS WHERE SCORE IS CALCULATED
+            if (gameState == GameState.GAME)
+                elapsedTime += (now - lastTime) / 1_000_000_000.0; // Update elapsed time, THIS IS WHERE SCORE IS
+                                                                   // CALCULATED
             lastTime = now;
 
             // game over testing
@@ -151,15 +142,16 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     }
 
     private void update() {
-        if (!player.alive && gameState != GameState.GAMEOVER && gameState != GameState.NAME_SELECT && gameState != GameState.MAIN_MENU) {
+        if (!player.alive && gameState != GameState.GAMEOVER && gameState != GameState.NAME_SELECT
+                && gameState != GameState.MAIN_MENU) {
             gameState = GameState.GAMEOVER;
             return;
         }
 
         if (gameState == GameState.MAIN_MENU) {
-            elapsedTime = 0;        // Reset elapsed time
-            player.alive = true;    // Reset alive status
-            player.setHealth(100);  // Reset player health
+            elapsedTime = 0; // Reset elapsed time
+            player.alive = true; // Reset alive status
+            player.setHealth(100); // Reset player health
         }
 
         if (gameState == GameState.GAMEOVER) {
@@ -172,14 +164,13 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             }
         }
 
-
-            /*
-            int delay = 5000; // number of milliseconds to sleep
-            long start = System.currentTimeMillis();
-            while(start >= System.currentTimeMillis() - delay);
-            gameState = GameState.NAME_SELECT;
-            return;
-             */
+        /*
+         * int delay = 5000; // number of milliseconds to sleep
+         * long start = System.currentTimeMillis();
+         * while(start >= System.currentTimeMillis() - delay);
+         * gameState = GameState.NAME_SELECT;
+         * return;
+         */
 
         if (shootPressed) {
             player.getGun().shootBullet(player);
@@ -235,27 +226,29 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             if (gdBounds.intersects(player.getBounds()) && dropPressed) {
                 gunDropIterator.remove();
                 dropPressed = false;
-                
-                if (player.getGun().getDamage() != 0) player.dropGun(gd.x, gd.y);
+
+                if (player.getGun().getDamage() != 0)
+                    player.dropGun(gd.x, gd.y);
                 player.setGun(gd.getGun());
 
                 break;
-               // else if (gd.isInteractable()) {
-               //     gd.startSwapTimer();
-               //     break;
-               // } 
-            }
-            else if (gdBounds.intersects(player.getBounds())) gd.setInteractable(true);
-            else gd.setInteractable(false);
-           // else if (gd.isSwapTimerRunning()) gd.stopSwapTimer();
+                // else if (gd.isInteractable()) {
+                // gd.startSwapTimer();
+                // break;
+                // }
+            } else if (gdBounds.intersects(player.getBounds()))
+                gd.setInteractable(true);
+            else
+                gd.setInteractable(false);
+            // else if (gd.isSwapTimerRunning()) gd.stopSwapTimer();
         }
 
         if (dropPressed) {
             if (player.getGun().getDamage() != 0) {
                 dropPressed = false;
                 player.dropGun();
-                player.setGun(new Gun(0, 0, 0, 0, 0, 0, 0 ,0));
-            }           
+                player.setGun(new Gun(0, 0, 0, 0, 0, 0, 0, 0));
+            }
         }
     }
 
@@ -266,8 +259,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             }
         });
 
-
-        // setup timer
         setBackground(Theme.BG);
         setFocusable(true);
         requestFocusInWindow();
@@ -287,7 +278,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         inven = new Inventory();
         start();
     }
-
 
     private void moveMap() {
         int playerWidth = (int) player.getWidth();
@@ -424,21 +414,20 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         zombies.draw(g2d, player);
         inven.draw(g2d, this, player.getGun());
 
-        for (GunDrop gd:gunDrops) {
+        for (GunDrop gd : gunDrops) {
             gd.draw(g2d, player);
         }
-        
 
         player.getGun().draw(g2d, player);
 
         // bottom right corner, bullet positions
         player.draw(g2d);
 
-        g2d.drawString(String.format("Time Survived: %.2f", elapsedTime), 120, screenHeight-100);
+        g2d.drawString(String.format("Time Survived: %.2f", elapsedTime), 120, screenHeight - 100);
 
         // DEBUG drawings
-        //g2d.setColor(Color.RED);
-        // make solid lines 3 pixels wide40, 
+        // g2d.setColor(Color.RED);
+        // make solid lines 3 pixels wide40,
         // g2d.setStroke(new BasicStroke(3));
         // draw horizontal line in middle of screen
         // g2d.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);

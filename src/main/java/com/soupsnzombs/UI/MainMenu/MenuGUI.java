@@ -85,21 +85,21 @@ public class MenuGUI {
     }
 
     public void checkPlay() {
-        if (selected == 0 && pressed) { //selected == 0 means "Play"
+        if (selected == 0 && pressed) { // selected == 0 means "Play"
             GamePanel.gameState = GamePanel.GameState.INSTRUCTIONS;
 
         }
     }
 
     public void checkScores() {
-        if (selected == 1 && pressed) { //selected == 1 means "Scores"
+        if (selected == 1 && pressed) { // selected == 1 means "Scores"
             GamePanel.gameState = GamePanel.GameState.SCORES;
             System.out.println(GamePanel.gameState);
         }
     }
 
     public void checkCredits() {
-        if (selected == 2 && pressed) { //selected == 2 means "Instructions"
+        if (selected == 2 && pressed) { // selected == 2 means "Instructions"
             GamePanel.gameState = GamePanel.GameState.CREDITS;
             System.out.println(GamePanel.gameState);
         }

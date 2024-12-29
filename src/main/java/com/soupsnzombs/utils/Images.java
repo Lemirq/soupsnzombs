@@ -18,6 +18,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.soupsnzombs.GamePanel;
+
 public class Images {
     // public static ArrayList<BufferedImage> player_running = new ArrayList<>();
     // public static ArrayList<BufferedImage> gunfire = new ArrayList<>();
@@ -91,9 +93,10 @@ public class Images {
             Document doc = db.parse(Images.class.getResourceAsStream("/" + path));
             doc.getDocumentElement().normalize();
 
-            System.out.println("Root Element :" + doc.getDocumentElement().getNodeName());
+            if(GamePanel.debugging){
+            System.out.println("Root Element: " + doc.getDocumentElement().getNodeName());
             System.out.println("------");
-
+}
             // get <staff>
             NodeList list = doc.getElementsByTagName("SubTexture");
 
@@ -110,11 +113,11 @@ public class Images {
                 // <SubTexture name="hitman1_gun.png" x="164" y="88" width="49" height="43"
                 // frameX="-0" frameY="-0" frameWidth="49" frameHeight="43"/>
 
-                System.out.println("Name: " + element.getAttribute("name"));
+                if(GamePanel.debugging){System.out.println("Name: " + element.getAttribute("name"));
                 System.out.println("X: " + element.getAttribute("x"));
                 System.out.println("Y: " + element.getAttribute("y"));
                 System.out.println("Width: " + element.getAttribute("width"));
-                System.out.println("Height: " + element.getAttribute("height"));
+                System.out.println("Height: " + element.getAttribute("height"));}
 
                 spriteImages.add(new SpriteImage(element.getAttribute("name"),
                         Integer.parseInt(element.getAttribute("x")),

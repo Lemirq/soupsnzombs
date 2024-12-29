@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.utils.CollisionManager;
 
 public class AllBuildings {
@@ -12,7 +11,7 @@ public class AllBuildings {
 
     public void addBuilding(Building b) {
         buildings.add(b);
-     //   CollisionManager.addCollidable(b);
+        // CollisionManager.addCollidable(b);
     }
 
     public AllBuildings() {
@@ -33,14 +32,13 @@ public class AllBuildings {
             b.draw(g2d);
             // draw rect x,y,w,h
             g2d.setColor(Color.RED);
-            if (GamePanel.debugging) {
-                g2d.drawString("X: " + b.x + " Y: " + b.y + " W: " + b.width + " H: " + b.height, 20,
-                        buildings.indexOf(b) * 20 + 40);
-            }
+            // if (GamePanel.debugging) {
+            // g2d.drawString("X: " + b.x + " Y: " + b.y + " W: " + b.width + " H: " +
+            // b.height, 20,
+            // buildings.indexOf(b) * 20 + 40);
+            // }
         }
 
     }
-
-  
 
 }

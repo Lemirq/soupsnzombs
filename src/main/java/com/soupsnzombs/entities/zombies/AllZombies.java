@@ -18,7 +18,7 @@ public class AllZombies {
     public AllZombies() {
 
         // random zombie spawn x between -1000,1000 and y between -1000,1000
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 1; i++) {
             int x = (int) (Math.random() * 2000 - 1000);
             int y = (int) (Math.random() * 2000 - 1000);
             zombies.add(new Zombie(x, y));
@@ -37,8 +37,8 @@ public class AllZombies {
                 zombies.remove(z);
                 break;
             }
-            z.chasePlayer(player);
             z.draw(g2d, player);
+            z.chasePlayer(player, g2d);
             // draw rect x,y,w,h
 
             if (GamePanel.debugging) {

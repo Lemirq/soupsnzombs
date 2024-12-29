@@ -1,0 +1,6 @@
+soups:
+    pathfinding (vihaan):
+        - Make zombie follow path
+    bugs:
+        - hitting boundary makes position wrong
+        - zombie not damaging players
