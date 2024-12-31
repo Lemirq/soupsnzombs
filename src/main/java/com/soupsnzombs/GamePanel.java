@@ -88,7 +88,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public static ArrayList<GunDrop> gunDrops = new ArrayList<>();
     public EntranceBuilding prototypeBuilding1 = new EntranceBuilding(1000, 1000, 300, 500, 80, 1, 40);
     public EntranceBuilding prototypeBuilding2 = new EntranceBuilding(2000, 1000, 1000, 300, 200, 4, 65);
-    public Inventory inven;
+    public Inventory inventory;
 
     public Player getPlayer() {
         return this.player;
@@ -200,7 +200,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             if (zBounds.intersects(player.getBounds())) {
                 long currentTime = System.currentTimeMillis();
                 if (currentTime - lastDamageTime >= z.damageTime) { // Check if 500 ms have passed
-                    player.decreaseHealth(10);
+                    // player.decreaseHealth(10); // FIXME: Change to zombie damage
                     lastDamageTime = currentTime; // Update the last damage time
                 }
             }
@@ -275,7 +275,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         buildings.buildings.addAll(prototypeBuilding1.surroundingWalls);
         buildings.buildings.addAll(prototypeBuilding2.surroundingWalls);
         zombies = new AllZombies();
-        inven = new Inventory();
+        inventory = new Inventory();
         start();
     }
 
@@ -412,7 +412,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         bushes.drawBush(g2d);
         trees.drawTree(g2d);
         zombies.draw(g2d, player);
-        inven.draw(g2d, this, player.getGun());
+        inventory.draw(g2d, this, player.getGun());
 
         for (GunDrop gd : gunDrops) {
             gd.draw(g2d, player);

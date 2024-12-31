@@ -11,6 +11,7 @@ public class GridVisualizer extends JFrame {
     private Timer repaintTimer;
     private GridPanel panel;
     private static final int REPAINT_DELAY = 100; // 100ms refresh rate
+    public int gridSize = 0;
 
     public GridVisualizer() {
         setTitle("Grid Visualizer");
@@ -18,7 +19,6 @@ public class GridVisualizer extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setFocusableWindowState(false);
         setUndecorated(true);
-
         // Create and add the panel
         panel = new GridPanel();
         add(panel);
@@ -125,6 +125,21 @@ public class GridVisualizer extends JFrame {
             g.drawString("Visited Nodes: " + visitedCount, 10, y + 15);
             g.drawString("Path Nodes: " + pathCount, 10, y + 30);
             g.drawString("Wall Nodes: " + wallCount, 10, y + 45);
+            // draw start and end coordinates
+            for (int i = 0; i < grid.length; i++) {
+                for (int j = 0; j < grid[0].length; j++) {
+                    if (grid[i][j].getType() == Node.Type.START) {
+                        g.drawString("Start: " + i + ", " + j, 10, y + 60);
+                    }
+                    if (grid[i][j].getType() == Node.Type.END) {
+                        g.drawString("End: " + i + ", " + j, 10, y + 75);
+                    }
+                }
+            }
+
+            // cell size
+            g.drawString("Cell Size: " + gridSize, 10, y + 90);
+
         }
     }
 

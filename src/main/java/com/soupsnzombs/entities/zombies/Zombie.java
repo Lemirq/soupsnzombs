@@ -21,6 +21,8 @@ public class Zombie extends Entity implements GameObject {
     public int pointsDropped = 10;
     public int damageTime = 500;
     Pathfinder pathfinder = new Pathfinder();
+    private int pathRefreshCounter = 0;
+    private static final int PATH_REFRESH_INTERVAL = 60; // Refresh path every 60 updates
 
     public Zombie(int startX, int startY) {
         super(startX, startY, 0, 0, 100, 1);
@@ -42,6 +44,7 @@ public class Zombie extends Entity implements GameObject {
 
     public void draw(Graphics2D g2d, Player p) {
         pathfinder.updateGrid(p, this);
+        pathfinder.draw(g2d);
         // Calculate the screen position based on the world position and camera offsets
         int screenX = x + GamePanel.offsetX;
         int screenY = y + GamePanel.offsetY;
@@ -94,28 +97,43 @@ public class Zombie extends Entity implements GameObject {
     }
 
     public void chasePlayer(Player p, Graphics2D g2d) {
-        // get current path through the pathfinder
         boolean path = pathfinder.findPath();
         if (path) {
-            Node[][] grid = pathfinder.getGrid();
-            int gridSize = Math.max(Math.max(this.width, p.width), Math.max(this.height, p.height));
-            for (int i = 0; i < grid.length; i++) {
-                for (int j = 0; j < grid[0].length; j++) {
-                    if (grid[i][j].getType() == Node.Type.PATH) {
-                        // Convert grid coordinates back to world coordinates
-                        double targetX = i * gridSize; // Use zombie width as grid cell size
-                        double targetY = j * gridSize;
+            Node[][] tempGrid = pathfinder.getGrid();
+            int gridSize = pathfinder.getGridSize();
+            int gridOriginX = pathfinder.getGridOriginX();
+            int gridOriginY = pathfinder.getGridOriginY();
+
+            for (int i = 0; i < tempGrid.length; i++) {
+                for (int j = 0; j < tempGrid[0].length; j++) {
+                    if (tempGrid[i][j].getType() == Node.Type.PATH) {
+                        // Convert grid coordinates to world coordinates using the grid's origin
+                        double targetX = gridOriginX + (i * gridSize);
+                        double targetY = gridOriginY + (j * gridSize);
+
+                        // Debug visualization
+                        // if (GamePanel.debugging) {
+                        // g2d.setColor(Color.CYAN);
+                        // g2d.fillRect((int) targetX, (int) targetY, gridSize, gridSize);
+                        // }
 
                         // Calculate direction to next path node
                         double deltaX = targetX - this.x;
                         double deltaY = targetY - this.y;
-                        double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY); // hypotenuse
+                        double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+                        // draw a rect at TARGETX and TARGETY
+                        // g2d.setColor(Color.RED);
+                        // g2d.fillRect((int) targetX + GamePanel.offsetX, (int) targetY +
+                        // GamePanel.offsetY, gridSize,
+                        // gridSize);
 
                         if (distance > 0) {
                             // Normalize and apply speed
                             double directionX = deltaX / distance;
                             double directionY = deltaY / distance;
-
+                            System.out.println("directionX: " + directionX + " directionY: " +
+                                    directionY);
                             // Move zombie towards path node
                             Rectangle nextPos = new Rectangle(
                                     x + (int) (directionX * speed),
@@ -129,15 +147,64 @@ public class Zombie extends Entity implements GameObject {
                             if (!CollisionManager.isColliding(nextPos, collisions)) {
                                 x += directionX * speed;
                                 y += directionY * speed;
+                                // Remove the path node once the zombie reaches it
+                                if (Math.abs(x - targetX) < speed && Math.abs(y - targetY) < speed) {
+                                    tempGrid[i][j].setType(Node.Type.EMPTY);
+                                    Pathfinder.g.setGrid(tempGrid);
+                                }
                             } else {
                                 // Force pathfinder to recalculate on next update when we hit an obstacle
-                                pathfinder.resetPath();
+                                // pathfinder.resetPath();
                             }
                             return; // Only move towards the first path node
+                        } else {
+                            // Force pathfinder to recalculate on next update when we hit an obstacle
+                            // pathfinder.resetPath();
                         }
                     }
                 }
             }
+        }
+    }
+
+    // legacy chasePlayer method
+    public void chasePlayerLegacy(Player p) {
+        // boolean path = pathfinder.findPath();
+        // int vy = 0;
+        // int vx = 0;
+        double deltaX = p.x - this.x;
+        double deltaY = p.y - this.y;
+        double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        // Normalize the direction vector
+        double directionX = deltaX / distance;
+        double directionY = deltaY / distance;
+        // Calculate the velocity components
+        double vx = directionX * speed;
+        double vy = directionY * speed;
+
+        // make zombie walk on hypotenuse towards player
+
+        if (x < p.x) {
+            vx += speed;
+        } else if (x > p.x) {
+            vx -= speed;
+        }
+
+        if (y < p.y) {
+            vy += speed;
+        } else if (y > p.y) {
+            vy -= speed;
+        }
+
+        Rectangle rect = new Rectangle(x + (int) vx, y + (int) vy, width, height);
+        ArrayList<Rectangle> newCollisions = CollisionManager.collidables;
+        // find the current zombie in list of collisions
+        newCollisions.remove(this);
+
+        if (!CollisionManager.isColliding(rect, newCollisions)) {
+            x += vx;
+            y += vy;
         }
     }
 

@@ -1,5 +1,7 @@
 package com.soupsnzombs.utils;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
@@ -9,11 +11,15 @@ import com.soupsnzombs.entities.zombies.GridVisualizer;
 import com.soupsnzombs.entities.zombies.Zombie;
 
 public class Pathfinder {
+
     AStar a = new AStar();
-    GridVisualizer g = new GridVisualizer();
-    private Node[][] grid;
+    public static GridVisualizer g = new GridVisualizer();
+    public static Node[][] grid;
     private Node startNode;
     private Node endNode;
+    private int gridOriginX;
+    private int gridOriginY;
+    private int gridSize;
 
     public Pathfinder() {
         if (GamePanel.debugging) {
@@ -28,6 +34,7 @@ public class Pathfinder {
 
     public void setGrid(Node[][] grid, Node startNode, Node endNode) {
         a.setGrid(grid, startNode, endNode);
+        g.setGrid(grid);
     }
 
     public void updateGrid(Player p, Zombie z) {
@@ -44,10 +51,10 @@ public class Pathfinder {
         maxX += padding;
         maxY += padding;
 
-        // Calculate grid dimensions
-        int gridSize = Math.max(Math.max(z.width, p.width), Math.max(z.height, p.height)); // Use entity size as
-                                                                                           // grid cell
+        this.gridSize = 20;
+        this.g.gridSize = gridSize;
 
+        // Calculate grid dimensions
         int gridWidth = (int) Math.ceil((maxX - minX) / (double) gridSize);
         int gridHeight = (int) Math.ceil((maxY - minY) / (double) gridSize);
 
@@ -66,6 +73,8 @@ public class Pathfinder {
 
         // Convert collidable objects to wall nodes
         ArrayList<Rectangle> collidables = CollisionManager.collidables;
+        // remove current zombie from collidables
+        collidables.remove(z.getBounds());
         for (Rectangle rect : collidables) {
             int rectX = (int) rect.getX();
             int rectY = (int) rect.getY();
@@ -107,6 +116,11 @@ public class Pathfinder {
         startNode = grid[zombieGridX][zombieGridY];
         endNode = grid[playerGridX][playerGridY];
 
+        // Store the grid's origin in world coordinates, not minx and miny
+
+        this.gridOriginX = minX;
+        this.gridOriginY = minY;
+
         setGrid(grid, startNode, endNode);
         if (g != null)
             g.setGrid(grid);
@@ -129,8 +143,33 @@ public class Pathfinder {
         Node[][] grid = getGrid();
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
+                grid[i][j].setType(Node.Type.EMPTY);
+            }
+        }
+
+    }
+
+    public int getGridOriginX() {
+        return gridOriginX;
+    }
+
+    public int getGridOriginY() {
+        return gridOriginY;
+    }
+
+    public int getGridSize() {
+        return gridSize;
+    }
+
+    public void draw(Graphics2D g2d) {
+        // draw all the nodes, converte zd to world coordinates
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                int x = (gridOriginX + (i * gridSize)) + GamePanel.offsetX;
+                int y = (gridOriginY + (j * gridSize)) + GamePanel.offsetY;
                 if (grid[i][j].getType() == Node.Type.PATH) {
-                    grid[i][j].setType(Node.Type.EMPTY);
+                    g2d.setColor(Color.RED);
+                    g2d.fillRect((int) x, (int) y, 10, 10);
                 }
             }
         }

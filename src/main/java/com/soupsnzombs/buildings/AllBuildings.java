@@ -11,7 +11,6 @@ public class AllBuildings {
 
     public void addBuilding(Building b) {
         buildings.add(b);
-        // CollisionManager.addCollidable(b);
     }
 
     public AllBuildings() {
