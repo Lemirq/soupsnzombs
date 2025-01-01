@@ -35,7 +35,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         UP, DOWN, LEFT, RIGHT
     }
 
-    // TODO turn off debugging
     public static boolean debugging = true;
 
     public static GameState gameState = GameState.MAIN_MENU;

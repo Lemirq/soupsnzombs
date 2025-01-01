@@ -18,7 +18,7 @@ public class GridVisualizer extends JFrame {
         setSize(800, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setFocusableWindowState(false);
-        setUndecorated(true);
+       // setUndecorated(true);
         // Create and add the panel
         panel = new GridPanel();
         add(panel);
@@ -31,6 +31,7 @@ public class GridVisualizer extends JFrame {
             }
         });
         repaintTimer.start();
+
     }
 
     public void setGrid(Node[][] grid) {
