@@ -20,7 +20,8 @@ public class Zombie extends Entity implements GameObject {
     public int moneyDropped = 10;
     public int pointsDropped = 10;
     public int damageTime = 500;
-    Pathfinder pathfinder = new Pathfinder();
+    //TODO make pathfinder toggleable 
+    //Pathfinder pathfinder = new Pathfinder();
     private int pathRefreshCounter = 0;
     private static final int PATH_REFRESH_INTERVAL = 60; // Refresh path every 60 updates
 
@@ -43,8 +44,10 @@ public class Zombie extends Entity implements GameObject {
     }
 
     public void draw(Graphics2D g2d, Player p) {
-        pathfinder.updateGrid(p, this);
-        pathfinder.draw(g2d);
+        //TODO Make pathfinding stuff toggleable
+        //pathfinder.updateGrid(p, this);
+        //pathfinder.draw(g2d);
+        
         // Calculate the screen position based on the world position and camera offsets
         int screenX = x + GamePanel.offsetX;
         int screenY = y + GamePanel.offsetY;
@@ -97,13 +100,19 @@ public class Zombie extends Entity implements GameObject {
     }
 
     public void chasePlayer(Player p, Graphics2D g2d) {
-        boolean path = pathfinder.findPath();
+        //TODO Make pathfinding stuff toggleable
+        //boolean path = pathfinder.findPath();
+        /* 
         if (path) {
+            
+            
             Node[][] tempGrid = pathfinder.getGrid();
             int gridSize = pathfinder.getGridSize();
             int gridOriginX = pathfinder.getGridOriginX();
             int gridOriginY = pathfinder.getGridOriginY();
+            
 
+           
             for (int i = 0; i < tempGrid.length; i++) {
                 for (int j = 0; j < tempGrid[0].length; j++) {
                     if (tempGrid[i][j].getType() == Node.Type.PATH) {
@@ -165,6 +174,7 @@ public class Zombie extends Entity implements GameObject {
                 }
             }
         }
+        */
     }
 
     // legacy chasePlayer method
