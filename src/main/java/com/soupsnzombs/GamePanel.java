@@ -422,6 +422,9 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         buildings.draw(g2d);
         bushes.drawBush(g2d);
         trees.drawTree(g2d);
+        drawShop(g2d);
+
+
         zombies.draw(g2d, player);
         inventory.draw(g2d, this, player.getGun());
 
@@ -447,5 +450,11 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // draw dot at offset x,y
         // g2d.fillOval(offsetX, offsetY, 10, 10);
 
+    }
+
+    void drawShop(Graphics g2d) {
+            ShopEntity shopEntity = new ShopEntity(500, 100,400, 200);
+            shopEntity.draw((Graphics2D) g2d);
+            CollisionManager.addCollidable(shopEntity);
     }
 }
