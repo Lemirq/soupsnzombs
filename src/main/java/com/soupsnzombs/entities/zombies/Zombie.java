@@ -1,9 +1,7 @@
 package com.soupsnzombs.entities.zombies;
 
 import com.soupsnzombs.GamePanel;
-import com.soupsnzombs.entities.Entity;
-import com.soupsnzombs.entities.GameObject;
-import com.soupsnzombs.entities.Player;
+import com.soupsnzombs.entities.*;
 import com.soupsnzombs.utils.CollisionManager;
 import com.soupsnzombs.utils.Images;
 import com.soupsnzombs.utils.Node;
@@ -24,6 +22,7 @@ public class Zombie extends Entity implements GameObject {
     //Pathfinder pathfinder = new Pathfinder();
     private int pathRefreshCounter = 0;
     private static final int PATH_REFRESH_INTERVAL = 60; // Refresh path every 60 updates
+    public static ArrayList<Coin> coins = new ArrayList<>();
 
     public Zombie(int startX, int startY) {
         super(startX, startY, 0, 0, 100, 1);
@@ -34,6 +33,14 @@ public class Zombie extends Entity implements GameObject {
         this.width = sprite.getWidth();
         this.height = sprite.getHeight();
     }
+
+    public void dropCoins() {
+        if (health == 0) {
+            Coin coin = new Coin(x, y, 10, 10, 1, 0);
+
+        }
+    }
+
 
     public void takeDamage(int damage) {
         health -= damage;
