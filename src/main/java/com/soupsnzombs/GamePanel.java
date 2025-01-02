@@ -35,7 +35,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         UP, DOWN, LEFT, RIGHT
     }
 
-    public static boolean debugging = true;
+    public static boolean debugging = false;
 
     public static GameState gameState = GameState.MAIN_MENU;
 
@@ -85,8 +85,10 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public Instructions instruct = new Instructions();
     public Credits credits = new Credits();
     public static ArrayList<GunDrop> gunDrops = new ArrayList<>();
-    public EntranceBuilding prototypeBuilding1 = new EntranceBuilding(1000, 1000, 300, 500, 80, 1, 40);
+    public EntranceBuilding prototypeBuilding1 = new EntranceBuilding(1000, 900, 300, 500, 160, 1, 40);
+    public EntranceBuilding prototypeBuilding3 = new EntranceBuilding(1000, 500, 700, 500, 0, 0, 40);
     public EntranceBuilding prototypeBuilding2 = new EntranceBuilding(2000, 1000, 1000, 300, 200, 4, 65);
+    public EntranceBuilding prototypeBuilding4 = new EntranceBuilding(2000+1000-65-65, 1000, 800, 1000, 0, 0, 65);
     public Inventory inventory;
 
     public Player getPlayer() {
@@ -268,11 +270,21 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         player = new Player(new Gun(15, 200, 600, 5, 5, 5, 5, -1));
         gunDrops.add(new GunDrop(75, 500, new Gun(10, 100, 600, 0, 0, 0, 5, 1), Color.YELLOW));
         gunDrops.add(new GunDrop(50, 400, new Gun(50, 500, 600, 0, 0, 0, 5, -1), Color.RED));
+      
+        prototypeBuilding1.removeWall(3);
+        prototypeBuilding3.removeWallBottom(1000, 1300);
+        prototypeBuilding2.removeWallRight(1000, 1300);
+        prototypeBuilding4.removeWallLeft(1000, 1300);
+
         buildings.addBuilding(prototypeBuilding1);
         buildings.addBuilding(prototypeBuilding2);
+        buildings.addBuilding(prototypeBuilding3);
+        buildings.addBuilding(prototypeBuilding4);
         CollisionManager.addCollidable(player);
         buildings.buildings.addAll(prototypeBuilding1.surroundingWalls);
         buildings.buildings.addAll(prototypeBuilding2.surroundingWalls);
+        buildings.buildings.addAll(prototypeBuilding3.surroundingWalls);
+        buildings.buildings.addAll(prototypeBuilding4.surroundingWalls);
         zombies = new AllZombies();
         inventory = new Inventory();
         start();
