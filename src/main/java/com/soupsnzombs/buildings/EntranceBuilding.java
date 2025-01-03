@@ -263,29 +263,4 @@ public class EntranceBuilding extends Building {
             CollisionManager.addCollidable(wall);
         }
     }
-    /* 
-    Iterator<GunDrop> gunDropIterator = GamePanel.gunDrops.iterator();
-        while (gunDropIterator.hasNext()) {
-            GunDrop gd = gunDropIterator.next();
-            Rectangle gdBounds = gd.getBounds();
-            if (gdBounds.intersects(player.getBounds()) && dropPressed) {
-                gunDropIterator.remove();
-                dropPressed = false;
-
-                if (player.getGun().getDamage() != 0)
-                    player.dropGun(gd.x, gd.y);
-                player.setGun(gd.getGun());
-
-                break;
-                // else if (gd.isInteractable()) {
-                // gd.startSwapTimer();
-                // break;
-                // }
-            } else if (gdBounds.intersects(player.getBounds()))
-                gd.setInteractable(true);
-            else
-                gd.setInteractable(false);
-            // else if (gd.isSwapTimerRunning()) gd.stopSwapTimer();
-        }
-    */
 }

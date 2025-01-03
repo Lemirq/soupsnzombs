@@ -89,6 +89,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public EntranceBuilding prototypeBuilding3 = new EntranceBuilding(1000, 500, 700, 500, 0, 0, 40);
     public EntranceBuilding prototypeBuilding2 = new EntranceBuilding(2000, 1000, 1000, 300, 200, 4, 65);
     public EntranceBuilding prototypeBuilding4 = new EntranceBuilding(2000+1000-65-65, 1000, 800, 1000, 0, 0, 65);
+    public ArrayList<HealthDrop> healthDrops = new ArrayList<>();
     public Inventory inventory;
 
     public Player getPlayer() {
@@ -220,7 +221,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             }
         }
 
-        Iterator<GunDrop> gunDropIterator = GamePanel.gunDrops.iterator();
+        Iterator<GunDrop> gunDropIterator = gunDrops.iterator();
         while (gunDropIterator.hasNext()) {
             GunDrop gd = gunDropIterator.next();
             Rectangle gdBounds = gd.getBounds();
@@ -249,6 +250,17 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
                 dropPressed = false;
                 player.dropGun();
                 player.setGun(new Gun(0, 0, 0, 0, 0, 0, 0, 0));
+            }
+        }
+
+        Iterator<HealthDrop> healthDropIterator = healthDrops.iterator();
+        while (healthDropIterator.hasNext()) {
+            HealthDrop hd = healthDropIterator.next();
+            if (hd.getBounds().intersects(player.getBounds()) && hd.isVisible()) {
+                hd.setVisible(false);
+                hd.setAnimation(true);
+                player.increaseHealth(hd.getHealthDropVal());
+                hd.startRespawnTimer();
             }
         }
     }
@@ -287,6 +299,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         buildings.buildings.addAll(prototypeBuilding4.surroundingWalls);
         zombies = new AllZombies();
         inventory = new Inventory();
+
+        healthDrops.add(new HealthDrop(1100, 1000, 5000));
         start();
     }
 
@@ -431,6 +445,10 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         player.getGun().draw(g2d, player);
 
+        for (HealthDrop drop:healthDrops) {
+            drop.draw(g2d);
+        }
+        
         // bottom right corner, bullet positions
         player.draw(g2d);
 
