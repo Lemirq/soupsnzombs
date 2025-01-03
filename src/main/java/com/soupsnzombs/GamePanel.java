@@ -16,6 +16,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
+
 public class GamePanel extends JPanel implements Runnable, ActionListener {
 
     @Override
@@ -69,6 +71,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     AllBuildings buildings = new AllBuildings();
     AllTrees trees = new AllTrees();
     AllBushes bushes = new AllBushes();
+    AllCoins coins = new AllCoins();
     AllZombies zombies;
     public static boolean upPressed = false;
     public static boolean downPressed = false;
@@ -419,11 +422,11 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // macbook
 
         player.bar.draw(g2d);
+        coins.draw(g2d);
         buildings.draw(g2d);
         bushes.drawBush(g2d);
         trees.drawTree(g2d);
         drawShop(g2d);
-
 
         zombies.draw(g2d, player);
         inventory.draw(g2d, this, player.getGun());

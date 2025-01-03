@@ -1,19 +1,15 @@
 package com.soupsnzombs.entities;
 
 import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.entities.zombies.Zombie;
 
 import java.awt.*;
+import java.util.ArrayList;
 
-public class Coin extends Entity {
-    int startX;
-    int startY;
-    int moneyValue;
+public class Coin extends Rectangle {
 
-    public Coin(int x, int y, int w, int h, int health, double speed) {
-        super(x, y, 10, 10, 1, 0);
-        this.startX = x;
-        this.startY = y;
-        moneyValue = health;
+    public Coin(int x, int y, int w, int h) {
+        super(x, y, 10, 10);
     }
 
     public void draw(Graphics2D g2d) {
@@ -21,7 +17,7 @@ public class Coin extends Entity {
         // Set bullet color to yellow
         g2d.setColor(Color.YELLOW);
         // Draw the bullet
-        g2d.fillOval(x + GamePanel.offsetX, y + GamePanel.offsetY, width, height);
+        g2d.fillOval(this.x, this.y, this.width, this.height);
 
         if (GamePanel.debugging) {
             g2d.setColor(Color.GREEN);
