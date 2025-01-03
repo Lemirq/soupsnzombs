@@ -1,9 +1,7 @@
 package com.soupsnzombs.entities.zombies;
 
 import com.soupsnzombs.GamePanel;
-import com.soupsnzombs.entities.Entity;
-import com.soupsnzombs.entities.GameObject;
-import com.soupsnzombs.entities.Player;
+import com.soupsnzombs.entities.*;
 import com.soupsnzombs.utils.CollisionManager;
 import com.soupsnzombs.utils.Images;
 import com.soupsnzombs.utils.Node;
@@ -12,14 +10,19 @@ import com.soupsnzombs.utils.Pathfinder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Zombie extends Entity implements GameObject {
     // private static int direction;
+    public static int screenX;
+    public static int screenY;
     private int health = 100;
     private BufferedImage sprite;
     public int moneyDropped = 10;
     public int pointsDropped = 10;
     public int damageTime = 500;
+    private Random random = new Random();
+    private int randInt = random.nextInt(6)+1;
     //TODO make pathfinder toggleable 
     //Pathfinder pathfinder = new Pathfinder();
     private int pathRefreshCounter = 0;
@@ -34,6 +37,17 @@ public class Zombie extends Entity implements GameObject {
         this.width = sprite.getWidth();
         this.height = sprite.getHeight();
     }
+/*
+    public void dropCoins() {
+        if (health == 0) {
+            //if (randInt == 1) {
+                Coin coin = new Coin(x, y, 10, 10, 1);
+            //}
+        }
+    }
+
+ */
+
 
     public void takeDamage(int damage) {
         health -= damage;
@@ -49,8 +63,8 @@ public class Zombie extends Entity implements GameObject {
         //pathfinder.draw(g2d);
         
         // Calculate the screen position based on the world position and camera offsets
-        int screenX = x + GamePanel.offsetX;
-        int screenY = y + GamePanel.offsetY;
+        screenX = x + GamePanel.offsetX;
+        screenY = y + GamePanel.offsetY;
 
         // Calculate the angle of the velocity vector
         double angle = Math.atan2(p.y - y, p.x - x);

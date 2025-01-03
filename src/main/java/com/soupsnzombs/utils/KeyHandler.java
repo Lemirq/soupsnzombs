@@ -157,9 +157,15 @@ public class KeyHandler extends KeyAdapter {
                 GamePanel.debugging = !GamePanel.debugging;
                 break;
 
-            case KeyEvent.VK_ESCAPE: //for debugging purposes, instantly kills the player
-                player.alive = false;
-                System.out.println("Player died.");
+            case KeyEvent.VK_ESCAPE:
+                if (GamePanel.gameState == GameState.GAME) {
+                    player.alive = false;
+                    System.out.println("Player died.");
+                    //for debugging purposes, instantly kills the player
+                }
+                else if (GamePanel.gameState == GameState.MAIN_MENU) {
+                    System.exit(0);
+                }
                 break;
 
             case KeyEvent.VK_SPACE:
