@@ -80,7 +80,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public static boolean dropPressed = false;
     public static boolean shootPressed = false;
     public static PlayerDir direction = PlayerDir.UP;
-    private Player player;
+    public Player player;
     public MenuGUI menu = new MenuGUI();
     public NameSelect name = new NameSelect();
     public Shop shop = new Shop();
@@ -436,7 +436,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // macbook
 
         player.bar.draw(g2d);
-        coins.draw(g2d);
+        coins.draw(g2d, player);
         buildings.draw(g2d);
         bushes.drawBush(g2d);
         trees.drawTree(g2d);

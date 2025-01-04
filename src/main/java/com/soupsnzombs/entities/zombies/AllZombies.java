@@ -12,6 +12,7 @@ import static com.soupsnzombs.entities.AllCoins.coins;
 
 public class AllZombies {
     public static ArrayList<Zombie> zombies = new ArrayList<>();
+    private Zombie zombie;
 
     public void addZombie(Zombie z) {
         zombies.add(z);
@@ -34,11 +35,9 @@ public class AllZombies {
     public void draw(Graphics2D g2d, Player player) {
         for (Zombie z : zombies) {
             if (!z.alive) {
-                final int ZombieDeathX = Zombie.screenX;
-                final int ZombieDeathY = Zombie.screenY;
                 Player.score += z.pointsDropped;
                 zombies.remove(z);
-                coins.add(new Coin(ZombieDeathX, ZombieDeathY,10, 10));
+                coins.add(new Coin(z.x, z.y,10, 10));
                 break;
             }
             z.draw(g2d, player);
@@ -56,4 +55,5 @@ public class AllZombies {
         }
 
     }
+
 }

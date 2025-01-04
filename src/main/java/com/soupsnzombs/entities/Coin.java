@@ -17,11 +17,11 @@ public class Coin extends Rectangle {
         // Set bullet color to yellow
         g2d.setColor(Color.YELLOW);
         // Draw the bullet
-        g2d.fillOval(this.x, this.y, this.width, this.height);
+        g2d.fillOval(this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width, this.height);
 
         if (GamePanel.debugging) {
             g2d.setColor(Color.GREEN);
-            g2d.drawRect(x, y, width, height);
+            g2d.drawRect(this.x, this.y, this.width, this.height);
         }
     }
 
