@@ -1,3 +1,12 @@
+/*
+ * NOTE
+ * fix image folder
+ * fix background image
+ * write functions for buttons
+ * minor: bottom right corner bug with selection
+ * minor: aesthetics
+ */
+
 package com.soupsnzombs.UI.Shop;
 
 import java.awt.*;
@@ -16,8 +25,13 @@ public class Shop {
     };
     public static int cursorRow = 0;
     public static int cursorCol = 0;
-    public static final int OPTION_X = 75, OPTION_Y = 275;
-    public static final int optionWidth = 100, optionHeight = 100;
+    public static int borderWidth = 20;
+    public static final int optionWidth = GamePanel.screenWidth / 3 - borderWidth,
+            optionHeight = GamePanel.screenHeight / 3 - borderWidth; // hardcoded button sizes
+    public static final int OPTION_X = (GamePanel.screenWidth
+            - (shopLayout[0].length * (optionWidth + borderWidth) - borderWidth)) / 2;
+    public static final int OPTION_Y = (GamePanel.screenHeight
+            - (shopLayout.length * (optionHeight + borderWidth) - borderWidth)) / 2;
 
     public void drawShop(Graphics2D g2d) {
         if (GamePanel.gameState == GamePanel.GameState.SHOP) {
@@ -25,6 +39,11 @@ public class Shop {
             if (Images.shopBackground != null) {
                 g2d.drawImage(Images.shopBackground, 0, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);
             }
+
+            // if (Images.tempImage != null) {
+            //     g2d.drawImage(Images.tempImage, 0, 0, Images.playButton.getWidth(),
+            //             Images.tempImage.getHeight(), null);
+            // }
 
         }
     }
@@ -35,26 +54,36 @@ public class Shop {
         g2d.setColor(Color.LIGHT_GRAY);
         for (int row = 0; row < shopLayout.length; row++) {
             for (int col = 0; col < shopLayout[row].length; col++) {
-                int optionWidthToUse = optionWidth;
-                int optionHeightToUse = optionHeight;
+                int x = OPTION_X + col * (optionWidth + borderWidth);
+                int y = OPTION_Y + row * (optionHeight + borderWidth);
 
-                int x = OPTION_X + col * (optionWidthToUse + 10);
-                int y = OPTION_Y + row * (optionHeightToUse + 10);
-
+                // Draw button background
                 if (row == cursorRow && col == cursorCol) {
-                    g2d.setColor(Color.darkGray);
+                    g2d.setColor(Color.DARK_GRAY);
                 } else {
                     g2d.setColor(Color.BLACK);
                 }
-                g2d.fillRect(x, y, optionWidthToUse, optionHeightToUse);
-                g2d.drawRect(x, y, optionWidthToUse, optionHeightToUse);
-                FontMetrics fm = g2d.getFontMetrics();
+                g2d.fillRect(x, y, optionWidth, optionHeight);
+
+                // Draw border
+                g2d.setColor(Color.LIGHT_GRAY);
+                g2d.drawRect(x, y, optionWidth, optionHeight);
+
+                // Draw image
+                if (Images.tempImage != null) {
+                    int imageHeight = (int) (optionHeight * 0.75);
+                    int imageWidth = optionWidth - 2 * borderWidth;
+                    int imageX = x + borderWidth;
+                    int imageY = y + borderWidth;
+                    g2d.drawImage(Images.tempImage, imageX, imageY, imageWidth, imageHeight, null);
+                }
+
+                // Draw text
                 String textToDraw = shopLayout[row][col];
-                int textX = x + (optionWidthToUse - fm.stringWidth(textToDraw)) / 2;
-                int textY = y + (optionHeightToUse + fm.getAscent()) / 2 - 5;
-                g2d.setColor(new Color(0, 102, 0));
-                g2d.drawString(textToDraw, textX+1, textY+1);
-                g2d.setColor(Color.white);
+                g2d.setColor(Color.WHITE);
+                FontMetrics fm = g2d.getFontMetrics();
+                int textX = x + (optionWidth - fm.stringWidth(textToDraw)) / 2;
+                int textY = y + borderWidth/2 + (int) (optionHeight * 0.85) + fm.getAscent() / 2;
                 g2d.drawString(textToDraw, textX, textY);
             }
         }
@@ -87,7 +116,7 @@ public class Shop {
     }
 
     public static void selectEnter(GamePanel game) {
-        //write method to select weapon and health
+        // write method to select weapon and health
         game.repaint();
         game.revalidate();
     }
