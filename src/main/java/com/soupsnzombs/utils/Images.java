@@ -24,8 +24,8 @@ public class Images {
     // public static ArrayList<BufferedImage> player_running = new ArrayList<>();
     // public static ArrayList<BufferedImage> gunfire = new ArrayList<>();
 
-    public static BufferedImage player_idle, circle, gun, bullet, tree, shop, gameMenu, background,
-            playButton, creditsButton, scoresButton, arrowImage, instructions, credits, shopBackground, scoresbg, grass;
+    public static BufferedImage player_idle, circle, gun, bullet, tree, gameMenu, background,
+            playButton, creditsButton, scoresButton, arrowImage, instructions, credits, shopBackground, tempImage, scoresbg, grass;
     public static HashMap<String, BufferedImage> spriteImages = new HashMap<>();
     public static HashMap<String, BufferedImage> tileImages = new HashMap<>();
 
@@ -33,7 +33,7 @@ public class Images {
         ArrayList<SpriteImage> sprites = readXML("s.xml");
         ArrayList<SpriteImage> tilesheet = readXML("t.xml");
         try {
-            // main menu images
+            // main main menu images
             background = ImageIO.read(Images.class.getResource("/bg.jpeg"));
             playButton = ImageIO.read(Images.class.getResource("/buttons/play.png"));
             scoresButton = ImageIO.read(Images.class.getResource("/buttons/scores.png"));
@@ -41,13 +41,15 @@ public class Images {
             arrowImage = ImageIO.read(Images.class.getResource("/arrow.png"));
             instructions = ImageIO.read(Images.class.getResource("/instructions.png"));
             credits = ImageIO.read(Images.class.getResource("/credits.png"));
-
-            // shop menu buttons
+            //scale main menu images
             playButton = scaleImage(playButton, 150, 50);
             scoresButton = scaleImage(scoresButton, 150, 50);
             creditsButton = scaleImage(creditsButton, 150, 50);
             arrowImage = scaleImage(arrowImage, 51, 130 / 2);
+
+            // shop menu buttons
             shopBackground = ImageIO.read(Images.class.getResource("/SoupsNZombsShop.png"));
+            tempImage = ImageIO.read(Images.class.getResource("/TemporaryIMG.png"));
 
             //map
             grass = ImageIO.read(Images.class.getResource("/grass.png"));
