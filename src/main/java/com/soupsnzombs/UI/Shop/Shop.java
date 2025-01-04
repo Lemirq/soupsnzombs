@@ -45,6 +45,17 @@ public class Shop {
             //             Images.tempImage.getHeight(), null);
             // }
 
+            // Draw title
+            g2d.setFont(FontLoader.font200);
+            String title = "SHOP";
+            FontMetrics fm = g2d.getFontMetrics();
+            int titleX = (GamePanel.screenWidth - fm.stringWidth(title)) / 2;
+            int titleY = GamePanel.screenHeight / 5;
+            g2d.setColor(new Color(4, 71, 22));//dark green
+            g2d.drawString(title, titleX+4, titleY+4);
+            g2d.setColor(Color.WHITE);
+            g2d.drawString(title, titleX, titleY);
+
         }
     }
 
@@ -52,22 +63,25 @@ public class Shop {
         g2d.setFont(FontLoader.font30);
         g2d.setBackground(Color.BLACK);
         g2d.setColor(Color.LIGHT_GRAY);
+
         for (int row = 0; row < shopLayout.length; row++) {
             for (int col = 0; col < shopLayout[row].length; col++) {
                 int x = OPTION_X + col * (optionWidth + paddingWidth);
-                int y = OPTION_Y + row * (optionHeight + paddingWidth);
+                int y = OPTION_Y + row * (optionHeight + paddingWidth) + GamePanel.screenHeight/15;
 
                 // Draw button background
                 if (row == cursorRow && col == cursorCol) {
-                    g2d.setColor(Color.DARK_GRAY);
+                    g2d.setColor(new Color(64, 64, 64, 200)); // Dark gray
                 } else {
-                    g2d.setColor(Color.BLACK);
+                    g2d.setColor(new Color(0, 0, 0, 200)); // Black
                 }
                 g2d.fillRect(x, y, optionWidth, optionHeight);
 
                 // Draw border
-                g2d.setColor(Color.LIGHT_GRAY);
+                g2d.setColor(new Color(4, 71, 22, 200));//dark green
+                g2d.setStroke(new BasicStroke(5));
                 g2d.drawRect(x, y, optionWidth, optionHeight);
+                g2d.setStroke(new BasicStroke(1)); // reset to default
 
                 // Draw image
                 if (Images.tempImage != null) {
