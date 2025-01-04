@@ -19,19 +19,19 @@ public class Shop {
     public static boolean open = false;
 
     public static final String[][] shopLayout = {
-            { "Machine gun", "semi-auto", "sniper" },
-            { "milk", "soup" }
+            { "Machine gun", "Semi-auto", "Sniper" },
+            { "Milk", "Soup", "Exit" }
 
     };
     public static int cursorRow = 0;
     public static int cursorCol = 0;
-    public static int borderWidth = 20;
-    public static final int optionWidth = GamePanel.screenWidth / 3 - borderWidth,
-            optionHeight = GamePanel.screenHeight / 3 - borderWidth; // hardcoded button sizes
+    public static int paddingWidth = 20;
+    public static final int optionWidth = GamePanel.screenWidth / 3 - paddingWidth,
+            optionHeight = GamePanel.screenHeight / 3 - paddingWidth; // hardcoded button sizes
     public static final int OPTION_X = (GamePanel.screenWidth
-            - (shopLayout[0].length * (optionWidth + borderWidth) - borderWidth)) / 2;
+            - (shopLayout[0].length * (optionWidth + paddingWidth) - paddingWidth)) / 2;
     public static final int OPTION_Y = (GamePanel.screenHeight
-            - (shopLayout.length * (optionHeight + borderWidth) - borderWidth)) / 2;
+            - (shopLayout.length * (optionHeight + paddingWidth) - paddingWidth)) / 2;
 
     public void drawShop(Graphics2D g2d) {
         if (GamePanel.gameState == GamePanel.GameState.SHOP) {
@@ -49,13 +49,13 @@ public class Shop {
     }
 
     public void drawOptions(Graphics2D g2d) {
-        g2d.setFont(FontLoader.font20);
+        g2d.setFont(FontLoader.font30);
         g2d.setBackground(Color.BLACK);
         g2d.setColor(Color.LIGHT_GRAY);
         for (int row = 0; row < shopLayout.length; row++) {
             for (int col = 0; col < shopLayout[row].length; col++) {
-                int x = OPTION_X + col * (optionWidth + borderWidth);
-                int y = OPTION_Y + row * (optionHeight + borderWidth);
+                int x = OPTION_X + col * (optionWidth + paddingWidth);
+                int y = OPTION_Y + row * (optionHeight + paddingWidth);
 
                 // Draw button background
                 if (row == cursorRow && col == cursorCol) {
@@ -72,9 +72,9 @@ public class Shop {
                 // Draw image
                 if (Images.tempImage != null) {
                     int imageHeight = (int) (optionHeight * 0.75);
-                    int imageWidth = optionWidth - 2 * borderWidth;
-                    int imageX = x + borderWidth;
-                    int imageY = y + borderWidth;
+                    int imageWidth = optionWidth - 2 * paddingWidth;
+                    int imageX = x + paddingWidth;
+                    int imageY = y + paddingWidth;
                     g2d.drawImage(Images.tempImage, imageX, imageY, imageWidth, imageHeight, null);
                 }
 
@@ -83,7 +83,7 @@ public class Shop {
                 g2d.setColor(Color.WHITE);
                 FontMetrics fm = g2d.getFontMetrics();
                 int textX = x + (optionWidth - fm.stringWidth(textToDraw)) / 2;
-                int textY = y + borderWidth/2 + (int) (optionHeight * 0.85) + fm.getAscent() / 2;
+                int textY = y + paddingWidth-5 + (int) (optionHeight * 0.85) + fm.getAscent() / 2;
                 g2d.drawString(textToDraw, textX, textY);
             }
         }
@@ -116,7 +116,40 @@ public class Shop {
     }
 
     public static void selectEnter(GamePanel game) {
-        // write method to select weapon and health
+        
+        String selectedOption = shopLayout[cursorRow][cursorCol];
+
+        switch (selectedOption) {
+            case "Machine gun":
+                System.out.println("Purchased Machine gun!");
+                // Add logic
+                break;
+            case "Semi-auto":
+                System.out.println("Purchased Semi-auto!");
+                // Add logic
+                break;
+            case "Sniper":
+                System.out.println("Purchased Sniper!");
+                // Add logic
+                break;
+            case "Milk":
+                System.out.println("Purchased Milk!");
+                // Add logic
+                break;
+            case "Soup":
+                System.out.println("Purchased Soup!");
+                // Add logic
+                break;
+            case "Exit":
+                System.out.println("Exiting shop.");
+                open = false;
+                GamePanel.gameState = GamePanel.GameState.GAME;
+                break;
+            default:
+                System.out.println("Unknown selection.");
+                break;
+        }
+
         game.repaint();
         game.revalidate();
     }

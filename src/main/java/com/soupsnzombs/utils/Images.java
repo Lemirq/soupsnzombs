@@ -48,7 +48,7 @@ public class Images {
             arrowImage = scaleImage(arrowImage, 51, 130 / 2);
 
             // shop menu buttons
-            shopBackground = ImageIO.read(Images.class.getResource("/SoupsNZombsShop.png"));
+            shopBackground = ImageIO.read(Images.class.getResource("/ShopBG.jpg"));
             tempImage = ImageIO.read(Images.class.getResource("/TemporaryIMG.png"));
 
             //map
@@ -59,7 +59,7 @@ public class Images {
             for (SpriteImage sprite : sprites) {
                 BufferedImage croppedImage = spriteSheet.getSubimage(sprite.x, sprite.y, sprite.width, sprite.height);
                 spriteImages.put(sprite.name, croppedImage);
-                shopBackground = ImageIO.read(Images.class.getResource("/SoupsNZombsShop.png"));
+                // shopBackground = ImageIO.read(Images.class.getResource("/SoupsNZombsShop.png"));
             }
 
             // get the tilesheet, crop image, and set the tileImages hashmap

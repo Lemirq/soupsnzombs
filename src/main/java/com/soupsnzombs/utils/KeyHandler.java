@@ -19,24 +19,26 @@ import javax.swing.Timer;
 public class KeyHandler extends KeyAdapter {
     GamePanel game;
     Player player;
-    //boolean shootReleased = true; // trigger for non-automatic guns
+    // boolean shootReleased = true; // trigger for non-automatic guns
     // KeyHandler class to handle key events
     public static boolean canShoot = true;
     private boolean shootReleased = true;
     public static Timer shootCooldown;
     public static Timer automaticGunTimer;
     public boolean dropReleased = true;
-    
+
     public KeyHandler(GamePanel game) {
         this.game = game;
         this.player = game.getPlayer();
         shootCooldown = new Timer(20, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Player.shotCoolDownTime -= 100/(game.getPlayer().getGun().getFireRate()/20); //100 is the firerate bar val, 20 is the timer delay
+                Player.shotCoolDownTime -= 100 / (game.getPlayer().getGun().getFireRate() / 20); // 100 is the firerate
+                                                                                                 // bar val, 20 is the
+                                                                                                 // timer delay
                 if (Player.shotCoolDownTime <= 0) {
                     canShoot = true;
-                    shootCooldown.stop(); 
+                    shootCooldown.stop();
                     Player.showFireRateBar = false;
                     Player.shotCoolDownTime = 100;
                 }
@@ -72,11 +74,11 @@ public class KeyHandler extends KeyAdapter {
                 GamePanel.upPressed = true;
                 GamePanel.direction = PlayerDir.UP;
 
-                if (GamePanel.gameState == GameState.SHOP){
+                if (GamePanel.gameState == GameState.SHOP) {
                     Shop.selectUp(game);
                 }
 
-                if (GamePanel.gameState == GameState.NAME_SELECT){
+                if (GamePanel.gameState == GameState.NAME_SELECT) {
                     NameSelect.selectUp(game);
                 }
 
@@ -85,10 +87,10 @@ public class KeyHandler extends KeyAdapter {
             case KeyEvent.VK_S:
                 GamePanel.downPressed = true;
                 GamePanel.direction = PlayerDir.DOWN;
-                if (GamePanel.gameState == GameState.NAME_SELECT){
+                if (GamePanel.gameState == GameState.NAME_SELECT) {
                     NameSelect.selectDown(game);
                 }
-                if (GamePanel.gameState == GameState.SHOP){
+                if (GamePanel.gameState == GameState.SHOP) {
                     Shop.selectDown(game);
                 }
                 break;
@@ -103,7 +105,7 @@ public class KeyHandler extends KeyAdapter {
                     }
                 } else if (GamePanel.gameState == GameState.NAME_SELECT) {
                     NameSelect.selectLeft(game);
-                }else if (GamePanel.gameState == GameState.SHOP) {
+                } else if (GamePanel.gameState == GameState.SHOP) {
                     Shop.selectLeft(game);
                 }
                 if (GamePanel.gameState == GameState.GAME) {
@@ -121,7 +123,7 @@ public class KeyHandler extends KeyAdapter {
                     }
                 } else if (GamePanel.gameState == GameState.NAME_SELECT) {
                     NameSelect.selectRight(game);
-                }else if (GamePanel.gameState == GameState.SHOP) {
+                } else if (GamePanel.gameState == GameState.SHOP) {
                     Shop.selectRight(game);
                 }
                 if (GamePanel.gameState == GameState.GAME) {
@@ -132,6 +134,8 @@ public class KeyHandler extends KeyAdapter {
             case KeyEvent.VK_ENTER:
                 if (GamePanel.gameState == GameState.NAME_SELECT) {
                     NameSelect.selectEnter(game);
+                } else if (GamePanel.gameState == GameState.SHOP) {
+                    Shop.selectEnter(game);
                 }
                 break;
             case KeyEvent.VK_P:
@@ -145,12 +149,14 @@ public class KeyHandler extends KeyAdapter {
                     Leaderboard.writeScores();
                 } else if (GamePanel.gameState == GameState.GAME || GamePanel.gameState == GameState.SHOP) {
                     Shop.open = !Shop.open;
-                    if (Shop.open) GamePanel.gameState = GameState.SHOP;
-                    else GamePanel.gameState = GameState.GAME;
+                    if (Shop.open)
+                        GamePanel.gameState = GameState.SHOP;
+                    else
+                        GamePanel.gameState = GameState.GAME;
                 } else if (GamePanel.gameState == GameState.CREDITS) {
                     GamePanel.gameState = GameState.MAIN_MENU;
-                }
-                else MenuGUI.pressed = true;
+                } else
+                    MenuGUI.pressed = true;
                 break;
 
             case KeyEvent.VK_F:
@@ -161,9 +167,8 @@ public class KeyHandler extends KeyAdapter {
                 if (GamePanel.gameState == GameState.GAME) {
                     player.alive = false;
                     System.out.println("Player died.");
-                    //for debugging purposes, instantly kills the player
-                }
-                else if (GamePanel.gameState == GameState.MAIN_MENU) {
+                    // for debugging purposes, instantly kills the player
+                } else if (GamePanel.gameState == GameState.MAIN_MENU) {
                     System.exit(0);
                 }
                 break;
@@ -171,30 +176,29 @@ public class KeyHandler extends KeyAdapter {
             case KeyEvent.VK_SPACE:
                 if (game.getPlayer().getGun().getAutomaticState() == -1) {
                     if (shootReleased && canShoot) {
-                            GamePanel.shootPressed = true; 
-                            Player.showFireRateBar = true;
-                            canShoot = false;
-                            shootCooldown.start();
-                        }
-                    shootReleased = false; 
-                }
-                else if (game.getPlayer().getGun().getAutomaticState() == 1) {
+                        GamePanel.shootPressed = true;
+                        Player.showFireRateBar = true;
+                        canShoot = false;
+                        shootCooldown.start();
+                    }
+                    shootReleased = false;
+                } else if (game.getPlayer().getGun().getAutomaticState() == 1) {
                     if (!automaticGunTimer.isRunning()) {
-                        automaticGunTimer.start(); // start firing when space held, a timer will ensure shooting won't get stuck when other keys are pressed
+                        automaticGunTimer.start(); // start firing when space held, a timer will ensure shooting won't
+                                                   // get stuck when other keys are pressed
                     }
                     shootReleased = false;
                 }
                 break;
 
             case KeyEvent.VK_C:
-               if (dropReleased) {
-                GamePanel.dropPressed = true;
-               }
-               dropReleased = false;
-               break;
+                if (dropReleased) {
+                    GamePanel.dropPressed = true;
+                }
+                dropReleased = false;
+                break;
         }
     }
-
 
     @Override
     public void keyReleased(KeyEvent e) {
@@ -222,7 +226,8 @@ public class KeyHandler extends KeyAdapter {
                 break;
             case KeyEvent.VK_SPACE:
                 shootReleased = true;
-                if (game.getPlayer().getGun().getAutomaticState() == 1) automaticGunTimer.stop(); //stop firing when space released
+                if (game.getPlayer().getGun().getAutomaticState() == 1)
+                    automaticGunTimer.stop(); // stop firing when space released
                 break;
             case KeyEvent.VK_C:
                 GamePanel.dropPressed = false;
