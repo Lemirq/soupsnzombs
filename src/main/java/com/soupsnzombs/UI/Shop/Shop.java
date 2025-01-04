@@ -52,7 +52,7 @@ public class Shop {
             int titleX = (GamePanel.screenWidth - fm.stringWidth(title)) / 2;
             int titleY = GamePanel.screenHeight / 5;
             g2d.setColor(new Color(4, 71, 22));//dark green
-            g2d.drawString(title, titleX+4, titleY+4);
+            g2d.drawString(title, titleX+5, titleY+4);
             g2d.setColor(Color.WHITE);
             g2d.drawString(title, titleX, titleY);
 
