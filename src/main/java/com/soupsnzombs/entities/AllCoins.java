@@ -7,9 +7,14 @@ import java.util.ArrayList;
 public class AllCoins {
     public static ArrayList<Coin> coins = new ArrayList<>();
 
-    public void draw(Graphics2D g2d) {
+
+    public void draw(Graphics2D g2d, Entity player) {
         for (Coin coin : coins) {
             coin.draw(g2d);
+            if (player.intersects(coin)) {
+                coins.remove(coin);
+                Player.money++; 
+            }
 
             if (GamePanel.debugging) {
                 g2d.setColor(Color.RED);
@@ -17,6 +22,7 @@ public class AllCoins {
                                 coin.height, GamePanel.screenWidth - 1000,
                         coins.indexOf(coin) * 20 + 500);
             }
+
         }
 
 
