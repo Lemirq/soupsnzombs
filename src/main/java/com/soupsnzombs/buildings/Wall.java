@@ -24,6 +24,9 @@ public class Wall extends Building {
 
     @Override
     void drawBuilding(Graphics2D g2d, int x, int y, int w, int h) {
+    }
+
+    public void draw(Graphics2D g2d) {
         // Calculate the building's position on the screen
         int buildingX = mapX + GamePanel.offsetX;
         int buildingY = mapY + GamePanel.offsetY;
@@ -33,6 +36,10 @@ public class Wall extends Building {
         g2d.drawImage(wallSprite, buildingX, buildingY, width, height, null);
 
         g2d.fillRect(buildingX, buildingY, width, height);
+
+        if (wallSprite == null) {
+            System.out.println("wallSprite is null");
+        }
 
         if (GamePanel.debugging) {
 
