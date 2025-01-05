@@ -13,7 +13,7 @@ public class AllBushes {
     }
 
     public AllBushes() {
-        bushes.add(new Bush(250, 100,50, 50));
+        bushes.add(new Bush(250, 100, 75, 75));
 
     }
 
