@@ -438,7 +438,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         player.bar.draw(g2d);
         coins.draw(g2d, player);
         buildings.draw(g2d);
-        bushes.drawBush(g2d);
+        bushes.draw(g2d);
         trees.drawTree(g2d);
         drawShop(g2d);
 
