@@ -19,14 +19,24 @@ public class Tree extends Building {
 
     @Override
     void drawBuilding(Graphics2D g2d, int x, int y, int w, int h) {
+    }
+
+    public void draw(Graphics2D g2d) {
+        treeSprite = Images.tileImages.get("greenBush");
         treeX = mapX + GamePanel.offsetX;
         treeY = mapY + GamePanel.offsetY;
 
         g2d.setColor(Color.CYAN);
+        //g2d.fillRect(this.treeX, this.treeY, this.width, this.height);
         g2d.drawImage(treeSprite, treeX, treeY, width, height, null);
-        g2d.fillRect(treeX, treeY, width, height);
 
+        if (treeSprite == null) {
+            System.out.println("treeSprite is null");
+        }
+
+        // System.out.println("bush drawn");
         if (GamePanel.debugging) {
+
             // Draw the building's border
             g2d.setColor(Color.RED);
             g2d.setStroke(new BasicStroke(1));
@@ -36,11 +46,12 @@ public class Tree extends Building {
             g2d.setColor(Color.GREEN);
             g2d.drawRect(x, y, width, height);
         }
+
     }
 
     @Override
     public Rectangle getBounds() {
-            return new Rectangle(super.x, super.y, super.width, super.height);
+        return new Rectangle(super.x, super.y, super.width, super.height);
     }
 
     /*
@@ -60,6 +71,7 @@ public class Tree extends Building {
         int topEdge = GamePanel.offsetY + (GamePanel.screenHeight / 2);
         drawBuilding(g2d, x, y, leftEdge, topEdge);
     }
+
 
      */
 }
