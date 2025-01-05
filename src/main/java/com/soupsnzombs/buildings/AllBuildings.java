@@ -14,12 +14,6 @@ public class AllBuildings {
     }
 
     public AllBuildings() {
-        buildings.add(new Wall(-400, 40, 300, 50));
-        buildings.add(new Wall(100, 100, 50, 50));
-        buildings.add(new Wall(200, 200, 50, 50));
-        buildings.add(new Wall(300, 300, 50, 50));
-        buildings.add(new Wall(400, 400, 50, 50));
-        buildings.add(new Wall(500, 500, 50, 50));
         for (Building b : buildings) {
             CollisionManager.addCollidable(b);
         }
