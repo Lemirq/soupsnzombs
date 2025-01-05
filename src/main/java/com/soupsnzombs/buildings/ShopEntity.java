@@ -18,12 +18,19 @@ public class ShopEntity extends Building {
 
 @Override
 void drawBuilding(Graphics2D g2d, int x, int y, int w, int h) {
+}
+
+public void draw(Graphics2D g2d) {
     shopX = mapX + GamePanel.offsetX;
     shopY = mapY + GamePanel.offsetY;
 
     g2d.setColor(Color.RED);
     g2d.drawImage(shopSprite, shopX, shopY, width, height, null);
     g2d.fillRect(shopX, shopY, width, height);
+
+    if (shopSprite == null) {
+        System.out.println("shopSprite is null");
+    }
 
     if (GamePanel.debugging) {
         // Draw the building's border
@@ -36,8 +43,6 @@ void drawBuilding(Graphics2D g2d, int x, int y, int w, int h) {
         g2d.drawRect(x, y, width, height);
     }
 }
-
-
 
 @Override
 public Rectangle getBounds() {
