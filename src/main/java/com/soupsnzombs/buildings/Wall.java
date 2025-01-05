@@ -38,7 +38,7 @@ public class Wall extends Building {
         g2d.fillRect(buildingX, buildingY, width, height);
 
         if (wallSprite == null) {
-            System.out.println("wallSprite is null");
+            // System.out.println("wallSprite is null");
         }
 
         if (GamePanel.debugging) {
