@@ -12,12 +12,11 @@ import java.awt.image.BufferedImage;
 
 
 public class Wall extends Building {
-    private BufferedImage wallSprite;
+    BufferedImage wallSprite;
     int mapX, mapY;
 
     public Wall(int x, int y, int width, int height) {
         super(x, y, width, height);
-        this.wallSprite = Images.spriteImages.get("manBlue_gun.png");
         mapX = x;
         mapY = y;
     }
@@ -27,6 +26,8 @@ public class Wall extends Building {
     }
 
     public void draw(Graphics2D g2d) {
+        wallSprite = Images.tileImages.get("grayWall");
+
         // Calculate the building's position on the screen
         int buildingX = mapX + GamePanel.offsetX;
         int buildingY = mapY + GamePanel.offsetY;
@@ -35,10 +36,10 @@ public class Wall extends Building {
         g2d.setColor(Color.BLUE);
         g2d.drawImage(wallSprite, buildingX, buildingY, width, height, null);
 
-        g2d.fillRect(buildingX, buildingY, width, height);
+        //g2d.fillRect(buildingX, buildingY, width, height);
 
         if (wallSprite == null) {
-            // System.out.println("wallSprite is null");
+            System.out.println("wallSprite is null");
         }
 
         if (GamePanel.debugging) {
