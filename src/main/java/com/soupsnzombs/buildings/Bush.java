@@ -1,33 +1,41 @@
 package com.soupsnzombs.buildings;
 
 import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.entities.Player;
 import com.soupsnzombs.utils.Images;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Bush extends Building {
-    int mapX, mapY, bushX, bushY;
     BufferedImage bushSprite;
+    int mapX, mapY, bushX, bushY;
 
 
     public Bush(int x, int y, int width, int height) {
         super(x, y, width, height);
-        bushSprite = Images.spriteImages.get("manBlue_gun.png");
         mapX = x;
         mapY = y;
     }
 
     @Override
     void drawBuilding(Graphics2D g2d, int x, int y, int w, int h) {
+    }
+
+    public void draw(Graphics2D g2d) {
+        bushSprite = Images.tileImages.get("greenBush");
         bushX = mapX + GamePanel.offsetX;
         bushY = mapY + GamePanel.offsetY;
 
         g2d.setColor(Color.CYAN);
-        g2d.fillRect(this.bushX, this.bushY, this.width, this.height);
+        //g2d.fillRect(this.bushX, this.bushY, this.width, this.height);
         g2d.drawImage(bushSprite, bushX, bushY, width, height, null);
 
-       // System.out.println("bush drawn");
+        if (bushSprite == null) {
+            System.out.println("bushSprite is null");
+        }
+
+        // System.out.println("bush drawn");
         if (GamePanel.debugging) {
 
             // Draw the building's border
@@ -39,6 +47,7 @@ public class Bush extends Building {
             g2d.setColor(Color.GREEN);
             g2d.drawRect(x, y, width, height);
         }
+
     }
 
     @Override
