@@ -72,6 +72,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     AllTrees trees = new AllTrees();
     AllBushes bushes = new AllBushes();
     AllCoins coins = new AllCoins();
+    AllWalls walls = new AllWalls();
     AllZombies zombies;
     public static boolean upPressed = false;
     public static boolean downPressed = false;
@@ -438,6 +439,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         player.bar.draw(g2d);
         coins.draw(g2d, player);
         buildings.draw(g2d);
+        walls.draw(g2d);
         bushes.draw(g2d);
         trees.draw(g2d);
         drawShop(g2d);
@@ -477,6 +479,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             ShopEntity shopEntity = new ShopEntity(500, 100,400, 200);
             CollisionManager.addCollidable(shopEntity);
             shopEntity.draw(g2d);
-            
+
     }
 }
