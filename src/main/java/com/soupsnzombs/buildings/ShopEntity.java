@@ -11,7 +11,6 @@ public class ShopEntity extends Building {
 
     public ShopEntity(int x, int y, int width, int height) {
         super(x, y, width, height);
-        shopSprite = Images.spriteImages.get("manBlue_gun.png");
         mapX = x;
         mapY = y;
 }
@@ -21,6 +20,7 @@ void drawBuilding(Graphics2D g2d, int x, int y, int w, int h) {
 }
 
 public void draw(Graphics2D g2d) {
+    shopSprite = Images.spriteImages.get("manBlue_gun.png");
     shopX = mapX + GamePanel.offsetX;
     shopY = mapY + GamePanel.offsetY;
 

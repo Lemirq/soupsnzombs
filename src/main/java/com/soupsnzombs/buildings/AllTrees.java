@@ -13,14 +13,15 @@ public class AllTrees {
     }
 
     public AllTrees() {
-        trees.add(new Tree(350, 100,50, 50));
+        trees.add(new Tree(350, 100, 150, 150));
+        trees.add(new Tree(-250, -120, 150, 150));
         for (Tree t : trees) {
             CollisionManager.addCollidable(t);
         }
 
     }
 
-    public void drawTree(Graphics2D g2d) {
+    public void draw(Graphics2D g2d) {
         for (Tree t : trees) {
             t.draw(g2d);
             // draw rect x,y,w,h
