@@ -12,6 +12,7 @@ package com.soupsnzombs.UI.Shop;
 import java.awt.*;
 
 import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.entities.Player;
 import com.soupsnzombs.utils.FontLoader;
 import com.soupsnzombs.utils.Images;
 
@@ -41,8 +42,8 @@ public class Shop {
             }
 
             // if (Images.tempImage != null) {
-            //     g2d.drawImage(Images.tempImage, 0, 0, Images.playButton.getWidth(),
-            //             Images.tempImage.getHeight(), null);
+            // g2d.drawImage(Images.tempImage, 0, 0, Images.playButton.getWidth(),
+            // Images.tempImage.getHeight(), null);
             // }
 
             // Draw title
@@ -51,10 +52,20 @@ public class Shop {
             FontMetrics fm = g2d.getFontMetrics();
             int titleX = (GamePanel.screenWidth - fm.stringWidth(title)) / 2;
             int titleY = GamePanel.screenHeight / 5;
-            g2d.setColor(new Color(4, 71, 22));//dark green
-            g2d.drawString(title, titleX+5, titleY+4);
+            g2d.setColor(new Color(4, 71, 22));// dark green
+            g2d.drawString(title, titleX + 5, titleY + 4);
             g2d.setColor(Color.WHITE);
             g2d.drawString(title, titleX, titleY);
+
+            // Draw cash
+            String cashTitle = "cash: ";
+            int cashX = GamePanel.screenWidth - GamePanel.screenWidth / 4;
+            int cashY = GamePanel.screenHeight / 5;
+            g2d.setFont(FontLoader.font60);
+            g2d.setColor(new Color(4, 71, 22));// dark green
+            g2d.drawString(cashTitle + Player.money, cashX + 3, cashY + 3);
+            g2d.setColor(Color.white);
+            g2d.drawString(cashTitle + Player.money, cashX, cashY);
 
         }
     }
@@ -67,7 +78,7 @@ public class Shop {
         for (int row = 0; row < shopLayout.length; row++) {
             for (int col = 0; col < shopLayout[row].length; col++) {
                 int x = OPTION_X + col * (optionWidth + paddingWidth);
-                int y = OPTION_Y + row * (optionHeight + paddingWidth) + GamePanel.screenHeight/15;
+                int y = OPTION_Y + row * (optionHeight + paddingWidth) + GamePanel.screenHeight / 15;
 
                 // Draw button background
                 if (row == cursorRow && col == cursorCol) {
@@ -78,7 +89,11 @@ public class Shop {
                 g2d.fillRect(x, y, optionWidth, optionHeight);
 
                 // Draw border
-                g2d.setColor(new Color(4, 71, 22, 200));//dark green
+                if (shopLayout[row][col] == "Exit") {
+                    g2d.setColor(Color.red);
+                } else {
+                    g2d.setColor(new Color(4, 71, 22, 200));// dark green
+                }
                 g2d.setStroke(new BasicStroke(5));
                 g2d.drawRect(x, y, optionWidth, optionHeight);
                 g2d.setStroke(new BasicStroke(1)); // reset to default
@@ -97,8 +112,9 @@ public class Shop {
                 g2d.setColor(Color.WHITE);
                 FontMetrics fm = g2d.getFontMetrics();
                 int textX = x + (optionWidth - fm.stringWidth(textToDraw)) / 2;
-                int textY = y + paddingWidth-5 + (int) (optionHeight * 0.85) + fm.getAscent() / 2;
+                int textY = y + paddingWidth - 5 + (int) (optionHeight * 0.85) + fm.getAscent() / 2;
                 g2d.drawString(textToDraw, textX, textY);
+
             }
         }
 
@@ -130,7 +146,7 @@ public class Shop {
     }
 
     public static void selectEnter(GamePanel game) {
-        
+
         String selectedOption = shopLayout[cursorRow][cursorCol];
 
         switch (selectedOption) {
