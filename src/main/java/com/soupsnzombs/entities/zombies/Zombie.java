@@ -22,9 +22,9 @@ public class Zombie extends Entity implements GameObject {
     public int pointsDropped = 10;
     public int damageTime = 500;
     private Random random = new Random();
-    private int randInt = random.nextInt(6)+1;
-    //TODO make pathfinder toggleable 
-    //Pathfinder pathfinder = new Pathfinder();
+    private int randInt = random.nextInt(6) + 1;
+    // TODO make pathfinder toggleable
+    Pathfinder pathfinder = new Pathfinder();
     private int pathRefreshCounter = 0;
     private static final int PATH_REFRESH_INTERVAL = 60; // Refresh path every 60 updates
 
@@ -37,17 +37,16 @@ public class Zombie extends Entity implements GameObject {
         this.width = sprite.getWidth();
         this.height = sprite.getHeight();
     }
-/*
-    public void dropCoins() {
-        if (health == 0) {
-            //if (randInt == 1) {
-                Coin coin = new Coin(x, y, 10, 10, 1);
-            //}
-        }
-    }
-
- */
-
+    /*
+     * public void dropCoins() {
+     * if (health == 0) {
+     * //if (randInt == 1) {
+     * Coin coin = new Coin(x, y, 10, 10, 1);
+     * //}
+     * }
+     * }
+     * 
+     */
 
     public void takeDamage(int damage) {
         health -= damage;
@@ -58,10 +57,10 @@ public class Zombie extends Entity implements GameObject {
     }
 
     public void draw(Graphics2D g2d, Player p) {
-        //TODO Make pathfinding stuff toggleable
-        //pathfinder.updateGrid(p, this);
-        //pathfinder.draw(g2d);
-        
+        // TODO Make pathfinding stuff toggleable
+        pathfinder.updateGrid(p, this);
+        pathfinder.draw(g2d);
+
         // Calculate the screen position based on the world position and camera offsets
         screenX = x + GamePanel.offsetX;
         screenY = y + GamePanel.offsetY;
@@ -114,19 +113,16 @@ public class Zombie extends Entity implements GameObject {
     }
 
     public void chasePlayer(Player p, Graphics2D g2d) {
-        //TODO Make pathfinding stuff toggleable
-        //boolean path = pathfinder.findPath();
-        /* 
+        // TODO Make pathfinding stuff toggleable
+        boolean path = pathfinder.findPath();
+
         if (path) {
-            
-            
+
             Node[][] tempGrid = pathfinder.getGrid();
             int gridSize = pathfinder.getGridSize();
             int gridOriginX = pathfinder.getGridOriginX();
             int gridOriginY = pathfinder.getGridOriginY();
-            
 
-           
             for (int i = 0; i < tempGrid.length; i++) {
                 for (int j = 0; j < tempGrid[0].length; j++) {
                     if (tempGrid[i][j].getType() == Node.Type.PATH) {
@@ -153,8 +149,8 @@ public class Zombie extends Entity implements GameObject {
 
                         if (distance > 0) {
                             // Normalize and apply speed
-                            double directionX = deltaX / distance;
-                            double directionY = deltaY / distance;
+                            double directionX = Math.floor(deltaX / distance);
+                            double directionY = Math.floor(deltaY / distance);
                             System.out.println("directionX: " + directionX + " directionY: " +
                                     directionY);
                             // Move zombie towards path node
@@ -188,7 +184,7 @@ public class Zombie extends Entity implements GameObject {
                 }
             }
         }
-        */
+
     }
 
     // legacy chasePlayer method
