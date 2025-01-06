@@ -7,6 +7,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import static com.soupsnzombs.utils.FontLoader.font20;
+
 public class Coin extends Rectangle {
     BufferedImage coinSprite;
 
@@ -24,7 +26,7 @@ public class Coin extends Rectangle {
 
         g2d.fillOval(this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width, this.height);
         g2d.setColor(Color.BLACK);
-        g2d.drawString("$", this.x + GamePanel.offsetX + 6, this.y + GamePanel.offsetY + 13);
+        g2d.drawString("$", this.x + GamePanel.offsetX + 6, this.y + GamePanel.offsetY + 14);
 
         if (GamePanel.debugging) {
             g2d.setColor(Color.GREEN);
