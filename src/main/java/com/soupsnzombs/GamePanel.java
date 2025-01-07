@@ -304,7 +304,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         zombies = new AllZombies();
         inventory = new Inventory();
 
-        healthDrops.add(new HealthDrop(1100, 1000, 5000));
+        healthDrops.add(new HealthDrop(1100, 1000, 10000));
         start();
     }
 
