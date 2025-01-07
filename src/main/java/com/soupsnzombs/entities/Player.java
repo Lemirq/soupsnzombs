@@ -79,6 +79,7 @@ public class Player extends Entity implements GameObject {
      */
     public void increaseHealth(int healthAmount) {
         this.health += healthAmount;
+        if (this.health > 100) {this.health = 100;}
     }
 
     /**
