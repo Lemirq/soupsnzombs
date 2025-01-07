@@ -350,17 +350,21 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             // System.out.println("Vx: " + vx + " Vy: " + vy);
 
             // decide if collision happens
-            Rectangle newPosition = new Rectangle(player.x - vx, player.y - vy, playerWidth, playerHeight);
+            Rectangle newPositionX = new Rectangle(player.x - vx, player.y, playerWidth, playerHeight);
+            Rectangle newPositionY = new Rectangle(player.x, player.y - vy, playerWidth, playerHeight);
             ArrayList<Rectangle> n = CollisionManager.collidables;
             n.remove(player);
 
             // System.out.println("New position: X: " + newPosition.x + " Y: " +
             // newPosition.y + " W: " + newPosition.width
             // + " H: " + newPosition.height);
-            if (!CollisionManager.isColliding(newPosition, n)) {
+            if (!CollisionManager.isColliding(newPositionX, n)) {
                 offsetX += vx;
-                offsetY += vy;
                 player.x -= vx;
+            }
+
+            if (!CollisionManager.isColliding(newPositionY, n)) {
+                offsetY += vy;
                 player.y -= vy;
             }
         }
@@ -440,9 +444,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         coins.draw(g2d, player);
         buildings.draw(g2d);
         walls.draw(g2d);
-        bushes.draw(g2d);
         trees.draw(g2d);
-        drawShop(g2d);
+        shopEntity.draw(g2d);
 
         zombies.draw(g2d, player);
         inventory.draw(g2d, this, player.getGun());
@@ -459,6 +462,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         // bottom right corner, bullet positions
         player.draw(g2d);
+        bushes.draw(g2d);
 
         g2d.drawString(String.format("Time Survived: %.2f", elapsedTime), 120, screenHeight - 100);
 
@@ -473,10 +477,5 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // draw dot at offset x,y
         // g2d.fillOval(offsetX, offsetY, 10, 10);
 
-    }
-
-    void drawShop(Graphics2D g2d) {
-
-        shopEntity.draw(g2d);
     }
 }
