@@ -57,15 +57,15 @@ public class Shop {
             g2d.setColor(Color.WHITE);
             g2d.drawString(title, titleX, titleY);
 
-            // Draw cash
-            String cashTitle = "cash: ";
-            int cashX = GamePanel.screenWidth - GamePanel.screenWidth / 4;
-            int cashY = GamePanel.screenHeight / 5;
+            // Draw coins
+            String coinsTitle = "coins: ";
+            int coinsX = GamePanel.screenWidth - GamePanel.screenWidth / 4;
+            int coinsY = GamePanel.screenHeight / 5;
             g2d.setFont(FontLoader.font60);
             g2d.setColor(new Color(4, 71, 22));// dark green
-            g2d.drawString(cashTitle + Player.money, cashX + 3, cashY + 3);
+            g2d.drawString(coinsTitle + Player.money, coinsX + 3, coinsY + 3);
             g2d.setColor(Color.white);
-            g2d.drawString(cashTitle + Player.money, cashX, cashY);
+            g2d.drawString(coinsTitle + Player.money, coinsX, coinsY);
 
         }
     }
