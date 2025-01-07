@@ -22,7 +22,7 @@ public class Zombie extends Entity implements GameObject {
     public int pointsDropped = 10;
     public int damageTime = 500;
     private Random random = new Random();
-    private int randInt = random.nextInt(6) + 1;
+  //  private int randInt = random.nextInt(6) + 1;
     // TODO make pathfinder toggleable
     Pathfinder pathfinder = new Pathfinder();
     private int pathRefreshCounter = 0;
@@ -44,7 +44,7 @@ public class Zombie extends Entity implements GameObject {
         switch (this.type) {
             case DEFAULT:
                 health = 100;
-                healthMax = 100.0;
+                healthMax = 100;
                 //TODO change loaded png file accordingly to the type of zomb
                 this.sprite = Images.spriteImages.get("zoimbie1_stand.png");
                 this.damage = 10;
@@ -52,7 +52,7 @@ public class Zombie extends Entity implements GameObject {
 
             case FAT:  
                 health = 200;
-                healthMax = 200.0;
+                healthMax = 200;
                 this.damage = 35;
                 speed = 0.5;
 
@@ -62,7 +62,7 @@ public class Zombie extends Entity implements GameObject {
 
             case SMALL:
                 health = 75;
-                healthMax = 75.0;
+                healthMax = 75;
                 this.damage = 5;
                 speed = 1.5; 
 
@@ -132,7 +132,7 @@ public class Zombie extends Entity implements GameObject {
         int barWidth = 50;
         int barHeight = 10;
         int healthBarWidth = (int)((this.health / this.healthMax) * barWidth);
-        //System.out.println("health: "+health+ "health max: "+ healthMax+" health bar width: " + ((150 / 200) * 50));
+        
         g2d.setColor(Color.RED);
         g2d.fillRoundRect(x - 10, y - 2, barWidth, barHeight, 10, 10); // subtract 10 to center the rectangle onto
                                                                        // zombie
