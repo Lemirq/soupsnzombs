@@ -442,7 +442,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         walls.draw(g2d);
         bushes.draw(g2d);
         trees.draw(g2d);
-        drawShop(g2d);
+        shopEntity.draw(g2d);
+        CollisionManager.addCollidable(shopEntity);
 
         zombies.draw(g2d, player);
         inventory.draw(g2d, this, player.getGun());

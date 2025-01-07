@@ -153,7 +153,14 @@ public class Zombie extends Entity implements GameObject {
 
     public void chasePlayer(Player p, Graphics2D g2d) {
         // TODO Make pathfinding stuff toggleable
+        pathRefreshCounter++;
         boolean path = pathfinder.findPath();
+
+        if (pathRefreshCounter >= PATH_REFRESH_INTERVAL) {
+            pathfinder.updateGrid(p, this);
+            pathfinder.findPath();
+            pathRefreshCounter = 0;
+        }
 
         if (path) {
 
