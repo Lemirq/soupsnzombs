@@ -205,7 +205,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             if (zBounds.intersects(player.getBounds())) {
                 long currentTime = System.currentTimeMillis();
                 if (currentTime - lastDamageTime >= z.damageTime) { // Check if 500 ms have passed
-                    // player.decreaseHealth(10); // FIXME: Change to zombie damage
+                     player.decreaseHealth(z.getDamage()); // FIXME: Change to zombie damage
                     lastDamageTime = currentTime; // Update the last damage time
                 }
             }

@@ -29,6 +29,7 @@ public class Zombie extends Entity implements GameObject {
     private static final int PATH_REFRESH_INTERVAL = 60; // Refresh path every 60 updates
     private ZombieType type;
     private double healthMax;
+    private int damage; 
 
     public enum ZombieType {
         DEFAULT, FAT, SMALL;
@@ -46,11 +47,13 @@ public class Zombie extends Entity implements GameObject {
                 healthMax = 100.0;
                 //TODO change loaded png file accordingly to the type of zomb
                 this.sprite = Images.spriteImages.get("zoimbie1_stand.png");
+                this.damage = 10;
                 break;
 
             case FAT:  
                 health = 200;
                 healthMax = 200.0;
+                this.damage = 35;
                 speed = 0.5;
 
                 //TODO change loaded png file accordingly to the type of zomb
@@ -60,6 +63,7 @@ public class Zombie extends Entity implements GameObject {
             case SMALL:
                 health = 75;
                 healthMax = 75.0;
+                this.damage = 5;
                 speed = 1.5; 
 
                 //TODO change loaded png file accordingly to the type of zomb
@@ -279,6 +283,10 @@ public class Zombie extends Entity implements GameObject {
     @Override
     public void draw(Graphics2D g2d) {
 
+    }
+
+    public int getDamage() {
+        return this.damage;
     }
 
 }
