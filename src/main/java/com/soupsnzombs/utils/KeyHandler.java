@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.GamePanel.GameState;
 import com.soupsnzombs.GamePanel.PlayerDir;
+import com.soupsnzombs.MainFrame;
 import com.soupsnzombs.UI.MainMenu.MenuGUI;
 import com.soupsnzombs.UI.MainMenu.NameSelect;
 import com.soupsnzombs.UI.Shop.Shop;
@@ -169,7 +170,8 @@ public class KeyHandler extends KeyAdapter {
                     System.out.println("Player died.");
                     // for debugging purposes, instantly kills the player
                 } else if (GamePanel.gameState == GameState.MAIN_MENU) {
-                    System.exit(0);
+                    // System.exit(0);
+                    MainFrame.frame.dispose();
                 }
                 break;
 
