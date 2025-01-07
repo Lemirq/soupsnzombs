@@ -16,7 +16,7 @@ public class Zombie extends Entity implements GameObject {
     // private static int direction;
     public static int screenX;
     public static int screenY;
-    private int health = 100;
+    private int health;
     private BufferedImage sprite;
     public int moneyDropped = 10;
     public int pointsDropped = 10;
@@ -27,15 +27,49 @@ public class Zombie extends Entity implements GameObject {
     Pathfinder pathfinder = new Pathfinder();
     private int pathRefreshCounter = 0;
     private static final int PATH_REFRESH_INTERVAL = 60; // Refresh path every 60 updates
+    private ZombieType type;
+    private double healthMax;
 
-    public Zombie(int startX, int startY) {
+    public enum ZombieType {
+        DEFAULT, FAT, SMALL;
+    }
+
+    public Zombie(int startX, int startY, ZombieType type) {
         super(startX, startY, 0, 0, 100, 1);
         this.x = startX + GamePanel.offsetX;
         this.y = startY + GamePanel.offsetY;
 
-        this.sprite = Images.spriteImages.get("zoimbie1_stand.png");
+        this.type = type;
+        switch (this.type) {
+            case DEFAULT:
+                health = 100;
+                healthMax = 100.0;
+                //TODO change loaded png file accordingly to the type of zomb
+                this.sprite = Images.spriteImages.get("zoimbie1_stand.png");
+                break;
+
+            case FAT:  
+                health = 200;
+                healthMax = 200.0;
+                speed = 0.5;
+
+                //TODO change loaded png file accordingly to the type of zomb
+                this.sprite = Images.spriteImages.get("zoimbie1_stand.png");
+                break;
+
+            case SMALL:
+                health = 75;
+                healthMax = 75.0;
+                speed = 1.5; 
+
+                //TODO change loaded png file accordingly to the type of zomb
+                this.sprite = Images.spriteImages.get("zoimbie1_stand.png");
+                break;
+        }
+        
         this.width = sprite.getWidth();
         this.height = sprite.getHeight();
+        
     }
     /*
      * public void dropCoins() {
@@ -93,7 +127,8 @@ public class Zombie extends Entity implements GameObject {
     private void drawHealthBar(Graphics2D g2d, int x, int y) {
         int barWidth = 50;
         int barHeight = 10;
-        int healthBarWidth = (int) ((health / 100.0) * barWidth);
+        int healthBarWidth = (int)((this.health / this.healthMax) * barWidth);
+        //System.out.println("health: "+health+ "health max: "+ healthMax+" health bar width: " + ((150 / 200) * 50));
         g2d.setColor(Color.RED);
         g2d.fillRoundRect(x - 10, y - 2, barWidth, barHeight, 10, 10); // subtract 10 to center the rectangle onto
                                                                        // zombie
