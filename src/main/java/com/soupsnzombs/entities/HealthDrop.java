@@ -1,28 +1,30 @@
 package com.soupsnzombs.entities;
+
 import java.awt.*;
 import javax.swing.Timer;
 import java.awt.event.*;
 import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.utils.Images;
+import java.util.Random;
 
 public class HealthDrop extends Rectangle {
 
     int healthIncreaseVal;
-    Color color; 
-    int[] healthVals = {50, 15, 20};
+    Color color;
+    int[] healthVals = { 15, 20, 50 };
     boolean visible;
     boolean animation;
-    Timer respawnTimer, animationTimer; 
-    int yPos; //for animating purposes
+    Timer respawnTimer, animationTimer;
+    int yPos; // for animating purposes
+    Random rand = new Random();
 
     public HealthDrop(int x, int y, int cooldown) {
-        super(x, y, 25, 25);
-        this.healthIncreaseVal = healthVals[(int)(Math.random() * (healthVals.length - 1) + 1)];
-        this.color = new Color(healthIncreaseVal*10, 0, 0);
+        super(x, y, 70, 60);
+        this.healthIncreaseVal = healthVals[rand.nextInt(0, 3)];
         this.visible = true;
         this.animation = false;
         this.yPos = 0;
 
-        
         respawnTimer = new Timer(cooldown, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -46,22 +48,49 @@ public class HealthDrop extends Rectangle {
     public void animatePickUp(Graphics g2d) {
         animationTimer.start();
         g2d.setColor(Color.GREEN);
-        g2d.drawString("+" + healthIncreaseVal + " HP", this.x + GamePanel.offsetX-24, this.y + GamePanel.offsetY-6-yPos); 
+        g2d.drawString("+" + healthIncreaseVal + " HP", this.x + GamePanel.offsetX - 24,
+                this.y + GamePanel.offsetY - 6 - yPos);
 
-       
     }
 
     public void draw(Graphics g2d) {
-        
+
         if (animation) {
             animatePickUp(g2d);
         }
         if (!this.visible) {
             return;
         }
-        g2d.setColor(this.color);
-        g2d.fillRoundRect(this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width, this.height, 15, 15);
-        
+
+        // System.out.println("healthVal: " + healthIncreaseVal);
+        // for (int i = 0; i < 10; i++){
+        //     System.out.println(rand.nextInt(0,3));
+        // }
+
+        //draw sprites
+
+        switch (healthIncreaseVal) {
+            case 15:
+                g2d.drawImage(Images.energyDrink, this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width,
+                        this.height, null);
+                break;
+            case 20:
+                g2d.drawImage(Images.milk, this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width,
+                        this.height, null);
+                break;
+            case 50:
+                g2d.drawImage(Images.soup, this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width,
+                        this.height, null);
+                break;
+            default:
+                // draws heals of different colours
+                this.color = new Color(healthIncreaseVal * 10, 0, 0);
+                g2d.setColor(this.color);
+                g2d.fillRoundRect(this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width, this.height, 15,
+                        15);
+
+        }
+
     }
 
     public Rectangle getBounds() {
