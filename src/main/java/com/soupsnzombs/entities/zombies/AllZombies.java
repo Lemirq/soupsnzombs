@@ -38,11 +38,11 @@ public class AllZombies {
             if (!z.alive) {
                 Player.score += z.pointsDropped;
                 zombies.remove(z);
-                coins.add(new Coin(z.x + 5, z.y + 5,10, 10));
+                coins.add(new Coin(z.x + 5, z.y + 5, 10, 10));
                 break;
             }
             z.draw(g2d, player);
-            z.chasePlayerLegacy(player);
+            z.chasePlayer(player, g2d);
             // z.chasePlayerLegacy(player);
             // draw rect x,y,w,h
 

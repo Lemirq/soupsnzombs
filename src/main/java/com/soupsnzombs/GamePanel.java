@@ -93,6 +93,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public EntranceBuilding prototypeBuilding4 = new EntranceBuilding(2000 + 1000 - 65 - 65, 1000, 800, 1000, 0, 0, 65);
     ShopBuilding shopEntity = new ShopBuilding(500, 100, 400, 200);
     public ArrayList<HealthDrop> healthDrops = new ArrayList<>();
+    SoundManager soundManager = new SoundManager();
     public Inventory inventory;
 
     public Player getPlayer() {
@@ -150,6 +151,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         if (!player.alive && gameState != GameState.GAMEOVER && gameState != GameState.NAME_SELECT
                 && gameState != GameState.MAIN_MENU) {
             gameState = GameState.GAMEOVER;
+            SoundManager.stopAllSounds();
+            SoundManager.playSound("twinkle.wav");
             return;
         }
 
@@ -205,7 +208,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             if (zBounds.intersects(player.getBounds())) {
                 long currentTime = System.currentTimeMillis();
                 if (currentTime - lastDamageTime >= z.damageTime) { // Check if 500 ms have passed
-                     player.decreaseHealth(z.getDamage()); // FIXME: Change to zombie damage
+                    player.decreaseHealth(z.getDamage()); // FIXME: Change to zombie damage
                     lastDamageTime = currentTime; // Update the last damage time
                 }
             }
@@ -278,7 +281,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         setBackground(Theme.BG);
         setFocusable(true);
         requestFocusInWindow();
-
+        SoundManager.playSound("peaceful.wav");
         Images.loadImages();
         FontLoader.loadFont();
 
@@ -350,17 +353,20 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             // System.out.println("Vx: " + vx + " Vy: " + vy);
 
             // decide if collision happens
-            Rectangle newPosition = new Rectangle(player.x - vx, player.y - vy, playerWidth, playerHeight);
+            Rectangle newPositionX = new Rectangle(player.x - vx, player.y, playerWidth, playerHeight);
+            Rectangle newPositionY = new Rectangle(player.x, player.y - vy, playerWidth, playerHeight);
             ArrayList<Rectangle> n = CollisionManager.collidables;
             n.remove(player);
 
             // System.out.println("New position: X: " + newPosition.x + " Y: " +
             // newPosition.y + " W: " + newPosition.width
             // + " H: " + newPosition.height);
-            if (!CollisionManager.isColliding(newPosition, n)) {
+            if (!CollisionManager.isColliding(newPositionX, n)) {
                 offsetX += vx;
-                offsetY += vy;
                 player.x -= vx;
+            }
+            if (!CollisionManager.isColliding(newPositionY, n)) {
+                offsetY += vy;
                 player.y -= vy;
             }
         }

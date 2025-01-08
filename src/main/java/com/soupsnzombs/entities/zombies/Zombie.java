@@ -88,7 +88,6 @@ public class Zombie extends Entity implements GameObject {
     public void takeDamage(int damage) {
         health -= damage;
         if (health <= 0) {
-            // System.out.println("Zombie is dead");
             alive = false;
         }
     }
@@ -167,10 +166,11 @@ public class Zombie extends Entity implements GameObject {
             }
         }
 
-        if (directPathClear) {
-            chasePlayerDirectly(p);
-            return;
-        }
+        // TODO: TURN BACK ON
+        // if (directPathClear) {
+        // chasePlayerDirectly(p);
+        // return;
+        // }
 
         boolean path = pathfinder.findPath();
 
@@ -181,7 +181,6 @@ public class Zombie extends Entity implements GameObject {
         }
 
         if (path) {
-
             Node[][] tempGrid = pathfinder.getGrid();
             int gridSize = pathfinder.getGridSize();
             int gridOriginX = pathfinder.getGridOriginX();
@@ -194,30 +193,15 @@ public class Zombie extends Entity implements GameObject {
                         double targetX = gridOriginX + (i * gridSize);
                         double targetY = gridOriginY + (j * gridSize);
 
-                        // Debug visualization
-                        // if (GamePanel.debugging) {
-                        // g2d.setColor(Color.CYAN);
-                        // g2d.fillRect((int) targetX, (int) targetY, gridSize, gridSize);
-                        // }
-
                         // Calculate direction to next path node
                         double deltaX = targetX - this.x;
                         double deltaY = targetY - this.y;
                         double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-                        System.out.println("distance: " + distance);
-
-                        // draw a rect at TARGETX and TARGETY
-                        // g2d.setColor(Color.RED);
-                        // g2d.fillRect((int) targetX + GamePanel.offsetX, (int) targetY +
-                        // GamePanel.offsetY, gridSize,
-                        // gridSize);
 
                         if (distance > 0) {
                             // Normalize and apply speed
-                            double directionX = Math.floor(deltaX / distance);
-                            double directionY = Math.floor(deltaY / distance);
-                            System.out.println("directionX: " + directionX + " directionY: " +
-                                    directionY);
+                            double directionX = deltaX / distance;
+                            double directionY = deltaY / distance;
                             // Move zombie towards path node
                             Rectangle nextPos = new Rectangle(
                                     x + (int) (directionX * speed),
@@ -238,12 +222,13 @@ public class Zombie extends Entity implements GameObject {
                                 }
                             } else {
                                 // Force pathfinder to recalculate on next update when we hit an obstacle
-                                // pathfinder.resetPath();
+                                pathfinder.resetPath();
+                                System.out.println("Colliding with obstacle, not moving");
                             }
                             return; // Only move towards the first path node
                         } else {
                             // Force pathfinder to recalculate on next update when we hit an obstacle
-                            // pathfinder.resetPath();
+                            pathfinder.resetPath();
                         }
                     }
                 }
