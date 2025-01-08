@@ -7,6 +7,7 @@ import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.buildings.Bush;
 import com.soupsnzombs.entities.Coin;
 import com.soupsnzombs.entities.Player;
+import com.soupsnzombs.entities.zombies.Zombie.ZombieType;
 import com.soupsnzombs.utils.CollisionManager;
 import static com.soupsnzombs.entities.AllCoins.coins;
 
@@ -23,7 +24,7 @@ public class AllZombies {
         for (int i = 0; i < 1; i++) {
             int x = (int) (Math.random() * 2000 - 1000);
             int y = (int) (Math.random() * 2000 - 1000);
-            zombies.add(new Zombie(x, y));
+            zombies.add(new Zombie(x, y, ZombieType.SMALL));
         }
 
         System.out.println("zombie size: " + zombies.size());
@@ -42,6 +43,7 @@ public class AllZombies {
             }
             z.draw(g2d, player);
             z.chasePlayer(player, g2d);
+
             // z.chasePlayerLegacy(player);
             // draw rect x,y,w,h
 

@@ -8,34 +8,71 @@ import com.soupsnzombs.utils.Node;
 import com.soupsnzombs.utils.Pathfinder;
 
 import java.awt.*;
+import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Zombie extends Entity implements GameObject {
     // private static int direction;
     public static int screenX;
     public static int screenY;
-    private int health = 100;
+    private int health;
     private BufferedImage sprite;
     public int moneyDropped = 10;
     public int pointsDropped = 10;
     public int damageTime = 500;
-    private Random random = new Random();
-    private int randInt = random.nextInt(6) + 1;
     // TODO make pathfinder toggleable
     Pathfinder pathfinder = new Pathfinder();
+    // linked list of path nodes, already converted to world coordinates
     private int pathRefreshCounter = 0;
     private static final int PATH_REFRESH_INTERVAL = 60; // Refresh path every 60 updates
+    private ZombieType type;
+    private double healthMax;
+    private int damage;
 
-    public Zombie(int startX, int startY) {
+    public enum ZombieType {
+        DEFAULT, FAT, SMALL;
+    }
+
+    public Zombie(int startX, int startY, ZombieType type) {
         super(startX, startY, 0, 0, 100, 1);
         this.x = startX + GamePanel.offsetX;
         this.y = startY + GamePanel.offsetY;
 
-        this.sprite = Images.spriteImages.get("zoimbie1_stand.png");
+        this.type = type;
+        switch (this.type) {
+            case DEFAULT:
+                health = 100;
+                healthMax = 100;
+                // TODO change loaded png file accordingly to the type of zomb
+                this.sprite = Images.spriteImages.get("zoimbie1_stand.png");
+                this.damage = 10;
+                break;
+
+            case FAT:
+                health = 200;
+                healthMax = 200;
+                this.damage = 35;
+                speed = 0.5;
+
+                // TODO change loaded png file accordingly to the type of zomb
+                this.sprite = Images.spriteImages.get("zoimbie1_stand.png");
+                break;
+
+            case SMALL:
+                health = 75;
+                healthMax = 75;
+                this.damage = 5;
+                speed = 1.5;
+
+                // TODO change loaded png file accordingly to the type of zomb
+                this.sprite = Images.spriteImages.get("zoimbie1_stand.png");
+                break;
+        }
+
         this.width = sprite.getWidth();
         this.height = sprite.getHeight();
+
     }
     /*
      * public void dropCoins() {
@@ -51,7 +88,6 @@ public class Zombie extends Entity implements GameObject {
     public void takeDamage(int damage) {
         health -= damage;
         if (health <= 0) {
-            // System.out.println("Zombie is dead");
             alive = false;
         }
     }
@@ -93,7 +129,8 @@ public class Zombie extends Entity implements GameObject {
     private void drawHealthBar(Graphics2D g2d, int x, int y) {
         int barWidth = 50;
         int barHeight = 10;
-        int healthBarWidth = (int) ((health / 100.0) * barWidth);
+        int healthBarWidth = (int) ((this.health / this.healthMax) * barWidth);
+
         g2d.setColor(Color.RED);
         g2d.fillRoundRect(x - 10, y - 2, barWidth, barHeight, 10, 10); // subtract 10 to center the rectangle onto
                                                                        // zombie
@@ -115,6 +152,26 @@ public class Zombie extends Entity implements GameObject {
     public void chasePlayer(Player p, Graphics2D g2d) {
         // TODO Make pathfinding stuff toggleable
         pathRefreshCounter++;
+
+        // Calculate direct line to player
+        Line2D directLine = new Line2D.Double(this.x, this.y, p.x, p.y);
+        boolean directPathClear = true;
+
+        // Check for collidables in the direct path
+        ArrayList<Rectangle> collidables = CollisionManager.collidables;
+        for (Rectangle rect : collidables) {
+            if (directLine.intersects(rect)) {
+                directPathClear = false;
+                break;
+            }
+        }
+
+        // TODO: TURN BACK ON
+        // if (directPathClear) {
+        // chasePlayerDirectly(p);
+        // return;
+        // }
+
         boolean path = pathfinder.findPath();
 
         if (pathRefreshCounter >= PATH_REFRESH_INTERVAL) {
@@ -124,7 +181,6 @@ public class Zombie extends Entity implements GameObject {
         }
 
         if (path) {
-
             Node[][] tempGrid = pathfinder.getGrid();
             int gridSize = pathfinder.getGridSize();
             int gridOriginX = pathfinder.getGridOriginX();
@@ -137,29 +193,15 @@ public class Zombie extends Entity implements GameObject {
                         double targetX = gridOriginX + (i * gridSize);
                         double targetY = gridOriginY + (j * gridSize);
 
-                        // Debug visualization
-                        // if (GamePanel.debugging) {
-                        // g2d.setColor(Color.CYAN);
-                        // g2d.fillRect((int) targetX, (int) targetY, gridSize, gridSize);
-                        // }
-
                         // Calculate direction to next path node
                         double deltaX = targetX - this.x;
                         double deltaY = targetY - this.y;
                         double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
-                        // draw a rect at TARGETX and TARGETY
-                        // g2d.setColor(Color.RED);
-                        // g2d.fillRect((int) targetX + GamePanel.offsetX, (int) targetY +
-                        // GamePanel.offsetY, gridSize,
-                        // gridSize);
-
                         if (distance > 0) {
                             // Normalize and apply speed
-                            double directionX = Math.floor(deltaX / distance);
-                            double directionY = Math.floor(deltaY / distance);
-                            System.out.println("directionX: " + directionX + " directionY: " +
-                                    directionY);
+                            double directionX = deltaX / distance;
+                            double directionY = deltaY / distance;
                             // Move zombie towards path node
                             Rectangle nextPos = new Rectangle(
                                     x + (int) (directionX * speed),
@@ -180,12 +222,13 @@ public class Zombie extends Entity implements GameObject {
                                 }
                             } else {
                                 // Force pathfinder to recalculate on next update when we hit an obstacle
-                                // pathfinder.resetPath();
+                                pathfinder.resetPath();
+                                System.out.println("Colliding with obstacle, not moving");
                             }
                             return; // Only move towards the first path node
                         } else {
                             // Force pathfinder to recalculate on next update when we hit an obstacle
-                            // pathfinder.resetPath();
+                            pathfinder.resetPath();
                         }
                     }
                 }
@@ -195,7 +238,7 @@ public class Zombie extends Entity implements GameObject {
     }
 
     // legacy chasePlayer method
-    public void chasePlayerLegacy(Player p) {
+    public void chasePlayerDirectly(Player p) {
         // boolean path = pathfinder.findPath();
         // int vy = 0;
         // int vx = 0;
@@ -251,6 +294,10 @@ public class Zombie extends Entity implements GameObject {
     @Override
     public void draw(Graphics2D g2d) {
 
+    }
+
+    public int getDamage() {
+        return this.damage;
     }
 
 }

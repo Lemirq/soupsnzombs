@@ -23,9 +23,7 @@ public class Pathfinder {
 
     public Pathfinder() {
         if (GamePanel.debugging) {
-
             g.setVisible(true);
-
         } else {
             g.dispose();
             g = null;
@@ -51,8 +49,10 @@ public class Pathfinder {
         maxX += padding;
         maxY += padding;
 
-        this.gridSize = 20;
+        this.gridSize = z.width / 2; // increased grid size for better pathfinding
         this.g.gridSize = gridSize;
+
+        System.out.println("gridsize: " + this.gridSize);
 
         // Calculate grid dimensions
         int gridWidth = (int) Math.ceil((maxX - minX) / (double) gridSize);
@@ -80,11 +80,11 @@ public class Pathfinder {
             int rectY = (int) rect.getY();
             int rectWidth = (int) rect.getWidth();
             int rectHeight = (int) rect.getHeight();
-
-            int rectGridX = (int) Math.floor((rectX - minX) / (double) gridSize);
-            int rectGridY = (int) Math.floor((rectY - minY) / (double) gridSize);
-            int rectGridWidth = (int) Math.ceil(rectWidth / (double) gridSize);
-            int rectGridHeight = (int) Math.ceil(rectHeight / (double) gridSize);
+            int wallPadding = 0;
+            int rectGridX = (int) Math.floor((rectX - minX) / (double) gridSize) - wallPadding;
+            int rectGridY = (int) Math.floor((rectY - minY) / (double) gridSize) - wallPadding;
+            int rectGridWidth = (int) Math.ceil(rectWidth / (double) gridSize) + 2 * wallPadding;
+            int rectGridHeight = (int) Math.ceil(rectHeight / (double) gridSize) + 2 * wallPadding;
 
             for (int i = rectGridX; i < rectGridX + rectGridWidth; i++) {
                 for (int j = rectGridY; j < rectGridY + rectGridHeight; j++) {

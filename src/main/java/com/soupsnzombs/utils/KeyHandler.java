@@ -72,28 +72,34 @@ public class KeyHandler extends KeyAdapter {
 
         switch (key) {
             case KeyEvent.VK_W:
-                GamePanel.upPressed = true;
-                GamePanel.direction = PlayerDir.UP;
 
                 if (GamePanel.gameState == GameState.SHOP) {
                     Shop.selectUp(game);
                 }
 
-                if (GamePanel.gameState == GameState.NAME_SELECT) {
+                else if (GamePanel.gameState == GameState.NAME_SELECT) {
                     NameSelect.selectUp(game);
                 }
 
+                else if (GamePanel.gameState == GameState.GAME) {
+                    GamePanel.upPressed = true;
+                    GamePanel.direction = PlayerDir.UP;
+                }
                 break;
 
             case KeyEvent.VK_S:
-                GamePanel.downPressed = true;
-                GamePanel.direction = PlayerDir.DOWN;
+
                 if (GamePanel.gameState == GameState.NAME_SELECT) {
                     NameSelect.selectDown(game);
-                }
-                if (GamePanel.gameState == GameState.SHOP) {
+                } else if (GamePanel.gameState == GameState.SHOP) {
                     Shop.selectDown(game);
                 }
+
+                else if (GamePanel.gameState == GameState.GAME) {
+                    GamePanel.downPressed = true;
+                    GamePanel.direction = PlayerDir.DOWN;
+                }
+
                 break;
             case KeyEvent.VK_A:
 
@@ -108,8 +114,7 @@ public class KeyHandler extends KeyAdapter {
                     NameSelect.selectLeft(game);
                 } else if (GamePanel.gameState == GameState.SHOP) {
                     Shop.selectLeft(game);
-                }
-                if (GamePanel.gameState == GameState.GAME) {
+                } else if (GamePanel.gameState == GameState.GAME) {
                     GamePanel.leftPressed = true;
                     GamePanel.direction = PlayerDir.LEFT;
                 }
@@ -126,8 +131,7 @@ public class KeyHandler extends KeyAdapter {
                     NameSelect.selectRight(game);
                 } else if (GamePanel.gameState == GameState.SHOP) {
                     Shop.selectRight(game);
-                }
-                if (GamePanel.gameState == GameState.GAME) {
+                } else if (GamePanel.gameState == GameState.GAME) {
                     GamePanel.rightPressed = true;
                     GamePanel.direction = PlayerDir.RIGHT;
                 }
@@ -144,6 +148,8 @@ public class KeyHandler extends KeyAdapter {
                     GamePanel.gameState = GameState.MAIN_MENU;
                 } else if (GamePanel.gameState == GameState.INSTRUCTIONS) {
                     GamePanel.gameState = GameState.GAME;
+                    SoundManager.stopAllSounds();
+                    SoundManager.playSound("bgm.wav");
                 } else if (GamePanel.gameState == GameState.NAME_SELECT && !player.alive) {
                     GamePanel.gameState = GameState.MAIN_MENU;
                     // write the name to the file

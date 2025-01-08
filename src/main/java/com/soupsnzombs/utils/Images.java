@@ -25,7 +25,7 @@ public class Images {
     // public static ArrayList<BufferedImage> gunfire = new ArrayList<>();
 
     public static BufferedImage player_idle, circle, gun, bullet, tree, gameMenu, background,
-            playButton, creditsButton, scoresButton, arrowImage, instructions, credits, shopBackground, tempImage, scoresbg, grass;
+            playButton, creditsButton, scoresButton, arrowImage, instructions, credits, shopBackground, tempImage, scoresbg, grass, milk,soup,energyDrink;
     public static HashMap<String, BufferedImage> spriteImages = new HashMap<>();
     public static HashMap<String, BufferedImage> tileImages = new HashMap<>();
 
@@ -50,6 +50,11 @@ public class Images {
             // shop menu buttons
             shopBackground = ImageIO.read(Images.class.getResource("/ShopBG.jpg"));
             tempImage = ImageIO.read(Images.class.getResource("/TemporaryIMG.png"));
+
+            //healing items
+            energyDrink = ImageIO.read(Images.class.getResource("/Energy Drink.png"));
+            milk = ImageIO.read(Images.class.getResource("/Milk.png"));
+            soup = ImageIO.read(Images.class.getResource("/Soup.png"));
 
             //map
             grass = ImageIO.read(Images.class.getResource("/grass.png"));
