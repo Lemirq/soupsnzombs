@@ -12,6 +12,8 @@ package com.soupsnzombs.UI.Shop;
 import java.awt.*;
 
 import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.entities.Gun;
+import com.soupsnzombs.entities.GunDrop;
 import com.soupsnzombs.entities.Player;
 import com.soupsnzombs.utils.FontLoader;
 import com.soupsnzombs.utils.Images;
@@ -151,7 +153,11 @@ public class Shop {
 
         switch (selectedOption) {
             case "Machine gun":
-                System.out.println("Purchased Machine gun!");
+                if (Player.money > 1) {
+                    GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(10, 100, 600, 0, 0, 0, 5, 1), Color.YELLOW));
+                    Player.money-=1;
+                }
+                else System.out.println("Not enough money to purchase machine gun."); 
                 // Add logic
                 break;
             case "Semi-auto":
@@ -159,7 +165,11 @@ public class Shop {
                 // Add logic
                 break;
             case "Sniper":
-                System.out.println("Purchased Sniper!");
+                if (Player.money > 5) {
+                    GamePanel.gunDrops.add(new GunDrop(50, 400, new Gun(50, 500, 600, 0, 0, 0, 5, -1), Color.RED));
+                    Player.money-=1;
+                }
+                else System.out.println("Not enough money to purchase sniper."); 
                 // Add logic
                 break;
             case "Milk":
