@@ -12,6 +12,8 @@ public class HealthDrop extends Rectangle {
     int healthIncreaseVal;
     Color color;
     int[] healthVals = { 15, 20, 50 };
+    int[] spawnLocationsX = {-98, 458, 687, -345, 899};
+    int[] spawnLocationsY = {-45, 715, 862, 911, 49};
     boolean visible;
     boolean animation;
     Timer respawnTimer, animationTimer;
@@ -20,7 +22,7 @@ public class HealthDrop extends Rectangle {
 
     public HealthDrop(int x, int y, int cooldown) {
         super(x, y, 70, 60);
-        this.healthIncreaseVal = healthVals[rand.nextInt(0, 3)];
+        this.healthIncreaseVal = healthVals[rand.nextInt(0, healthVals.length)];
         this.visible = true;
         this.animation = false;
         this.yPos = 0;
@@ -32,7 +34,7 @@ public class HealthDrop extends Rectangle {
                 respawnTimer.stop();
             }
         });
-        animationTimer = new Timer(20, new ActionListener() {
+        animationTimer = new Timer(2, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 yPos += 10;
@@ -67,8 +69,9 @@ public class HealthDrop extends Rectangle {
         //     System.out.println(rand.nextInt(0,3));
         // }
 
-        //draw sprites
+        // System.out.println("x "+this.x + " y " + this.y);
 
+        //draw sprites
         switch (healthIncreaseVal) {
             case 15:
                 g2d.drawImage(Images.energyDrink, this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width,
@@ -99,6 +102,15 @@ public class HealthDrop extends Rectangle {
 
     public int getHealthDropVal() {
         return healthIncreaseVal;
+    }
+
+    public void setNewLocation(){
+        this.x = spawnLocationsX[rand.nextInt(0,spawnLocationsX.length)];
+        this.y = spawnLocationsY[rand.nextInt(0,spawnLocationsY.length)];
+    }
+
+    public void changeHealType(){
+        this.healthIncreaseVal = healthVals[rand.nextInt(0, healthVals.length)];
     }
 
     public void setVisible(boolean state) {

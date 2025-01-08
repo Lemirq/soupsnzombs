@@ -262,6 +262,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             HealthDrop hd = healthDropIterator.next();
             if (hd.getBounds().intersects(player.getBounds()) && hd.isVisible()) {
                 hd.setVisible(false);
+                hd.setNewLocation();
+                hd.changeHealType();
                 hd.setAnimation(true);
                 player.increaseHealth(hd.getHealthDropVal());
                 hd.startRespawnTimer();
