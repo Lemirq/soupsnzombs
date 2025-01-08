@@ -205,7 +205,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             if (zBounds.intersects(player.getBounds())) {
                 long currentTime = System.currentTimeMillis();
                 if (currentTime - lastDamageTime >= z.damageTime) { // Check if 500 ms have passed
-                     player.decreaseHealth(z.getDamage()); // FIXME: Change to zombie damage
+                     player.decreaseHealth(z.getDamage());
                     lastDamageTime = currentTime; // Update the last damage time
                 }
             }
@@ -216,6 +216,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         while (bulletIterator.hasNext()) {
             Bullet b = bulletIterator.next();
             Rectangle bBounds = b.getBounds();
+            //TOOD something here is causing the crash
             for (Rectangle r : CollisionManager.collidables) {
                 if (bBounds.intersects(r)) {
                     bulletIterator.remove();
@@ -226,26 +227,20 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         Iterator<GunDrop> gunDropIterator = gunDrops.iterator();
         while (gunDropIterator.hasNext()) {
+            //TOOD something here is causing the crash #2
             GunDrop gd = gunDropIterator.next();
             Rectangle gdBounds = gd.getBounds();
             if (gdBounds.intersects(player.getBounds()) && dropPressed) {
                 gunDropIterator.remove();
                 dropPressed = false;
 
-                if (player.getGun().getDamage() != 0)
-                    player.dropGun(gd.x, gd.y);
+                if (player.getGun().getDamage() != 0) player.dropGun(gd.x, gd.y);
                 player.setGun(gd.getGun());
-
-                break;
-                // else if (gd.isInteractable()) {
-                // gd.startSwapTimer();
-                // break;
-                // }
+                //break;
             } else if (gdBounds.intersects(player.getBounds()))
                 gd.setInteractable(true);
             else
                 gd.setInteractable(false);
-            // else if (gd.isSwapTimerRunning()) gd.stopSwapTimer();
         }
 
         if (dropPressed) {
@@ -303,6 +298,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         buildings.buildings.addAll(prototypeBuilding4.surroundingWalls);
         zombies = new AllZombies();
         inventory = new Inventory();
+        CollisionManager.addCollidable(shopEntity);
 
         healthDrops.add(new HealthDrop(1100, 1000, 10000));
         start();
@@ -443,17 +439,19 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         bushes.draw(g2d);
         trees.draw(g2d);
         shopEntity.draw(g2d);
-        CollisionManager.addCollidable(shopEntity);
+        
+        
 
         zombies.draw(g2d, player);
         inventory.draw(g2d, this, player.getGun());
 
-        for (GunDrop gd : gunDrops) {
-            gd.draw(g2d, player);
-        }
+        
 
         player.getGun().draw(g2d, player);
 
+        for (GunDrop gd : gunDrops) {
+            gd.draw(g2d, player);
+        }
         for (HealthDrop drop : healthDrops) {
             drop.draw(g2d);
         }
@@ -474,10 +472,5 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // draw dot at offset x,y
         // g2d.fillOval(offsetX, offsetY, 10, 10);
 
-    }
-
-    void drawShop(Graphics2D g2d) {
-
-        shopEntity.draw(g2d);
     }
 }
