@@ -8,9 +8,9 @@ import com.soupsnzombs.utils.Node;
 import com.soupsnzombs.utils.Pathfinder;
 
 import java.awt.*;
+import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Zombie extends Entity implements GameObject {
     // private static int direction;
@@ -21,10 +21,9 @@ public class Zombie extends Entity implements GameObject {
     public int moneyDropped = 10;
     public int pointsDropped = 10;
     public int damageTime = 500;
-    private Random random = new Random();
-    private int randInt = random.nextInt(6) + 1;
     // TODO make pathfinder toggleable
     Pathfinder pathfinder = new Pathfinder();
+    // linked list of path nodes, already converted to world coordinates
     private int pathRefreshCounter = 0;
     private static final int PATH_REFRESH_INTERVAL = 60; // Refresh path every 60 updates
 
@@ -115,6 +114,25 @@ public class Zombie extends Entity implements GameObject {
     public void chasePlayer(Player p, Graphics2D g2d) {
         // TODO Make pathfinding stuff toggleable
         pathRefreshCounter++;
+
+        // Calculate direct line to player
+        Line2D directLine = new Line2D.Double(this.x, this.y, p.x, p.y);
+        boolean directPathClear = true;
+
+        // Check for collidables in the direct path
+        ArrayList<Rectangle> collidables = CollisionManager.collidables;
+        for (Rectangle rect : collidables) {
+            if (directLine.intersects(rect)) {
+                directPathClear = false;
+                break;
+            }
+        }
+
+        if (directPathClear) {
+            chasePlayerDirectly(p);
+            return;
+        }
+
         boolean path = pathfinder.findPath();
 
         if (pathRefreshCounter >= PATH_REFRESH_INTERVAL) {
@@ -147,6 +165,7 @@ public class Zombie extends Entity implements GameObject {
                         double deltaX = targetX - this.x;
                         double deltaY = targetY - this.y;
                         double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                        System.out.println("distance: " + distance);
 
                         // draw a rect at TARGETX and TARGETY
                         // g2d.setColor(Color.RED);
@@ -195,7 +214,7 @@ public class Zombie extends Entity implements GameObject {
     }
 
     // legacy chasePlayer method
-    public void chasePlayerLegacy(Player p) {
+    public void chasePlayerDirectly(Player p) {
         // boolean path = pathfinder.findPath();
         // int vy = 0;
         // int vx = 0;
