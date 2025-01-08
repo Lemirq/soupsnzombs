@@ -442,14 +442,15 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         g2d.setTransform(oldTransformation);
         // macbook
-
-        player.bar.draw(g2d);
-        coins.draw(g2d, player);
         buildings.draw(g2d);
         walls.draw(g2d);
         bushes.draw(g2d);
         trees.draw(g2d);
         shopEntity.draw(g2d);
+        
+        player.bar.draw(g2d);
+        coins.draw(g2d, player);
+        
 
         for (GunDrop gd : gunDrops) {
             gd.draw(g2d, player);
