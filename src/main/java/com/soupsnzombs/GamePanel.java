@@ -217,30 +217,32 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             Bullet b = bulletIterator.next();
             Rectangle bBounds = b.getBounds();
             //TOOD something here is causing the crash
-            for (Rectangle r : CollisionManager.collidables) {
-                if (bBounds.intersects(r)) {
-                    bulletIterator.remove();
-                    break;
+            synchronized (CollisionManager.collidables) {
+                for (Rectangle r : CollisionManager.collidables) {
+                    if (bBounds.intersects(r)) {
+                        bulletIterator.remove();
+                        break;
+                    }
                 }
             }
         }
 
-        Iterator<GunDrop> gunDropIterator = gunDrops.iterator();
-        while (gunDropIterator.hasNext()) {
-            //TOOD something here is causing the crash #2
-            GunDrop gd = gunDropIterator.next();
-            Rectangle gdBounds = gd.getBounds();
-            if (gdBounds.intersects(player.getBounds()) && dropPressed) {
-                gunDropIterator.remove();
-                dropPressed = false;
-
-                if (player.getGun().getDamage() != 0) player.dropGun(gd.x, gd.y);
-                player.setGun(gd.getGun());
-                //break;
-            } else if (gdBounds.intersects(player.getBounds()))
-                gd.setInteractable(true);
-            else
-                gd.setInteractable(false);
+        synchronized (gunDrops) {
+            Iterator<GunDrop> gunDropIterator = gunDrops.iterator();
+            while (gunDropIterator.hasNext()) {
+                GunDrop gd = gunDropIterator.next();
+                if (gd.getBounds().intersects(player.getBounds()) && dropPressed) {
+                    gunDropIterator.remove();
+                    dropPressed = false;
+                    if (player.getGun().getDamage() != 0) player.dropGun(gd.x, gd.y);
+                    player.setGun(gd.getGun());
+                    break;
+                } else if (gd.getBounds().intersects(player.getBounds())) {
+                    gd.setInteractable(true);
+                } else {
+                    gd.setInteractable(false);
+                }
+            }
         }
 
         if (dropPressed) {
@@ -440,7 +442,12 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         trees.draw(g2d);
         shopEntity.draw(g2d);
         
-        
+        for (GunDrop gd : gunDrops) {
+            gd.draw(g2d, player);
+        }
+        for (HealthDrop drop : healthDrops) {
+            drop.draw(g2d);
+        }
 
         zombies.draw(g2d, player);
         inventory.draw(g2d, this, player.getGun());
@@ -449,12 +456,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         player.getGun().draw(g2d, player);
 
-        for (GunDrop gd : gunDrops) {
-            gd.draw(g2d, player);
-        }
-        for (HealthDrop drop : healthDrops) {
-            drop.draw(g2d);
-        }
+        
 
         // bottom right corner, bullet positions
         player.draw(g2d);

@@ -42,7 +42,8 @@ public class AllZombies {
                 break;
             }
             z.draw(g2d, player);
-            z.chasePlayerLegacy(player);
+            z.chasePlayerDirectly(player);
+            
             // z.chasePlayerLegacy(player);
             // draw rect x,y,w,h
 
