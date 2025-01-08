@@ -93,6 +93,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public EntranceBuilding prototypeBuilding4 = new EntranceBuilding(2000 + 1000 - 65 - 65, 1000, 800, 1000, 0, 0, 65);
     ShopBuilding shopEntity = new ShopBuilding(500, 100, 400, 200);
     public ArrayList<HealthDrop> healthDrops = new ArrayList<>();
+    SoundManager soundManager = new SoundManager();
     public Inventory inventory;
 
     public Player getPlayer() {
@@ -150,6 +151,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         if (!player.alive && gameState != GameState.GAMEOVER && gameState != GameState.NAME_SELECT
                 && gameState != GameState.MAIN_MENU) {
             gameState = GameState.GAMEOVER;
+            SoundManager.stopAllSounds();
+            SoundManager.playSound("twinkle.wav");
             return;
         }
 
@@ -205,7 +208,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             if (zBounds.intersects(player.getBounds())) {
                 long currentTime = System.currentTimeMillis();
                 if (currentTime - lastDamageTime >= z.damageTime) { // Check if 500 ms have passed
-                     player.decreaseHealth(z.getDamage());
+                    player.decreaseHealth(z.getDamage());
                     lastDamageTime = currentTime; // Update the last damage time
                 }
             }
@@ -216,7 +219,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         while (bulletIterator.hasNext()) {
             Bullet b = bulletIterator.next();
             Rectangle bBounds = b.getBounds();
-            //TOOD something here is causing the crash
+            // TOOD something here is causing the crash
             synchronized (CollisionManager.collidables) {
                 for (Rectangle r : CollisionManager.collidables) {
                     if (bBounds.intersects(r)) {
@@ -234,7 +237,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
                 if (gd.getBounds().intersects(player.getBounds()) && dropPressed) {
                     gunDropIterator.remove();
                     dropPressed = false;
-                    if (player.getGun().getDamage() != 0) player.dropGun(gd.x, gd.y);
+                    if (player.getGun().getDamage() != 0)
+                        player.dropGun(gd.x, gd.y);
                     player.setGun(gd.getGun());
                     break;
                 } else if (gd.getBounds().intersects(player.getBounds())) {
@@ -275,7 +279,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         setBackground(Theme.BG);
         setFocusable(true);
         requestFocusInWindow();
-
+        SoundManager.playSound("peaceful.wav");
         Images.loadImages();
         FontLoader.loadFont();
 
@@ -348,17 +352,20 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             // System.out.println("Vx: " + vx + " Vy: " + vy);
 
             // decide if collision happens
-            Rectangle newPosition = new Rectangle(player.x - vx, player.y - vy, playerWidth, playerHeight);
+            Rectangle newPositionX = new Rectangle(player.x - vx, player.y, playerWidth, playerHeight);
+            Rectangle newPositionY = new Rectangle(player.x, player.y - vy, playerWidth, playerHeight);
             ArrayList<Rectangle> n = CollisionManager.collidables;
             n.remove(player);
 
             // System.out.println("New position: X: " + newPosition.x + " Y: " +
             // newPosition.y + " W: " + newPosition.width
             // + " H: " + newPosition.height);
-            if (!CollisionManager.isColliding(newPosition, n)) {
+            if (!CollisionManager.isColliding(newPositionX, n)) {
                 offsetX += vx;
-                offsetY += vy;
                 player.x -= vx;
+            }
+            if (!CollisionManager.isColliding(newPositionY, n)) {
+                offsetY += vy;
                 player.y -= vy;
             }
         }
@@ -441,7 +448,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         bushes.draw(g2d);
         trees.draw(g2d);
         shopEntity.draw(g2d);
-        
+
         for (GunDrop gd : gunDrops) {
             gd.draw(g2d, player);
         }
@@ -452,11 +459,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         zombies.draw(g2d, player);
         inventory.draw(g2d, this, player.getGun());
 
-        
-
         player.getGun().draw(g2d, player);
-
-        
 
         // bottom right corner, bullet positions
         player.draw(g2d);
