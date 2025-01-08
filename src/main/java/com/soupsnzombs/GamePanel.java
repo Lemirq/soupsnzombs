@@ -91,7 +91,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public EntranceBuilding prototypeBuilding3 = new EntranceBuilding(1000, 500, 700, 500, 0, 0, 40);
     public EntranceBuilding prototypeBuilding2 = new EntranceBuilding(2000, 1000, 1000, 300, 200, 4, 65);
     public EntranceBuilding prototypeBuilding4 = new EntranceBuilding(2000 + 1000 - 65 - 65, 1000, 800, 1000, 0, 0, 65);
-    ShopBuilding shopEntity = new ShopBuilding(500, 100, 400, 200);
     public ArrayList<HealthDrop> healthDrops = new ArrayList<>();
     public Inventory inventory;
 
@@ -295,7 +294,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         buildings.addBuilding(prototypeBuilding2);
         buildings.addBuilding(prototypeBuilding3);
         buildings.addBuilding(prototypeBuilding4);
-        buildings.addBuilding(shopEntity);
         CollisionManager.addCollidable(player);
         buildings.buildings.addAll(prototypeBuilding1.surroundingWalls);
         buildings.buildings.addAll(prototypeBuilding2.surroundingWalls);
@@ -442,8 +440,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         walls.draw(g2d);
         bushes.draw(g2d);
         trees.draw(g2d);
-        shopEntity.draw(g2d);
-        CollisionManager.addCollidable(shopEntity);
+        buildings.draw(g2d);
 
         zombies.draw(g2d, player);
         inventory.draw(g2d, this, player.getGun());
@@ -474,10 +471,5 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // draw dot at offset x,y
         // g2d.fillOval(offsetX, offsetY, 10, 10);
 
-    }
-
-    void drawShop(Graphics2D g2d) {
-
-        shopEntity.draw(g2d);
     }
 }
