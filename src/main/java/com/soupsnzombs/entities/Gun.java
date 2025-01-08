@@ -153,7 +153,7 @@ public class Gun extends Entity {
         // Add the bullet to the list of bullets
         bullets.add(newBullet);
 
-        System.out.println(bullets.size());
+        System.out.println("bullets existing: " + bullets.size());
     }
 
     public void updateBullets() {
