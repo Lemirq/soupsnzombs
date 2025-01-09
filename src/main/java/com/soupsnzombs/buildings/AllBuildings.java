@@ -8,12 +8,14 @@ import com.soupsnzombs.utils.CollisionManager;
 
 public class AllBuildings {
     public ArrayList<Building> buildings = new ArrayList<>();
-
+    public ShopBuilding shopEntity = new ShopBuilding(500, 100, 400, 200);
     public void addBuilding(Building b) {
         buildings.add(b);
     }
 
     public AllBuildings() {
+        buildings.add(shopEntity);
+
         for (Building b : buildings) {
             CollisionManager.addCollidable(b);
         }

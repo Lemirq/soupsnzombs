@@ -153,7 +153,7 @@ public class Shop {
 
         switch (selectedOption) {
             case "Machine gun":
-                if (Player.money > 1) {
+                if (Player.money >= 1) {
                     GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(10, 100, 600, 0, 0, 0, 5, 1), Color.YELLOW));
                     Player.money-=1;
                 }
@@ -165,9 +165,9 @@ public class Shop {
                 // Add logic
                 break;
             case "Sniper":
-                if (Player.money > 5) {
-                    GamePanel.gunDrops.add(new GunDrop(50, 400, new Gun(50, 500, 600, 0, 0, 0, 5, -1), Color.RED));
-                    Player.money-=1;
+                if (Player.money >= 5) {
+                    GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(50, 500, 600, 0, 0, 0, 5, -1), Color.RED));
+                    Player.money-=5;
                 }
                 else System.out.println("Not enough money to purchase sniper."); 
                 // Add logic

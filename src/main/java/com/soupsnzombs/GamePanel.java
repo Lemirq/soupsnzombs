@@ -91,9 +91,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public EntranceBuilding prototypeBuilding3 = new EntranceBuilding(1000, 500, 700, 500, 0, 0, 40);
     public EntranceBuilding prototypeBuilding2 = new EntranceBuilding(2000, 1000, 1000, 300, 200, 4, 65);
     public EntranceBuilding prototypeBuilding4 = new EntranceBuilding(2000 + 1000 - 65 - 65, 1000, 800, 1000, 0, 0, 65);
-    ShopBuilding shopEntity = new ShopBuilding(500, 100, 400, 200);
     public ArrayList<HealthDrop> healthDrops = new ArrayList<>();
-    SoundManager soundManager = new SoundManager();
     public Inventory inventory;
 
     public Player getPlayer() {
@@ -151,8 +149,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         if (!player.alive && gameState != GameState.GAMEOVER && gameState != GameState.NAME_SELECT
                 && gameState != GameState.MAIN_MENU) {
             gameState = GameState.GAMEOVER;
-            SoundManager.stopAllSounds();
-            SoundManager.playSound("twinkle.wav");
             return;
         }
 
@@ -208,7 +204,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             if (zBounds.intersects(player.getBounds())) {
                 long currentTime = System.currentTimeMillis();
                 if (currentTime - lastDamageTime >= z.damageTime) { // Check if 500 ms have passed
-                    player.decreaseHealth(z.getDamage());
+                    // player.decreaseHealth(10); // FIXME: Change to zombie damage
                     lastDamageTime = currentTime; // Update the last damage time
                 }
             }
@@ -219,34 +215,36 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         while (bulletIterator.hasNext()) {
             Bullet b = bulletIterator.next();
             Rectangle bBounds = b.getBounds();
-            // TOOD something here is causing the crash
-            synchronized (CollisionManager.collidables) {
-                for (Rectangle r : CollisionManager.collidables) {
-                    if (bBounds.intersects(r)) {
-                        bulletIterator.remove();
-                        break;
-                    }
+            for (Rectangle r : CollisionManager.collidables) {
+                if (bBounds.intersects(r)) {
+                    bulletIterator.remove();
+                    break;
                 }
             }
         }
 
-        synchronized (gunDrops) {
-            Iterator<GunDrop> gunDropIterator = gunDrops.iterator();
-            while (gunDropIterator.hasNext()) {
-                GunDrop gd = gunDropIterator.next();
-                if (gd.getBounds().intersects(player.getBounds()) && dropPressed) {
-                    gunDropIterator.remove();
-                    dropPressed = false;
-                    if (player.getGun().getDamage() != 0)
-                        player.dropGun(gd.x, gd.y);
-                    player.setGun(gd.getGun());
-                    break;
-                } else if (gd.getBounds().intersects(player.getBounds())) {
-                    gd.setInteractable(true);
-                } else {
-                    gd.setInteractable(false);
-                }
-            }
+        Iterator<GunDrop> gunDropIterator = gunDrops.iterator();
+        while (gunDropIterator.hasNext()) {
+            GunDrop gd = gunDropIterator.next();
+            Rectangle gdBounds = gd.getBounds();
+            if (gdBounds.intersects(player.getBounds()) && dropPressed) {
+                gunDropIterator.remove();
+                dropPressed = false;
+
+                if (player.getGun().getDamage() != 0)
+                    player.dropGun(gd.x, gd.y);
+                player.setGun(gd.getGun());
+
+                break;
+                // else if (gd.isInteractable()) {
+                // gd.startSwapTimer();
+                // break;
+                // }
+            } else if (gdBounds.intersects(player.getBounds()))
+                gd.setInteractable(true);
+            else
+                gd.setInteractable(false);
+            // else if (gd.isSwapTimerRunning()) gd.stopSwapTimer();
         }
 
         if (dropPressed) {
@@ -262,8 +260,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             HealthDrop hd = healthDropIterator.next();
             if (hd.getBounds().intersects(player.getBounds()) && hd.isVisible()) {
                 hd.setVisible(false);
-                hd.setNewLocation();
-                hd.changeHealType();
                 hd.setAnimation(true);
                 player.increaseHealth(hd.getHealthDropVal());
                 hd.startRespawnTimer();
@@ -281,13 +277,13 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         setBackground(Theme.BG);
         setFocusable(true);
         requestFocusInWindow();
-        SoundManager.playSound("peaceful.wav");
+
         Images.loadImages();
         FontLoader.loadFont();
 
         player = new Player(new Gun(15, 200, 600, 5, 5, 5, 5, -1));
-        
-        
+        gunDrops.add(new GunDrop(75, 500, new Gun(10, 100, 600, 0, 0, 0, 5, 1), Color.YELLOW));
+        gunDrops.add(new GunDrop(50, 400, new Gun(50, 500, 600, 0, 0, 0, 5, -1), Color.RED));
 
         prototypeBuilding1.removeWall(3);
         prototypeBuilding3.removeWallBottom(1000, 1300);
@@ -298,7 +294,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         buildings.addBuilding(prototypeBuilding2);
         buildings.addBuilding(prototypeBuilding3);
         buildings.addBuilding(prototypeBuilding4);
-        buildings.addBuilding(shopEntity);
         CollisionManager.addCollidable(player);
         buildings.buildings.addAll(prototypeBuilding1.surroundingWalls);
         buildings.buildings.addAll(prototypeBuilding2.surroundingWalls);
@@ -306,7 +301,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         buildings.buildings.addAll(prototypeBuilding4.surroundingWalls);
         zombies = new AllZombies();
         inventory = new Inventory();
-        CollisionManager.addCollidable(shopEntity);
 
         healthDrops.add(new HealthDrop(1100, 1000, 3000));
         healthDrops.add(new HealthDrop(1500, 900, 3000));
@@ -356,20 +350,17 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             // System.out.println("Vx: " + vx + " Vy: " + vy);
 
             // decide if collision happens
-            Rectangle newPositionX = new Rectangle(player.x - vx, player.y, playerWidth, playerHeight);
-            Rectangle newPositionY = new Rectangle(player.x, player.y - vy, playerWidth, playerHeight);
+            Rectangle newPosition = new Rectangle(player.x - vx, player.y - vy, playerWidth, playerHeight);
             ArrayList<Rectangle> n = CollisionManager.collidables;
             n.remove(player);
 
             // System.out.println("New position: X: " + newPosition.x + " Y: " +
             // newPosition.y + " W: " + newPosition.width
             // + " H: " + newPosition.height);
-            if (!CollisionManager.isColliding(newPositionX, n)) {
+            if (!CollisionManager.isColliding(newPosition, n)) {
                 offsetX += vx;
-                player.x -= vx;
-            }
-            if (!CollisionManager.isColliding(newPositionY, n)) {
                 offsetY += vy;
+                player.x -= vx;
                 player.y -= vy;
             }
         }
@@ -451,19 +442,20 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         walls.draw(g2d);
         bushes.draw(g2d);
         trees.draw(g2d);
-        shopEntity.draw(g2d);
-
-        for (GunDrop gd : gunDrops) {
-            gd.draw(g2d, player);
-        }
-        for (HealthDrop drop : healthDrops) {
-            drop.draw(g2d);
-        }
+        buildings.draw(g2d);
 
         zombies.draw(g2d, player);
         inventory.draw(g2d, this, player.getGun());
 
+        for (GunDrop gd : gunDrops) {
+            gd.draw(g2d, player);
+        }
+
         player.getGun().draw(g2d, player);
+
+        for (HealthDrop drop : healthDrops) {
+            drop.draw(g2d);
+        }
 
         // bottom right corner, bullet positions
         player.draw(g2d);
