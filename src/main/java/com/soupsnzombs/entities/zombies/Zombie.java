@@ -14,11 +14,10 @@ import java.util.ArrayList;
 
 public class Zombie extends Entity implements GameObject {
     // private static int direction;
-    public Zombie zombie;
     public static int screenX;
     public static int screenY;
     private int health;
-    public BufferedImage sprite;
+    private BufferedImage sprite;
     public int moneyDropped = 10;
     public int pointsDropped = 10;
     public int damageTime = 500;

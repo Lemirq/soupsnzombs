@@ -6,8 +6,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class AllTrees {
-
-    /*
+    public ArrayList<Tree> trees = new ArrayList<>();
 
     public void addTree(Tree t) {
         trees.add(t);
@@ -34,8 +33,6 @@ public class AllTrees {
         }
 
     }
-
-     */
 }
 
 

@@ -26,7 +26,7 @@ public class Pathfinder {
             g.setVisible(true);
         } else {
             g.dispose();
-            //g = null;
+            g = null;
         }
     }
 

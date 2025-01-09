@@ -3,26 +3,21 @@ package com.soupsnzombs.entities.zombies;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
 import com.soupsnzombs.GamePanel;
-import com.soupsnzombs.buildings.*;
 import com.soupsnzombs.entities.Coin;
 import com.soupsnzombs.entities.Player;
 import com.soupsnzombs.entities.zombies.Zombie.ZombieType;
 import com.soupsnzombs.utils.CollisionManager;
-import com.soupsnzombs.utils.Images;
 
 import javax.swing.*;
 
-import static com.soupsnzombs.buildings.AllBuildings.*;
 import static com.soupsnzombs.entities.AllCoins.coins;
 
 public class AllZombies {
-    public Zombie zombie = new Zombie (0,0, ZombieType.DEFAULT);
     public static ArrayList<Zombie> zombies = new ArrayList<>();
     private int waveNumber = 1;
     private int spawnRadius = 1000;
@@ -49,46 +44,9 @@ public class AllZombies {
     private void spawnZombies(Player player) {
         int numberOfZombies = waveNumber + 2;
         for (int i = 0; i < numberOfZombies; i++) {
-            int x, y;
-            Rectangle zombieBounds;
-            boolean validSpawn;
-
-            do {
-                x = player.x + random.nextInt(spawnRadius * 2) - spawnRadius;
-                y = player.y + random.nextInt(spawnRadius * 2) - spawnRadius;
-                zombieBounds = new Rectangle(x, y, zombie.width, zombie.height);
-                validSpawn = true;
-
-                for (Building building : buildings) {
-                        if (building.getBounds().intersects(zombieBounds)) {
-                            validSpawn = false;
-                        }
-                    }
-
-                for (Bush b : bushes) {
-                    if (b.getBounds().intersects(zombieBounds)) {
-                        validSpawn = false;
-                    }
-                }
-
-                for (Wall w : walls) {
-                    if (w.getBounds().intersects(zombieBounds)) {
-                        validSpawn = false;
-                    }
-                }
-
-                /*
-                for (Building building : GamePanel.buildings.buildings) {
-                    if (building.getBounds().intersects(zombieBounds)) {
-                        validSpawn = false;
-                        break;
-                    }
-                }
-
-                 */
-
-                } while (!validSpawn);
-                zombies.add(new Zombie(x, y, ZombieType.SMALL));
+            int x = player.x + random.nextInt(spawnRadius * 2) - spawnRadius;
+            int y = player.y + random.nextInt(spawnRadius * 2) - spawnRadius;
+            zombies.add(new Zombie(x, y, ZombieType.SMALL));
         }
         System.out.println("Wave " + waveNumber + numberOfZombies + "zombies spawned");
     }
