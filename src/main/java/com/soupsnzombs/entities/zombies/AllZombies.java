@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import com.soupsnzombs.GamePanel;
-import com.soupsnzombs.buildings.Bush;
 import com.soupsnzombs.entities.Coin;
 import com.soupsnzombs.entities.Player;
 import com.soupsnzombs.entities.zombies.Zombie.ZombieType;
@@ -13,7 +12,6 @@ import static com.soupsnzombs.entities.AllCoins.coins;
 
 public class AllZombies {
     public static ArrayList<Zombie> zombies = new ArrayList<>();
-    private Zombie zombie;
 
     public void addZombie(Zombie z) {
         zombies.add(z);
@@ -22,9 +20,25 @@ public class AllZombies {
     public AllZombies() {
         // random zombie spawn x between -1000,1000 and y between -1000,1000
         for (int i = 0; i < 1; i++) {
-            int x = (int) (Math.random() * 2000 - 1000);
-            int y = (int) (Math.random() * 2000 - 1000);
-            zombies.add(new Zombie(x, y, ZombieType.SMALL));
+            Zombie zombie;
+            boolean validPosition = false;
+
+            do {
+                int x = (int) (Math.random() * 2000 - 1000);
+                int y = (int) (Math.random() * 2000 - 1000);
+                zombie = new Zombie(x, y, ZombieType.SMALL);
+
+                // Check if zombie intersects with any existing collidables
+                validPosition = true;
+                for (java.awt.Rectangle collidable : CollisionManager.collidables) {
+                    if (zombie.getBounds().intersects(collidable)) {
+                        validPosition = false;
+                        break;
+                    }
+                }
+            } while (!validPosition);
+
+            zombies.add(zombie);
         }
 
         System.out.println("zombie size: " + zombies.size());
@@ -38,7 +52,7 @@ public class AllZombies {
             if (!z.alive) {
                 Player.score += z.pointsDropped;
                 zombies.remove(z);
-                coins.add(new Coin(z.x + 5, z.y + 5, 10, 10));
+                coins.add(new Coin(z.x + z.width / 2, z.y + z.height / 2, 10, 10));
                 break;
             }
             z.draw(g2d, player);

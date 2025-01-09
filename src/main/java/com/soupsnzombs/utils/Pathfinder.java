@@ -50,9 +50,7 @@ public class Pathfinder {
         maxY += padding;
 
         this.gridSize = z.width / 2; // increased grid size for better pathfinding
-        this.g.gridSize = gridSize;
-
-        System.out.println("gridsize: " + this.gridSize);
+        Pathfinder.g.gridSize = gridSize;
 
         // Calculate grid dimensions
         int gridWidth = (int) Math.ceil((maxX - minX) / (double) gridSize);
@@ -80,7 +78,7 @@ public class Pathfinder {
             int rectY = (int) rect.getY();
             int rectWidth = (int) rect.getWidth();
             int rectHeight = (int) rect.getHeight();
-            int wallPadding = 0;
+            int wallPadding = 1;
             int rectGridX = (int) Math.floor((rectX - minX) / (double) gridSize) - wallPadding;
             int rectGridY = (int) Math.floor((rectY - minY) / (double) gridSize) - wallPadding;
             int rectGridWidth = (int) Math.ceil(rectWidth / (double) gridSize) + 2 * wallPadding;
@@ -138,15 +136,25 @@ public class Pathfinder {
         a.reconstructPath();
     }
 
-    public void resetPath() {
-        // Clear the current path by resetting relevant nodes
-        Node[][] grid = getGrid();
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
-                grid[i][j].setType(Node.Type.EMPTY);
+    public void resetPath(Player p, Zombie z) {
+        // turn the first PATH node into a WALL node
+        Node pathNode = null;
+        for (Node[] row : grid) {
+            for (Node node : row) {
+                if (node.getType() == Node.Type.PATH) {
+                    pathNode = node;
+                    break;
+                }
+            }
+            if (pathNode != null) {
+                break;
             }
         }
+        pathNode.setType(Node.Type.WALL);
 
+        // recalculate path
+        findPath();
+        this.g.setGrid(grid);
     }
 
     public int getGridOriginX() {

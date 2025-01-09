@@ -53,7 +53,7 @@ public class Zombie extends Entity implements GameObject {
                 health = 200;
                 healthMax = 200;
                 this.damage = 35;
-                speed = 0.5;
+                speed = 1;
 
                 // TODO change loaded png file accordingly to the type of zomb
                 this.sprite = Images.spriteImages.get("zoimbie1_stand.png");
@@ -63,7 +63,7 @@ public class Zombie extends Entity implements GameObject {
                 health = 75;
                 healthMax = 75;
                 this.damage = 5;
-                speed = 1.5;
+                speed = 2;
 
                 // TODO change loaded png file accordingly to the type of zomb
                 this.sprite = Images.spriteImages.get("zoimbie1_stand.png");
@@ -193,28 +193,64 @@ public class Zombie extends Entity implements GameObject {
                         double targetX = gridOriginX + (i * gridSize);
                         double targetY = gridOriginY + (j * gridSize);
 
+                        // draw with g2d
+                        g2d.setColor(Color.RED);
+                        g2d.fillRect((int) targetX + GamePanel.offsetX, (int) targetY + GamePanel.offsetY, gridSize,
+                                gridSize);
+
                         // Calculate direction to next path node
+                        System.out.println(this.x + " " + this.y);
                         double deltaX = targetX - this.x;
                         double deltaY = targetY - this.y;
                         double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+                        // Debugging output
+                        System.out.printf("Target Position: (%.2f, %.2f)\n", targetX, targetY);
+                        System.out.printf("deltaX: %.2f, deltaY: %.2f, distance: %.2f\n", deltaX,
+                                deltaY, distance);
+
+                        // TODO: TURN BACK ON
+                        // if (distance < 50) {
+                        // chasePlayerDirectly(p);
+                        // System.out.println("Chasing player directly");
+                        // return;
+                        // }
 
                         if (distance > 0) {
                             // Normalize and apply speed
                             double directionX = deltaX / distance;
                             double directionY = deltaY / distance;
                             // Move zombie towards path node
-                            Rectangle nextPos = new Rectangle(
-                                    x + (int) (directionX * speed),
-                                    y + (int) (directionY * speed),
-                                    width,
-                                    height);
+                            int vx = (int) (directionX * speed);
+                            int vy = (int) (directionY * speed);
+                            // Debugging output
+                            System.out.printf("directionX: %.2f, directionY: %.2f\n", directionX,
+                                    directionY);
+                            System.out.printf("Velocity: (vx: %d, vy: %d)\n", vx, vy);
 
-                            ArrayList<Rectangle> collisions = new ArrayList<>(CollisionManager.collidables);
-                            collisions.remove(this);
+                            // x += directionX * speed;
+                            // y += directionY * speed;
 
-                            if (!CollisionManager.isColliding(nextPos, collisions)) {
-                                x += directionX * speed;
-                                y += directionY * speed;
+                            // if (targetX < x) {
+                            // vx += directionX * speed;
+                            // }
+                            // if (targetX > x) {
+                            // vx -= directionX * speed;
+                            // }
+
+                            // if (targetY < y) {
+                            // vy += directionY * speed;
+                            // }
+                            // if (targetY > y) {
+                            // vy += directionY * speed;
+                            // }
+
+                            System.out.println("x: " + directionX + " y: " + directionY);
+
+                            if (isZombieMovable(vx, vy)) {
+                                x += vx;
+                                y += vy;
+
                                 // Remove the path node once the zombie reaches it
                                 if (Math.abs(x - targetX) < speed && Math.abs(y - targetY) < speed) {
                                     tempGrid[i][j].setType(Node.Type.EMPTY);
@@ -222,19 +258,36 @@ public class Zombie extends Entity implements GameObject {
                                 }
                             } else {
                                 // Force pathfinder to recalculate on next update when we hit an obstacle
-                                pathfinder.resetPath();
                                 System.out.println("Colliding with obstacle, not moving");
+                                pathfinder.resetPath(p, this);
                             }
                             return; // Only move towards the first path node
                         } else {
                             // Force pathfinder to recalculate on next update when we hit an obstacle
-                            pathfinder.resetPath();
+                            pathfinder.resetPath(p, this);
                         }
                     }
                 }
             }
         }
 
+    }
+
+    public boolean isZombieMovable(int vx, int vy) {
+        // Check for collisions
+        Rectangle nextPos = new Rectangle(
+                x + vx,
+                y + vy,
+                width,
+                height);
+
+        ArrayList<Rectangle> collisions = new ArrayList<>(CollisionManager.collidables);
+        collisions.remove(this);
+
+        if (!CollisionManager.isColliding(nextPos, collisions)) {
+            return true;
+        }
+        return false;
     }
 
     // legacy chasePlayer method
@@ -267,12 +320,7 @@ public class Zombie extends Entity implements GameObject {
             vy -= speed;
         }
 
-        Rectangle rect = new Rectangle(x + (int) vx, y + (int) vy, width, height);
-        ArrayList<Rectangle> newCollisions = CollisionManager.collidables;
-        // find the current zombie in list of collisions
-        newCollisions.remove(this);
-
-        if (!CollisionManager.isColliding(rect, newCollisions)) {
+        if (isZombieMovable((int) vx, (int) vy)) {
             x += vx;
             y += vy;
         }

@@ -18,7 +18,7 @@ public class GridVisualizer extends JFrame {
         setSize(800, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setFocusableWindowState(false);
-       // setUndecorated(true);
+        // setUndecorated(true);
         // Create and add the panel
         panel = new GridPanel();
         add(panel);
@@ -49,8 +49,7 @@ public class GridVisualizer extends JFrame {
                 return;
             }
 
-            int cellSize = 20;
-
+            int cellSize = 10;
             // Add padding to center the grid
             int paddingX = (getWidth() - (grid.length * cellSize)) / 2;
             int paddingY = (getHeight() - (grid[0].length * cellSize)) / 2;

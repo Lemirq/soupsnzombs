@@ -9,8 +9,11 @@ import java.util.Map;
 
 public class SoundManager {
     private static Map<String, Clip> clips = new HashMap<>();
+    private static boolean disabled = true;
 
     public static void playSound(String filePath) {
+        if (disabled)
+            return;
         try {
             if (clips.containsKey(filePath)) {
                 Clip clip = clips.get(filePath);

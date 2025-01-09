@@ -304,7 +304,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         buildings.buildings.addAll(prototypeBuilding4.surroundingWalls);
         zombies = new AllZombies();
         inventory = new Inventory();
-        CollisionManager.addCollidable(shopEntity);
 
         healthDrops.add(new HealthDrop(1100, 1000, 10000));
         start();
