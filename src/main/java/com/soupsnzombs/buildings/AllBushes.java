@@ -6,6 +6,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class AllBushes {
+    /*
     public ArrayList<Bush> bushes = new ArrayList<>();
 
     public void addBush(Bush b) {
@@ -29,6 +30,8 @@ public class AllBushes {
         }
 
     }
+
+     */
 }
 
 

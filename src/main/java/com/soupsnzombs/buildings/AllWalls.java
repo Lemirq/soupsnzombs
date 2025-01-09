@@ -7,6 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class AllWalls {
+    /*
     public ArrayList<Wall> walls = new ArrayList<>();
 
     public void addWall(Wall w) {
@@ -14,15 +15,7 @@ public class AllWalls {
     }
 
     public AllWalls() {
-        walls.add(new Wall(-400, 40, 300, 50));
-        walls.add(new Wall(100, 100, 50, 50));
-        walls.add(new Wall(200, 200, 50, 50));
-        walls.add(new Wall(300, 300, 50, 50));
-        walls.add(new Wall(400, 400, 50, 50));
-        walls.add(new Wall(500, 500, 50, 50));
-        for (Wall w : walls) {
-            CollisionManager.addCollidable(w);
-        }
+
     }
 
     public void draw(Graphics2D g2d) {
@@ -37,4 +30,6 @@ public class AllWalls {
         }
 
     }
+
+     */
 }

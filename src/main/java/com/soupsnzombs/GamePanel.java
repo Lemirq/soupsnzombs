@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -49,6 +50,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     private final double TIME_PER_TICK = 1000000000 / FPS;
 
     Timer timer;
+    private BufferedImage sprite = Images.spriteImages.get("zoimbie1_stand.png");
     int seconds = 0;
     // private long time1 = 0;
     // private long time2 = 0;
@@ -439,10 +441,9 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         player.bar.draw(g2d);
         coins.draw(g2d, player);
         buildings.draw(g2d);
-        walls.draw(g2d);
-        bushes.draw(g2d);
-        trees.draw(g2d);
-        buildings.draw(g2d);
+        //walls.draw(g2d);
+        //bushes.draw(g2d);
+        //trees.draw(g2d);
 
         zombies.draw(g2d, player);
         inventory.draw(g2d, this, player.getGun());
