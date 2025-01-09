@@ -6,6 +6,9 @@ import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.UI.HealthBar;
 import com.soupsnzombs.utils.Images;
 import com.soupsnzombs.utils.KeyHandler;
+
+import static com.soupsnzombs.utils.FontLoader.font30;
+
 public class Player extends Entity implements GameObject {
     public static int money;
     public static int score = 0;
@@ -149,7 +152,7 @@ public class Player extends Entity implements GameObject {
 
         // draw score bottom left corner
         g2d.setColor(Color.WHITE);
-        g2d.setFont(new Font("DejaVuSans 12", Font.PLAIN, 20));
+        g2d.setFont(font30);
         g2d.drawString("Score: " + score, GamePanel.screenWidth - 1180, GamePanel.screenHeight - 100);
         g2d.drawString("Coins: " + money, GamePanel.screenWidth - 1180, GamePanel.screenHeight - 50);
 
