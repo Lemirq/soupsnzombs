@@ -36,6 +36,10 @@ public class Shop {
     public static final int OPTION_Y = (GamePanel.screenHeight
             - (shopLayout.length * (optionHeight + paddingWidth) - paddingWidth)) / 2;
 
+            /**
+             * draws shop interface on the screen (background, title, coins)
+             * @param g2d  passes in g2d for rendering
+             */
     public void drawShop(Graphics2D g2d) {
         if (GamePanel.gameState == GamePanel.GameState.SHOP) {
             // Draw the background
@@ -72,6 +76,11 @@ public class Shop {
         }
     }
 
+    /**
+     * draws shop options/buttons
+     * changes the option/button colour when hovered over by the selection
+     * @param g2d passes in g2d for rendering
+     */
     public void drawOptions(Graphics2D g2d) {
         g2d.setFont(FontLoader.font30);
         g2d.setBackground(Color.BLACK);
@@ -122,24 +131,44 @@ public class Shop {
 
     }
 
+    /**
+     * Moves the selected key up one row on the keyboard
+     * Makes sure the selection stays in bounds
+     * @param game passes in the gamepanel for UI updates
+     */
     public static void selectUp(GamePanel game) {
         cursorRow = Math.max(0, cursorRow - 1);
         game.repaint();
         game.revalidate();
     }
 
+    /**
+     * Moves the selected key down one row on the keyboard
+     * Makes sure the selection stays in bounds
+     * @param game passes in the gamepanel for UI updates
+     */
     public static void selectDown(GamePanel game) {
         cursorRow = Math.min(shopLayout.length - 1, cursorRow + 1);
         game.repaint();
         game.revalidate();
     }
 
+     /**
+     * Moves the selected key left one on the keyboard
+     * Makes sure the selection stays in bounds
+     * @param game passes in the gamepanel for UI updates
+     */
     public static void selectLeft(GamePanel game) {
         cursorCol = Math.max(0, cursorCol - 1);
         game.repaint();
         game.revalidate();
     }
 
+    /**
+     * Moves the selected key right one on the keyboard
+     * Makes sure the selection stays in bounds
+     * @param game passes in the gamepanel for UI updates
+     */
     public static void selectRight(GamePanel game) {
         cursorCol = Math.min(shopLayout[cursorRow].length - 1,
                 cursorCol + 1);
@@ -147,6 +176,12 @@ public class Shop {
         game.revalidate();
     }
 
+    /**
+     * inputs the keyboard selection based on which key is selected
+     * space & alphanumeric keys are written in the text field
+     * backspace is used to delete letters/spaces in the text field
+     * @param game passes in the gamepanel for UI updates
+     */
     public static void selectEnter(GamePanel game) {
 
         String selectedOption = shopLayout[cursorRow][cursorCol];
@@ -194,6 +229,9 @@ public class Shop {
         game.revalidate();
     }
 
+    /**
+     * checks if the shop is closed
+     */
     public void checkShop() {
         if (open) {
             GamePanel.gameState = GamePanel.GameState.SHOP;
