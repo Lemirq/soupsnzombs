@@ -10,17 +10,15 @@ public class AllCoins {
 
 
     public void draw(Graphics2D g2d, Entity player) {
-        for (Coin coin : coins) {
+        Iterator<Coin> iterator = coins.iterator();
+        while (iterator.hasNext()) {
+            Coin coin = iterator.next();
             coin.draw(g2d);
 
-                Iterator<Coin> iterator = coins.iterator();
-                while (iterator.hasNext()) {
-                    coin = iterator.next();
-                    if (player.intersects(coin)) {
-                        iterator.remove();
-                        Player.money++;
-                    }
-                }
+            if (player.intersects(coin)) {
+                iterator.remove();
+                Player.money++;
+            }
 
             if (GamePanel.debugging) {
                 g2d.setColor(Color.RED);
