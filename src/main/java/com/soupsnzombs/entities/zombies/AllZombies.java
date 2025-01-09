@@ -82,14 +82,20 @@ public class AllZombies {
             if (seconds > 3) {
                 seconds = 0;
             }
-            waveTimer.start();
-            if (seconds == 3) {
-                waveNumber++;
-                g2d.setColor(Color.RED);
-                g2d.setFont(new Font("Arial", Font.PLAIN, 100));
-                g2d.drawString("WARNING, WAVE STARTING IN: " + seconds, 350, 300);
-                spawnZombies(player);
-            }
+
+            // spawn one random zombie for testing
+            int x = player.x + random.nextInt(spawnRadius * 2) - spawnRadius;
+            int y = player.y + random.nextInt(spawnRadius * 2) - spawnRadius;
+            zombies.add(new Zombie(x, y, ZombieType.SMALL));
+
+            // waveTimer.start();
+            // if (seconds == 3) {
+            // waveNumber++;
+            // g2d.setColor(Color.RED);
+            // g2d.setFont(new Font("Arial", Font.PLAIN, 100));
+            // g2d.drawString("WARNING, WAVE STARTING IN: " + seconds, 350, 300);
+            // spawnZombies(player);
+            // }
         }
 
     }
