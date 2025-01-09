@@ -9,6 +9,9 @@ import java.awt.geom.AffineTransform;
 import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.utils.Theme;
 
+
+import static com.soupsnzombs.utils.FontLoader.font40;
+
 public class HealthBar {
     // Constants for the health bar dimensions and position
     private static final int BAR_WIDTH = 200;
@@ -68,7 +71,7 @@ public class HealthBar {
         g2d.setTransform(translatedTransform);
 
         // Set a larger font size for the health value text
-        g2d.setFont(new Font("DejaVuSans 12", Font.BOLD, 28));
+        g2d.setFont(font40);
 
         // Draw the health value text
         g2d.setColor(Color.WHITE);

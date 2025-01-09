@@ -26,7 +26,7 @@ public class Pathfinder {
             g.setVisible(true);
         } else {
             g.dispose();
-            g = null;
+            //g = null;
         }
     }
 
@@ -49,7 +49,7 @@ public class Pathfinder {
         maxX += padding;
         maxY += padding;
 
-        this.gridSize = z.width / 2; // increased grid size for better pathfinding
+        this.gridSize = 10; // increased grid size for better pathfinding
         Pathfinder.g.gridSize = gridSize;
 
         // Calculate grid dimensions
@@ -78,7 +78,7 @@ public class Pathfinder {
             int rectY = (int) rect.getY();
             int rectWidth = (int) rect.getWidth();
             int rectHeight = (int) rect.getHeight();
-            int wallPadding = 1;
+            int wallPadding = 2;
             int rectGridX = (int) Math.floor((rectX - minX) / (double) gridSize) - wallPadding;
             int rectGridY = (int) Math.floor((rectY - minY) / (double) gridSize) - wallPadding;
             int rectGridWidth = (int) Math.ceil(rectWidth / (double) gridSize) + 2 * wallPadding;
@@ -95,11 +95,11 @@ public class Pathfinder {
         }
 
         // Calculate zombie and player positions on grid
-        int zombieGridX = (int) Math.floor((z.x - minX) / (double) gridSize);
-        int zombieGridY = (int) Math.floor((z.y - minY) / (double) gridSize);
+        int zombieGridX = (int) Math.floor(((z.x + (z.width / 2)) - minX) / (double) gridSize);
+        int zombieGridY = (int) Math.floor(((z.y + (z.height / 2)) - minY) / (double) gridSize);
 
-        int playerGridX = (int) Math.floor((p.x - minX) / (double) gridSize);
-        int playerGridY = (int) Math.floor((p.y - minY) / (double) gridSize);
+        int playerGridX = (int) Math.floor(((p.x + (p.width / 2)) - minX) / (double) gridSize);
+        int playerGridY = (int) Math.floor(((p.y + (p.height / 2)) - minY) / (double) gridSize);
 
         // Ensure start and end positions are within bounds
         zombieGridX = Math.max(0, Math.min(zombieGridX, gridWidth - 1));
