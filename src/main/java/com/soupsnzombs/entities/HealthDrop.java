@@ -12,8 +12,8 @@ public class HealthDrop extends Rectangle {
     int healthIncreaseVal;
     Color color;
     int[] healthVals = { 15, 20, 50 };
-    int[] spawnLocationsX = {-98, 458, 687, -345, 899};
-    int[] spawnLocationsY = {-45, 715, 862, 911, 49};
+    int[] spawnLocationsX = {-98, 458, 687, -345, 899, 1000 , 780, 1100, 1500};
+    int[] spawnLocationsY = {-45, 715, 862, 911, 49, 1000, 920, 1000, 900};
     boolean visible;
     boolean animation;
     Timer respawnTimer, animationTimer;
@@ -21,7 +21,7 @@ public class HealthDrop extends Rectangle {
     Random rand = new Random();
 
     public HealthDrop(int x, int y, int cooldown) {
-        super(x, y, 70, 60);
+        super(x, y, 50, 50);
         this.healthIncreaseVal = healthVals[rand.nextInt(0, healthVals.length)];
         this.visible = true;
         this.animation = false;
@@ -34,7 +34,7 @@ public class HealthDrop extends Rectangle {
                 respawnTimer.stop();
             }
         });
-        animationTimer = new Timer(2, new ActionListener() {
+        animationTimer = new Timer(20, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 yPos += 10;

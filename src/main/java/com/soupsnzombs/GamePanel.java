@@ -308,7 +308,9 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         inventory = new Inventory();
         CollisionManager.addCollidable(shopEntity);
 
-        healthDrops.add(new HealthDrop(1100, 1000, 10000));
+        healthDrops.add(new HealthDrop(1100, 1000, 3000));
+        healthDrops.add(new HealthDrop(1500, 900, 3000));
+        healthDrops.add(new HealthDrop(-100, -200, 3000));
         start();
     }
 
