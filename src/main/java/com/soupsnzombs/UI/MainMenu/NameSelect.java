@@ -23,6 +23,10 @@ public class NameSelect {
     public static boolean blink;
     public static int time;
 
+    /**
+     * Adjusts the cursor position when navigating to "Space" or "Backspace"
+     * Makes sure column range is not exeeded
+     */
     public static void adjustCursorForSpaceBackspace() {
         if (cursorRow == 3) {
             if (cursorCol < 0) {
@@ -33,6 +37,10 @@ public class NameSelect {
         }
     }
 
+    /**
+     * draws the keyboard layoiut on screen
+     * @param g2d passes in the g2d object for rendering
+     */
     public void drawKeyboard(Graphics2D g2d) {
         g2d.setFont(FontLoader.font20);
         g2d.setBackground(Color.BLACK);
@@ -69,6 +77,12 @@ public class NameSelect {
 
     }
 
+
+    /**
+     * Draws the current name
+     * Draws as blinking cursor
+     * @param g2d passes in the g2d object for rendering
+     */
     public void drawName(Graphics2D g2d) {
         g2d.setColor(Color.BLACK);
         g2d.setFont(FontLoader.font50);
@@ -102,6 +116,10 @@ public class NameSelect {
         g2d.drawString(nameText, boxX, boxY + g2d.getFontMetrics().getAscent());
     }
 
+    /**
+     * Draws the keyboard instrucitons at the top of the screen
+     * @param g2d passes in the g2d object for rendering
+     */
     public void drawInstructions(Graphics2D g2d) {
         g2d.setFont(FontLoader.font60);
         String instructionText = "Enter a name - Press P to enter";
@@ -112,6 +130,11 @@ public class NameSelect {
 
     }
 
+    /**
+     * Moves the selected key up one row on the keyboard
+     * Makes sure the selection stays in bounds
+     * @param game passes in the gamepanel for UI updates
+     */
     public static void selectUp(GamePanel game) {
         cursorRow = Math.max(0, cursorRow - 1);
         adjustCursorForSpaceBackspace();
@@ -119,6 +142,11 @@ public class NameSelect {
         game.revalidate();
     }
 
+    /**
+     * Moves the selected key down one row on the keyboard
+     * Makes sure the selection stays in bounds
+     * @param game passes in the gamepanel for UI updates
+     */
     public static void selectDown(GamePanel game) {
         cursorRow = Math.min(keyboardLayout.length - 1, cursorRow + 1);
         adjustCursorForSpaceBackspace();
@@ -126,6 +154,11 @@ public class NameSelect {
         game.revalidate();
     }
 
+    /**
+     * Moves the selected key left one on the keyboard
+     * Makes sure the selection stays in bounds
+     * @param game passes in the gamepanel for UI updates
+     */
     public static void selectLeft(GamePanel game) {
         cursorCol = Math.max(0, cursorCol - 1);
         adjustCursorForSpaceBackspace();
@@ -133,6 +166,11 @@ public class NameSelect {
         game.revalidate();
     }
 
+    /**
+     * Moves the selected key right one on the keyboard
+     * Makes sure the selection stays in bounds
+     * @param game passes in the gamepanel for UI updates
+     */
     public static void selectRight(GamePanel game) {
         cursorCol = Math.min(keyboardLayout[cursorRow].length - 1,
                 cursorCol + 1);
@@ -141,6 +179,12 @@ public class NameSelect {
         game.revalidate();
     }
 
+    /**
+     * inputs the keyboard selection based on which key is selected
+     * space & alphanumeric keys are written in the text field
+     * backspace is used to delete letters/spaces in the text field
+     * @param game passes in the gamepanel for UI updates
+     */
     public static void selectEnter(GamePanel game) {
         if ("Space".equals(keyboardLayout[cursorRow][cursorCol])) {
             if (name.length() < MAX_NAME_LENGTH) {
