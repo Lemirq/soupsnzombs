@@ -20,6 +20,12 @@ public class HealthDrop extends Rectangle {
     int yPos; // for animating purposes
     Random rand = new Random();
 
+    /**
+     * Constructor
+     * @param x x-position of health drop
+     * @param y y-position of helath drop
+     * @param cooldown cooldown time for health drop respawn
+     */
     public HealthDrop(int x, int y, int cooldown) {
         super(x, y, 50, 50);
         this.healthIncreaseVal = healthVals[rand.nextInt(0, healthVals.length)];
@@ -47,6 +53,10 @@ public class HealthDrop extends Rectangle {
         });
     }
 
+    /**
+     * draws animation text for health pickup amount
+     * @param g2d passes in g2d object for rednering
+     */
     public void animatePickUp(Graphics g2d) {
         animationTimer.start();
         g2d.setColor(Color.GREEN);
@@ -55,6 +65,10 @@ public class HealthDrop extends Rectangle {
 
     }
 
+    /**
+     * draws health drop
+     * @param g2d passes in Graphics2D object for rendeirng
+     */
     public void draw(Graphics g2d) {
 
         if (animation) {
@@ -96,35 +110,63 @@ public class HealthDrop extends Rectangle {
 
     }
 
+    /**
+     * gets the bounds of the healthdrop
+     * @return returns the bounds
+     */
     public Rectangle getBounds() {
         return new Rectangle(super.x, super.y, super.width, super.height);
     }
 
+    /**
+     * getter method for healthDropVal
+     * @return health drop val
+     */
     public int getHealthDropVal() {
         return healthIncreaseVal;
     }
 
+    /**
+     * sets new spawn locaiton for when health drop is collected
+     */
     public void setNewLocation(){
         this.x = spawnLocationsX[rand.nextInt(0,spawnLocationsX.length)];
         this.y = spawnLocationsY[rand.nextInt(0,spawnLocationsY.length)];
     }
 
+    /**
+     * changes the heal type for when health drop is collected
+     */
     public void changeHealType(){
         this.healthIncreaseVal = healthVals[rand.nextInt(0, healthVals.length)];
     }
 
+    /**
+     * sets visible to true
+     * @param state passes in the state
+     */
     public void setVisible(boolean state) {
         this.visible = state;
     }
 
+    /**
+     * sets the animation to the state
+     * @param state
+     */
     public void setAnimation(boolean state) {
         this.animation = state;
     }
 
+    /**
+     * used to reset the respawn timer
+     */
     public void startRespawnTimer() {
         respawnTimer.start();
     }
 
+    /**
+     * @return returns true for visible and false for not visible
+     */
     public boolean isVisible() {
         return visible;
     }
