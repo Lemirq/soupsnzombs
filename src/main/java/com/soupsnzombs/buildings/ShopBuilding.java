@@ -21,8 +21,7 @@ public class ShopBuilding extends Building {
     void drawBuilding(Graphics2D g2d, int x, int y, int w, int h) {
     }
 
-    public void drawShop(Graphics2D g2d, Player player, ShopBuilding shopEntity) {
-
+    public void drawShop(Graphics2D g2d) {
         shopSprite = Images.spriteImages.get("manBlue_gun.png");
         shopX = mapX + GamePanel.offsetX;
         shopY = mapY + GamePanel.offsetY;
@@ -30,11 +29,6 @@ public class ShopBuilding extends Building {
         g2d.setColor(Color.RED);
         g2d.drawImage(shopSprite, shopX, shopY, width, height, null);
         g2d.fillRect(shopX, shopY, width, height);
-
-        if (player.intersects(shopEntity)) {
-            g2d.setColor(Color.BLACK);
-            g2d.drawString("Open Shop", GamePanel.screenWidth - 1180, GamePanel.screenHeight - 30);
-        }
 
         if (shopSprite == null) {
             System.out.println("shopSprite is null");
