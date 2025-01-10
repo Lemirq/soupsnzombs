@@ -64,7 +64,7 @@ public class Shop {
             g2d.drawString(title, titleX, titleY);
 
             // Draw coins
-            String coinsTitle = "coins: ";
+            String coinsTitle = "Coins: ";
             int coinsX = GamePanel.screenWidth - GamePanel.screenWidth / 4;
             int coinsY = GamePanel.screenHeight / 5;
             g2d.setFont(FontLoader.font60);

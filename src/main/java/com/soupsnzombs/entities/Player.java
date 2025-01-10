@@ -160,9 +160,9 @@ public class Player extends Entity implements GameObject {
             // draw map coordinates next to player for debugging
             g2d.setColor(Color.RED);
             g2d.drawString("CX: " + centerXPlayer + " CY: " + centerYPlayer, 20,
-                    10);
+                    80);
             g2d.drawString("OX: " + GamePanel.offsetX + " OY: " + GamePanel.offsetY, 20,
-                    20);
+                    100);
 
             // draw Rectangle x,y,w,h
             g2d.drawString("X: " + x + " Y: " + y + " W: " + width + " H: " + height, GamePanel.screenWidth - 300, 40);

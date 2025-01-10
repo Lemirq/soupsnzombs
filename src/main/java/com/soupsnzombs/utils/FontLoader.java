@@ -11,11 +11,11 @@ public class FontLoader {
     public static Font font20;
     public static Font font30;
     public static Font font40;
-    public static Font font45;
     public static Font font50;
     public static Font font60;
     public static Font font70;
     public static Font font80;
+    public static Font font100;
     public static Font font200;
 
     public static void loadFont() {
@@ -36,7 +36,7 @@ public class FontLoader {
             font60 = font.deriveFont(60f);
             font70 = font.deriveFont(70f);
             font80 = font.deriveFont(80f);
-
+            font100 = font.deriveFont(100f);
             font200 = font.deriveFont(200f);
 
         } catch (IOException | FontFormatException e) {

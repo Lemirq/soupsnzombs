@@ -27,7 +27,6 @@ public class Tree extends Building {
         treeY = mapY + GamePanel.offsetY;
 
         g2d.setColor(Color.CYAN);
-        //g2d.fillRect(this.treeX, this.treeY, this.width, this.height);
         g2d.drawImage(treeSprite, treeX, treeY, width, height, null);
 
         if (treeSprite == null) {
