@@ -26,7 +26,7 @@ public class Pathfinder {
             g.setVisible(true);
         } else {
             g.dispose();
-            //g = null;
+            // g = null;
         }
     }
 
@@ -137,24 +137,10 @@ public class Pathfinder {
     }
 
     public void resetPath(Player p, Zombie z) {
-        // turn the first PATH node into a WALL node
-        Node pathNode = null;
-        for (Node[] row : grid) {
-            for (Node node : row) {
-                if (node.getType() == Node.Type.PATH) {
-                    pathNode = node;
-                    break;
-                }
-            }
-            if (pathNode != null) {
-                break;
-            }
-        }
-        pathNode.setType(Node.Type.WALL);
-
-        // recalculate path
+        // Update grid and recalculate path immediately
+        updateGrid(p, z);
         findPath();
-        this.g.setGrid(grid);
+        Pathfinder.g.setGrid(grid);
     }
 
     public int getGridOriginX() {

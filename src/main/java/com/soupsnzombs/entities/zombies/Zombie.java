@@ -8,7 +8,6 @@ import com.soupsnzombs.utils.Node;
 import com.soupsnzombs.utils.Pathfinder;
 
 import java.awt.*;
-import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ public class Zombie extends Entity implements GameObject {
     Pathfinder pathfinder = new Pathfinder();
     // linked list of path nodes, already converted to world coordinates
     private int pathRefreshCounter = 0;
-    private static final int PATH_REFRESH_INTERVAL = 60; // Refresh path every 60 updates
+    private static final int PATH_REFRESH_INTERVAL = 120; // Refresh path every 60 updates
     private static final double PLAYER_MOVE_THRESHOLD = 30.0;
     private double lastPlayerX = -1;
     private double lastPlayerY = -1;
@@ -157,161 +156,164 @@ public class Zombie extends Entity implements GameObject {
     }
 
     public void chasePlayer(Player p, Graphics2D g2d) {
-        // TODO Make pathfinding stuff toggleable
         pathRefreshCounter++;
 
-        // Calculate direct line to player
-        Line2D directLine = new Line2D.Double(this.x, this.y, p.x, p.y);
-        boolean directPathClear = true;
-
-        // Check for collidables in the direct path
-        ArrayList<Rectangle> collidables = CollisionManager.collidables;
-        for (Rectangle rect : collidables) {
-            if (directLine.intersects(rect)) {
-                directPathClear = false;
-                break;
-            }
-        }
-
-        // TODO: TURN BACK ON
-        if (directPathClear) {
+        // Replace the existing direct path check with:
+        if (hasLineOfSight(p, g2d)) {
             chasePlayerDirectly(p, g2d);
             return;
         }
 
-        boolean path = false;
-        // Check if the player has moved significantly
-        double playerMoveDistance = Math.sqrt(Math.pow(p.x - lastPlayerX, 2) + Math.pow(p.y - lastPlayerY, 2));
-        if (playerMoveDistance >= PLAYER_MOVE_THRESHOLD || pathRefreshCounter >= PATH_REFRESH_INTERVAL) {
+        // Force path recalculation in these cases:
+        boolean shouldRecalculatePath = pathNodes.isEmpty() ||
+                Math.abs(p.x - lastPlayerX) >= PLAYER_MOVE_THRESHOLD ||
+                Math.abs(p.y - lastPlayerY) >= PLAYER_MOVE_THRESHOLD ||
+                pathRefreshCounter >= PATH_REFRESH_INTERVAL;
+
+        if (shouldRecalculatePath) {
             pathfinder.updateGrid(p, this);
-            path = pathfinder.findPath();
+            boolean pathFound = pathfinder.findPath();
             pathRefreshCounter = 0;
             lastPlayerX = p.x;
             lastPlayerY = p.y;
 
-            // Store the path nodes
-            pathNodes.clear();
-            Node[][] tempGrid = pathfinder.getGrid();
-            for (int i = 0; i < tempGrid.length; i++) {
-                for (int j = 0; j < tempGrid[0].length; j++) {
-                    if (tempGrid[i][j].getType() == Node.Type.PATH) {
-                        pathNodes.add(tempGrid[i][j]);
+            if (pathFound) {
+                pathNodes.clear();
+                Node[][] tempGrid = pathfinder.getGrid();
+                for (int i = 0; i < tempGrid.length; i++) {
+                    for (int j = 0; j < tempGrid[0].length; j++) {
+                        if (tempGrid[i][j].getType() == Node.Type.PATH) {
+                            pathNodes.add(tempGrid[i][j]);
+                        }
                     }
                 }
             }
         }
 
         if (!pathNodes.isEmpty()) {
-            Node n = pathNodes.get(0);
+            Node currentTarget = pathNodes.get(0);
             int gridSize = pathfinder.getGridSize();
             int gridOriginX = pathfinder.getGridOriginX();
             int gridOriginY = pathfinder.getGridOriginY();
 
-            // debugging, drawing all the path nodes
-            for (int i = 0; i < pathNodes.size(); i++) {
-                Node n2 = pathNodes.get(i);
-                if (n2.getType() == Node.Type.PATH) {
-                    // Convert grid coordinates to world coordinates using the grid's origin
-                    double targetX = gridOriginX + (n2.getX() * gridSize);
-                    double targetY = gridOriginY + (n2.getY() * gridSize);
+            // Convert grid coordinates to world coordinates
+            double targetX = gridOriginX + (currentTarget.getX() * gridSize);
+            double targetY = gridOriginY + (currentTarget.getY() * gridSize);
 
-                    // Adjust target coordinates based on player's position relative to the zombie
-                    if (p.x < this.x) {
-                        targetX -= gridSize; // Move target to the left
-                    } else if (p.x > this.x) {
-                        targetX += gridSize; // Move target to the right
-                    }
+            // Calculate direction to target
+            double deltaX = targetX - this.x;
+            double deltaY = targetY - this.y;
+            double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
-                    if (p.y < this.y) {
-                        targetY -= gridSize; // Move target up
-                    } else if (p.y > this.y) {
-                        targetY += gridSize; // Move target down
-                    }
-
-                    // Draw the red rectangle for the path node
-                    g2d.setColor(Color.RED);
-                    g2d.fillRect((int) targetX + GamePanel.offsetX, (int) targetY + GamePanel.offsetY, gridSize,
-                            gridSize);
-                }
+            if (distance > 0) {
+                followPath(currentTarget, gridSize, g2d, gridOriginX, gridOriginY);
             }
 
-            if (n.getType() == Node.Type.PATH) {
-                // Convert grid coordinates to world coordinates using the grid's origin
-                double targetX = gridOriginX + (n.getX() * gridSize);
-                double targetY = gridOriginY + (n.getY() * gridSize);
-
-                // Adjust target coordinates based on player's position relative to the zombie
-                if (p.x < this.x) {
-                    targetX -= gridSize; // Move target to the left
-                } else if (p.x > this.x) {
-                    targetX += gridSize; // Move target to the right
-                }
-
-                if (p.y < this.y) {
-                    targetY -= gridSize; // Move target up
-                } else if (p.y > this.y) {
-                    targetY += gridSize; // Move target down
-                }
-
-                // Calculate direction to next path node
-                System.out.println(this.x + " " + this.y);
-                double deltaX = targetX - (this.x + this.width / 2);
-                double deltaY = targetY - (this.y + this.height / 2);
-                double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
-                // Debugging output
-                System.out.printf("Target Position: (%.2f, %.2f)\n", targetX, targetY);
-                System.out.printf("deltaX: %.2f, deltaY: %.2f, distance: %.2f\n", deltaX,
-                        deltaY, distance);
-
-                // draw cyan target
-                g2d.setColor(Color.CYAN);
-                g2d.fillRect((int) targetX + GamePanel.offsetX, (int) targetY + GamePanel.offsetY, gridSize,
-                        gridSize);
-
-                // TODO: TURN BACK ON
-                // if (distance < 10) {
-                // chasePlayerDirectly(p);
-                // System.out.println("Chasing player directly");
-                // return;
-                // }
-
-                if (distance > 0) {
-                    // Normalize and apply speed
-                    double directionX = deltaX / distance;
-                    double directionY = deltaY / distance;
-                    // Move zombie towards path node
-                    int vx = (int) (directionX * speed);
-                    int vy = (int) (directionY * speed);
-                    // Debugging output
-                    System.out.printf("directionX: %.2f, directionY: %.2f\n", directionX,
-                            directionY);
-                    System.out.printf("Velocity: (vx: %d, vy: %d)\n", vx, vy);
-
-                    System.out.println("x: " + directionX + " y: " + directionY);
-
-                    if (isZombieMovable(vx, vy, g2d)) {
-                        x += vx;
-                        y += vy;
-
-                        // Remove the path node once the zombie reaches it
-                        if (Math.abs(this.x + this.width / 2 - targetX) < speed
-                                && Math.abs(this.y + this.height / 2 - targetY) < speed) {
-                            pathNodes.remove(0);
-                        }
-                    } else {
-                        // Force pathfinder to recalculate on next update when we hit an obstacle
-                        System.out.println("Colliding with obstacle, not moving");
-                        pathfinder.resetPath(p, this);
-                    }
-                    return; // Only move towards the first path node
-                } else {
-                    // Force pathfinder to recalculate on next update when we hit an obstacle
-                    pathfinder.resetPath(p, this);
-                }
+            // Remove current target node if reached
+            if (Math.abs(x - targetX) < speed && Math.abs(y - targetY) < speed) {
+                pathNodes.remove(0);
             }
         }
 
+        // Debug visualization
+        if (GamePanel.debugging) {
+            g2d.setColor(Color.YELLOW);
+            for (Node node : pathNodes) {
+                int x = (pathfinder.getGridOriginX() + (node.getX() * pathfinder.getGridSize())) + GamePanel.offsetX;
+                int y = (pathfinder.getGridOriginY() + (node.getY() * pathfinder.getGridSize())) + GamePanel.offsetY;
+                g2d.fillRect(x, y, pathfinder.getGridSize(), pathfinder.getGridSize());
+            }
+        }
+    }
+
+    private boolean hasLineOfSight(Player p, Graphics2D g2d) {
+        double startX = x + width / 2;
+        double startY = y + height / 2;
+        double endX = p.x + p.width / 2;
+        double endY = p.y + p.height / 2;
+
+        double dx = endX - startX;
+        double dy = endY - startY;
+        double distance = Math.sqrt(dx * dx + dy * dy);
+
+        dx /= distance;
+        dy /= distance;
+
+        double stepSize = 5.0;
+        double currentX = startX;
+        double currentY = startY;
+
+        // Debug visualization
+        if (GamePanel.debugging) {
+            g2d.setColor(Color.YELLOW);
+            g2d.drawLine(
+                    (int) startX + GamePanel.offsetX,
+                    (int) startY + GamePanel.offsetY,
+                    (int) endX + GamePanel.offsetX,
+                    (int) endY + GamePanel.offsetY);
+        }
+
+        while (distance > 0) {
+            Rectangle checkPoint = new Rectangle(
+                    (int) currentX - 1,
+                    (int) currentY - 1,
+                    2, 2);
+
+            // Debug visualization
+            if (GamePanel.debugging) {
+                g2d.setColor(Color.RED);
+                g2d.fillRect(
+                        (int) currentX - 1 + GamePanel.offsetX,
+                        (int) currentY - 1 + GamePanel.offsetY,
+                        2, 2);
+            }
+
+            for (Rectangle obstacle : CollisionManager.collidables) {
+                if (obstacle.intersects(checkPoint)) {
+                    return false;
+                }
+            }
+
+            currentX += dx * stepSize;
+            currentY += dy * stepSize;
+            distance -= stepSize;
+        }
+
+        return true;
+    }
+
+    // Replace the current angle-based movement with smoother path following
+    private void followPath(Node currentTarget, double gridSize, Graphics2D g2d, int gridOriginX, int gridOriginY) {
+        double targetX = gridOriginX + (currentTarget.getX() * gridSize);
+        double targetY = gridOriginY + (currentTarget.getY() * gridSize);
+
+        // Calculate direction vector
+        double dx = targetX - x;
+        double dy = targetY - y;
+        double distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance > 0) {
+            // Normalize and apply speed
+            double vx = (dx / distance) * speed;
+            double vy = (dy / distance) * speed;
+
+            // Try to move, if blocked try sliding along walls
+            if (!isZombieMovable((int) vx, (int) vy, g2d)) {
+                // Try horizontal movement
+                if (Math.abs(dx) > Math.abs(dy) && isZombieMovable((int) vx, 0, g2d)) {
+                    y += 0;
+                    x += vx;
+                }
+                // Try vertical movement
+                else if (isZombieMovable(0, (int) vy, g2d)) {
+                    x += 0;
+                    y += vy;
+                }
+            } else {
+                x += vx;
+                y += vy;
+            }
+        }
     }
 
     public boolean isZombieMovable(int vx, int vy, Graphics2D g2d) {
@@ -324,7 +326,7 @@ public class Zombie extends Entity implements GameObject {
         // draw this retangle in orange
 
         g2d.setColor(Color.ORANGE);
-        g2d.fillRect(nextPos.x + GamePanel.offsetX, nextPos.y + GamePanel.offsetY, nextPos.width, nextPos.height);
+        g2d.drawRect(nextPos.x + GamePanel.offsetX, nextPos.y + GamePanel.offsetY, nextPos.width, nextPos.height);
 
         ArrayList<Rectangle> collisions = new ArrayList<>(CollisionManager.collidables);
         collisions.remove(this);

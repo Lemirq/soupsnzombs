@@ -49,13 +49,13 @@ public class AllBuildings {
     }
 
     public void draw(Graphics2D g2d) {
-        shopEntity.drawShop(g2d);
+        // shopEntity.drawShop(g2d);
 
         for (Building b : buildings) {
             b.draw(g2d);
         }
 
-        for (Wall w: walls) {
+        for (Wall w : walls) {
             w.draw(g2d);
         }
 
@@ -66,13 +66,13 @@ public class AllBuildings {
         for (Bush bush : bushes) {
             bush.draw(g2d);
         }
-            // draw rect x,y,w,h
-            g2d.setColor(Color.RED);
-            // if (GamePanel.debugging) {
-            // g2d.drawString("X: " + b.x + " Y: " + b.y + " W: " + b.width + " H: " +
-            // b.height, 20,
-            // buildings.indexOf(b) * 20 + 40);
-            // }
-        }
-
+        // draw rect x,y,w,h
+        g2d.setColor(Color.RED);
+        // if (GamePanel.debugging) {
+        // g2d.drawString("X: " + b.x + " Y: " + b.y + " W: " + b.width + " H: " +
+        // b.height, 20,
+        // buildings.indexOf(b) * 20 + 40);
+        // }
     }
+
+}

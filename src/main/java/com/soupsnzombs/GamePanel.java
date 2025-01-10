@@ -36,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         UP, DOWN, LEFT, RIGHT
     }
 
-    public static boolean debugging = false;
+    public static boolean debugging = true;
 
     public static GameState gameState = GameState.MAIN_MENU;
 
@@ -462,9 +462,10 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         player.draw(g2d);
 
         // Score Displayed Top-Right
-        //g2d.drawString(String.format("Time Survived: %.2f", elapsedTime), screenWidth - 300, screenHeight - 850);
+        // g2d.drawString(String.format("Time Survived: %.2f", elapsedTime), screenWidth
+        // - 300, screenHeight - 850);
 
-        //Score Displayed Bottom-Left
+        // Score Displayed Bottom-Left
         g2d.drawString(String.format("Time Survived: %.2f", elapsedTime), 200, screenHeight - 100);
 
         // DEBUG drawings
