@@ -282,8 +282,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         FontLoader.loadFont();
 
         player = new Player(new Gun(15, 200, 600, 5, 5, 5, 5, -1));
-        gunDrops.add(new GunDrop(75, 500, new Gun(10, 100, 600, 0, 0, 0, 5, 1), Color.YELLOW));
-        gunDrops.add(new GunDrop(50, 400, new Gun(50, 500, 600, 0, 0, 0, 5, -1), Color.RED));
+        //gunDrops.add(new GunDrop(75, 500, new Gun(10, 100, 600, 0, 0, 0, 5, 1), Color.YELLOW));
+        //gunDrops.add(new GunDrop(50, 400, new Gun(50, 500, 600, 0, 0, 0, 5, -1), Color.RED));
 
         prototypeBuilding1.removeWall(3);
         prototypeBuilding3.removeWallBottom(1000, 1300);
