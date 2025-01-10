@@ -171,6 +171,8 @@ public class Player extends Entity implements GameObject {
             g2d.drawRect(x, y, width, height);
         }
 
+        
+
     }
 
 
