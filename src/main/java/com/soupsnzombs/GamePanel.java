@@ -93,7 +93,9 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public ShopBuilding shopEntity = new ShopBuilding(500, 100, 400, 200);
     public ArrayList<HealthDrop> healthDrops = new ArrayList<>();
     public Inventory inventory;
-
+    public ShopBuilding getShop() {
+        return shopEntity;
+    }
     public Player getPlayer() {
         return this.player;
     }
@@ -282,8 +284,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         FontLoader.loadFont();
 
         player = new Player(new Gun(15, 200, 600, 5, 5, 5, 5, -1));
-        gunDrops.add(new GunDrop(75, 500, new Gun(10, 100, 600, 0, 0, 0, 5, 1), Color.YELLOW));
-        gunDrops.add(new GunDrop(50, 400, new Gun(50, 500, 600, 0, 0, 0, 5, -1), Color.RED));
+        //gunDrops.add(new GunDrop(75, 500, new Gun(10, 100, 600, 0, 0, 0, 5, 1), Color.YELLOW));
+        //gunDrops.add(new GunDrop(50, 400, new Gun(50, 500, 600, 0, 0, 0, 5, -1), Color.RED));
 
         prototypeBuilding1.removeWall(3);
         prototypeBuilding3.removeWallBottom(1000, 1300);
@@ -436,7 +438,9 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         g2d.setTransform(oldTransformation);
         // macbook
-
+       // g2d.setColor(Color.BLACK);
+       // g2d.fillRect(KeyHandler.proximity.x+GamePanel.offsetX, KeyHandler.proximity.y + GamePanel.offsetY, KeyHandler.proximity.width, KeyHandler.proximity.height);
+       
         player.bar.draw(g2d);
         coins.draw(g2d, player);
         buildings.draw(g2d);
@@ -480,5 +484,10 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // draw dot at offset x,y
         // g2d.fillOval(offsetX, offsetY, 10, 10);
 
+        g2d.setFont(new Font("Arial", Font.PLAIN, 200));
+        if (getPlayer().getBounds().intersects(KeyHandler.proximity)) {
+            g2d.drawString("PRESS [P]", 0, 200);
+            g2d.drawString("HAHAHHA", 0, 400);
+        }
     }
 }

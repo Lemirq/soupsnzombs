@@ -1,5 +1,6 @@
 package com.soupsnzombs.utils;
 
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -27,6 +28,7 @@ public class KeyHandler extends KeyAdapter {
     public static Timer shootCooldown;
     public static Timer automaticGunTimer;
     public boolean dropReleased = true;
+    public static Rectangle proximity;
 
     public KeyHandler(GamePanel game) {
         this.game = game;
@@ -53,6 +55,7 @@ public class KeyHandler extends KeyAdapter {
                     GamePanel.shootPressed = true;
                     Player.showFireRateBar = true;
                     canShoot = false;
+                    Player.shotCoolDownTime = 100;
                     shootCooldown.start(); // Start the cooldown timer
                 }
             }
@@ -113,6 +116,7 @@ public class KeyHandler extends KeyAdapter {
                 } else if (GamePanel.gameState == GameState.NAME_SELECT) {
                     NameSelect.selectLeft(game);
                 } else if (GamePanel.gameState == GameState.SHOP) {
+                    
                     Shop.selectLeft(game);
                 } else if (GamePanel.gameState == GameState.GAME) {
                     GamePanel.leftPressed = true;
@@ -158,11 +162,29 @@ public class KeyHandler extends KeyAdapter {
                         NameSelect.message = false;
                     }
                 } else if (GamePanel.gameState == GameState.GAME || GamePanel.gameState == GameState.SHOP) {
-                    Shop.open = !Shop.open;
-                    if (Shop.open)
-                        GamePanel.gameState = GameState.SHOP;
-                    else
+                    if (Shop.open) {
+                        
+                        Shop.open = false;
                         GamePanel.gameState = GameState.GAME;
+                    }
+                        
+                    else {
+                        proximity = game.getShop().getBounds();
+                        proximity.x -= 50;
+                        proximity.y-=50;
+                        proximity.width += 100;
+                        proximity.height += 100;
+                        
+                        if (game.getPlayer().getBounds().intersects(proximity)) {
+                            //System.out.println("Player is in shop proximity");
+                            Shop.open = true;
+                            GamePanel.gameState = GameState.SHOP;
+                        }
+                    }
+                        
+                    
+                    
+                    
                 } else if (GamePanel.gameState == GameState.CREDITS) {
                     GamePanel.gameState = GameState.MAIN_MENU;
                 } else
