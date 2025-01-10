@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -35,7 +36,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         UP, DOWN, LEFT, RIGHT
     }
 
-    public static boolean debugging = true;
+    public static boolean debugging = false;
 
     public static GameState gameState = GameState.MAIN_MENU;
 
@@ -49,6 +50,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     private final double TIME_PER_TICK = 1000000000 / FPS;
 
     Timer timer;
+    private BufferedImage sprite = Images.spriteImages.get("zoimbie1_stand.png");
     int seconds = 0;
     // private long time1 = 0;
     // private long time2 = 0;
@@ -67,10 +69,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public static final int[] X_Bounds = { -5000, 5000 };
     public static final int[] Y_Bounds = { -2000, 2000 };
     AllBuildings buildings = new AllBuildings();
-    AllTrees trees = new AllTrees();
-    AllBushes bushes = new AllBushes();
     AllCoins coins = new AllCoins();
-    AllWalls walls = new AllWalls();
     AllZombies zombies;
     public static boolean upPressed = false;
     public static boolean downPressed = false;
@@ -91,6 +90,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public EntranceBuilding prototypeBuilding3 = new EntranceBuilding(1000, 500, 700, 500, 0, 0, 40);
     public EntranceBuilding prototypeBuilding2 = new EntranceBuilding(2000, 1000, 1000, 300, 200, 4, 65);
     public EntranceBuilding prototypeBuilding4 = new EntranceBuilding(2000 + 1000 - 65 - 65, 1000, 800, 1000, 0, 0, 65);
+    public ShopBuilding shopEntity = new ShopBuilding(500, 100, 400, 200);
     public ArrayList<HealthDrop> healthDrops = new ArrayList<>();
     public Inventory inventory;
 
@@ -439,10 +439,11 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         player.bar.draw(g2d);
         coins.draw(g2d, player);
         buildings.draw(g2d);
-        walls.draw(g2d);
-        bushes.draw(g2d);
-        trees.draw(g2d);
-        buildings.draw(g2d);
+
+        if (player.intersects(shopEntity)) {
+            g2d.setColor(Color.WHITE);
+            g2d.drawString("Open Shop", shopEntity.x, shopEntity.y);
+        }
 
         zombies.draw(g2d, player);
         inventory.draw(g2d, this, player.getGun());
@@ -460,7 +461,11 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // bottom right corner, bullet positions
         player.draw(g2d);
 
-        g2d.drawString(String.format("Time Survived: %.2f", elapsedTime), 120, screenHeight - 100);
+        // Score Displayed Top-Right
+        //g2d.drawString(String.format("Time Survived: %.2f", elapsedTime), screenWidth - 300, screenHeight - 850);
+
+        //Score Displayed Bottom-Left
+        g2d.drawString(String.format("Time Survived: %.2f", elapsedTime), 200, screenHeight - 100);
 
         // DEBUG drawings
         // g2d.setColor(Color.RED);

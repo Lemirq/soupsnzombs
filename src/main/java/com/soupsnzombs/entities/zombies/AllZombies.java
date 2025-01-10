@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.buildings.*;
 import com.soupsnzombs.entities.Coin;
 import com.soupsnzombs.entities.Player;
 import com.soupsnzombs.entities.zombies.Zombie.ZombieType;
@@ -15,20 +16,24 @@ import com.soupsnzombs.utils.CollisionManager;
 
 import javax.swing.*;
 
+import static com.soupsnzombs.buildings.AllBuildings.*;
 import static com.soupsnzombs.entities.AllCoins.coins;
+import static com.soupsnzombs.utils.FontLoader.font30;
 
 public class AllZombies {
+    public Zombie zombie = new Zombie(0, 0, ZombieType.DEFAULT);
     public static ArrayList<Zombie> zombies = new ArrayList<>();
     private int waveNumber = 1;
     private int spawnRadius = 1000;
+    public int numberOfZombies;
     private Random random = new Random();
     private Timer waveTimer = new Timer(1000, new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            seconds++;
+            seconds--;
         }
     });
 
-    int seconds = 0;
+    int seconds = 10;
 
     public void addZombie(Zombie z) {
         zombies.add(z);
@@ -42,13 +47,43 @@ public class AllZombies {
     }
 
     private void spawnZombies(Player player) {
-        int numberOfZombies = waveNumber + 2;
+        numberOfZombies = waveNumber + 2;
         for (int i = 0; i < numberOfZombies; i++) {
-            int x = player.x + random.nextInt(spawnRadius * 2) - spawnRadius;
-            int y = player.y + random.nextInt(spawnRadius * 2) - spawnRadius;
+            int x, y;
+            boolean validSpawn = true;
+
+            do {
+                x = player.x + random.nextInt(spawnRadius * 2) - spawnRadius;
+                y = player.y + random.nextInt(spawnRadius * 2) - spawnRadius;
+
+                for (Building building : buildings) {
+                    if (building.getBounds().intersects(zombie)) {
+                        validSpawn = false;
+                    }
+                }
+
+                for (Tree t: trees) {
+                    if (t.getBounds().intersects(zombie)) {
+                        validSpawn = false;
+                    }
+                }
+
+                for (Bush b : bushes) {
+                    if (b.getBounds().intersects(zombie)) {
+                        validSpawn = false;
+                    }
+                }
+
+                for (Wall w : walls) {
+                    if (w.getBounds().intersects(zombie)) {
+                        validSpawn = false;
+                    }
+                }
+
+            } while (!validSpawn);
             zombies.add(new Zombie(x, y, ZombieType.SMALL));
         }
-        System.out.println("Wave " + waveNumber + numberOfZombies + "zombies spawned");
+        System.out.println("Wave " + waveNumber + ": " + numberOfZombies + "zombies spawned");
     }
 
     public void draw(Graphics2D g2d, Player player) {
@@ -67,8 +102,7 @@ public class AllZombies {
                 if (GamePanel.debugging) {
                     g2d.setColor(Color.RED);
                     g2d.drawString("X: " + z.x + " Y: " + z.y + " W: " + z.width + " H: " +
-                            z.height, GamePanel.screenWidth - 300,
-                            zombies.indexOf(z) * 20 + 500);
+                                    z.height, GamePanel.screenWidth - 300, zombies.indexOf(z) * 20 + 500);
                 }
 
                 // z.chasePlayerLegacy(player);
@@ -78,25 +112,36 @@ public class AllZombies {
 
         }
 
+
         if (zombies.isEmpty()) {
-            if (seconds > 3) {
-                seconds = 0;
+            if (seconds > 0) {
+                g2d.setColor(Color.RED);
+                g2d.setFont(font30);
+                g2d.drawString("WAVE #" + waveNumber +  " STARTING IN: " + seconds + " sec", 20, 50);
             }
 
-            // spawn one random zombie for testing
+            if (seconds < 0) {
+                seconds = 10;
+            }
+            waveTimer.start();
+
+            if (seconds == 0) {
+                waveNumber++;
+                spawnZombies(player);
+            }
+
+        }
+
+            /*
+
+            //spawn one random zombie for testing
             int x = player.x + random.nextInt(spawnRadius * 2) - spawnRadius;
             int y = player.y + random.nextInt(spawnRadius * 2) - spawnRadius;
             zombies.add(new Zombie(x, y, ZombieType.SMALL));
 
-            // waveTimer.start();
-            // if (seconds == 3) {
-            // waveNumber++;
-            // g2d.setColor(Color.RED);
-            // g2d.setFont(new Font("Arial", Font.PLAIN, 100));
-            // g2d.drawString("WARNING, WAVE STARTING IN: " + seconds, 350, 300);
-            // spawnZombies(player);
-            // }
-        }
+             */
+
+
 
     }
 }

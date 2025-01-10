@@ -3,17 +3,21 @@ import com.soupsnzombs.GamePanel;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class AllCoins {
     public static ArrayList<Coin> coins = new ArrayList<>();
 
 
     public void draw(Graphics2D g2d, Entity player) {
-        for (Coin coin : coins) {
+        Iterator<Coin> iterator = coins.iterator();
+        while (iterator.hasNext()) {
+            Coin coin = iterator.next();
             coin.draw(g2d);
+
             if (player.intersects(coin)) {
-                coins.remove(coin);
-                Player.money++; 
+                iterator.remove();
+                Player.money++;
             }
 
             if (GamePanel.debugging) {
