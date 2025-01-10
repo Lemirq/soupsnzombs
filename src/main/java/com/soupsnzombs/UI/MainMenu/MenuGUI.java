@@ -15,6 +15,10 @@ public class MenuGUI {
         // GamePanel.gameState = GamePanel.GameState.MAIN;
     }
 
+    /**
+     * Draws the menu screens main components
+     * @param g2d passes in the Graphics2D obejct for rendering
+     */
     public void drawMenu(Graphics2D g2d) {
         if (GamePanel.gameState == GamePanel.GameState.MAIN_MENU) {
             // Draw the background
@@ -84,6 +88,10 @@ public class MenuGUI {
         }
     }
 
+
+    /**
+     * checks if the menu is closed(if play is clicked)
+     */
     public void checkPlay() {
         if (selected == 0 && pressed) { // selected == 0 means "Play"
             GamePanel.gameState = GamePanel.GameState.INSTRUCTIONS;
@@ -91,6 +99,9 @@ public class MenuGUI {
         }
     }
 
+    /**
+     * checks if the scores menu button is clicked
+     */
     public void checkScores() {
         if (selected == 1 && pressed) { // selected == 1 means "Scores"
             GamePanel.gameState = GamePanel.GameState.SCORES;
@@ -98,6 +109,10 @@ public class MenuGUI {
         }
     }
 
+
+    /**
+     * checks if the credits menu button is clicked
+     */
     public void checkCredits() {
         if (selected == 2 && pressed) { // selected == 2 means "Instructions"
             GamePanel.gameState = GamePanel.GameState.CREDITS;

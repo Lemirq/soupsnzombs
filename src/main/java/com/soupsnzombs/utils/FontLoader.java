@@ -18,6 +18,10 @@ public class FontLoader {
     public static Font font100;
     public static Font font200;
 
+    /**
+     * loads all of the fonts for the game
+     * for custom fonts
+     */
     public static void loadFont() {
         // Load the font
         try {

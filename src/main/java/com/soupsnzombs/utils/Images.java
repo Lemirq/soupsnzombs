@@ -29,6 +29,9 @@ public class Images {
     public static HashMap<String, BufferedImage> spriteImages = new HashMap<>();
     public static HashMap<String, BufferedImage> tileImages = new HashMap<>();
 
+    /**
+     * loads all the needed images for the game
+     */
     public static void loadImages() {
         ArrayList<SpriteImage> sprites = readXML("s.xml");
         ArrayList<SpriteImage> tilesheet = readXML("t.xml");

@@ -21,6 +21,9 @@ public class Leaderboard {
     static Scanner sc = new Scanner(System.in);
     HashMap<String, Integer> scores = new HashMap<String, Integer>();
 
+    /**
+     * sets up the leaderboard by creating all of the neccisary files
+     */
     public static void setupLeaderboard() {
         if (leaderboard.exists()) {
             System.out.println("Leaderboard already exists.");
@@ -65,6 +68,10 @@ public class Leaderboard {
     // }
     // }
 
+    /**
+     * reads scores
+     * @return the sorted leaderboard map in order to display from highest to lowest score
+     */
     public static HashMap<String, Integer> readScores() {
         HashMap<String, Integer> leaderboardMap = new HashMap<>();
 
@@ -114,6 +121,11 @@ public class Leaderboard {
         return sortedLeaderboardMap;
     }
 
+    /**
+     * writes the scores to the file
+     * implements the swear filter class to ensure no innapropriate words are used
+     * swear filter wrongfully blocks some words that shouldnt be, but is the best possible solution we currently have
+     */
     public static void writeScores() {
         try {
             if (SwearFilter.isWordAccepted(NameSelect.name)) {

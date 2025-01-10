@@ -23,6 +23,10 @@ public class Scores {
     public Scores() {
     }
 
+    /**
+     * draws the score screen components
+     * @param g2d passes in the Graphics2D object for rendering
+     */
     public void drawScores(Graphics2D g2d) {
         if (GamePanel.gameState == GamePanel.GameState.SCORES) {
             // Optional background drawing

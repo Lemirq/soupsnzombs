@@ -30,6 +30,10 @@ public class KeyHandler extends KeyAdapter {
     public boolean dropReleased = true;
     public static Rectangle proximity;
 
+    /**
+     * constructor
+     * @param game passses in the game object
+     */
     public KeyHandler(GamePanel game) {
         this.game = game;
         this.player = game.getPlayer();
@@ -62,6 +66,9 @@ public class KeyHandler extends KeyAdapter {
         });
     }
 
+    /**
+     * method to assign instructions when keys are pressed
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
@@ -233,6 +240,9 @@ public class KeyHandler extends KeyAdapter {
         }
     }
 
+    /**
+     * resets key pressed values when keys are released
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
