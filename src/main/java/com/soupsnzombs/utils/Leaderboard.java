@@ -118,22 +118,21 @@ public class Leaderboard {
         try {
             if (SwearFilter.isWordAccepted(NameSelect.name)) {
                 valid = true;
+                if (!leaderboard.exists()) {
+                    leaderboard.createNewFile();
+                }
+                fw = new FileWriter(leaderboard, true);
+                bw = new BufferedWriter(fw);
+                bw.write("name:" + NameSelect.name + " " + "score:" + Player.score);
+                bw.newLine();
+                bw.close();
+                fw.close();
             } else {
-                JOptionPane.showMessageDialog(null, "The name contains inappropriate language. Please choose a different name."); // temporary
+                NameSelect.message = true;
+                // JOptionPane.showMessageDialog(null, "The name contains inappropriate language. Please choose a different name."); // temporary
                 NameSelect.name.setLength(0);
 
             }
-
-            if (!leaderboard.exists()) {
-                leaderboard.createNewFile();
-            }
-            fw = new FileWriter(leaderboard, true);
-            bw = new BufferedWriter(fw);
-            bw.write("name:" + NameSelect.name + " " + "score:" + Player.score + " " + "time survived:"
-                    + String.format("%.2f", GamePanel.elapsedTime));
-            bw.newLine();
-            bw.close();
-            fw.close();
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Error writing to file.");
             System.err.println("IOException: " + e.getMessage());

@@ -150,11 +150,12 @@ public class KeyHandler extends KeyAdapter {
                     GamePanel.gameState = GameState.GAME;
                     SoundManager.stopAllSounds();
                     SoundManager.playSound("bgm.wav");
-                } else if (GamePanel.gameState == GameState.NAME_SELECT && !player.alive) {
+                } else if (GamePanel.gameState == GameState.NAME_SELECT && !player.alive && (NameSelect.name.length()!=0)) {
                     Leaderboard.writeScores();
-                    if (Leaderboard.valid && !NameSelect.name.equals("")){
+                    if (Leaderboard.valid){
                         GamePanel.gameState = GameState.MAIN_MENU;
                         Leaderboard.valid = false;
+                        NameSelect.message = false;
                     }
                 } else if (GamePanel.gameState == GameState.GAME || GamePanel.gameState == GameState.SHOP) {
                     Shop.open = !Shop.open;

@@ -406,6 +406,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             name.drawKeyboard(g2d);
             name.drawName(g2d);
             name.drawInstructions(g2d);
+            name.drawRejected(g2d);
             return;
         }
 

@@ -1,7 +1,10 @@
 package com.soupsnzombs.UI.MainMenu;
 
+import static com.soupsnzombs.utils.FontLoader.font20;
+
 import java.awt.*;
 
+import com.soupsnzombs.GameMap;
 import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.utils.FontLoader;
 
@@ -13,6 +16,7 @@ public class NameSelect {
             { "Z", "X", "C", "V", "B", "N", "M" },
             { "Space", "Backspace" }
     };
+    public static boolean message = false;
     public static int cursorRow = 0;
     public static int cursorCol = 0;
     public static StringBuilder name = new StringBuilder();
@@ -128,6 +132,18 @@ public class NameSelect {
         g2d.setColor(Color.WHITE);
         g2d.drawString(instructionText, 50, 125);
 
+    }
+
+    /**
+     *Draws name mis-input message
+     * @param g2d passes in the g2d object for rendering
+     */
+    public void drawRejected(Graphics2D g2d){
+        if(message){
+            g2d.setFont(font20);
+            g2d.setColor(Color.RED);
+            g2d.drawString("The name contains inappropriate language. Please choose a different name.", 50, 50);
+        }
     }
 
     /**
