@@ -441,7 +441,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
        // g2d.setColor(Color.BLACK);
        // g2d.fillRect(KeyHandler.proximity.x+GamePanel.offsetX, KeyHandler.proximity.y + GamePanel.offsetY, KeyHandler.proximity.width, KeyHandler.proximity.height);
        
-        player.bar.draw(g2d);
+        
         coins.draw(g2d, player);
         buildings.draw(g2d);
 
@@ -451,7 +451,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         }
 
         zombies.draw(g2d, player);
-        inventory.draw(g2d, this, player.getGun());
+        
 
         for (GunDrop gd : gunDrops) {
             gd.draw(g2d, player);
@@ -489,5 +489,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             g2d.drawString("PRESS [P]", 0, 200);
             g2d.drawString("HAHAHHA", 0, 400);
         }
+
+        player.bar.draw(g2d);
+        inventory.draw(g2d, this, player.getGun());
     }
 }
