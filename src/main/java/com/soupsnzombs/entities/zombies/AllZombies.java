@@ -101,6 +101,7 @@ public class AllZombies {
         int FOVWidth = GamePanel.screenWidth;
         int FOVHeight = GamePanel.screenHeight;
         Rectangle FOV = new Rectangle(player.x - FOVWidth / 2, player.y - FOVHeight / 2, FOVWidth, FOVHeight);
+        
         return FOV.contains(x, y);
     }
 
@@ -130,11 +131,11 @@ public class AllZombies {
 
         }
 
-
+        g2d.setColor(Color.RED);
+        g2d.setFont(font30);
         if (zombies.isEmpty()) {
             if (seconds > 0) {
-                g2d.setColor(Color.RED);
-                g2d.setFont(font30);
+
                 g2d.drawString("WAVE #" + waveNumber +  " STARTING IN: " + seconds + " sec", 20, 50);
             }
 
@@ -149,6 +150,7 @@ public class AllZombies {
             }
 
         }
+        else g2d.drawString(String.format("WAVE #%d", waveNumber-1), 20, 50);
 
             /*
 
