@@ -64,6 +64,12 @@ public class KeyHandler extends KeyAdapter {
                 }
             }
         });
+
+        proximity = game.getShop().getBounds();
+                        proximity.x -= 50;
+                        proximity.y-=50;
+                        proximity.width += 100;
+                        proximity.height += 100;
     }
 
     /**
@@ -176,11 +182,7 @@ public class KeyHandler extends KeyAdapter {
                     }
                         
                     else {
-                        proximity = game.getShop().getBounds();
-                        proximity.x -= 50;
-                        proximity.y-=50;
-                        proximity.width += 100;
-                        proximity.height += 100;
+                        
                         
                         if (game.getPlayer().getBounds().intersects(proximity)) {
                             //System.out.println("Player is in shop proximity");
