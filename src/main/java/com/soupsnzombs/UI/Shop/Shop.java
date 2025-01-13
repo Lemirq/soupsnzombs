@@ -230,7 +230,7 @@ public class Shop {
         String selectedOption = shopLayout[cursorRow][cursorCol];
 
         switch (selectedOption) {
-            case "Machine gun":
+            case "Machine Gun":
                 if (Player.money >= 1) {
                     GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(10, 100, 600, 0, 0, 0, 5, 1), Color.YELLOW));
                     Player.money-=1;
