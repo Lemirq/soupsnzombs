@@ -264,6 +264,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
                 hd.setVisible(false);
                 hd.setAnimation(true);
                 player.increaseHealth(hd.getHealthDropVal());
+                hd.setNewLocation();
+                hd.changeHealType();
                 hd.startRespawnTimer();
             }
         }
