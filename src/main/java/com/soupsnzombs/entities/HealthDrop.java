@@ -60,9 +60,9 @@ public class HealthDrop extends Rectangle {
     public void animatePickUp(Graphics g2d) {
         animationTimer.start();
         g2d.setColor(Color.GREEN);
-        g2d.drawString("+" + healthIncreaseVal + " HP", this.x + GamePanel.offsetX - 24,
-                this.y + GamePanel.offsetY - 6 - yPos);
-
+        //g2d.drawString("+" + healthIncreaseVal + " HP", this.x + GamePanel.offsetX - 24, this.y + GamePanel.offsetY - 6 - yPos);
+        g2d.drawString("+" + healthIncreaseVal + " HP", this.x + GamePanel.offsetX - 24, this.y + GamePanel.offsetY - 6 - yPos);
+        //System.out.println("drew the msg " + yPos);
     }
 
     /**
@@ -129,10 +129,12 @@ public class HealthDrop extends Rectangle {
     /**
      * sets new spawn locaiton for when health drop is collected
      */
+    /*
     public void setNewLocation(){
         this.x = spawnLocationsX[rand.nextInt(0,spawnLocationsX.length)];
         this.y = spawnLocationsY[rand.nextInt(0,spawnLocationsY.length)];
     }
+     */
 
     /**
      * changes the heal type for when health drop is collected

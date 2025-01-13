@@ -273,8 +273,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         while (healthDropIterator.hasNext()) {
             HealthDrop hd = healthDropIterator.next();
             if (hd.getBounds().intersects(player.getBounds()) && hd.isVisible()) {
-                hd.setNewLocation();
-                hd.changeHealType();
+               // hd.setNewLocation();
+            // hd.changeHealType();
                 hd.setVisible(false);
                 hd.setAnimation(true);
                 player.increaseHealth(hd.getHealthDropVal());
@@ -322,9 +322,9 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         zombies = new AllZombies();
         inventory = new Inventory();
 
-        healthDrops.add(new HealthDrop(1100, 1000, 3000));
-        healthDrops.add(new HealthDrop(1500, 900, 3000));
-        healthDrops.add(new HealthDrop(-100, -200, 3000));
+        healthDrops.add(new HealthDrop(1100, 1000, 10000));
+        healthDrops.add(new HealthDrop(1500, 900, 10000));
+        healthDrops.add(new HealthDrop(-100, -200, 10000));
         start();
     }
 
@@ -465,10 +465,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         coins.draw(g2d, player);
         buildings.draw(g2d);
 
-        if (player.intersects(shopEntity)) {
-            g2d.setColor(Color.WHITE);
-            g2d.drawString("Open Shop", shopEntity.x, shopEntity.y);
-        }
+        
 
         zombies.draw(g2d, player);
 
@@ -477,6 +474,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         }
 
         player.getGun().draw(g2d, player);
+       
 
         for (HealthDrop drop : healthDrops) {
             drop.draw(g2d);
@@ -503,7 +501,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // draw dot at offset x,y
         // g2d.fillOval(offsetX, offsetY, 10, 10);
 
-        g2d.setFont(font30);
+        //g2d.setFont(font30);
         if (getPlayer().getBounds().intersects(KeyHandler.proximity)) {
             g2d.drawString("[P] Shop", player.x + GamePanel.offsetX - 46,
                     player.y + GamePanel.offsetY - 20);
