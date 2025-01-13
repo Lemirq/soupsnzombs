@@ -56,10 +56,10 @@ public class Images {
             // shop menu buttons
             shopBackground = ImageIO.read(Images.class.getResource("/ShopBG.jpg"));
             tempImage = ImageIO.read(Images.class.getResource("/TemporaryIMG.png"));
-            pistolImage = ImageIO.read(Images.class.getResource("/pistol.png"));
-            SMGImage = ImageIO.read(Images.class.getResource("/smg.png"));
-            sniperImage = ImageIO.read(Images.class.getResource("/sniper.png"));
-            semiAutoImage = ImageIO.read(Images.class.getResource("/SemiAuto.png"));
+            pistolImage = ImageIO.read(Images.class.getResource("/pistolGun.png"));
+            SMGImage = ImageIO.read(Images.class.getResource("/smgGun.png"));
+            sniperImage = ImageIO.read(Images.class.getResource("/sniperGun.png"));
+            semiAutoImage = ImageIO.read(Images.class.getResource("/semiAutoGun.png"));
             exit = ImageIO.read(Images.class.getResource("/exit.png"));
 
             // healing items

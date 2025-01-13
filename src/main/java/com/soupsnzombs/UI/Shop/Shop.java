@@ -152,11 +152,11 @@ public class Shop {
                     } else if (shopLayout[row][col] == "Sniper") {
                         g2d.drawImage(shopImages.get(2), imageX, imageY, imageWidth, imageHeight, null);
                     } else if (shopLayout[row][col] == "Milk") {
-                        g2d.drawImage(shopImages.get(5), imageX, imageY, imageWidth, imageHeight, null);
-                    } else if (shopLayout[row][col] == "Soup") {
-                        g2d.drawImage(shopImages.get(3), imageX, imageY, imageWidth, imageHeight, null);
-                    } else if (shopLayout[row][col] == "Energy Drink") {
                         g2d.drawImage(shopImages.get(4), imageX, imageY, imageWidth, imageHeight, null);
+                    } else if (shopLayout[row][col] == "Soup") {
+                        g2d.drawImage(shopImages.get(5), imageX, imageY, imageWidth, imageHeight, null);
+                    } else if (shopLayout[row][col] == "Energy Drink") {
+                        g2d.drawImage(shopImages.get(3), imageX, imageY, imageWidth, imageHeight, null);
                     }
 
                     // draw cost
@@ -271,7 +271,7 @@ public class Shop {
         switch (selectedOption) {
             case "Machine Gun":
                 if (Player.money >= 1) {
-                    GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(10, 100, 600, 0,  5, 1, SMGImage), Color.YELLOW));
+                    GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(10, 100, 600, 0,  5, 1, semiAutoImage), Color.YELLOW));
                     Player.money-=1;
                 }
                 else System.out.println("Not enough money to purchase machine gun."); 
