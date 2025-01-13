@@ -160,6 +160,15 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             elapsedTime = 0; // Reset elapsed time
             player.alive = true; // Reset alive status
             player.setHealth(100); // Reset player health
+            Player.money = 0; // Reset player coins
+            Player.score = 0; // Reset player score
+            player.x = GamePanel.screenWidth / 2 - player.width / 2;
+            player.y = GamePanel.screenHeight / 2 - player.height / 2;
+            offsetX = 0;
+            offsetY = 0; // Reset player position
+            zombies.clear(); // Removes all zombies
+            NameSelect.name = new StringBuilder(""); // Clears leaderboard name input stream
+            AllZombies.waveNumber = 1; // Set zombie wave to 1
         }
 
         if (gameState == GameState.GAMEOVER) {
