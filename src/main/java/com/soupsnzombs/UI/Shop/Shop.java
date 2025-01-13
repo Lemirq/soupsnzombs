@@ -20,10 +20,6 @@ import com.soupsnzombs.entities.GunDrop;
 import com.soupsnzombs.entities.Player;
 import com.soupsnzombs.utils.FontLoader;
 import com.soupsnzombs.utils.Images;
-
-import static com.soupsnzombs.utils.FontLoader.font10;
-import static com.soupsnzombs.utils.FontLoader.font20;
-import static com.soupsnzombs.utils.FontLoader.font50;
 import static com.soupsnzombs.utils.FontLoader.font60;
 import static com.soupsnzombs.utils.Images.*;
 
@@ -54,8 +50,9 @@ public class Shop {
      * @param g2d passes in g2d for rendering
      */
     public void drawShop(Graphics2D g2d) {
-        shopImages.add(pistolImage);
+        
         shopImages.add(SMGImage);
+        shopImages.add(semiAutoImage);
         shopImages.add(sniperImage);
         shopImages.add(energyDrink);
         shopImages.add(milk);
@@ -155,11 +152,11 @@ public class Shop {
                     } else if (shopLayout[row][col] == "Sniper") {
                         g2d.drawImage(shopImages.get(2), imageX, imageY, imageWidth, imageHeight, null);
                     } else if (shopLayout[row][col] == "Milk") {
-                        g2d.drawImage(shopImages.get(3), imageX, imageY, imageWidth, imageHeight, null);
-                    } else if (shopLayout[row][col] == "Soup") {
-                        g2d.drawImage(shopImages.get(4), imageX, imageY, imageWidth, imageHeight, null);
-                    } else if (shopLayout[row][col] == "Energy Drink") {
                         g2d.drawImage(shopImages.get(5), imageX, imageY, imageWidth, imageHeight, null);
+                    } else if (shopLayout[row][col] == "Soup") {
+                        g2d.drawImage(shopImages.get(3), imageX, imageY, imageWidth, imageHeight, null);
+                    } else if (shopLayout[row][col] == "Energy Drink") {
+                        g2d.drawImage(shopImages.get(4), imageX, imageY, imageWidth, imageHeight, null);
                     }
 
                     // draw cost
@@ -273,27 +270,31 @@ public class Shop {
 
         switch (selectedOption) {
             case "Machine Gun":
-                if (Player.money >= 5) {
-                    GamePanel.gunDrops.add(new GunDrop((int) game.getPlayer().getX(), (int) game.getPlayer().getY(),
-                            new Gun(10, 100, 600, 0, 0, 0, 5, 1), Color.YELLOW));
-                    Player.money -= 5;
-                } else
-                    System.out.println("Not enough money to purchase machine gun.");
+                if (Player.money >= 1) {
+                    GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(10, 100, 600, 0,  5, 1, SMGImage), Color.YELLOW));
+                    Player.money-=1;
+                }
+                else System.out.println("Not enough money to purchase machine gun."); 
+                // Add logic
                 break;
-            case "Semi-Auto":
+            case "Semi-auto":
                 System.out.println("Purchased Semi-auto!");
                 // Add logic
                 break;
             case "Sniper":
-                if (Player.money >= 20) {
-                    GamePanel.gunDrops.add(new GunDrop((int) game.getPlayer().getX(), (int) game.getPlayer().getY(),
-                            new Gun(50, 500, 600, 0, 0, 0, 5, -1), Color.RED));
-                    Player.money -= 20;
-                } else
-                    System.out.println("Not enough money to purchase sniper.");
+                if (Player.money >= 5) {
+                    GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(50, 500, 600, 0, 5, -1, sniperImage), Color.RED));
+                    Player.money-=5;
+                }
+                else System.out.println("Not enough money to purchase sniper."); 
                 // Add logic
                 break;
-            case "Milk":
+            case "Exit":
+                System.out.println("Exiting shop.");
+                open = false;
+                GamePanel.gameState = GamePanel.GameState.GAME;
+                break;
+                case "Milk":
                 System.out.println("Purchased Milk!");
                 GamePanel.player.increaseHealth(20);
                 break;
@@ -308,8 +309,8 @@ public class Shop {
             default:
                 System.out.println("Unknown selection.");
                 break;
-        }
-
+            }
+            
         game.repaint();
         game.revalidate();
     }

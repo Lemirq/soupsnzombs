@@ -26,7 +26,7 @@ public class Images {
 
     public static BufferedImage player_idle, circle, gun, bullet, tree, gameMenu, background, coin,
             playButton, creditsButton, scoresButton, arrowImage, instructions, credits, shopBackground, tempImage,
-            ocean, pistolImage, SMGImage, sniperImage, scoresbg, grass, milk, soup, energyDrink, exit;
+            ocean, pistolImage, SMGImage, sniperImage, scoresbg, grass, milk, soup, energyDrink, exit, semiAutoImage;
     public static HashMap<String, BufferedImage> spriteImages = new HashMap<>();
     public static HashMap<String, BufferedImage> tileImages = new HashMap<>();
 
@@ -59,6 +59,7 @@ public class Images {
             pistolImage = ImageIO.read(Images.class.getResource("/pistol.png"));
             SMGImage = ImageIO.read(Images.class.getResource("/smg.png"));
             sniperImage = ImageIO.read(Images.class.getResource("/sniper.png"));
+            semiAutoImage = ImageIO.read(Images.class.getResource("/SemiAuto.png"));
             exit = ImageIO.read(Images.class.getResource("/exit.png"));
 
             // healing items
