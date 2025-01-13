@@ -25,7 +25,7 @@ public class Images {
     // public static ArrayList<BufferedImage> gunfire = new ArrayList<>();
 
     public static BufferedImage player_idle, circle, gun, bullet, tree, gameMenu, background,
-            playButton, creditsButton, scoresButton, arrowImage, instructions, credits, shopBackground, tempImage, scoresbg, grass, milk,soup,energyDrink;
+            playButton, creditsButton, scoresButton, arrowImage, instructions, credits, shopBackground, tempImage, pistolImage, SMGImage, sniperImage, scoresbg, grass, milk,soup,energyDrink;
     public static HashMap<String, BufferedImage> spriteImages = new HashMap<>();
     public static HashMap<String, BufferedImage> tileImages = new HashMap<>();
 
@@ -44,6 +44,7 @@ public class Images {
             arrowImage = ImageIO.read(Images.class.getResource("/arrow.png"));
             instructions = ImageIO.read(Images.class.getResource("/instructions.png"));
             credits = ImageIO.read(Images.class.getResource("/credits.png"));
+
             //scale main menu images
             playButton = scaleImage(playButton, 150, 50);
             scoresButton = scaleImage(scoresButton, 150, 50);
@@ -53,6 +54,10 @@ public class Images {
             // shop menu buttons
             shopBackground = ImageIO.read(Images.class.getResource("/ShopBG.jpg"));
             tempImage = ImageIO.read(Images.class.getResource("/TemporaryIMG.png"));
+            pistolImage = ImageIO.read(Images.class.getResource("/pistol.png"));
+            SMGImage = ImageIO.read(Images.class.getResource("/smg.png"));
+            sniperImage = ImageIO.read(Images.class.getResource("/sniper.png"));
+
 
             //healing items
             energyDrink = ImageIO.read(Images.class.getResource("/Energy Drink.png"));

@@ -216,8 +216,7 @@ public class KeyHandler extends KeyAdapter {
                     System.out.println("Player died.");
                     // for debugging purposes, instantly kills the player
                 } else if (GamePanel.gameState == GameState.MAIN_MENU) {
-                    // System.exit(0);
-                    MainFrame.frame.dispose();
+                    System.exit(0);
                 }
                 break;
 

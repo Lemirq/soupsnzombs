@@ -115,7 +115,8 @@ public class Shop {
                     int imageWidth = optionWidth - 2 * paddingWidth;
                     int imageX = x + paddingWidth;
                     int imageY = y + paddingWidth;
-                    g2d.drawImage(Images.tempImage, imageX, imageY, imageWidth, imageHeight, null);
+
+                    g2d.drawImage(Images.pistolImage, imageX, imageY, imageWidth, imageHeight, null);
                 }
 
                 // Draw text
