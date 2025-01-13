@@ -504,7 +504,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         g2d.setFont(font30);
         if (getPlayer().getBounds().intersects(KeyHandler.proximity)) {
-            g2d.drawString("[P] to Open Shop", player.x + GamePanel.offsetX - 150,
+            g2d.drawString("[P] Shop", player.x + GamePanel.offsetX - 150,
                     player.y + GamePanel.offsetY - 20);
         }
 
