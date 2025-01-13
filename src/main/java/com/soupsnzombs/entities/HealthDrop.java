@@ -11,7 +11,7 @@ public class HealthDrop extends Rectangle {
 
     int healthIncreaseVal;
     Color color;
-    int[] healthVals = { 15, 20, 50 };
+    int[] healthVals = { 10, 20, 50 };
     int[] spawnLocationsX = {-98, 458, 687, -345, 899, 1000 , 780, 1100, 1500};
     int[] spawnLocationsY = {-45, 715, 862, 911, 49, 1000, 920, 1000, 900};
     boolean visible;

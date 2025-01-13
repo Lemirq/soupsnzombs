@@ -12,7 +12,7 @@ package com.soupsnzombs.UI.Shop;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Arrays;
+// import java.util.Arrays;
 
 import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.entities.Gun;
@@ -21,6 +21,10 @@ import com.soupsnzombs.entities.Player;
 import com.soupsnzombs.utils.FontLoader;
 import com.soupsnzombs.utils.Images;
 
+import static com.soupsnzombs.utils.FontLoader.font10;
+import static com.soupsnzombs.utils.FontLoader.font20;
+import static com.soupsnzombs.utils.FontLoader.font50;
+import static com.soupsnzombs.utils.FontLoader.font60;
 import static com.soupsnzombs.utils.Images.*;
 
 public class Shop {
@@ -28,11 +32,12 @@ public class Shop {
 
     public static final String[][] shopLayout = {
             { "Machine Gun", "Semi-Auto", "Sniper" },
-            { "Milk", "Soup", "Energy Drink" }
+            { "Energy Drink", "Milk", "Soup" }
 
     };
     public static final ArrayList<BufferedImage> shopImages = new ArrayList<>();
 
+    private static int cost = 0;
     public static int cursorRow = 0;
     public static int cursorCol = 0;
     public static int paddingWidth = 20;
@@ -43,17 +48,18 @@ public class Shop {
     public static final int OPTION_Y = (GamePanel.screenHeight
             - (shopLayout.length * (optionHeight + paddingWidth) - paddingWidth)) / 2;
 
-            /**
-             * draws shop interface on the screen (background, title, coins)
-             * @param g2d  passes in g2d for rendering
-             */
+    /**
+     * draws shop interface on the screen (background, title, coins)
+     * 
+     * @param g2d passes in g2d for rendering
+     */
     public void drawShop(Graphics2D g2d) {
         shopImages.add(pistolImage);
         shopImages.add(SMGImage);
         shopImages.add(sniperImage);
+        shopImages.add(energyDrink);
         shopImages.add(milk);
         shopImages.add(soup);
-        shopImages.add(energyDrink);
 
         if (GamePanel.gameState == GamePanel.GameState.SHOP) {
             // Draw the background
@@ -103,6 +109,7 @@ public class Shop {
     /**
      * draws shop options/buttons
      * changes the option/button colour when hovered over by the selection
+     * 
      * @param g2d passes in g2d for rendering
      */
     public void drawOptions(Graphics2D g2d) {
@@ -143,22 +150,24 @@ public class Shop {
                     int imageY = y + paddingWidth;
                     if (shopLayout[row][col] == "Machine Gun") {
                         g2d.drawImage(shopImages.get(0), imageX, imageY, imageWidth, imageHeight, null);
-                    }
-                    else if (shopLayout[row][col] == "Semi-Auto") {
+                    } else if (shopLayout[row][col] == "Semi-Auto") {
                         g2d.drawImage(shopImages.get(1), imageX, imageY, imageWidth, imageHeight, null);
-                    }
-                    else if (shopLayout[row][col] == "Sniper") {
+                    } else if (shopLayout[row][col] == "Sniper") {
                         g2d.drawImage(shopImages.get(2), imageX, imageY, imageWidth, imageHeight, null);
-                    }
-                    else if (shopLayout[row][col] == "Milk") {
+                    } else if (shopLayout[row][col] == "Milk") {
                         g2d.drawImage(shopImages.get(3), imageX, imageY, imageWidth, imageHeight, null);
-                    }
-                    else if (shopLayout[row][col] == "Soup") {
+                    } else if (shopLayout[row][col] == "Soup") {
                         g2d.drawImage(shopImages.get(4), imageX, imageY, imageWidth, imageHeight, null);
-                    }
-                    else if (shopLayout[row][col] == "Energy Drink") {
+                    } else if (shopLayout[row][col] == "Energy Drink") {
                         g2d.drawImage(shopImages.get(5), imageX, imageY, imageWidth, imageHeight, null);
                     }
+
+                    // draw cost
+                    g2d.setFont(font60);
+                    g2d.setColor(new Color(4, 71, 22));// dark green
+                    g2d.drawString("Cost: " + cost, 93, (GamePanel.screenHeight / 5)+3);
+                    g2d.setColor(Color.WHITE);
+                    g2d.drawString("Cost: " + cost, 90, GamePanel.screenHeight / 5);
                 }
 
                 // Draw text
@@ -174,9 +183,38 @@ public class Shop {
 
     }
 
+    public void getCost() {
+        String selectedOption = shopLayout[cursorRow][cursorCol];
+
+        switch (selectedOption) {
+            case "Machine Gun":
+                cost = 5;
+                break;
+            case "Semi-Auto":
+                cost = 15;
+                break;
+            case "Sniper":
+                cost = 20;
+                break;
+            case "Energy Drink":
+                cost = 2;
+                break;
+            case "Milk":
+                cost = 5;
+                break;
+            case "Soup":
+                cost = 10;
+                break;
+            default:
+                cost = 0;
+                break;
+        }
+    }
+
     /**
      * Moves the selected key up one row on the keyboard
      * Makes sure the selection stays in bounds
+     * 
      * @param game passes in the gamepanel for UI updates
      */
     public static void selectUp(GamePanel game) {
@@ -188,6 +226,7 @@ public class Shop {
     /**
      * Moves the selected key down one row on the keyboard
      * Makes sure the selection stays in bounds
+     * 
      * @param game passes in the gamepanel for UI updates
      */
     public static void selectDown(GamePanel game) {
@@ -196,9 +235,10 @@ public class Shop {
         game.revalidate();
     }
 
-     /**
+    /**
      * Moves the selected key left one on the keyboard
      * Makes sure the selection stays in bounds
+     * 
      * @param game passes in the gamepanel for UI updates
      */
     public static void selectLeft(GamePanel game) {
@@ -210,6 +250,7 @@ public class Shop {
     /**
      * Moves the selected key right one on the keyboard
      * Makes sure the selection stays in bounds
+     * 
      * @param game passes in the gamepanel for UI updates
      */
     public static void selectRight(GamePanel game) {
@@ -223,6 +264,7 @@ public class Shop {
      * inputs the keyboard selection based on which key is selected
      * space & alphanumeric keys are written in the text field
      * backspace is used to delete letters/spaces in the text field
+     * 
      * @param game passes in the gamepanel for UI updates
      */
     public static void selectEnter(GamePanel game) {
@@ -231,37 +273,37 @@ public class Shop {
 
         switch (selectedOption) {
             case "Machine Gun":
-                if (Player.money >= 1) {
-                    GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(10, 100, 600, 0,  5, 1, SMGImage), Color.YELLOW));
-                    Player.money-=1;
-                }
-                else System.out.println("Not enough money to purchase machine gun."); 
-                // Add logic
+                if (Player.money >= 5) {
+                    GamePanel.gunDrops.add(new GunDrop((int) game.getPlayer().getX(), (int) game.getPlayer().getY(),
+                            new Gun(10, 100, 600, 0, 0, 0, 5, 1), Color.YELLOW));
+                    Player.money -= 5;
+                } else
+                    System.out.println("Not enough money to purchase machine gun.");
                 break;
-            case "Semi-auto":
+            case "Semi-Auto":
                 System.out.println("Purchased Semi-auto!");
                 // Add logic
                 break;
             case "Sniper":
-                if (Player.money >= 5) {
-                    GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(50, 500, 600, 0, 5, -1, sniperImage), Color.RED));
-                    Player.money-=5;
-                }
-                else System.out.println("Not enough money to purchase sniper."); 
+                if (Player.money >= 20) {
+                    GamePanel.gunDrops.add(new GunDrop((int) game.getPlayer().getX(), (int) game.getPlayer().getY(),
+                            new Gun(50, 500, 600, 0, 0, 0, 5, -1), Color.RED));
+                    Player.money -= 20;
+                } else
+                    System.out.println("Not enough money to purchase sniper.");
                 // Add logic
                 break;
             case "Milk":
                 System.out.println("Purchased Milk!");
-                // Add logic
+                GamePanel.player.increaseHealth(20);
                 break;
             case "Soup":
                 System.out.println("Purchased Soup!");
-                // Add logic
+                GamePanel.player.increaseHealth(50);
                 break;
-            case "Exit":
-                System.out.println("Exiting shop.");
-                open = false;
-                GamePanel.gameState = GamePanel.GameState.GAME;
+            case "Energy Drink":
+                System.out.println("Purchased Energy Drink!");
+                GamePanel.player.increaseHealth(10);
                 break;
             default:
                 System.out.println("Unknown selection.");

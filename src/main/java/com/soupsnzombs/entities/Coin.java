@@ -8,9 +8,9 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import static com.soupsnzombs.utils.FontLoader.font20;
+import static com.soupsnzombs.utils.Images.coin;
 
 public class Coin extends Rectangle {
-    BufferedImage coinSprite;
 
     public Coin(int x, int y, int w, int h) {
         super(x, y, 20, 20);
@@ -24,9 +24,10 @@ public class Coin extends Rectangle {
         // Draw the bullet
         //g2d.drawImage(this.coinSprite, this.x, this.y, 10, 10, null);
 
-        g2d.fillOval(this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width, this.height);
+        g2d.drawImage(coin, this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width, this.height, null);
+        //g2d.fillOval(this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width, this.height);
         g2d.setColor(Color.BLACK);
-        g2d.drawString("$", this.x + GamePanel.offsetX + 6, this.y + GamePanel.offsetY + 14);
+        //g2d.drawString("$", this.x + GamePanel.offsetX + 6, this.y + GamePanel.offsetY + 14);
 
         if (GamePanel.debugging) {
             g2d.setColor(Color.GREEN);
