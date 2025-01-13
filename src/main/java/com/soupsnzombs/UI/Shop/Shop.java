@@ -10,6 +10,9 @@
 package com.soupsnzombs.UI.Shop;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.entities.Gun;
@@ -18,14 +21,18 @@ import com.soupsnzombs.entities.Player;
 import com.soupsnzombs.utils.FontLoader;
 import com.soupsnzombs.utils.Images;
 
+import static com.soupsnzombs.utils.Images.*;
+
 public class Shop {
     public static boolean open = false;
 
     public static final String[][] shopLayout = {
-            { "Machine gun", "Semi-auto", "Sniper" },
-            { "Milk", "Soup", "Exit" }
+            { "Machine Gun", "Semi-Auto", "Sniper" },
+            { "Milk", "Soup", "Energy Drink" }
 
     };
+    public static final ArrayList<BufferedImage> shopImages = new ArrayList<>();
+
     public static int cursorRow = 0;
     public static int cursorCol = 0;
     public static int paddingWidth = 20;
@@ -41,6 +48,13 @@ public class Shop {
              * @param g2d  passes in g2d for rendering
              */
     public void drawShop(Graphics2D g2d) {
+        shopImages.add(pistolImage);
+        shopImages.add(SMGImage);
+        shopImages.add(sniperImage);
+        shopImages.add(milk);
+        shopImages.add(soup);
+        shopImages.add(energyDrink);
+
         if (GamePanel.gameState == GamePanel.GameState.SHOP) {
             // Draw the background
             if (Images.shopBackground != null) {
@@ -62,6 +76,16 @@ public class Shop {
             g2d.drawString(title, titleX + 5, titleY + 4);
             g2d.setColor(Color.WHITE);
             g2d.drawString(title, titleX, titleY);
+
+            // Draw exit message
+            String exitMessage = "Press 'P' to Exit Shop";
+            int exitX = GamePanel.screenWidth - 925;
+            int exitY = GamePanel.screenHeight - 50;
+            g2d.setFont(FontLoader.font60);
+            g2d.setColor(new Color(4, 71, 22));// dark green
+            g2d.drawString(exitMessage, exitX + 5, exitY + 4);
+            g2d.setColor(Color.WHITE);
+            g2d.drawString(exitMessage, exitX, exitY);
 
             // Draw coins
             String coinsTitle = "Coins: ";
@@ -100,8 +124,10 @@ public class Shop {
                 g2d.fillRect(x, y, optionWidth, optionHeight);
 
                 // Draw border
+
                 if (shopLayout[row][col] == "Exit") {
                     g2d.setColor(Color.red);
+
                 } else {
                     g2d.setColor(new Color(4, 71, 22, 200));// dark green
                 }
@@ -115,7 +141,24 @@ public class Shop {
                     int imageWidth = optionWidth - 2 * paddingWidth;
                     int imageX = x + paddingWidth;
                     int imageY = y + paddingWidth;
-                    g2d.drawImage(Images.tempImage, imageX, imageY, imageWidth, imageHeight, null);
+                    if (shopLayout[row][col] == "Machine Gun") {
+                        g2d.drawImage(shopImages.get(0), imageX, imageY, imageWidth, imageHeight, null);
+                    }
+                    else if (shopLayout[row][col] == "Semi-Auto") {
+                        g2d.drawImage(shopImages.get(1), imageX, imageY, imageWidth, imageHeight, null);
+                    }
+                    else if (shopLayout[row][col] == "Sniper") {
+                        g2d.drawImage(shopImages.get(2), imageX, imageY, imageWidth, imageHeight, null);
+                    }
+                    else if (shopLayout[row][col] == "Milk") {
+                        g2d.drawImage(shopImages.get(3), imageX, imageY, imageWidth, imageHeight, null);
+                    }
+                    else if (shopLayout[row][col] == "Soup") {
+                        g2d.drawImage(shopImages.get(4), imageX, imageY, imageWidth, imageHeight, null);
+                    }
+                    else if (shopLayout[row][col] == "Energy Drink") {
+                        g2d.drawImage(shopImages.get(5), imageX, imageY, imageWidth, imageHeight, null);
+                    }
                 }
 
                 // Draw text

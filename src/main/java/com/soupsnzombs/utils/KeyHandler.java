@@ -18,6 +18,8 @@ import com.soupsnzombs.entities.Player;
 
 import javax.swing.Timer;
 
+import static com.soupsnzombs.entities.zombies.AllZombies.zombies;
+
 public class KeyHandler extends KeyAdapter {
     GamePanel game;
     Player player;
@@ -200,6 +202,10 @@ public class KeyHandler extends KeyAdapter {
                     MenuGUI.pressed = true;
                 break;
 
+            case KeyEvent.VK_K:
+                zombies.clear();
+                break;
+
             case KeyEvent.VK_F:
                 GamePanel.debugging = !GamePanel.debugging;
                 break;
@@ -210,8 +216,7 @@ public class KeyHandler extends KeyAdapter {
                     System.out.println("Player died.");
                     // for debugging purposes, instantly kills the player
                 } else if (GamePanel.gameState == GameState.MAIN_MENU) {
-                    // System.exit(0);
-                    MainFrame.frame.dispose();
+                    System.exit(0);
                 }
                 break;
 
