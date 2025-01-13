@@ -18,6 +18,8 @@ import com.soupsnzombs.entities.Player;
 
 import javax.swing.Timer;
 
+import static com.soupsnzombs.entities.zombies.AllZombies.zombies;
+
 public class KeyHandler extends KeyAdapter {
     GamePanel game;
     Player player;
@@ -198,6 +200,10 @@ public class KeyHandler extends KeyAdapter {
                     GamePanel.gameState = GameState.MAIN_MENU;
                 } else
                     MenuGUI.pressed = true;
+                break;
+
+            case KeyEvent.VK_K:
+                zombies.clear();
                 break;
 
             case KeyEvent.VK_F:
