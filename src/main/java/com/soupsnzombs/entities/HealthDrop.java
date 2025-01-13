@@ -87,7 +87,7 @@ public class HealthDrop extends Rectangle {
 
         //draw sprites
         switch (healthIncreaseVal) {
-            case 15:
+            case 10:
                 g2d.drawImage(Images.energyDrink, this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width,
                         this.height, null);
                 break;
