@@ -6,7 +6,7 @@ import java.awt.*;
 import com.soupsnzombs.GamePanel;
 
 import static com.soupsnzombs.utils.FontLoader.font30;
-import static com.soupsnzombs.utils.Images.*;
+
 
 public class GunDrop extends Rectangle {
     Gun gunStored;
@@ -54,17 +54,8 @@ public class GunDrop extends Rectangle {
     */
     public void draw(Graphics2D g2d, Player p) {
         g2d.setColor(this.color);
-        switch (getGun().getAutomaticState()) {
-            case -1:
-                g2d.drawImage(sniperImage, this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width, this.height, null);
-                break;
-            case 0:
-                g2d.drawImage(pistolImage, this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width, this.height, null);
-                break;
-            case 1:
-                g2d.drawImage(SMGImage, this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width, this.height, null);
-                break;
-        }
+        g2d.drawImage(getGun().gunImage, this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width, this.height, null);
+        
         //g2d.fillOval(this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width, this.height);
         if (interactable) {
             g2d.setFont(font30);
@@ -78,7 +69,9 @@ public class GunDrop extends Rectangle {
     
     public void drawInventoryVersion(Graphics2D g2d, int x, int y) {
         g2d.setColor(this.color);
-        g2d.fillOval(GamePanel.screenWidth - 95, GamePanel.screenHeight - 110, this.width, this.height);
+        g2d.drawImage(getGun().gunImage, GamePanel.screenWidth - 95, GamePanel.screenHeight - 110, this.width, this.height, null);
+        
+
         /*
         switch (gunStored.getAutomaticState()) {
             case -1:

@@ -2,6 +2,7 @@ package com.soupsnzombs.entities;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -13,24 +14,23 @@ public class Gun extends Entity {
     private int range;
     private int ammo;
     private int maxAmmo;
-    private int reloadTime;
     private int bulletSpeed;
     private int automatic; //-1 = false, 0 = semi, 1 = automatic 
     private GunDrop drop; 
     public static ArrayList<Bullet> bullets = new ArrayList<>();
+    public BufferedImage gunImage;
     // boolean released ; //for the basic gun, you need to spam space; perhaps for
     // automatics, this can be removed.
 
-    public Gun(int damage, int fireRate, int range, int ammo, int maxAmmo, int reloadTime, int bulletSpeed, int automatic) {
+    public Gun(int damage, int fireRate, int range, int ammo, int maxAmmo, int automatic, BufferedImage gunImage) {
         super(0, 0, 0, 0, 0, 0);
         this.damage = damage;
         this.fireRate = fireRate;
         this.range = range;
         this.ammo = ammo;
         this.maxAmmo = maxAmmo;
-        this.reloadTime = reloadTime;
-        this.bulletSpeed = bulletSpeed;
         this.automatic = automatic;
+        this.gunImage = gunImage;
         this.drop = new GunDrop(0, 0, this, new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
     }
 
@@ -81,22 +81,6 @@ public class Gun extends Entity {
 
     public void setMaxAmmo(int maxAmmo) {
         this.maxAmmo = maxAmmo;
-    }
-
-    public int getReloadTime() {
-        return reloadTime;
-    }
-
-    public void setReloadTime(int reloadTime) {
-        this.reloadTime = reloadTime;
-    }
-
-    public int getBulletSpeed() {
-        return bulletSpeed;
-    }
-
-    public void setBulletSpeed(int bulletSpeed) {
-        this.bulletSpeed = bulletSpeed;
     }
 
     public void reload() {
