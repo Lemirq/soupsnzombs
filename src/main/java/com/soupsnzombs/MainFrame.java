@@ -3,9 +3,11 @@ package com.soupsnzombs;
 import java.awt.Dimension;
 import javax.swing.*;
 import com.soupsnzombs.utils.KeyHandler;
+
 public class MainFrame {
     public static JFrame frame = new JFrame();
     GamePanel game;
+
     // KeyHandler class to handle key events
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -29,4 +31,4 @@ public class MainFrame {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-}   
+}

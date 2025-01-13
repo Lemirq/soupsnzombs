@@ -15,7 +15,8 @@ public class Player extends Entity implements GameObject {
     int health;
     BufferedImage sprite;
     public HealthBar bar = new HealthBar(100);
-    public static int shotCoolDownTime = 100; //always 100, see keyhandler for how the time is subtracted in relation to the firerate of the gun
+    public static int shotCoolDownTime = 100; // always 100, see keyhandler for how the time is subtracted in relation
+                                              // to the firerate of the gun
     public static boolean showFireRateBar = false;
     private Gun gun;
 
@@ -39,13 +40,13 @@ public class Player extends Entity implements GameObject {
     }
 
     public void setGun(Gun g) {
-        //prevent timers from overlapping but unsure if really needed
+        // prevent timers from overlapping but unsure if really needed
         KeyHandler.shootCooldown.stop();
         KeyHandler.automaticGunTimer.stop();
         KeyHandler.canShoot = true;
         showFireRateBar = false;
         //
-        
+
         this.gun = g;
     }
 
@@ -82,7 +83,9 @@ public class Player extends Entity implements GameObject {
      */
     public void increaseHealth(int healthAmount) {
         this.health += healthAmount;
-        if (this.health > 100) {this.health = 100;}
+        if (this.health > 100) {
+            this.health = 100;
+        }
         bar.setHealthValue(this.health);
     }
 
@@ -105,19 +108,19 @@ public class Player extends Entity implements GameObject {
     public void drawFireRateBar(Graphics2D g2d, int x, int y) {
         int barWidth = 50;
         int barHeight = 10;
-        int fireRateBarWidth = (int) ((shotCoolDownTime / 100.0) * barWidth); 
+        int fireRateBarWidth = (int) ((shotCoolDownTime / 100.0) * barWidth);
         if (showFireRateBar) {
-           // g2d.setColor(Color.BLACK);
-           // g2d.fillRoundRect(x-10, y-2, barWidth, barHeight, 10, 10); 
+            // g2d.setColor(Color.BLACK);
+            // g2d.fillRoundRect(x-10, y-2, barWidth, barHeight, 10, 10);
 
             g2d.setColor(Color.WHITE);
-            g2d.fillRoundRect(x-10, y-2, fireRateBarWidth, barHeight, 10, 10); 
+            g2d.fillRoundRect(x - 10, y - 2, fireRateBarWidth, barHeight, 10, 10);
         }
     }
 
     public void draw(Graphics2D g2d) {
-        //bar.draw(g2d);
-        drawFireRateBar(g2d, x+GamePanel.offsetX+8, y+GamePanel.offsetY-13);
+        // bar.draw(g2d);
+        drawFireRateBar(g2d, x + GamePanel.offsetX + 8, y + GamePanel.offsetY - 13);
         int centerXPlayer = GamePanel.screenWidth / 2 - width / 2;
         int centerYPlayer = GamePanel.screenHeight / 2 - height / 2;
 
@@ -171,10 +174,7 @@ public class Player extends Entity implements GameObject {
             g2d.drawRect(x, y, width, height);
         }
 
-        
-
     }
-
 
     public Rectangle getBounds() {
         return new Rectangle(x, y, width, height);

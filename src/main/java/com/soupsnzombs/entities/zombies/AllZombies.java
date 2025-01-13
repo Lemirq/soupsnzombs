@@ -32,7 +32,7 @@ public class AllZombies {
         }
     });
 
-    int seconds = 10;
+    int seconds = 1;
 
     public void addZombie(Zombie z) {
         zombies.add(z);
@@ -70,7 +70,7 @@ public class AllZombies {
                     }
                 }
 
-                for (Tree t: trees) {
+                for (Tree t : trees) {
                     if (t.getBounds().intersects(zombie.getBounds())) {
                         validSpawn = false;
                         break;
@@ -101,7 +101,7 @@ public class AllZombies {
         int FOVWidth = GamePanel.screenWidth;
         int FOVHeight = GamePanel.screenHeight;
         Rectangle FOV = new Rectangle(player.x - FOVWidth / 2, player.y - FOVHeight / 2, FOVWidth, FOVHeight);
-        
+
         return FOV.contains(x, y);
     }
 
@@ -121,7 +121,7 @@ public class AllZombies {
                 if (GamePanel.debugging) {
                     g2d.setColor(Color.RED);
                     g2d.drawString("X: " + z.x + " Y: " + z.y + " W: " + z.width + " H: " +
-                                    z.height, GamePanel.screenWidth - 300, zombies.indexOf(z) * 20 + 500);
+                            z.height, GamePanel.screenWidth - 300, zombies.indexOf(z) * 20 + 500);
                 }
 
                 // z.chasePlayerLegacy(player);
@@ -136,11 +136,11 @@ public class AllZombies {
         if (zombies.isEmpty()) {
             if (seconds > 0) {
 
-                g2d.drawString("WAVE #" + waveNumber +  " STARTING IN: " + seconds + " sec", 20, 50);
+                g2d.drawString("WAVE #" + waveNumber + " STARTING IN: " + seconds + " sec", 20, 50);
             }
 
             if (seconds < 0) {
-                seconds = 10;
+                seconds = 1;
             }
             waveTimer.start();
 
@@ -149,19 +149,17 @@ public class AllZombies {
                 spawnZombies(player);
             }
 
-        }
-        else g2d.drawString(String.format("WAVE #%d", waveNumber-1), 20, 50);
+        } else
+            g2d.drawString(String.format("WAVE #%d", waveNumber - 1), 20, 50);
 
-            /*
-
-            //spawn one random zombie for testing
-            int x = player.x + random.nextInt(spawnRadius * 2) - spawnRadius;
-            int y = player.y + random.nextInt(spawnRadius * 2) - spawnRadius;
-            zombies.add(new Zombie(x, y, ZombieType.SMALL));
-
-             */
-
-
+        /*
+         * 
+         * //spawn one random zombie for testing
+         * int x = player.x + random.nextInt(spawnRadius * 2) - spawnRadius;
+         * int y = player.y + random.nextInt(spawnRadius * 2) - spawnRadius;
+         * zombies.add(new Zombie(x, y, ZombieType.SMALL));
+         * 
+         */
 
     }
 }

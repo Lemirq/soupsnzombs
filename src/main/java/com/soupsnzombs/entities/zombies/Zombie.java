@@ -227,25 +227,53 @@ public class Zombie extends Entity implements GameObject {
     }
 
     private boolean hasLineOfSight(Player p, Graphics2D g2d) {
-        double startX = x + width / 2;
-        double startY = y + height / 2;
-        double endX = p.x + p.width / 2;
-        double endY = p.y + p.height / 2;
+        // Define corners for zombie
+        double[][] zombiePoints = {
+                { x, y }, // Top-left
+                { x + width, y }, // Top-right
+                { x, y + height }, // Bottom-left
+                { x + width, y + height }, // Bottom-right
+                { x + width / 2, y + height / 2 } // Center
+        };
 
+        // Define corners for player
+        double[][] playerPoints = {
+                { p.x, p.y }, // Top-left
+                { p.x + p.width, p.y }, // Top-right
+                { p.x, p.y + p.height }, // Bottom-left
+                { p.x + p.width, p.y + p.height }, // Bottom-right
+                { p.x + p.width / 2, p.y + p.height / 2 } // Center
+        };
+
+        // Check lines between all points
+        for (double[] startPoint : zombiePoints) {
+            for (double[] endPoint : playerPoints) {
+                if (isPathClear(startPoint[0], startPoint[1], endPoint[0], endPoint[1], g2d)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isPathClear(double startX, double startY, double endX, double endY, Graphics2D g2d) {
         double dx = endX - startX;
         double dy = endY - startY;
         double distance = Math.sqrt(dx * dx + dy * dy);
 
+        // Normalize direction
         dx /= distance;
         dy /= distance;
 
+        // Step along the ray in small increments
         double stepSize = 5.0;
         double currentX = startX;
         double currentY = startY;
 
         // Debug visualization
         if (GamePanel.debugging) {
-            g2d.setColor(Color.YELLOW);
+            g2d.setColor(new Color(255, 255, 0, 50)); // Semi-transparent yellow
             g2d.drawLine(
                     (int) startX + GamePanel.offsetX,
                     (int) startY + GamePanel.offsetY,
@@ -261,7 +289,7 @@ public class Zombie extends Entity implements GameObject {
 
             // Debug visualization
             if (GamePanel.debugging) {
-                g2d.setColor(Color.RED);
+                g2d.setColor(new Color(255, 0, 0, 50)); // Semi-transparent red
                 g2d.fillRect(
                         (int) currentX - 1 + GamePanel.offsetX,
                         (int) currentY - 1 + GamePanel.offsetY,
@@ -269,6 +297,11 @@ public class Zombie extends Entity implements GameObject {
             }
 
             for (Rectangle obstacle : CollisionManager.collidables) {
+                // Skip checking collision with self
+                if (obstacle.equals(getBounds())) {
+                    continue;
+                }
+
                 if (obstacle.intersects(checkPoint)) {
                     return false;
                 }

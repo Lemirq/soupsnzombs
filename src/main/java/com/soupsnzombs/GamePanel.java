@@ -13,7 +13,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -36,7 +35,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         UP, DOWN, LEFT, RIGHT
     }
 
-    public static boolean debugging = true;
+    public static boolean debugging = false;
 
     public static GameState gameState = GameState.MAIN_MENU;
 
@@ -50,7 +49,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     private final double TIME_PER_TICK = 1000000000 / FPS;
 
     Timer timer;
-    private BufferedImage sprite = Images.spriteImages.get("zoimbie1_stand.png");
     int seconds = 0;
     // private long time1 = 0;
     // private long time2 = 0;
@@ -61,7 +59,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public static int offsetY = 0; // Offset for the grid's Y position
     public static int MOVE_SPEED = 1; // Speed of movement
     public static AffineTransform oldTransformation;
-    GameMap map = new GameMap();
+    GameMap map;
     public static int screenWidth = 1200;
     public static int screenHeight = 900;
 
@@ -93,9 +91,11 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public ShopBuilding shopEntity = new ShopBuilding(500, 100, 400, 200);
     public ArrayList<HealthDrop> healthDrops = new ArrayList<>();
     public Inventory inventory;
+
     public ShopBuilding getShop() {
         return shopEntity;
     }
+
     public Player getPlayer() {
         return this.player;
     }
@@ -206,7 +206,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             if (zBounds.intersects(player.getBounds())) {
                 long currentTime = System.currentTimeMillis();
                 if (currentTime - lastDamageTime >= z.damageTime) { // Check if 500 ms have passed
-                    // player.decreaseHealth(10); // FIXME: Change to zombie damage
+                    player.decreaseHealth(z.getDamage()); // FIXME: Change to zombie damage
                     lastDamageTime = currentTime; // Update the last damage time
                 }
             }
@@ -283,9 +283,13 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         Images.loadImages();
         FontLoader.loadFont();
 
+        map = new GameMap();
+
         player = new Player(new Gun(15, 200, 600, 5, 5, 5, 5, -1));
-        //gunDrops.add(new GunDrop(75, 500, new Gun(10, 100, 600, 0, 0, 0, 5, 1), Color.YELLOW));
-        //gunDrops.add(new GunDrop(50, 400, new Gun(50, 500, 600, 0, 0, 0, 5, -1), Color.RED));
+        // gunDrops.add(new GunDrop(75, 500, new Gun(10, 100, 600, 0, 0, 0, 5, 1),
+        // Color.YELLOW));
+        // gunDrops.add(new GunDrop(50, 400, new Gun(50, 500, 600, 0, 0, 0, 5, -1),
+        // Color.RED));
 
         prototypeBuilding1.removeWall(3);
         prototypeBuilding3.removeWallBottom(1000, 1300);
@@ -297,10 +301,10 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         buildings.addBuilding(prototypeBuilding3);
         buildings.addBuilding(prototypeBuilding4);
         CollisionManager.addCollidable(player);
-        buildings.buildings.addAll(prototypeBuilding1.surroundingWalls);
-        buildings.buildings.addAll(prototypeBuilding2.surroundingWalls);
-        buildings.buildings.addAll(prototypeBuilding3.surroundingWalls);
-        buildings.buildings.addAll(prototypeBuilding4.surroundingWalls);
+        AllBuildings.buildings.addAll(prototypeBuilding2.surroundingWalls);
+        AllBuildings.buildings.addAll(prototypeBuilding1.surroundingWalls);
+        AllBuildings.buildings.addAll(prototypeBuilding3.surroundingWalls);
+        AllBuildings.buildings.addAll(prototypeBuilding4.surroundingWalls);
         zombies = new AllZombies();
         inventory = new Inventory();
 
@@ -438,10 +442,11 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         g2d.setTransform(oldTransformation);
         // macbook
-       // g2d.setColor(Color.BLACK);
-       // g2d.fillRect(KeyHandler.proximity.x+GamePanel.offsetX, KeyHandler.proximity.y + GamePanel.offsetY, KeyHandler.proximity.width, KeyHandler.proximity.height);
-       
-        
+        // g2d.setColor(Color.BLACK);
+        // g2d.fillRect(KeyHandler.proximity.x+GamePanel.offsetX, KeyHandler.proximity.y
+        // + GamePanel.offsetY, KeyHandler.proximity.width,
+        // KeyHandler.proximity.height);
+
         coins.draw(g2d, player);
         buildings.draw(g2d);
 
@@ -451,7 +456,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         }
 
         zombies.draw(g2d, player);
-        
 
         for (GunDrop gd : gunDrops) {
             gd.draw(g2d, player);
@@ -484,10 +488,10 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // draw dot at offset x,y
         // g2d.fillOval(offsetX, offsetY, 10, 10);
 
-        g2d.setFont(new Font("Arial", Font.PLAIN, 200));
+        g2d.setFont(FontLoader.font40);
         if (getPlayer().getBounds().intersects(KeyHandler.proximity)) {
-            g2d.drawString("PRESS [P]", 0, 200);
-            g2d.drawString("HAHAHHA", 0, 400);
+            // center bottom
+            g2d.drawString("Press [P] to open shop", 500, 800);
         }
 
         player.bar.draw(g2d);

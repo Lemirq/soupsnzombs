@@ -25,7 +25,8 @@ public class Images {
     // public static ArrayList<BufferedImage> gunfire = new ArrayList<>();
 
     public static BufferedImage player_idle, circle, gun, bullet, tree, gameMenu, background,
-            playButton, creditsButton, scoresButton, arrowImage, instructions, credits, shopBackground, tempImage, scoresbg, grass, milk,soup,energyDrink;
+            playButton, creditsButton, scoresButton, arrowImage, instructions, credits, shopBackground, tempImage,
+            scoresbg, grass, milk, soup, energyDrink, ocean;
     public static HashMap<String, BufferedImage> spriteImages = new HashMap<>();
     public static HashMap<String, BufferedImage> tileImages = new HashMap<>();
 
@@ -44,7 +45,8 @@ public class Images {
             arrowImage = ImageIO.read(Images.class.getResource("/arrow.png"));
             instructions = ImageIO.read(Images.class.getResource("/instructions.png"));
             credits = ImageIO.read(Images.class.getResource("/credits.png"));
-            //scale main menu images
+            ocean = ImageIO.read(Images.class.getResource("/ocean.png"));
+            // scale main menu images
             playButton = scaleImage(playButton, 150, 50);
             scoresButton = scaleImage(scoresButton, 150, 50);
             creditsButton = scaleImage(creditsButton, 150, 50);
@@ -54,12 +56,12 @@ public class Images {
             shopBackground = ImageIO.read(Images.class.getResource("/ShopBG.jpg"));
             tempImage = ImageIO.read(Images.class.getResource("/TemporaryIMG.png"));
 
-            //healing items
+            // healing items
             energyDrink = ImageIO.read(Images.class.getResource("/Energy Drink.png"));
             milk = ImageIO.read(Images.class.getResource("/Milk.png"));
             soup = ImageIO.read(Images.class.getResource("/Soup.png"));
 
-            //map
+            // map
             grass = ImageIO.read(Images.class.getResource("/grass.png"));
 
             // get the spritesheet, crop image, and set the spriteImages hashmap
@@ -67,7 +69,8 @@ public class Images {
             for (SpriteImage sprite : sprites) {
                 BufferedImage croppedImage = spriteSheet.getSubimage(sprite.x, sprite.y, sprite.width, sprite.height);
                 spriteImages.put(sprite.name, croppedImage);
-                // shopBackground = ImageIO.read(Images.class.getResource("/SoupsNZombsShop.png"));
+                // shopBackground =
+                // ImageIO.read(Images.class.getResource("/SoupsNZombsShop.png"));
             }
 
             // get the tilesheet, crop image, and set the tileImages hashmap
@@ -103,10 +106,10 @@ public class Images {
             Document doc = db.parse(Images.class.getResourceAsStream("/" + path));
             doc.getDocumentElement().normalize();
 
-            if(GamePanel.debugging){
-            System.out.println("Root Element: " + doc.getDocumentElement().getNodeName());
-            System.out.println("------");
-}
+            if (GamePanel.debugging) {
+                System.out.println("Root Element: " + doc.getDocumentElement().getNodeName());
+                System.out.println("------");
+            }
             // get <staff>
             NodeList list = doc.getElementsByTagName("SubTexture");
 
@@ -123,11 +126,13 @@ public class Images {
                 // <SubTexture name="hitman1_gun.png" x="164" y="88" width="49" height="43"
                 // frameX="-0" frameY="-0" frameWidth="49" frameHeight="43"/>
 
-                if(GamePanel.debugging){System.out.println("Name: " + element.getAttribute("name"));
-                System.out.println("X: " + element.getAttribute("x"));
-                System.out.println("Y: " + element.getAttribute("y"));
-                System.out.println("Width: " + element.getAttribute("width"));
-                System.out.println("Height: " + element.getAttribute("height"));}
+                if (GamePanel.debugging) {
+                    System.out.println("Name: " + element.getAttribute("name"));
+                    System.out.println("X: " + element.getAttribute("x"));
+                    System.out.println("Y: " + element.getAttribute("y"));
+                    System.out.println("Width: " + element.getAttribute("width"));
+                    System.out.println("Height: " + element.getAttribute("height"));
+                }
 
                 spriteImages.add(new SpriteImage(element.getAttribute("name"),
                         Integer.parseInt(element.getAttribute("x")),

@@ -1,30 +1,60 @@
 package com.soupsnzombs.entities;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
-
+import java.awt.image.BufferedImage;
 import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.utils.Images;
 
 public class Boundary {
-    public void draw(Graphics2D g2d, int leftBoundary, int rightBoundary, int topBoundary, int bottomBoundary) {
+    private BufferedImage oceanTile;
+    private static final int TILE_SIZE = 64; // Size of each ocean tile
 
-        // Draw black Rectangles outside the map bounds
-        g2d.setColor(Color.BLACK);
-        // if left boundary is between zero and negative centerx
+    public Boundary() {
+        oceanTile = Images.ocean; // Make sure "ocean" is loaded in Images class
+    }
+
+    public void draw(Graphics2D g2d, int leftBoundary, int rightBoundary, int topBoundary, int bottomBoundary) {
+        if (oceanTile == null) {
+            System.out.println("Warning: Ocean tile is null!");
+            return;
+        }
+
+        // Draw repeating ocean tiles for left boundary
         if (leftBoundary > 0) {
-            g2d.fillRect(0, 0, leftBoundary, GamePanel.screenHeight);
+            for (int y = 0; y < GamePanel.screenHeight; y += TILE_SIZE) {
+                for (int x = 0; x < leftBoundary; x += TILE_SIZE) {
+                    g2d.drawImage(oceanTile, x, y, TILE_SIZE, TILE_SIZE, null);
+                }
+            }
         }
-        // if right boundary is between centerx and width
+
+        // Draw repeating ocean tiles for right boundary
         if (rightBoundary > 0) {
-            g2d.fillRect(GamePanel.screenWidth - rightBoundary, 0, rightBoundary, GamePanel.screenHeight);
+            int startX = GamePanel.screenWidth - rightBoundary;
+            for (int y = 0; y < GamePanel.screenHeight; y += TILE_SIZE) {
+                for (int x = startX; x < GamePanel.screenWidth; x += TILE_SIZE) {
+                    g2d.drawImage(oceanTile, x, y, TILE_SIZE, TILE_SIZE, null);
+                }
+            }
         }
-        // if top boundary is between zero and negative centery
+
+        // Draw repeating ocean tiles for top boundary
         if (topBoundary > 0) {
-            g2d.fillRect(0, 0, GamePanel.screenWidth, topBoundary);
+            for (int y = 0; y < topBoundary; y += TILE_SIZE) {
+                for (int x = 0; x < GamePanel.screenWidth; x += TILE_SIZE) {
+                    g2d.drawImage(oceanTile, x, y, TILE_SIZE, TILE_SIZE, null);
+                }
+            }
         }
-        // // if bottom boundary is between centery and height
+
+        // Draw repeating ocean tiles for bottom boundary
         if (bottomBoundary > 0) {
-            g2d.fillRect(0, GamePanel.screenHeight - bottomBoundary, GamePanel.screenWidth, bottomBoundary);
+            int startY = GamePanel.screenHeight - bottomBoundary;
+            for (int y = startY; y < GamePanel.screenHeight; y += TILE_SIZE) {
+                for (int x = 0; x < GamePanel.screenWidth; x += TILE_SIZE) {
+                    g2d.drawImage(oceanTile, x, y, TILE_SIZE, TILE_SIZE, null);
+                }
+            }
         }
 
         // Reset the transform

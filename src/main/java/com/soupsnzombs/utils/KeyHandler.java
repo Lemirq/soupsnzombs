@@ -32,6 +32,7 @@ public class KeyHandler extends KeyAdapter {
 
     /**
      * constructor
+     * 
      * @param game passses in the game object
      */
     public KeyHandler(GamePanel game) {
@@ -66,10 +67,10 @@ public class KeyHandler extends KeyAdapter {
         });
 
         proximity = game.getShop().getBounds();
-                        proximity.x -= 50;
-                        proximity.y-=50;
-                        proximity.width += 100;
-                        proximity.height += 100;
+        proximity.x -= 50;
+        proximity.y -= 50;
+        proximity.width += 100;
+        proximity.height += 100;
     }
 
     /**
@@ -78,7 +79,8 @@ public class KeyHandler extends KeyAdapter {
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        if (e.isShiftDown() && GamePanel.debugging) {
+        // TODO: change to debgiggung
+        if (e.isShiftDown()) {
             GamePanel.MOVE_SPEED = 30;
         } else if (e.isAltDown() && GamePanel.debugging) {
             GamePanel.MOVE_SPEED = 1;
@@ -129,7 +131,7 @@ public class KeyHandler extends KeyAdapter {
                 } else if (GamePanel.gameState == GameState.NAME_SELECT) {
                     NameSelect.selectLeft(game);
                 } else if (GamePanel.gameState == GameState.SHOP) {
-                    
+
                     Shop.selectLeft(game);
                 } else if (GamePanel.gameState == GameState.GAME) {
                     GamePanel.leftPressed = true;
@@ -167,33 +169,30 @@ public class KeyHandler extends KeyAdapter {
                     GamePanel.gameState = GameState.GAME;
                     SoundManager.stopAllSounds();
                     SoundManager.playSound("bgm.wav");
-                } else if (GamePanel.gameState == GameState.NAME_SELECT && !player.alive && (NameSelect.name.length()!=0)) {
+                } else if (GamePanel.gameState == GameState.NAME_SELECT && !player.alive
+                        && (NameSelect.name.length() != 0)) {
                     Leaderboard.writeScores();
-                    if (Leaderboard.valid){
+                    if (Leaderboard.valid) {
                         GamePanel.gameState = GameState.MAIN_MENU;
                         Leaderboard.valid = false;
                         NameSelect.message = false;
                     }
                 } else if (GamePanel.gameState == GameState.GAME || GamePanel.gameState == GameState.SHOP) {
                     if (Shop.open) {
-                        
+
                         Shop.open = false;
                         GamePanel.gameState = GameState.GAME;
                     }
-                        
+
                     else {
-                        
-                        
+
                         if (game.getPlayer().getBounds().intersects(proximity)) {
-                            //System.out.println("Player is in shop proximity");
+                            // System.out.println("Player is in shop proximity");
                             Shop.open = true;
                             GamePanel.gameState = GameState.SHOP;
                         }
                     }
-                        
-                    
-                    
-                    
+
                 } else if (GamePanel.gameState == GameState.CREDITS) {
                     GamePanel.gameState = GameState.MAIN_MENU;
                 } else
