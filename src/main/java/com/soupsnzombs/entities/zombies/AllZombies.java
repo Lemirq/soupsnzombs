@@ -21,18 +21,19 @@ import static com.soupsnzombs.entities.AllCoins.coins;
 import static com.soupsnzombs.utils.FontLoader.font30;
 
 public class AllZombies {
+    int FOVWidth = GamePanel.screenWidth + 50;
+    int FOVHeight = GamePanel.screenHeight + 50;
     public static ArrayList<Zombie> zombies = new ArrayList<>();
     private int waveNumber = 1;
-    private int spawnRadius = 1000;
-    public int numberOfZombies;
-    private Random random = new Random();
-    private Timer waveTimer = new Timer(1000, new ActionListener() {
+    private final int spawnRadius = 1500;
+    private final Random random = new Random();
+    private final Timer waveTimer = new Timer(1000, new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             seconds--;
         }
     });
 
-    int seconds = 1;
+    int seconds = 3;
 
     public void addZombie(Zombie z) {
         zombies.add(z);
@@ -46,66 +47,104 @@ public class AllZombies {
     }
 
     private void spawnZombies(Player player) {
-        numberOfZombies = waveNumber + 2;
+        Rectangle FOV = new Rectangle((player.x + GamePanel.offsetX) - FOVWidth / 2,
+                (player.y + GamePanel.offsetY) - FOVHeight / 2, FOVWidth, FOVHeight);
+        int x, y;
+        boolean validSpawn = true;
+        int numberOfZombies = waveNumber + 2;
         for (int i = 0; i < numberOfZombies; i++) {
-            int x, y;
-            boolean validSpawn;
+            int maxAttempts = 1000; // Maximum number of attempts to find a valid spawn location
+            int attempts = 0;
 
             do {
-                x = player.x + (random.nextInt(spawnRadius * 2) - spawnRadius);
-                y = player.y + (random.nextInt(spawnRadius * 2) - spawnRadius);
+                x = random.nextInt(spawnRadius * 2) - spawnRadius + (player.x + GamePanel.offsetX);
+                y = random.nextInt(spawnRadius * 2) - spawnRadius + (player.y + GamePanel.offsetY);
 
-                Zombie zombie = new Zombie(x, y, ZombieType.DEFAULT);
-                validSpawn = true;
+                for (Zombie zombie : zombies) {
+                    if (isInPlayerFOV(player, x, y)) {
+                        validSpawn = false;
+                        continue;
+                    }
 
-                if (isInPlayerFOV(player, x, y)) {
-                    validSpawn = false;
-                    continue;
+                    if (FOV.contains(zombie)) {
+                        validSpawn = false;
+                        continue;
+                    }
+
+                    for (Building building : buildings) {
+                        if (building.contains(zombie)) {
+                            validSpawn = false;
+                            break;
+                        }
+                    }
+
+                    for (Tree t : trees) {
+                        if (t.contains(zombie)) {
+                            validSpawn = false;
+                            break;
+                        }
+                    }
+
+                    for (Bush b : bushes) {
+                        if (b.contains(zombie)) {
+                            validSpawn = false;
+                            break;
+                        }
+                    }
+
+                    for (Wall w : walls) {
+                        if (w.contains(zombie)) {
+                            validSpawn = false;
+                            break;
+                        }
+                    }
+
                 }
 
-                for (Building building : buildings) {
-                    if (building.getBounds().intersects(zombie.getBounds())) {
-                        validSpawn = false;
-                        break;
+                attempts++;
+                if (attempts >= maxAttempts) {
+                    if (GamePanel.debugging) {
+                        System.out.println("Could not find a valid spawn location after " + maxAttempts + " attempts.");
                     }
-                }
-
-                for (Tree t : trees) {
-                    if (t.getBounds().intersects(zombie.getBounds())) {
-                        validSpawn = false;
-                        break;
-                    }
-                }
-
-                for (Bush b : bushes) {
-                    if (b.getBounds().intersects(zombie.getBounds())) {
-                        validSpawn = false;
-                        break;
-                    }
-                }
-
-                for (Wall w : walls) {
-                    if (w.getBounds().intersects(zombie.getBounds())) {
-                        validSpawn = false;
-                        break;
-                    }
+                    break;
                 }
 
             } while (!validSpawn);
-            zombies.add(new Zombie(x, y, ZombieType.SMALL));
+            if (validSpawn) {
+                if (waveNumber <= 9) {
+                    zombies.add(new Zombie(x, y, ZombieType.DEFAULT));
+                } else {
+                    int kindOfZombie = random.nextInt(4) + 1;
+                    switch (kindOfZombie) {
+                        case 1:
+                            zombies.add(new Zombie(x, y, ZombieType.DEFAULT));
+                        case 2:
+                            zombies.add(new Zombie(x, y, ZombieType.DEFAULT));
+                        case 3:
+                            zombies.add(new Zombie(x, y, ZombieType.FAT));
+                        case 4:
+                            zombies.add(new Zombie(x, y, ZombieType.SMALL));
+                    }
+                }
+
+            } else {
+                if (GamePanel.debugging) {
+                    System.out.println("Failed to spawn a zombie.");
+                }
+            }
         }
         System.out.println("Wave " + waveNumber + ": " + numberOfZombies + " zombies spawned");
     }
 
     private boolean isInPlayerFOV(Player player, int x, int y) {
-        int FOVWidth = GamePanel.screenWidth;
-        int FOVHeight = GamePanel.screenHeight;
-        Rectangle FOV = new Rectangle(player.x - FOVWidth / 2, player.y - FOVHeight / 2, FOVWidth, FOVHeight);
-
+        Rectangle FOV = new Rectangle((player.x + GamePanel.offsetX) - FOVWidth / 2,
+                (player.y + GamePanel.offsetY) - FOVHeight / 2, FOVWidth, FOVHeight);
         return FOV.contains(x, y);
     }
 
     public void draw(Graphics2D g2d, Player player) {
+        g2d.drawRect((player.x + GamePanel.offsetX) - FOVWidth / 2, (player.y + GamePanel.offsetY) - FOVHeight / 2,
+                FOVWidth, FOVHeight);
         Iterator<Zombie> zombieIterator = zombies.iterator();
         while (zombieIterator.hasNext()) {
             Zombie z = zombieIterator.next();
@@ -140,7 +179,7 @@ public class AllZombies {
             }
 
             if (seconds < 0) {
-                seconds = 1;
+                seconds = 3;
             }
             waveTimer.start();
 

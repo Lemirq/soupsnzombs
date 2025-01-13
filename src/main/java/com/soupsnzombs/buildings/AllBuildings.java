@@ -27,8 +27,8 @@ public class AllBuildings {
         walls.add(new Wall(400, 400, 50, 50));
         walls.add(new Wall(500, 500, 50, 50));
 
-        walls.add(new Wall(-1000, 500, 1000, 1000));
-        trees.add(new Tree(-1000, 1500, 1000, 1000));
+        // walls.add(new Wall(-1000, 500, 1000, 1000));
+        // trees.add(new Tree (-1000, 1500, 1000, 1000));
 
         trees.add(new Tree(350, 100, 150, 150));
         trees.add(new Tree(-250, -120, 150, 150));

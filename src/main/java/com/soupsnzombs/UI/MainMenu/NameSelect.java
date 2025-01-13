@@ -121,7 +121,7 @@ public class NameSelect {
     }
 
     /**
-     * Draws the keyboard instrucitons at the top of the screen
+     * Draws the keyboard instructions at the top of the screen
      * @param g2d passes in the g2d object for rendering
      */
     public void drawInstructions(Graphics2D g2d) {
