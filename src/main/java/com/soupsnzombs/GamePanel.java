@@ -15,6 +15,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
+import static com.soupsnzombs.utils.Images.*;
 
 import static com.soupsnzombs.utils.FontLoader.*;
 
@@ -264,7 +265,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             if (player.getGun().getDamage() != 0) {
                 dropPressed = false;
                 player.dropGun();
-                player.setGun(new Gun(0, 0, 0, 0, 0, 0, 0, 0));
+                player.setGun(new Gun(0, 0, 0, 0, 0, 0, null));
             }
         }
 
@@ -298,7 +299,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         map = new GameMap();
 
-        player = new Player(new Gun(15, 200, 600, 5, 5, 5, 5, -1));
+        player = new Player(new Gun(15, 200, 600, 5, 5, -1, pistolImage));
         // gunDrops.add(new GunDrop(75, 500, new Gun(10, 100, 600, 0, 0, 0, 5, 1),
         // Color.YELLOW));
         // gunDrops.add(new GunDrop(50, 400, new Gun(50, 500, 600, 0, 0, 0, 5, -1),
@@ -503,7 +504,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         g2d.setFont(font30);
         if (getPlayer().getBounds().intersects(KeyHandler.proximity)) {
-            g2d.drawString("PRESS [P] to Open Shop", player.x + GamePanel.offsetX - 150,
+            g2d.drawString("[P] Shop", player.x + GamePanel.offsetX - 150,
                     player.y + GamePanel.offsetY - 20);
         }
 
