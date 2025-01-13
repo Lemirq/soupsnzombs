@@ -10,7 +10,6 @@ import com.soupsnzombs.utils.Images;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-
 public class Wall extends Building {
     BufferedImage wallSprite;
     int mapX, mapY;
@@ -36,7 +35,7 @@ public class Wall extends Building {
         g2d.setColor(Color.BLUE);
         g2d.drawImage(wallSprite, buildingX, buildingY, width, height, null);
 
-        //g2d.fillRect(buildingX, buildingY, width, height);
+        // g2d.fillRect(buildingX, buildingY, width, height);
 
         if (wallSprite == null) {
             System.out.println("wallSprite is null");

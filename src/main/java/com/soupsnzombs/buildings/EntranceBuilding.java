@@ -19,7 +19,7 @@ public class EntranceBuilding extends Building {
     public EntranceBuilding(int x, int y, int width, int height, int entranceGap, int entranceDirection,
             int wallThickness) {
         super(x, y, width, height);
-        
+
         this.wallThickness = wallThickness;
         left = new Wall(x - wallThickness, y, wallThickness, height);
         bottom = new Wall(x, y + height, width, wallThickness);
@@ -70,7 +70,7 @@ public class EntranceBuilding extends Building {
                 surroundingWalls.add(left);
                 break;
 
-            default: 
+            default:
                 surroundingWalls.add(bottom);
                 surroundingWalls.add(top);
                 surroundingWalls.add(right);
@@ -136,43 +136,39 @@ public class EntranceBuilding extends Building {
                 try {
                     surroundingWalls.remove(left);
                     CollisionManager.collidables.remove(left);
-                }
-                catch (Exception e) { //this means that the entrace is on the left because left doesn't exist.
+                } catch (Exception e) { // this means that the entrace is on the left because left doesn't exist.
 
                 }
-                
+
                 break;
-            
-            case 2: 
+
+            case 2:
                 try {
                     surroundingWalls.remove(right);
                     CollisionManager.collidables.remove(right);
-                }
-                catch (Exception e) { //this means that the entrace is on the right because right doesn't exist.
-                    
+                } catch (Exception e) { // this means that the entrace is on the right because right doesn't exist.
+
                 }
 
                 break;
-            
+
             case 3:
                 try {
                     surroundingWalls.remove(top);
                     CollisionManager.collidables.remove(top);
-                }
-                catch (Exception e) {
-                    
+                } catch (Exception e) {
+
                 }
 
                 break;
-            
+
             case 4:
                 try {
                     surroundingWalls.remove(bottom);
                     CollisionManager.collidables.remove(bottom);
-                    
-                }
-                catch (Exception e) {
-                    
+
+                } catch (Exception e) {
+
                 }
 
                 break;
@@ -180,84 +176,86 @@ public class EntranceBuilding extends Building {
     }
 
     public void removeWallLeft(int startingY, int endingY) {
-        
-        /* 
-        Iterator<Wall> wallIterator = surroundingWalls.iterator();
-        while (wallIterator.hasNext()) { //remove potential corners, entrances and "left" category walls
-            Wall wall = wallIterator.next();
-            if (wall.x == left.x) {
-                wallIterator.remove();
-                CollisionManager.collidables.remove(wall);
-            }
-        }
-        */
+
+        /*
+         * Iterator<Wall> wallIterator = surroundingWalls.iterator();
+         * while (wallIterator.hasNext()) { //remove potential corners, entrances and
+         * "left" category walls
+         * Wall wall = wallIterator.next();
+         * if (wall.x == left.x) {
+         * wallIterator.remove();
+         * CollisionManager.collidables.remove(wall);
+         * }
+         * }
+         */
         surroundingWalls.remove(left);
         CollisionManager.collidables.remove(left);
-        surroundingWalls.add(new Wall(left.x, left.y, this.wallThickness, startingY-left.y));
-        surroundingWalls.add(new Wall(left.x, endingY, this.wallThickness, left.height-(endingY-startingY)));
+        surroundingWalls.add(new Wall(left.x, left.y, this.wallThickness, startingY - left.y));
+        surroundingWalls.add(new Wall(left.x, endingY, this.wallThickness, left.height - (endingY - startingY)));
         for (Wall wall : surroundingWalls) {
             CollisionManager.addCollidable(wall);
         }
     }
 
     public void removeWallRight(int startingY, int endingY) {
-        /* 
-        Iterator<Wall> wallIterator = surroundingWalls.iterator();
-        while (wallIterator.hasNext()) { //remove potential corners, entrances and "right" category walls
-            Wall wall = wallIterator.next();
-            if (wall.x == right.x) {
-                wallIterator.remove();
-                CollisionManager.collidables.remove(wall);
-            }
-        } 
-        */
+        /*
+         * Iterator<Wall> wallIterator = surroundingWalls.iterator();
+         * while (wallIterator.hasNext()) { //remove potential corners, entrances and
+         * "right" category walls
+         * Wall wall = wallIterator.next();
+         * if (wall.x == right.x) {
+         * wallIterator.remove();
+         * CollisionManager.collidables.remove(wall);
+         * }
+         * }
+         */
         surroundingWalls.remove(right);
         CollisionManager.collidables.remove(right);
-        surroundingWalls.add(new Wall(right.x, right.y, this.wallThickness, startingY-right.y));
-        surroundingWalls.add(new Wall(right.x, endingY, this.wallThickness, right.height-(endingY-startingY)));
+        surroundingWalls.add(new Wall(right.x, right.y, this.wallThickness, startingY - right.y));
+        surroundingWalls.add(new Wall(right.x, endingY, this.wallThickness, right.height - (endingY - startingY)));
         for (Wall wall : surroundingWalls) {
             CollisionManager.addCollidable(wall);
         }
     }
 
     public void removeWallTop(int startingX, int endingX) {
-        /* 
-        Iterator<Wall> wallIterator = surroundingWalls.iterator();
-        while (wallIterator.hasNext()) { 
-            Wall wall = wallIterator.next();
-            if (wall.x == top.x) {
-                wallIterator.remove();
-                CollisionManager.collidables.remove(wall);
-            }
-        }
-            */
+        /*
+         * Iterator<Wall> wallIterator = surroundingWalls.iterator();
+         * while (wallIterator.hasNext()) {
+         * Wall wall = wallIterator.next();
+         * if (wall.x == top.x) {
+         * wallIterator.remove();
+         * CollisionManager.collidables.remove(wall);
+         * }
+         * }
+         */
         surroundingWalls.remove(top);
         CollisionManager.collidables.remove(top);
-        surroundingWalls.add(new Wall(top.x, top.y, startingX-top.x, this.wallThickness));
-        surroundingWalls.add(new Wall(endingX, top.y, top.width-(endingX-startingX), this.wallThickness));
+        surroundingWalls.add(new Wall(top.x, top.y, startingX - top.x, this.wallThickness));
+        surroundingWalls.add(new Wall(endingX, top.y, top.width - (endingX - startingX), this.wallThickness));
         for (Wall wall : surroundingWalls) {
             CollisionManager.addCollidable(wall);
         }
     }
 
     public void removeWallBottom(int startingX, int endingX) {
-        /* 
-        Iterator<Wall> wallIterator = surroundingWalls.iterator();
-        while (wallIterator.hasNext()) { 
-            Wall wall = wallIterator.next();
-            if (wall.x == bottom.x) {
-                wallIterator.remove();
-                CollisionManager.collidables.remove(wall);
-            }
-        }
-            */
+        /*
+         * Iterator<Wall> wallIterator = surroundingWalls.iterator();
+         * while (wallIterator.hasNext()) {
+         * Wall wall = wallIterator.next();
+         * if (wall.x == bottom.x) {
+         * wallIterator.remove();
+         * CollisionManager.collidables.remove(wall);
+         * }
+         * }
+         */
 
         surroundingWalls.remove(bottom);
         CollisionManager.collidables.remove(bottom);
-        //System.out.println(bottom.x);
-        surroundingWalls.add(new Wall(bottom.x, bottom.y, startingX-bottom.x, this.wallThickness));
-        
-        surroundingWalls.add(new Wall(endingX, bottom.y, bottom.width-(endingX-startingX), this.wallThickness));
+        // System.out.println(bottom.x);
+        surroundingWalls.add(new Wall(bottom.x, bottom.y, startingX - bottom.x, this.wallThickness));
+
+        surroundingWalls.add(new Wall(endingX, bottom.y, bottom.width - (endingX - startingX), this.wallThickness));
 
         for (Wall wall : surroundingWalls) {
             CollisionManager.addCollidable(wall);
