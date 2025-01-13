@@ -17,6 +17,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import static com.soupsnzombs.utils.FontLoader.*;
+
 public class GamePanel extends JPanel implements Runnable, ActionListener {
 
     @Override
@@ -90,7 +92,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public EntranceBuilding prototypeBuilding3 = new EntranceBuilding(1000, 500, 700, 500, 0, 0, 40);
     public EntranceBuilding prototypeBuilding2 = new EntranceBuilding(2000, 1000, 1000, 300, 200, 4, 65);
     public EntranceBuilding prototypeBuilding4 = new EntranceBuilding(2000 + 1000 - 65 - 65, 1000, 800, 1000, 0, 0, 65);
-    public ShopBuilding shopEntity = new ShopBuilding(500, 100, 400, 200);
+    public ShopBuilding shopEntity = new ShopBuilding(500, -200, 400, 200);
     public ArrayList<HealthDrop> healthDrops = new ArrayList<>();
     public Inventory inventory;
     public ShopBuilding getShop() {
@@ -396,9 +398,9 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         if (gameState == GameState.GAMEOVER) {
             g2d.setColor(Color.RED);
-            g2d.setFont(new Font("Arial", Font.PLAIN, 100));
-            g2d.drawString("YOU DIED!", 350, 300);
-            g2d.setFont(new Font("Arial", Font.PLAIN, 50));
+            g2d.setFont(font100);
+            g2d.drawString("YOU DIED!", 360, 300);
+            g2d.setFont(font50);
             g2d.drawString("Game Over", 475, 500);
             return;
         }
@@ -484,10 +486,9 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // draw dot at offset x,y
         // g2d.fillOval(offsetX, offsetY, 10, 10);
 
-        g2d.setFont(new Font("Arial", Font.PLAIN, 200));
+        g2d.setFont(font30);
         if (getPlayer().getBounds().intersects(KeyHandler.proximity)) {
-            g2d.drawString("PRESS [P]", 0, 200);
-            g2d.drawString("HAHAHHA", 0, 400);
+            g2d.drawString("PRESS [P] to Open Shop", player.x + GamePanel.offsetX - 150, player.y + GamePanel.offsetY - 20);
         }
 
         player.bar.draw(g2d);
