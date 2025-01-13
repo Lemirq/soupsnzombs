@@ -11,7 +11,7 @@ public class AllBuildings {
     public static ArrayList<Wall> walls = new ArrayList<>();
     public static ArrayList<Tree> trees = new ArrayList<>();
     public static ArrayList<Bush> bushes = new ArrayList<>();
-    ShopBuilding shopEntity = new ShopBuilding(500, 100, 400, 200);
+    ShopBuilding shopEntity = new ShopBuilding(500, -200, 400, 200);
 
     public void addBuilding(Building b) {
         buildings.add(b);
