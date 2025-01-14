@@ -17,11 +17,11 @@
 	<!-- <SubTexture name="manBlue_silencer.png"	x="58"	y="0"	width="54"	height="43" frameX="-0" frameY="-0" frameWidth="54" frameHeight="43"/> -->
 	<!-- <SubTexture name="manBlue_stand.png"	x="426"	y="132"	width="33"	height="43" frameX="-0" frameY="-0" frameWidth="33" frameHeight="43"/> -->
 	<SubTexture name="manBrown_gun.png"	x="262"	y="176"	width="49"	height="43" frameX="-0" frameY="-0" frameWidth="49" frameHeight="43"/>
-	<!-- <SubTexture name="manBrown_hold.png"	x="388"	y="0"	width="35"	height="43" frameX="-0" frameY="-0" frameWidth="35" frameHeight="43"/> -->
-	<!-- <SubTexture name="manBrown_machine.png"	x="214"	y="88"	width="49"	height="43" frameX="-0" frameY="-0" frameWidth="49" frameHeight="43"/> -->
-	<!-- <SubTexture name="manBrown_reload.png"	x="312"	y="176"	width="39"	height="43" frameX="-0" frameY="-0" frameWidth="39" frameHeight="43"/> -->
-	<!-- <SubTexture name="manBrown_silencer.png"	x="0"	y="176"	width="54"	height="43" frameX="-0" frameY="-0" frameWidth="54" frameHeight="43"/> -->
-	<!-- <SubTexture name="manBrown_stand.png"	x="459"	y="44"	width="33"	height="43" frameX="-0" frameY="-0" frameWidth="33" frameHeight="43"/> -->
+	<SubTexture name="manBrown_hold.png"	x="388"	y="0"	width="35"	height="43" frameX="-0" frameY="-0" frameWidth="35" frameHeight="43"/> -->
+	<SubTexture name="manBrown_machine.png"	x="214"	y="88"	width="49"	height="43" frameX="-0" frameY="-0" frameWidth="49" frameHeight="43"/> -->
+	<SubTexture name="manBrown_reload.png"	x="312"	y="176"	width="39"	height="43" frameX="-0" frameY="-0" frameWidth="39" frameHeight="43"/> -->
+	<SubTexture name="manBrown_silencer.png"	x="0"	y="176"	width="54"	height="43" frameX="-0" frameY="-0" frameWidth="54" frameHeight="43"/> -->
+	<SubTexture name="manBrown_stand.png"	x="459"	y="44"	width="33"	height="43" frameX="-0" frameY="-0" frameWidth="33" frameHeight="43"/> -->
 	<!-- <SubTexture name="manOld_gun.png"	x="216"	y="0"	width="49"	height="43" frameX="-0" frameY="-0" frameWidth="49" frameHeight="43"/> -->
 	<!-- <SubTexture name="manOld_hold.png"	x="422"	y="88"	width="35"	height="43" frameX="-0" frameY="-0" frameWidth="35" frameHeight="43"/> -->
 	<!-- <SubTexture name="manOld_machine.png"	x="213"	y="132"	width="49"	height="43" frameX="-0" frameY="-0" frameWidth="49" frameHeight="43"/> -->

@@ -13,7 +13,10 @@ public class Player extends Entity implements GameObject {
     public static int money;
     public static int score = 0;
     int health;
-    BufferedImage sprite;
+    BufferedImage spritePistol;
+    BufferedImage spriteNoGun;
+    BufferedImage spriteSniper;
+    BufferedImage spriteMachine;
     public HealthBar bar = new HealthBar(100);
     public static int shotCoolDownTime = 100; // always 100, see keyhandler for how the time is subtracted in relation
                                               // to the firerate of the gun
@@ -24,10 +27,13 @@ public class Player extends Entity implements GameObject {
         super(0, 0, 0, 0, 100,
                 GamePanel.MOVE_SPEED);
 
-        sprite = Images.spriteImages.get("manBrown_gun.png");
+        spritePistol = Images.spriteImages.get("manBrown_gun.png");
+        spriteNoGun = Images.spriteImages.get("manBrown_stand.png");
+        spriteMachine = Images.spriteImages.get("manBrown_machine.png");
+        spriteSniper = Images.spriteImages.get("manBrown_silencer.png");
 
-        this.width = sprite.getWidth();
-        this.height = sprite.getHeight();
+        this.width = spriteNoGun.getWidth();
+        this.height = spriteNoGun.getHeight();
         this.x = GamePanel.screenWidth / 2 - width / 2 - 1000;
         this.y = GamePanel.screenHeight / 2 - height / 2 - 1000;
         money = 90;
@@ -153,8 +159,21 @@ public class Player extends Entity implements GameObject {
             default:
                 break;
         }
-        g2d.drawImage(sprite, centerXPlayer, centerYPlayer, null);
-
+        switch (getGun().getAutomaticState()) {
+            case -1: 
+               if (getGun().getMaxAmmo() == 1) g2d.drawImage(spriteSniper, centerXPlayer, centerYPlayer, null);
+               else g2d.drawImage(spritePistol, centerXPlayer, centerYPlayer, null);
+                break;
+            case 0: 
+                g2d.drawImage(spriteSniper, centerXPlayer, centerYPlayer, null);
+                break;
+            case 1: 
+                g2d.drawImage(spriteMachine, centerXPlayer, centerYPlayer, null); 
+                break;
+            default: 
+                g2d.drawImage(spriteNoGun, centerXPlayer, centerYPlayer, null);
+                break;
+        }
         g2d.setTransform(GamePanel.oldTransformation);
 
         // draw score bottom left corner
