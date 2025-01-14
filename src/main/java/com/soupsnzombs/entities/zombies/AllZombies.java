@@ -155,7 +155,10 @@ public class AllZombies {
             if (!z.alive) {
                 Player.score += z.pointsDropped;
                 zombieIterator.remove();
-                coins.add(new Coin(z.x + 5, z.y + 5, 10, 10));
+                int dropCoin = random.nextInt(2) + 1;
+                if (dropCoin == 1) {
+                    coins.add(new Coin(z.x + 5, z.y + 5, 10, 10));
+                }
                 break;
             } else {
                 z.draw(g2d, player);
