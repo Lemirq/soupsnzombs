@@ -14,7 +14,7 @@ public class Gun extends Entity {
     private int range;
     private int ammo;
     private int maxAmmo;
-    private int bulletSpeed;
+   // private int bulletSpeed;
     private int automatic; //-1 = false, 0 = semi, 1 = automatic 
     private GunDrop drop; 
     public static ArrayList<Bullet> bullets = new ArrayList<>();
@@ -31,7 +31,7 @@ public class Gun extends Entity {
         this.maxAmmo = maxAmmo;
         this.automatic = automatic;
         this.gunImage = gunImage;
-        this.drop = new GunDrop(0, 0, this, new Color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
+        this.drop = new GunDrop(0, 0, this);
     }
 
     public void setDrop(GunDrop drop) {
