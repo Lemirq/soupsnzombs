@@ -42,8 +42,8 @@ public class HealthBar {
         } else {
             fillColor = Theme.HEALTH_BAR_FG; // 75% or more health
         }
-        int X_POSITION = 100;
-        int Y_POSITION = (GamePanel.screenHeight) - 100;
+        int X_POSITION = 30;
+        int Y_POSITION = (GamePanel.screenHeight) - 200;
 
         // Save the original transform
         AffineTransform originalTransform = g2d.getTransform();
@@ -76,7 +76,7 @@ public class HealthBar {
         // Draw the health value text
         g2d.setColor(Color.WHITE);
         
-        g2d.drawString(String.valueOf(healthValue), 0, 0-26);
+        g2d.drawString(String.valueOf(healthValue), 0, -20);
 
         // clear the font and transformation
         g2d.setFont(new Font("DejaVuSans 12", Font.PLAIN, 12));
