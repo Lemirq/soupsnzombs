@@ -286,7 +286,7 @@ public class Shop {
                 break;
             case "Sniper":
                 if (Player.money >= 20) {
-                    GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(80, 500, 300, 0, 5, -1, sniperImage)));
+                    GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(80, 500, 300, 0, 1, -1, sniperImage)));
                     Player.money-=20;
                 }
                 else System.out.println("Not enough money to purchase sniper."); 
