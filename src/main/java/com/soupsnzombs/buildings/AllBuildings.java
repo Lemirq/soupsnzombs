@@ -43,9 +43,20 @@ public class AllBuildings {
 
     }
 
+    public void drawTrees(Graphics2D g2d) {
+        for (Bush bush : bushes) {
+            bush.draw(g2d);
+        }
+        
+    }
+
     public void draw(Graphics2D g2d) {
         shopEntity.drawShop(g2d);
 
+        for (Tree t : trees) {
+            t.draw(g2d);
+        }
+        
         for (Building b : buildings) {
             b.draw(g2d);
         }
@@ -54,13 +65,9 @@ public class AllBuildings {
             w.draw(g2d);
         }
 
-        for (Tree t : trees) {
-            t.draw(g2d);
-        }
+        
 
-        for (Bush bush : bushes) {
-            bush.draw(g2d);
-        }
+        
         // draw rect x,y,w,h
         g2d.setColor(Color.RED);
         // if (GamePanel.debugging) {
