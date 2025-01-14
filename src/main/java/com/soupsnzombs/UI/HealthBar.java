@@ -43,7 +43,7 @@ public class HealthBar {
             fillColor = Theme.HEALTH_BAR_FG; // 75% or more health
         }
         int X_POSITION = 30;
-        int Y_POSITION = (GamePanel.screenHeight) - 200;
+        int Y_POSITION = (GamePanel.screenHeight) - 175;
 
         // Save the original transform
         AffineTransform originalTransform = g2d.getTransform();
