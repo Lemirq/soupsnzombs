@@ -354,7 +354,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         //health drops in the warehouse
         healthDrops.add(new HealthDrop(3850, 20, 10000));
         healthDrops.add(new HealthDrop(3600, 920, 5000));   
-        healthDrops.add(new HealthDrop(3880, 400, 10000, 20)); 
+        healthDrops.add(new HealthDrop(3880, -400, 10000, 20)); 
         healthDrops.add(new HealthDrop(3120, 600, 10000, 20)); 
 
 
@@ -535,7 +535,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // - 300, screenHeight - 850);
 
         // Score Displayed Bottom-Left
-        g2d.drawString(String.format("Time Survived: %.2f", elapsedTime), 200, screenHeight - 100);
+       
 
         // DEBUG drawings
         // g2d.setColor(Color.RED);
@@ -548,11 +548,21 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // draw dot at offset x,y
         // g2d.fillOval(offsetX, offsetY, 10, 10);
 
+        buildings.drawTrees(g2d);
         // g2d.setFont(font30);
+
+
+        //UI stuff
+        g2d.drawString(String.format("Time Survived: %.2f", elapsedTime), 200, screenHeight - 100);
         if (getPlayer().getBounds().intersects(KeyHandler.proximity)) {
             g2d.drawString("[P] Shop", player.x + GamePanel.offsetX - 46,
                     player.y + GamePanel.offsetY - 20);
         }
+
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(font30);
+        g2d.drawString("Score: " + Player.score, GamePanel.screenWidth - 1180, GamePanel.screenHeight - 100);
+        g2d.drawString("Coins: " + Player.money, GamePanel.screenWidth - 1180, GamePanel.screenHeight - 50);
 
         player.bar.draw(g2d);
         inventory.draw(g2d, this, player.getGun());
