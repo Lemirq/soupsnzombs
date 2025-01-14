@@ -326,6 +326,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // Color.RED));
         gunDrops.add(new GunDrop(-4100, 1025, new Gun(15, 200, 200, 5, 5, -1, pistolImage)));
         gunDrops.add(new GunDrop(-1800, -760, new Gun(25, 200, 300, 5, 5, -1, pistolImage)));
+
+        gunDrops.add(new GunDrop(4935, 765, new Gun(15, 200, 300, 5, 5, 0, semiAutoImage)));
         warehouseEntrance.removeWall(2);
 
         soupWarehouse.removeWallLeft(-1200, -400);

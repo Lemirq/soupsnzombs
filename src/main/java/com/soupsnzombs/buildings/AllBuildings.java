@@ -18,16 +18,11 @@ public class AllBuildings {
         buildings.add(b);
     }
 
-    public AllBuildings() {
-        buildings.add(shopEntity);
-
-        
-        // walls.add(new Wall(-1000, 500, 1000, 1000));
-        // trees.add(new Tree (-1000, 1500, 1000, 1000));
+    public void generateTrees() {
         Random random = new Random();
 
-        // Define map bounds
-        int minX = -4000, maxX = 1500;
+        // Define bounds
+        int minX = -4000, maxX = 1400;
         int minY = -1400, maxY = 2300;
 
         // Define exclusion zone
@@ -45,14 +40,23 @@ public class AllBuildings {
                     trees.add(new Tree(x, y, 25, 25)); // Add tree
                 }
 
-                // Add a random vertical gap
                 y += 50 + random.nextInt(351); // Random gap between 50 and 400
             }
 
-            // Add a random horizontal gap
             x += 150 + random.nextInt(151); // Random gap between 150 and 300
         }
 
+    }
+
+    public AllBuildings() {
+        buildings.add(shopEntity);
+
+        
+        // walls.add(new Wall(-1000, 500, 1000, 1000));
+        // trees.add(new Tree (-1000, 1500, 1000, 1000));
+        generateTrees();
+
+        trees.add(new Tree(4935, 765, 25, 25));
         
 
         for (Tree t: trees) {
