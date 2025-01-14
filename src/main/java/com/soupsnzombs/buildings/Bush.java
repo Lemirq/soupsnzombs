@@ -36,6 +36,10 @@ public class Bush extends Building {
         }
 
         // System.out.println("bush drawn");
+        
+
+        //TODO: just a reminder that matthew removed drawing the tree hitbox because the player can go through it
+        /*
         if (GamePanel.debugging) {
 
             // Draw the building's border
@@ -47,6 +51,7 @@ public class Bush extends Building {
             g2d.setColor(Color.GREEN);
             g2d.drawRect(x, y, width, height);
         }
+        */
 
     }
 
