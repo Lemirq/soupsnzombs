@@ -16,8 +16,10 @@ import com.soupsnzombs.utils.CollisionManager;
 
 import javax.swing.*;
 
+import static com.soupsnzombs.GamePanel.GameState.GAMEOVER;
 import static com.soupsnzombs.buildings.AllBuildings.*;
 import static com.soupsnzombs.entities.AllCoins.coins;
+import static com.soupsnzombs.entities.zombies.Zombie.ZombieType.*;
 import static com.soupsnzombs.utils.FontLoader.font30;
 
 public class AllZombies {
@@ -27,6 +29,7 @@ public class AllZombies {
     public static int waveNumber = 1;
     private final int spawnRadius = 1500;
     private final Random random = new Random();
+    private int dropCoin;
     private final Timer waveTimer = new Timer(1000, new ActionListener() {
         public void actionPerformed(ActionEvent e) {
             seconds--;
@@ -118,16 +121,23 @@ public class AllZombies {
                 //if (waveNumber <= 9) {
                     //zombies.add(new Zombie(x, y, ZombieType.DEFAULT));
                 //} else {
+                if (waveNumber % 5 == 0) {
+                    zombies.add(new Zombie(x, y, ZombieType.BOSS));
+                }
                     int kindOfZombie = random.nextInt(4) + 1;
                     switch (kindOfZombie) {
                         case 1:
                             zombies.add(new Zombie(x, y, ZombieType.DEFAULT));
+                            break;
                         case 2:
                             zombies.add(new Zombie(x, y, ZombieType.DEFAULT));
+                            break;
                         case 3:
                             zombies.add(new Zombie(x, y, ZombieType.FAT));
+                            break;
                         case 4:
                             zombies.add(new Zombie(x, y, ZombieType.SMALL));
+                            break;
                  //   }
                 }
 
@@ -155,11 +165,40 @@ public class AllZombies {
             if (!z.alive) {
                 Player.score += z.pointsDropped;
                 zombieIterator.remove();
-                int dropCoin = random.nextInt(2) + 1;
-                if (dropCoin == 1) {
-                    coins.add(new Coin(z.x + 5, z.y + 5, 10, 10));
+
+                switch (Zombie.zombieType) {
+                    case DEFAULT:
+                        dropCoin = random.nextInt(2) + 1;
+                        if (dropCoin == 1) {
+                            coins.add(new Coin(z.x + 5, z.y + 5, 10, 10));
+                        }
+                        dropCoin = 0;
+                        break;
+
+                    case SMALL:
+                        dropCoin = random.nextInt(6) + 1;
+                        if (dropCoin == 1) {
+                            coins.add(new Coin(z.x + 5, z.y + 5, 10, 10));
+                        }
+                        dropCoin = 0;
+                        break;
+
+                    case FAT:
+                        coins.add(new Coin(z.x + 5, z.y + 5, 10, 10));
+                        dropCoin = 0;
+                        break;
+
+                    case BOSS:
+                        coins.add(new Coin(z.x + 5, z.y + 5, 10, 10));
+                        coins.add(new Coin(z.x + 5, z.y + 5, 10, 10));
+                        coins.add(new Coin(z.x + 5, z.y + 5, 10, 10));
+                        coins.add(new Coin(z.x + 5, z.y + 5, 10, 10));
+                        coins.add(new Coin(z.x + 5, z.y + 5, 10, 10));
+                        dropCoin = 0;
+                        break;
                 }
                 break;
+
             } else {
                 z.draw(g2d, player);
                 z.chasePlayer(player, g2d);
