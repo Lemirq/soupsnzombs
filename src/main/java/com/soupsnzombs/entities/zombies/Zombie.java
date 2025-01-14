@@ -12,13 +12,16 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.soupsnzombs.entities.zombies.AllZombies.waveNumber;
+import static com.soupsnzombs.utils.Images.*;
+
 public class Zombie extends Entity implements GameObject {
     // private static int direction;
     public static int screenX;
     public static int screenY;
     private int health;
     private BufferedImage sprite;
-    public int moneyDropped = 10;
+    public int moneyDropped;
     public int pointsDropped = 10;
     public int damageTime = 500;
     // TODO make pathfinder toggleable
@@ -37,7 +40,7 @@ public class Zombie extends Entity implements GameObject {
     private List<Node> pathNodes = new ArrayList<>();
 
     public enum ZombieType {
-        DEFAULT, FAT, SMALL;
+        DEFAULT, FAT, SMALL, BOSS;
     }
 
     public Zombie(int startX, int startY, ZombieType type) {
@@ -53,26 +56,38 @@ public class Zombie extends Entity implements GameObject {
                 // TODO change loaded png file accordingly to the type of zomb
                 this.sprite = Images.spriteImages.get("zoimbie1_stand.png");
                 this.damage = 10;
+                moneyDropped = 3;
                 break;
 
             case FAT:
                 health = 200;
                 healthMax = 200;
                 this.damage = 35;
+                moneyDropped = 6;
                 speed = 1;
 
+
                 // TODO change loaded png file accordingly to the type of zomb
-                this.sprite = Images.spriteImages.get("zoimbie1_stand.png");
+                this.sprite = bigZombie;
                 break;
 
             case SMALL:
                 health = 75;
                 healthMax = 75;
                 this.damage = 5;
+                moneyDropped = 1;
                 speed = 2;
 
                 // TODO change loaded png file accordingly to the type of zomb
-                this.sprite = Images.spriteImages.get("zoimbie1_stand.png");
+                this.sprite = smallZombie;
+                break;
+
+            case BOSS:
+                health = 100 * waveNumber;
+                healthMax = 100 * waveNumber;
+                this.damage = 35 + (5 * waveNumber);
+                speed = 1;
+                this.sprite = kingZombie;
                 break;
         }
 

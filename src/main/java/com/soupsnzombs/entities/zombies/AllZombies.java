@@ -115,9 +115,9 @@ public class AllZombies {
 
             } while (!validSpawn);
             if (validSpawn) {
-                if (waveNumber <= 9) {
-                    zombies.add(new Zombie(x, y, ZombieType.DEFAULT));
-                } else {
+                //if (waveNumber <= 9) {
+                    //zombies.add(new Zombie(x, y, ZombieType.DEFAULT));
+                //} else {
                     int kindOfZombie = random.nextInt(4) + 1;
                     switch (kindOfZombie) {
                         case 1:
@@ -128,7 +128,7 @@ public class AllZombies {
                             zombies.add(new Zombie(x, y, ZombieType.FAT));
                         case 4:
                             zombies.add(new Zombie(x, y, ZombieType.SMALL));
-                    }
+                 //   }
                 }
 
             } else {
