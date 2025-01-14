@@ -10,8 +10,9 @@ import com.soupsnzombs.utils.Images;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import static com.soupsnzombs.utils.Images.grayWall;
+
 public class Wall extends Building {
-    BufferedImage wallSprite;
     int mapX, mapY;
 
     public Wall(int x, int y, int width, int height) {
@@ -25,7 +26,6 @@ public class Wall extends Building {
     }
 
     public void draw(Graphics2D g2d) {
-        wallSprite = Images.tileImages.get("grayWall");
 
         // Calculate the building's position on the screen
         int buildingX = mapX + GamePanel.offsetX;
@@ -33,11 +33,11 @@ public class Wall extends Building {
 
         // Draw the building
         g2d.setColor(Color.BLUE);
-        g2d.drawImage(wallSprite, buildingX, buildingY, width, height, null);
+        g2d.drawImage(grayWall, buildingX, buildingY, width, height, null);
 
         // g2d.fillRect(buildingX, buildingY, width, height);
 
-        if (wallSprite == null) {
+        if (grayWall == null) {
             System.out.println("wallSprite is null");
         }
 

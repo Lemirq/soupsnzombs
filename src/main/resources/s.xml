@@ -53,7 +53,7 @@
 	<!-- <SubTexture name="womanGreen_silencer.png"	x="0"	y="44"	width="57"	height="43" frameX="-0" frameY="-0" frameWidth="57" frameHeight="43"/> -->
 	<!-- <SubTexture name="womanGreen_stand.png"	x="386"	y="44"	width="36"	height="43" frameX="-0" frameY="-0" frameWidth="36" frameHeight="43"/> -->
 	<!-- <SubTexture name="zoimbie1_gun.png"	x="163"	y="132"	width="49"	height="43" frameX="-0" frameY="-0" frameWidth="49" frameHeight="43"/> -->
-	<!-- <SubTexture name="zoimbie1_hold.png"	x="424"	y="0"	width="35"	height="43" frameX="-0" frameY="-0" frameWidth="35" frameHeight="43"/> -->
+	<SubTexture name="zoimbie1_hold.png"	x="424"	y="0"	width="35"	height="43" frameX="-0" frameY="-0" frameWidth="35" frameHeight="43"/> -->
 	<!-- <SubTexture name="zoimbie1_machine.png"	x="162"	y="176"	width="49"	height="43" frameX="-0" frameY="-0" frameWidth="49" frameHeight="43"/> -->
 	<!-- <SubTexture name="zoimbie1_reload.png"	x="346"	y="88"	width="39"	height="43" frameX="-0" frameY="-0" frameWidth="39" frameHeight="43"/> -->
 	<!-- <SubTexture name="zoimbie1_silencer.png"	x="57"	y="88"	width="54"	height="43" frameX="-0" frameY="-0" frameWidth="54" frameHeight="43"/> -->

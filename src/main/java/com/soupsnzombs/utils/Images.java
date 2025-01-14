@@ -24,7 +24,7 @@ public class Images {
     // public static ArrayList<BufferedImage> player_running = new ArrayList<>();
     // public static ArrayList<BufferedImage> gunfire = new ArrayList<>();
 
-    public static BufferedImage player_idle, circle, gun, bullet, tree, gameMenu, background, coin,
+    public static BufferedImage player_idle, circle, gun, bullet, tree, gameMenu, background, coin, shop, bigZombie, smallZombie, kingZombie, tent, grayWall,
             playButton, creditsButton, scoresButton, arrowImage, instructions, credits, shopBackground, tempImage,
             ocean, pistolImage, SMGImage, sniperImage, scoresbg, grass, milk, soup, energyDrink, exit, semiAutoImage;
     public static HashMap<String, BufferedImage> spriteImages = new HashMap<>();
@@ -46,8 +46,8 @@ public class Images {
             instructions = ImageIO.read(Images.class.getResource("/instructions.png"));
             credits = ImageIO.read(Images.class.getResource("/credits.png"));
             ocean = ImageIO.read(Images.class.getResource("/ocean.png"));
-            // scale main menu images
 
+            // scale main menu images
             playButton = scaleImage(playButton, 150, 50);
             scoresButton = scaleImage(scoresButton, 150, 50);
             creditsButton = scaleImage(creditsButton, 150, 50);
@@ -70,8 +70,18 @@ public class Images {
             // coins
             coin = ImageIO.read(Images.class.getResource("/coin.png"));
 
+            // zombies
+            bigZombie = ImageIO.read(Images.class.getResource("/bigZombie.png"));
+            smallZombie = ImageIO.read(Images.class.getResource("/smallZombie.png"));
+            kingZombie = ImageIO.read(Images.class.getResource("/kingZombie.png"));
+
+            // shop entity
+            shop = ImageIO.read(Images.class.getResource("/shop.png"));
+            tent = ImageIO.read(Images.class.getResource("/tent.png"));
+
             // map
             grass = ImageIO.read(Images.class.getResource("/grass.png"));
+            grayWall = ImageIO.read(Images.class.getResource("/grayWall.png"));
 
             // get the spritesheet, crop image, and set the spriteImages hashmap
             BufferedImage spriteSheet = ImageIO.read(Images.class.getResource("/spritesheet.png"));

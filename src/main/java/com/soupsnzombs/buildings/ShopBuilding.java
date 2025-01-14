@@ -1,15 +1,13 @@
 package com.soupsnzombs.buildings;
 
 import com.soupsnzombs.GamePanel;
-import com.soupsnzombs.entities.Entity;
-import com.soupsnzombs.entities.Player;
-import com.soupsnzombs.utils.Images;
 import java.awt.*;
-import java.awt.image.BufferedImage;
+
+import static com.soupsnzombs.utils.Images.shop;
+import static com.soupsnzombs.utils.Images.tent;
 
 public class ShopBuilding extends Building {
     int mapX, mapY, shopX, shopY;
-    BufferedImage shopSprite;
 
     public ShopBuilding(int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -22,17 +20,11 @@ public class ShopBuilding extends Building {
     }
 
     public void drawShop(Graphics2D g2d) {
-        shopSprite = Images.spriteImages.get("manBlue_gun.png");
         shopX = mapX + GamePanel.offsetX;
         shopY = mapY + GamePanel.offsetY;
 
-        g2d.setColor(Color.RED);
-        g2d.drawImage(shopSprite, shopX, shopY, width, height, null);
-        g2d.fillRect(shopX, shopY, width, height);
-
-        if (shopSprite == null) {
-            System.out.println("shopSprite is null");
-        }
+        //g2d.drawImage(tent, shopX, shopY, width, height, null);
+        g2d.drawImage(shop, shopX, shopY, width, height, null);
 
         if (GamePanel.debugging) {
             // Draw the building's border

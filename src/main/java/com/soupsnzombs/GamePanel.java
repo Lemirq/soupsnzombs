@@ -51,8 +51,21 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     private final int FPS = 120;
     private final double TIME_PER_TICK = 1000000000 / FPS;
 
-    Timer timer;
+    Timer deathScreenTimer = new Timer(1000, new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            seconds++;
+        }
+    });
     int seconds = 0;
+
+    Timer nameSelectTimer = new Timer(1000, new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            timeLeft--;
+        }
+    });
+    public static int timeLeft = 10;
+
+
     // private long time1 = 0;
     // private long time2 = 0;
     // private boolean gameOverHandled = false;
@@ -87,13 +100,11 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public Instructions instruct = new Instructions();
     public Credits credits = new Credits();
     public static ArrayList<GunDrop> gunDrops = new ArrayList<>();
-    public EntranceBuilding soupWarehouse = new EntranceBuilding(3000, -1200, 1200, 2200, 800, 4, 60);
-    public EntranceBuilding warehouseEntrance = new EntranceBuilding(1940, -1200, 1000, 800, 450, 1,  60);
-    public EntranceBuilding hut1 = new EntranceBuilding(-4200, 20, 450, 400, 200, 2, 30);
-    public EntranceBuilding hut2 = new EntranceBuilding(-2000, -800, 450, 400, 200, 4, 30);
-    public EntranceBuilding hut3 = new EntranceBuilding(-600, 1600, 450, 400, 200, 3, 30);
-    public GunDrop pistol1;
-    public ShopBuilding shopEntity = new ShopBuilding(250, 1400, 400, 200);
+    public EntranceBuilding prototypeBuilding1 = new EntranceBuilding(1000, 900, 300, 500, 160, 1, 40);
+    public EntranceBuilding prototypeBuilding3 = new EntranceBuilding(1000, 500, 700, 500, 0, 0, 40);
+    public EntranceBuilding prototypeBuilding2 = new EntranceBuilding(2000, 1000, 1000, 300, 200, 4, 65);
+    public EntranceBuilding prototypeBuilding4 = new EntranceBuilding(2000 + 1000 - 65 - 65, 1000, 800, 1000, 0, 0, 65);
+    public ShopBuilding shopEntity = new ShopBuilding(500, -200, 400, 200);
     public ArrayList<HealthDrop> healthDrops = new ArrayList<>();
     public Inventory inventory;
     public ArrayList<EntranceBuilding> entranceBuildings = new ArrayList<>();
@@ -178,11 +189,21 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         }
 
         if (gameState == GameState.GAMEOVER) {
-            timer.start();
+            deathScreenTimer.start();
             if (seconds == 2) {
                 gameState = GameState.NAME_SELECT;
+                deathScreenTimer.stop();
                 seconds = 0;
-                timer.stop();
+                return;
+            }
+        }
+
+        if (gameState == GameState.NAME_SELECT) {
+            nameSelectTimer.start();
+            if (timeLeft == 0) {
+                gameState = GameState.MAIN_MENU;
+                nameSelectTimer.stop();
+                timeLeft = 10;
                 return;
             }
         }
@@ -289,12 +310,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     }
 
     GamePanel() {
-        timer = new Timer(1000, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                seconds++;
-            }
-        });
-
         setBackground(Theme.BG);
         setFocusable(true);
         requestFocusInWindow();

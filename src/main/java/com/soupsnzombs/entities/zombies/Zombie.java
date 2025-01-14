@@ -11,15 +11,20 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
+import static com.soupsnzombs.entities.AllCoins.coins;
+import static com.soupsnzombs.entities.zombies.AllZombies.waveNumber;
+import static com.soupsnzombs.utils.Images.*;
 
 public class Zombie extends Entity implements GameObject {
+    private Random random = new Random();
     // private static int direction;
     public static int screenX;
     public static int screenY;
     private int health;
     private BufferedImage sprite;
-    public int moneyDropped = 10;
-    public int pointsDropped = 10;
+    public int pointsDropped;
     public int damageTime = 500;
     // TODO make pathfinder toggleable
     Pathfinder pathfinder = new Pathfinder();
@@ -30,14 +35,14 @@ public class Zombie extends Entity implements GameObject {
     private double lastPlayerX = -1;
     private double lastPlayerY = -1;
 
-    private ZombieType type;
+    public static ZombieType zombieType;
     private double healthMax;
     private int damage;
 
     private List<Node> pathNodes = new ArrayList<>();
 
     public enum ZombieType {
-        DEFAULT, FAT, SMALL;
+        DEFAULT, FAT, SMALL, BOSS;
     }
 
     public Zombie(int startX, int startY, ZombieType type) {
@@ -45,14 +50,15 @@ public class Zombie extends Entity implements GameObject {
         this.x = startX + GamePanel.offsetX;
         this.y = startY + GamePanel.offsetY;
 
-        this.type = type;
-        switch (this.type) {
+        this.zombieType = type;
+        switch (this.zombieType) {
             case DEFAULT:
                 health = 100;
                 healthMax = 100;
                 // TODO change loaded png file accordingly to the type of zomb
                 this.sprite = Images.spriteImages.get("zoimbie1_stand.png");
                 this.damage = 10;
+                pointsDropped = 10;
                 break;
 
             case FAT:
@@ -60,9 +66,9 @@ public class Zombie extends Entity implements GameObject {
                 healthMax = 200;
                 this.damage = 35;
                 speed = 1;
-
+                pointsDropped = 20;
                 // TODO change loaded png file accordingly to the type of zomb
-                this.sprite = Images.spriteImages.get("zoimbie1_stand.png");
+                this.sprite = bigZombie;
                 break;
 
             case SMALL:
@@ -70,9 +76,19 @@ public class Zombie extends Entity implements GameObject {
                 healthMax = 75;
                 this.damage = 5;
                 speed = 2;
+                pointsDropped = 5;
 
                 // TODO change loaded png file accordingly to the type of zomb
-                this.sprite = Images.spriteImages.get("zoimbie1_stand.png");
+                this.sprite = smallZombie;
+                break;
+
+            case BOSS:
+                health = 100 * waveNumber;
+                healthMax = 100 * waveNumber;
+                this.damage = 35 + (5 * waveNumber);
+                speed = 1;
+                this.sprite = kingZombie;
+                pointsDropped = 30;
                 break;
         }
 

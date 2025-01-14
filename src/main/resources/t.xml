@@ -288,8 +288,8 @@
 	<!-- <SubTexture name="tile_1700000" x="748" y="272" width="68" height="68" frameX="2" frameY="2" frameWidth="64" frameHeight="64"/> -->
 	<!-- <SubTexture name="tile_3120000" x="1156" y="884" width="68" height="68" frameX="2" frameY="2" frameWidth="64" frameHeight="64"/> -->
 	<!-- <SubTexture name="tile_2800000" x="272" y="884" width="68" height="68" frameX="2" frameY="2" frameWidth="64" frameHeight="64"/> -->
-	<SubTexture name="grayWall" x="0" y="0" width="68" height="68" frameX="2" frameY="2" frameWidth="64" frameHeight="64"/> 
-	<!-- <SubTexture name="tile_3080000" x="1156" y="136" width="68" height="68" frameX="2" frameY="2" frameWidth="64" frameHeight="64"/> -->
+	<!-- <SubTexture name="grayWall" x="0" y="0" width="10" height="10" frameX="0" frameY="0" frameWidth="10" frameHeight="10"/>
+	<!- <SubTexture name="tile_3080000" x="1156" y="136" width="68" height="68" frameX="2" frameY="2" frameWidth="64" frameHeight="64"/> -->
 	<!-- <SubTexture name="tile_3070000" x="748" y="204" width="68" height="68" frameX="2" frameY="2" frameWidth="64" frameHeight="64"/> -->
 	<!-- <SubTexture name="tile_3550000" x="748" y="68" width="68" height="68" frameX="2" frameY="2" frameWidth="64" frameHeight="64"/> -->
 	<!-- <SubTexture name="tile_2670000" x="495" y="1395" width="48" height="36" frameX="-8" frameY="-14" frameWidth="64" frameHeight="64"/> -->
