@@ -558,10 +558,10 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
                     player.y + GamePanel.offsetY - 20);
         }
 
-        g2d.setColor(Color.WHITE);
-        g2d.setFont(font30);
-        g2d.drawString("Score: " + Player.score, GamePanel.screenWidth - 1180, GamePanel.screenHeight - 100);
-        g2d.drawString("Coins: " + Player.money, GamePanel.screenWidth - 1180, GamePanel.screenHeight - 50);
+        // g2d.setColor(Color.WHITE);
+        // g2d.setFont(font30);
+        // g2d.drawString("Score: " + Player.score, GamePanel.screenWidth - 1180,140);
+        // g2d.drawString("Coins: " + Player.money, GamePanel.screenWidth - 1180,90);
 
         player.bar.draw(g2d);
         inventory.draw(g2d, this, player.getGun());
