@@ -295,14 +295,14 @@ public class Zombie extends Entity implements GameObject {
         double currentY = startY;
 
         // Debug visualization
-        if (GamePanel.debugging) {
+       // if (GamePanel.debugging) {
             g2d.setColor(new Color(255, 255, 0, 50)); // Semi-transparent yellow
             g2d.drawLine(
                     (int) startX + GamePanel.offsetX,
                     (int) startY + GamePanel.offsetY,
                     (int) endX + GamePanel.offsetX,
                     (int) endY + GamePanel.offsetY);
-        }
+       // }
 
         while (distance > 0 && distance < maxDistance) {
             Rectangle checkPoint = new Rectangle(
