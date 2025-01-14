@@ -106,6 +106,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public EntranceBuilding hut3 = new EntranceBuilding(-600, 1600, 450, 400, 200, 3, 30);
     public GunDrop pistol1;
     public ShopBuilding shopEntity = new ShopBuilding(250, 1400, 400, 200);
+    public ArrayList<EntranceBuilding> entranceBuildings = new ArrayList<>();
     public ArrayList<HealthDrop> healthDrops = new ArrayList<>();
     public Inventory inventory;
 
@@ -114,6 +115,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     }
 
     public Player getPlayer() {
+        //TODO: fix this
         return this.player;
     }
 
@@ -178,9 +180,9 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             Player.money = 90; // Reset player coins
             // TODO: make money not 90
             Player.score = 0; // Reset player score
-            player.x = GamePanel.screenWidth / 2 - player.width / 2;
-            player.y = GamePanel.screenHeight / 2 - player.height / 2;
-            offsetX = 0;
+            player.x = (GamePanel.screenWidth / 2 - player.width / 2) - 4000;
+            player.y = (GamePanel.screenHeight / 2 - player.height / 2);
+            offsetX = 4000;
             offsetY = 0; // Reset player position
             zombies.clear(); // Removes all zombies
             NameSelect.name = new StringBuilder(""); // Clears leaderboard name input stream
@@ -318,26 +320,32 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         map = new GameMap();
 
-        player = new Player(new Gun(15, 200, 200, 5, 5, -1, pistolImage));
+        player = new Player(new Gun(0, 0, 0, 0, 0, -5, null));
         // gunDrops.add(new GunDrop(75, 500, new Gun(10, 100, 600, 0, 0, 0, 5, 1),
         // Color.YELLOW));
         // gunDrops.add(new GunDrop(50, 400, new Gun(50, 500, 600, 0, 0, 0, 5, -1),
         // Color.RED));
+        gunDrops.add(new GunDrop(-4100, 25, new Gun(15, 200, 200, 5, 5, -1, pistolImage)));
+        gunDrops.add(new GunDrop(-550, 1660, new Gun(25, 200, 300, 5, 5, -1, pistolImage)));
+        warehouseEntrance.removeWall(2);
 
-        prototypeBuilding1.removeWall(3);
-        prototypeBuilding3.removeWallBottom(1000, 1300);
-        prototypeBuilding2.removeWallRight(1000, 1300);
-        prototypeBuilding4.removeWallLeft(1000, 1300);
+        soupWarehouse.removeWallLeft(-1200, -400);
+        entranceBuildings.add(soupWarehouse);
+        entranceBuildings.add(warehouseEntrance);
+        entranceBuildings.add(hut1);
+        entranceBuildings.add(hut2);
+        entranceBuildings.add(hut3);
 
-        buildings.addBuilding(prototypeBuilding1);
-        buildings.addBuilding(prototypeBuilding2);
-        buildings.addBuilding(prototypeBuilding3);
-        buildings.addBuilding(prototypeBuilding4);
+        
+
+        for (EntranceBuilding eb : entranceBuildings) {
+            buildings.addBuilding(eb);
+            AllBuildings.buildings.addAll(eb.surroundingWalls);
+        }
+
+        
         CollisionManager.addCollidable(player);
-        AllBuildings.buildings.addAll(prototypeBuilding2.surroundingWalls);
-        AllBuildings.buildings.addAll(prototypeBuilding1.surroundingWalls);
-        AllBuildings.buildings.addAll(prototypeBuilding3.surroundingWalls);
-        AllBuildings.buildings.addAll(prototypeBuilding4.surroundingWalls);
+
         zombies = new AllZombies();
         inventory = new Inventory();
 
