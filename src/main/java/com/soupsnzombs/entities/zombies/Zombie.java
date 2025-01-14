@@ -43,6 +43,8 @@ public class Zombie extends Entity implements GameObject {
         DEFAULT, FAT, SMALL, BOSS;
     }
 
+    private static int maxDistance = 800; // max following distance between zombie and player
+
     public Zombie(int startX, int startY, ZombieType type) {
         super(startX, startY, 0, 0, 100, 1);
         this.x = startX + GamePanel.offsetX;
@@ -169,6 +171,11 @@ public class Zombie extends Entity implements GameObject {
         return new Rectangle(super.x, super.y, super.width, super.height);
     }
 
+    public void doNothing(Player p) {
+        lastPlayerX = p.x;
+        lastPlayerY = p.y;
+    }
+
     public void chasePlayer(Player p, Graphics2D g2d) {
         pathRefreshCounter++;
 
@@ -292,16 +299,16 @@ public class Zombie extends Entity implements GameObject {
         double currentY = startY;
 
         // Debug visualization
-        if (GamePanel.debugging) {
-            g2d.setColor(new Color(255, 255, 0, 50)); // Semi-transparent yellow
-            g2d.drawLine(
-                    (int) startX + GamePanel.offsetX,
-                    (int) startY + GamePanel.offsetY,
-                    (int) endX + GamePanel.offsetX,
-                    (int) endY + GamePanel.offsetY);
-        }
+        // if (GamePanel.debugging) {
+        g2d.setColor(new Color(255, 255, 0, 50)); // Semi-transparent yellow
+        g2d.drawLine(
+                (int) startX + GamePanel.offsetX,
+                (int) startY + GamePanel.offsetY,
+                (int) endX + GamePanel.offsetX,
+                (int) endY + GamePanel.offsetY);
+        // }
 
-        while (distance > 0) {
+        while (distance > 0 && distance < maxDistance) {
             Rectangle checkPoint = new Rectangle(
                     (int) currentX - 1,
                     (int) currentY - 1,
@@ -345,7 +352,7 @@ public class Zombie extends Entity implements GameObject {
         double dy = targetY - y;
         double distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance > 0) {
+        if (distance > 0 && distance < maxDistance) {
             // Normalize and apply speed
             double vx = (dx / distance) * speed;
             double vy = (dy / distance) * speed;

@@ -101,10 +101,9 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public static ArrayList<GunDrop> gunDrops = new ArrayList<>();
     public EntranceBuilding soupWarehouse = new EntranceBuilding(3000, -1200, 1200, 2200, 800, 4, 60);
     public EntranceBuilding warehouseEntrance = new EntranceBuilding(1940, -1200, 1000, 800, 450, 1, 60);
-    public EntranceBuilding hut1 = new EntranceBuilding(-4200, 20, 450, 400, 200, 2, 30);
+    public EntranceBuilding hut1 = new EntranceBuilding(-4200, 1020, 450, 400, 200, 2, 30);
     public EntranceBuilding hut2 = new EntranceBuilding(-2000, -800, 450, 400, 200, 4, 30);
     public EntranceBuilding hut3 = new EntranceBuilding(-600, 1600, 450, 400, 200, 3, 30);
-    public GunDrop pistol1;
     public ShopBuilding shopEntity = new ShopBuilding(250, 1400, 400, 200);
     public ArrayList<EntranceBuilding> entranceBuildings = new ArrayList<>();
     public ArrayList<HealthDrop> healthDrops = new ArrayList<>();
@@ -180,10 +179,10 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             Player.money = 0; // Reset player coins
             // TODO: make money not 90
             Player.score = 0; // Reset player score
-            player.x = (GamePanel.screenWidth / 2 - player.width / 2) - 4000;
-            player.y = (GamePanel.screenHeight / 2 - player.height / 2);
-            offsetX = 4000;
-            offsetY = 0; // Reset player position
+            player.x = -3120;
+            player.y = 1540;
+            offsetX = -(player.x - (GamePanel.screenWidth / 2 - player.width / 2));
+            offsetY = -(player.y - (GamePanel.screenHeight / 2 - player.height / 2)); // Reset player position
             zombies.clear(); // Removes all zombies
             NameSelect.name = new StringBuilder(""); // Clears leaderboard name input stream
             AllZombies.waveNumber = 1; // Set zombie wave to 1
@@ -325,7 +324,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // Color.YELLOW));
         // gunDrops.add(new GunDrop(50, 400, new Gun(50, 500, 600, 0, 0, 0, 5, -1),
         // Color.RED));
-        gunDrops.add(new GunDrop(-4100, 25, new Gun(15, 200, 200, 5, 5, -1, pistolImage)));
+        gunDrops.add(new GunDrop(-4100, 1025, new Gun(15, 200, 200, 5, 5, -1, pistolImage)));
         gunDrops.add(new GunDrop(-1800, -760, new Gun(25, 200, 300, 5, 5, -1, pistolImage)));
         warehouseEntrance.removeWall(2);
 
@@ -544,10 +543,10 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
                     player.y + GamePanel.offsetY - 20);
         }
 
-        g2d.setColor(Color.WHITE);
-        g2d.setFont(font30);
-        g2d.drawString("Score: " + Player.score, GamePanel.screenWidth - 1180, GamePanel.screenHeight - 100);
-        g2d.drawString("Coins: " + Player.money, GamePanel.screenWidth - 1180, GamePanel.screenHeight - 50);
+        // g2d.setColor(Color.WHITE);
+        // g2d.setFont(font30);
+        // g2d.drawString("Score: " + Player.score, GamePanel.screenWidth - 1180,140);
+        // g2d.drawString("Coins: " + Player.money, GamePanel.screenWidth - 1180,90);
 
         player.bar.draw(g2d);
         inventory.draw(g2d, this, player.getGun());

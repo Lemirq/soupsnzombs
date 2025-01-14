@@ -3,6 +3,7 @@ package com.soupsnzombs.buildings;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.soupsnzombs.utils.CollisionManager;
 
@@ -23,11 +24,40 @@ public class AllBuildings {
         
         // walls.add(new Wall(-1000, 500, 1000, 1000));
         // trees.add(new Tree (-1000, 1500, 1000, 1000));
+        Random random = new Random();
 
-        trees.add(new Tree(350, 100, 25, 25));
-        trees.add(new Tree(-250, -120, 25, 25));
+        // Define map bounds
+        int minX = -4000, maxX = 1500;
+        int minY = -1400, maxY = 2300;
 
-        bushes.add(new Bush(300, 50, 150, 150));
+        // Define exclusion zone
+        int exclusionMinX = -3600, exclusionMaxX = 800;
+        int exclusionMinY = 1300, exclusionMaxY = 2000;
+
+        int x = minX;
+
+        while (x <= maxX) {
+            int y = minY;
+
+            while (y <= maxY) {
+                // Check if the point is within the exclusion zone
+                if (!(x >= exclusionMinX && x <= exclusionMaxX && y >= exclusionMinY && y <= exclusionMaxY)) {
+                    trees.add(new Tree(x, y, 25, 25)); // Add tree
+                }
+
+                // Add a random vertical gap
+                y += 50 + random.nextInt(351); // Random gap between 50 and 400
+            }
+
+            // Add a random horizontal gap
+            x += 150 + random.nextInt(151); // Random gap between 150 and 300
+        }
+
+        
+
+        for (Tree t: trees) {
+            bushes.add(new Bush(t.x-50, t.y-60, 150, 150));
+        }
 
         for (Tree t : trees) {
             CollisionManager.addCollidable(t);
@@ -56,7 +86,7 @@ public class AllBuildings {
         for (Tree t : trees) {
             t.draw(g2d);
         }
-        
+
         for (Building b : buildings) {
             b.draw(g2d);
         }
