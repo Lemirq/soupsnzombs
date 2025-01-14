@@ -5,8 +5,7 @@ import java.awt.*;
 
 import com.soupsnzombs.GamePanel;
 
-import static com.soupsnzombs.utils.FontLoader.font30;
-
+import static com.soupsnzombs.utils.FontLoader.font20;
 
 public class GunDrop extends Rectangle {
     Gun gunStored;
@@ -57,11 +56,14 @@ public class GunDrop extends Rectangle {
         g2d.drawImage(getGun().gunImage, this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width, this.height, null);
         
         //g2d.fillOval(this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width, this.height);
+        
         if (interactable) {
-            g2d.setFont(font30);
+           
+            g2d.setFont(font20);
             g2d.setColor(Color.WHITE);
-            if (p.getGun().getDamage() != 0) g2d.drawString("[C] Swap", this.x + GamePanel.offsetX-24, this.y + GamePanel.offsetY-6);
-            else g2d.drawString("[C] Grab", this.x + GamePanel.offsetX-24, this.y + GamePanel.offsetY-6);
+            if (p.getGun().getDamage() != 0) g2d.drawString("[C] Swap", this.x + GamePanel.offsetX-24, this.y + GamePanel.offsetY-24);
+            else g2d.drawString("[C] Grab", this.x + GamePanel.offsetX-22, this.y + GamePanel.offsetY-24);
+            g2d.drawString(String.format("Dmg: %d Range: %d", getGun().getDamage(), getGun().getRange()), this.x + GamePanel.offsetX-65, this.y + GamePanel.offsetY);
         }
        // if (isSwapTimerRunning()) drawSwapBar(g2d, this.x + GamePanel.offsetX, this.y-10+GamePanel.offsetY);
     }
