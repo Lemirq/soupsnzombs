@@ -9,8 +9,6 @@ import static com.soupsnzombs.utils.FontLoader.font20;
 
 public class GunDrop extends Rectangle {
     Gun gunStored;
-    Color color;
-    
     boolean interactable;
     /* 
     Timer gracePeriod; 
@@ -18,10 +16,9 @@ public class GunDrop extends Rectangle {
     Timer swapTimer;
     */
    // boolean collectable;
-    public GunDrop(int x, int y, Gun gunToBeStored, Color c) {
+    public GunDrop(int x, int y, Gun gunToBeStored) {
         super(x, y, 50, 50);
         gunStored = gunToBeStored;
-        color = c;
         gunStored.setDrop(this);
         /*
         gracePeriod = new Timer(500, new ActionListener() {
@@ -52,7 +49,6 @@ public class GunDrop extends Rectangle {
     }
     */
     public void draw(Graphics2D g2d, Player p) {
-        g2d.setColor(this.color);
         g2d.drawImage(getGun().gunImage, this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width, this.height, null);
         
         //g2d.fillOval(this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width, this.height);
@@ -70,7 +66,6 @@ public class GunDrop extends Rectangle {
 
     
     public void drawInventoryVersion(Graphics2D g2d, int x, int y) {
-        g2d.setColor(this.color);
         g2d.drawImage(getGun().gunImage, GamePanel.screenWidth - 95, GamePanel.screenHeight - 110, this.width, this.height, null);
         
 

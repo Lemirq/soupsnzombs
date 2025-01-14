@@ -28,8 +28,8 @@ public class Player extends Entity implements GameObject {
 
         this.width = sprite.getWidth();
         this.height = sprite.getHeight();
-        this.x = GamePanel.screenWidth / 2 - width / 2;
-        this.y = GamePanel.screenHeight / 2 - height / 2;
+        this.x = GamePanel.screenWidth / 2 - width / 2 - 1000;
+        this.y = GamePanel.screenHeight / 2 - height / 2 - 1000;
         money = 90;
         this.health = 100;
         this.gun = gun;
