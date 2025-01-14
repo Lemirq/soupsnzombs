@@ -24,10 +24,10 @@ public class AllBuildings {
         // walls.add(new Wall(-1000, 500, 1000, 1000));
         // trees.add(new Tree (-1000, 1500, 1000, 1000));
 
-        trees.add(new Tree(350, 100, 150, 150));
-        trees.add(new Tree(-250, -120, 150, 150));
+        trees.add(new Tree(350, 100, 25, 25));
+        trees.add(new Tree(-250, -120, 25, 25));
 
-        bushes.add(new Bush(250, 100, 75, 75));
+        bushes.add(new Bush(300, 50, 150, 150));
 
         for (Tree t : trees) {
             CollisionManager.addCollidable(t);
