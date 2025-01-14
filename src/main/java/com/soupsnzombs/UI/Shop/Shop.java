@@ -300,7 +300,7 @@ public class Shop {
             case "Damage":
                 if (Player.money >= 5 && GamePanel.player.getGun().getDamage() != 0) {
                     System.out.println("Purchased Damage!");
-                    GamePanel.player.getGun().setDamage(GamePanel.player.getGun().getDamage()+10);
+                    GamePanel.player.getGun().setDamage(GamePanel.player.getGun().getDamage()+5);
                     Player.money-=5;
                 }
                 else System.out.println("player is holding no gun");
@@ -316,8 +316,13 @@ public class Shop {
                 
                 break;
             case "Energy Drink":
-                System.out.println("Purchased Energy Drink!");
-                GamePanel.player.increaseHealth(10);
+                if (Player.money >= 2 && GamePanel.player.getHealth() < 100) {
+                    GamePanel.player.increaseHealth(5);
+                    Player.money-=2;
+                }
+                else System.out.println("player has max health");
+                
+                
                 break;
             default:
                 System.out.println("Unknown selection.");

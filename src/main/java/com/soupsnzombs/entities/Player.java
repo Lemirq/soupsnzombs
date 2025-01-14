@@ -89,6 +89,10 @@ public class Player extends Entity implements GameObject {
         bar.setHealthValue(this.health);
     }
 
+    public int getHealth() {
+        return this.health;
+    }
+
     /**
      * @return the money
      * @param moneyAmount the money to set
