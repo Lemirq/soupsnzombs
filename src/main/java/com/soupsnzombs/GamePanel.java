@@ -177,7 +177,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             elapsedTime = 0; // Reset elapsed time
             player.alive = true; // Reset alive status
             player.setHealth(100); // Reset player health
-            Player.money = 90; // Reset player coins
+            Player.money = 0; // Reset player coins
             // TODO: make money not 90
             Player.score = 0; // Reset player score
             player.x = (GamePanel.screenWidth / 2 - player.width / 2) - 4000;
@@ -326,7 +326,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // gunDrops.add(new GunDrop(50, 400, new Gun(50, 500, 600, 0, 0, 0, 5, -1),
         // Color.RED));
         gunDrops.add(new GunDrop(-4100, 25, new Gun(15, 200, 200, 5, 5, -1, pistolImage)));
-        gunDrops.add(new GunDrop(-550, 1660, new Gun(25, 200, 300, 5, 5, -1, pistolImage)));
+        gunDrops.add(new GunDrop(-1800, -760, new Gun(25, 200, 300, 5, 5, -1, pistolImage)));
         warehouseEntrance.removeWall(2);
 
         soupWarehouse.removeWallLeft(-1200, -400);
@@ -348,10 +348,29 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         zombies = new AllZombies();
         inventory = new Inventory();
+        
+        healthDrops.add(new HealthDrop(-550, 1660, 30000, 50)); //health drop in the hut near the shop
+        
+        //health drops in the warehouse
+        healthDrops.add(new HealthDrop(3850, 20, 10000));
+        healthDrops.add(new HealthDrop(3600, 920, 5000));   
+        healthDrops.add(new HealthDrop(3880, 400, 10000, 20)); 
+        healthDrops.add(new HealthDrop(3120, 600, 10000, 20)); 
 
-        healthDrops.add(new HealthDrop(1100, 1000, 10000));
-        healthDrops.add(new HealthDrop(1500, 900, 10000));
-        healthDrops.add(new HealthDrop(-100, -200, 10000));
+
+        healthDrops.add(new HealthDrop(2200, -580, 10000)); 
+
+        //row of soup 1
+        healthDrops.add(new HealthDrop(2800, -1020, 60000, 50));
+        healthDrops.add(new HealthDrop(2900, -1020, 60000, 50)); 
+        healthDrops.add(new HealthDrop(3000, -1020, 60000, 50)); 
+        healthDrops.add(new HealthDrop(3100, -1020, 60000, 50)); 
+
+        //row of soup 2
+        healthDrops.add(new HealthDrop(2800, -620, 60000, 50)); 
+        healthDrops.add(new HealthDrop(2900, -620, 60000, 50)); 
+        healthDrops.add(new HealthDrop(3000, -620, 60000, 50)); 
+        healthDrops.add(new HealthDrop(3100, -620, 60000, 50)); 
         start();
     }
 

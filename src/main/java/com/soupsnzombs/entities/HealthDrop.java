@@ -52,6 +52,35 @@ public class HealthDrop extends Rectangle {
             }
         });
     }
+    
+    public HealthDrop(int x, int y, int cooldown, int healthIncreaseVal) {
+        super(x, y, 50, 50);
+        this.healthIncreaseVal = healthIncreaseVal;
+        this.visible = true;
+        this.animation = false;
+        this.yPos = 0;
+
+        respawnTimer = new Timer(cooldown, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                visible = true;
+                respawnTimer.stop();
+            }
+        });
+        animationTimer = new Timer(20, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                yPos += 10;
+                if (yPos == 80) {
+                    yPos = 0;
+                    animation = false;
+                    animationTimer.stop();
+                }
+            }
+        });
+    }
+
+    
 
     /**
      * draws animation text for health pickup amount
@@ -88,7 +117,7 @@ public class HealthDrop extends Rectangle {
         //draw sprites
         switch (healthIncreaseVal) {
             case 10:
-                g2d.drawImage(Images.energyDrink, this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width,
+                g2d.drawImage(Images.milk, this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width,
                         this.height, null);
                 break;
             case 20:
