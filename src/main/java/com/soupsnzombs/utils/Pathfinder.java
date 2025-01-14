@@ -23,7 +23,7 @@ public class Pathfinder {
 
     public Pathfinder() {
         if (GamePanel.debugging) {
-            g.setVisible(true);
+            // g.setVisible(true);
         } else {
             g.dispose();
             // g = null;

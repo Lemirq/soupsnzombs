@@ -13,12 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static com.soupsnzombs.entities.AllCoins.coins;
 import static com.soupsnzombs.entities.zombies.AllZombies.waveNumber;
 import static com.soupsnzombs.utils.Images.*;
 
 public class Zombie extends Entity implements GameObject {
-    private Random random = new Random();
     // private static int direction;
     public static int screenX;
     public static int screenY;
@@ -174,6 +172,17 @@ public class Zombie extends Entity implements GameObject {
     public void chasePlayer(Player p, Graphics2D g2d) {
         pathRefreshCounter++;
 
+        // calculate the disatnce between the player and the zombie
+        // Calculate direction to target
+        double deltaX = p.x - this.x;
+        double deltaY = p.y - this.y;
+        double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        // If the player is too far away, don't bother with pathfinding
+        if (distance > 800) {
+            return;
+        }
+
         // Replace the existing direct path check with:
         if (hasLineOfSight(p, g2d)) {
             chasePlayerDirectly(p, g2d);
@@ -215,11 +224,6 @@ public class Zombie extends Entity implements GameObject {
             // Convert grid coordinates to world coordinates
             double targetX = gridOriginX + (currentTarget.getX() * gridSize);
             double targetY = gridOriginY + (currentTarget.getY() * gridSize);
-
-            // Calculate direction to target
-            double deltaX = targetX - this.x;
-            double deltaY = targetY - this.y;
-            double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
             if (distance > 0) {
                 followPath(currentTarget, gridSize, g2d, gridOriginX, gridOriginY);

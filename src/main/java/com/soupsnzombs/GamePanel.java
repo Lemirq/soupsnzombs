@@ -38,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         UP, DOWN, LEFT, RIGHT
     }
 
-    public static boolean debugging = false;
+    public static boolean debugging = true;
 
     public static GameState gameState = GameState.MAIN_MENU;
 
@@ -100,7 +100,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public Credits credits = new Credits();
     public static ArrayList<GunDrop> gunDrops = new ArrayList<>();
     public EntranceBuilding soupWarehouse = new EntranceBuilding(3000, -1200, 1200, 2200, 800, 4, 60);
-    public EntranceBuilding warehouseEntrance = new EntranceBuilding(1940, -1200, 1000, 800, 450, 1,  60);
+    public EntranceBuilding warehouseEntrance = new EntranceBuilding(1940, -1200, 1000, 800, 450, 1, 60);
     public EntranceBuilding hut1 = new EntranceBuilding(-4200, 20, 450, 400, 200, 2, 30);
     public EntranceBuilding hut2 = new EntranceBuilding(-2000, -800, 450, 400, 200, 4, 30);
     public EntranceBuilding hut3 = new EntranceBuilding(-600, 1600, 450, 400, 200, 3, 30);
@@ -115,7 +115,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     }
 
     public Player getPlayer() {
-        //TODO: fix this
+        // TODO: fix this
         return this.player;
     }
 
@@ -336,41 +336,37 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         entranceBuildings.add(hut2);
         entranceBuildings.add(hut3);
 
-        
-
         for (EntranceBuilding eb : entranceBuildings) {
             buildings.addBuilding(eb);
             AllBuildings.buildings.addAll(eb.surroundingWalls);
         }
 
-        
         CollisionManager.addCollidable(player);
 
         zombies = new AllZombies();
         inventory = new Inventory();
-        
-        healthDrops.add(new HealthDrop(-550, 1660, 30000, 50)); //health drop in the hut near the shop
-        
-        //health drops in the warehouse
+
+        healthDrops.add(new HealthDrop(-550, 1660, 30000, 50)); // health drop in the hut near the shop
+
+        // health drops in the warehouse
         healthDrops.add(new HealthDrop(3850, 20, 10000));
-        healthDrops.add(new HealthDrop(3600, 920, 5000));   
-        healthDrops.add(new HealthDrop(3880, -400, 10000, 20)); 
-        healthDrops.add(new HealthDrop(3120, 600, 10000, 20)); 
+        healthDrops.add(new HealthDrop(3600, 920, 5000));
+        healthDrops.add(new HealthDrop(3880, -400, 10000, 20));
+        healthDrops.add(new HealthDrop(3120, 600, 10000, 20));
 
+        healthDrops.add(new HealthDrop(2200, -580, 10000));
 
-        healthDrops.add(new HealthDrop(2200, -580, 10000)); 
-
-        //row of soup 1
+        // row of soup 1
         healthDrops.add(new HealthDrop(2800, -1020, 60000, 50));
-        healthDrops.add(new HealthDrop(2900, -1020, 60000, 50)); 
-        healthDrops.add(new HealthDrop(3000, -1020, 60000, 50)); 
-        healthDrops.add(new HealthDrop(3100, -1020, 60000, 50)); 
+        healthDrops.add(new HealthDrop(2900, -1020, 60000, 50));
+        healthDrops.add(new HealthDrop(3000, -1020, 60000, 50));
+        healthDrops.add(new HealthDrop(3100, -1020, 60000, 50));
 
-        //row of soup 2
-        healthDrops.add(new HealthDrop(2800, -620, 60000, 50)); 
-        healthDrops.add(new HealthDrop(2900, -620, 60000, 50)); 
-        healthDrops.add(new HealthDrop(3000, -620, 60000, 50)); 
-        healthDrops.add(new HealthDrop(3100, -620, 60000, 50)); 
+        // row of soup 2
+        healthDrops.add(new HealthDrop(2800, -620, 60000, 50));
+        healthDrops.add(new HealthDrop(2900, -620, 60000, 50));
+        healthDrops.add(new HealthDrop(3000, -620, 60000, 50));
+        healthDrops.add(new HealthDrop(3100, -620, 60000, 50));
         start();
     }
 
@@ -379,32 +375,28 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         int playerHeight = (int) player.getHeight();
         int vx = 0;
         int vy = 0;
-        // Check vertical movement
+
         if (upPressed || downPressed || leftPressed || rightPressed) {
-
-            if (upPressed && offsetY + MOVE_SPEED + playerHeight < Y_Bounds[1]) {
-                vy = MOVE_SPEED;
-            } else if (upPressed) {
-                offsetY = Y_Bounds[1] - playerHeight;
+            // Calculate desired velocities
+            if (upPressed) {
+                if (offsetY + MOVE_SPEED <= Y_Bounds[1] - playerHeight) {
+                    vy = MOVE_SPEED;
+                }
             }
-
-            if (downPressed && offsetY - MOVE_SPEED - playerHeight > Y_Bounds[0]) {
-                vy = -MOVE_SPEED;
-            } else if (downPressed) {
-                offsetY = Y_Bounds[0] + playerHeight;
+            if (downPressed) {
+                if (offsetY - MOVE_SPEED >= Y_Bounds[0]) {
+                    vy = -MOVE_SPEED;
+                }
             }
-
-            // Check horizontal movement
-            if (leftPressed && offsetX + MOVE_SPEED + playerWidth < X_Bounds[1]) {
-                vx = MOVE_SPEED;
-            } else if (leftPressed) {
-                offsetX = X_Bounds[1] - playerWidth;
+            if (leftPressed) {
+                if (offsetX + MOVE_SPEED <= X_Bounds[1] - playerWidth) {
+                    vx = MOVE_SPEED;
+                }
             }
-
-            if (rightPressed && offsetX - MOVE_SPEED - playerWidth > X_Bounds[0]) {
-                vx = -MOVE_SPEED;
-            } else if (rightPressed) {
-                offsetX = X_Bounds[0] + playerWidth;
+            if (rightPressed) {
+                if (offsetX - MOVE_SPEED >= X_Bounds[0]) {
+                    vx = -MOVE_SPEED;
+                }
             }
 
             // Normalize diagonal movement
@@ -413,17 +405,13 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
                 vy /= 1.25;
             }
 
-            // System.out.println("Vx: " + vx + " Vy: " + vy);
-
-            // decide if collision happens
+            // Check collisions
             Rectangle newPositionX = new Rectangle(player.x - vx, player.y, playerWidth, playerHeight);
             Rectangle newPositionY = new Rectangle(player.x, player.y - vy, playerWidth, playerHeight);
             ArrayList<Rectangle> n = CollisionManager.collidables;
             n.remove(player);
 
-            // System.out.println("New position: X: " + newPosition.x + " Y: " +
-            // newPosition.y + " W: " + newPosition.width
-            // + " H: " + newPosition.height);
+            // Apply movement if no collision
             if (!CollisionManager.isColliding(newPositionX, n)) {
                 offsetX += vx;
                 player.x -= vx;
@@ -432,7 +420,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
                 offsetY += vy;
                 player.y -= vy;
             }
-
         }
     }
 
@@ -535,7 +522,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // - 300, screenHeight - 850);
 
         // Score Displayed Bottom-Left
-       
 
         // DEBUG drawings
         // g2d.setColor(Color.RED);
@@ -551,8 +537,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         buildings.drawTrees(g2d);
         // g2d.setFont(font30);
 
-
-        //UI stuff
+        // UI stuff
         g2d.drawString(String.format("Time Survived: %.2f", elapsedTime), 200, screenHeight - 100);
         if (getPlayer().getBounds().intersects(KeyHandler.proximity)) {
             g2d.drawString("[P] Shop", player.x + GamePanel.offsetX - 46,

@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import com.soupsnzombs.GamePanel;
-import com.soupsnzombs.utils.Images;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -14,11 +13,23 @@ import static com.soupsnzombs.utils.Images.grayWall;
 
 public class Wall extends Building {
     int mapX, mapY;
+    BufferedImage sprite;
+    private int tileWidth = 0;
+    private int tileHeight = 0;
+
+    public Wall(int x, int y, int width, int height, BufferedImage sprite, int tileWidth, int tileHeight) {
+        super(x, y, width, height);
+        this.mapX = x;
+        this.mapY = y;
+        this.sprite = sprite;
+        this.tileWidth = tileWidth;
+        this.tileHeight = tileHeight;
+    }
 
     public Wall(int x, int y, int width, int height) {
         super(x, y, width, height);
-        mapX = x;
-        mapY = y;
+        this.mapX = x;
+        this.mapY = y;
     }
 
     @Override
@@ -33,16 +44,27 @@ public class Wall extends Building {
 
         // Draw the building
         g2d.setColor(Color.BLUE);
-        g2d.drawImage(grayWall, buildingX, buildingY, width, height, null);
 
         // g2d.fillRect(buildingX, buildingY, width, height);
 
-        if (grayWall == null) {
-            System.out.println("wallSprite is null");
+        if (sprite == null) {
+            g2d.drawImage(grayWall, buildingX, buildingY, width, height, null);
+        } else if (tileWidth > 0 && tileHeight > 0) {
+            // Tile the sprite
+            for (int x = 0; x < width; x += tileWidth) {
+                for (int y = 0; y < height; y += tileHeight) {
+                    // Calculate the actual width and height for this tile (handles edge cases)
+                    int tileW = Math.min(tileWidth, width - x);
+                    int tileH = Math.min(tileHeight, height - y);
+                    g2d.drawImage(sprite, buildingX + x, buildingY + y, tileW, tileH, null);
+                }
+            }
+        } else {
+            // Draw single sprite stretched
+            g2d.drawImage(sprite, buildingX, buildingY, width, height, null);
         }
 
         if (GamePanel.debugging) {
-
             // Draw the building's border
             g2d.setColor(Color.RED);
             g2d.setStroke(new BasicStroke(1));

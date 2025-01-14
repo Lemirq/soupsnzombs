@@ -3,13 +3,14 @@ package com.soupsnzombs;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import com.soupsnzombs.entities.Boundary;
+import java.util.ArrayList;
+
+import com.soupsnzombs.buildings.Wall;
 import com.soupsnzombs.utils.Images;
 
 public class GameMap {
     public static final int GRID_SIZE = 50;
-    public int leftBoundary, rightBoundary, topBoundary, bottomBoundary;
-    Boundary boundary = new Boundary();
+    public ArrayList<Wall> walls;
 
     public void draw(Graphics2D g2d, int width, int height) {
         // draw grid
@@ -37,21 +38,34 @@ public class GameMap {
 
         int centerX = GamePanel.screenWidth / 2;
         int centerY = GamePanel.screenHeight / 2;
-        // draw boundaries
-        int leftBoundary = GamePanel.offsetX - centerX - GamePanel.X_Bounds[1] + GamePanel.screenWidth;
-        int rightBoundary = -(GamePanel.offsetX + centerX) + GamePanel.X_Bounds[0] + GamePanel.screenWidth;
-        int topBoundary = GamePanel.offsetY - centerY - GamePanel.Y_Bounds[1] + GamePanel.screenHeight;
-        int bottomBoundary = -(GamePanel.offsetY + centerY) + GamePanel.Y_Bounds[0] + GamePanel.screenHeight;
+        // make a wall at all bounds of the screen
+        int X_Bounds_left = GamePanel.X_Bounds[0] - centerX;
+        int X_Bounds_right = GamePanel.X_Bounds[1] + centerX;
+        int Y_Bounds_top = GamePanel.Y_Bounds[0] - centerY;
+        int Y_Bounds_bottom = GamePanel.Y_Bounds[1] + centerY;
 
-        boundary.draw(g2d, leftBoundary, rightBoundary, topBoundary, bottomBoundary);
+        walls = new ArrayList<Wall>();
+        walls.add(
+                new Wall(X_Bounds_left, Y_Bounds_bottom, (X_Bounds_right * 2) + centerX, 1000, Images.ocean, 200, 200));
+        walls.add(new Wall(X_Bounds_left, Y_Bounds_top, (X_Bounds_right * 2) + centerX, 950, Images.ocean, 200,
+                200));
+
+        walls.add(new Wall(X_Bounds_left, Y_Bounds_top, 1000, (Y_Bounds_bottom * 2) + centerY, Images.ocean, 200,
+                200));
+        walls.add(new Wall(X_Bounds_right, Y_Bounds_top, 950, (Y_Bounds_bottom * 2) + centerY, Images.ocean, 200,
+                200));
+
+        for (Wall wall : walls) {
+            wall.draw(g2d);
+        }
 
         if (GamePanel.debugging) {
             g2d.setColor(Color.red);
             // bottom left corner, draw stringgs for left,right,top,bottom boundaries
-            g2d.drawString("Left: " + leftBoundary, 10, GamePanel.screenHeight - 10);
-            g2d.drawString("Right: " + rightBoundary, 10, GamePanel.screenHeight - 30);
-            g2d.drawString("Top: " + topBoundary, 10, GamePanel.screenHeight - 50);
-            g2d.drawString("Bottom: " + bottomBoundary, 10, GamePanel.screenHeight - 70);
+            // g2d.drawString("Left: " + leftBoundary, 10, GamePanel.screenHeight - 10);
+            // g2d.drawString("Right: " + rightBoundary, 10, GamePanel.screenHeight - 30);
+            // g2d.drawString("Top: " + topBoundary, 10, GamePanel.screenHeight - 50);
+            // g2d.drawString("Bottom: " + bottomBoundary, 10, GamePanel.screenHeight - 70);
         }
     }
 }
