@@ -65,7 +65,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     });
     public static int timeLeft = 10;
 
-
     // private long time1 = 0;
     // private long time2 = 0;
     // private boolean gameOverHandled = false;
@@ -175,7 +174,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             player.alive = true; // Reset alive status
             player.setHealth(100); // Reset player health
             Player.money = 90; // Reset player coins
-            //TODO: make money not 90
+            // TODO: make money not 90
             Player.score = 0; // Reset player score
             player.x = GamePanel.screenWidth / 2 - player.width / 2;
             player.y = GamePanel.screenHeight / 2 - player.height / 2;
@@ -297,8 +296,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         while (healthDropIterator.hasNext()) {
             HealthDrop hd = healthDropIterator.next();
             if (hd.getBounds().intersects(player.getBounds()) && hd.isVisible()) {
-               // hd.setNewLocation();
-            // hd.changeHealType();
+                // hd.setNewLocation();
+                // hd.changeHealType();
                 hd.setVisible(false);
                 hd.setAnimation(true);
                 player.increaseHealth(hd.getHealthDropVal());
@@ -388,19 +387,23 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             // System.out.println("Vx: " + vx + " Vy: " + vy);
 
             // decide if collision happens
-            Rectangle newPosition = new Rectangle(player.x - vx, player.y - vy, playerWidth, playerHeight);
+            Rectangle newPositionX = new Rectangle(player.x - vx, player.y, playerWidth, playerHeight);
+            Rectangle newPositionY = new Rectangle(player.x, player.y - vy, playerWidth, playerHeight);
             ArrayList<Rectangle> n = CollisionManager.collidables;
             n.remove(player);
 
             // System.out.println("New position: X: " + newPosition.x + " Y: " +
             // newPosition.y + " W: " + newPosition.width
             // + " H: " + newPosition.height);
-            if (!CollisionManager.isColliding(newPosition, n)) {
+            if (!CollisionManager.isColliding(newPositionX, n)) {
                 offsetX += vx;
-                offsetY += vy;
                 player.x -= vx;
+            }
+            if (!CollisionManager.isColliding(newPositionY, n)) {
+                offsetY += vy;
                 player.y -= vy;
             }
+
         }
     }
 
@@ -483,8 +486,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         coins.draw(g2d, player);
         buildings.draw(g2d);
 
-        
-
         zombies.draw(g2d, player);
 
         for (GunDrop gd : gunDrops) {
@@ -492,7 +493,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         }
 
         player.getGun().draw(g2d, player);
-       
 
         for (HealthDrop drop : healthDrops) {
             drop.draw(g2d);
@@ -519,7 +519,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // draw dot at offset x,y
         // g2d.fillOval(offsetX, offsetY, 10, 10);
 
-        //g2d.setFont(font30);
+        // g2d.setFont(font30);
         if (getPlayer().getBounds().intersects(KeyHandler.proximity)) {
             g2d.drawString("[P] Shop", player.x + GamePanel.offsetX - 46,
                     player.y + GamePanel.offsetY - 20);
