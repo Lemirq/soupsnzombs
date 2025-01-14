@@ -164,7 +164,6 @@ public class AllZombies {
             Zombie z = zombieIterator.next();
             if (!z.alive) {
                 Player.score += z.pointsDropped;
-                zombieIterator.remove();
 
                 switch (Zombie.zombieType) {
                     case DEFAULT:
@@ -197,7 +196,9 @@ public class AllZombies {
                         dropCoin = 0;
                         break;
                 }
+                zombieIterator.remove();
                 break;
+
 
             } else {
                 z.draw(g2d, player);
