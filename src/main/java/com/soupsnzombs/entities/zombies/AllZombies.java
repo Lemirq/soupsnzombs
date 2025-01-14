@@ -202,8 +202,8 @@ public class AllZombies {
 
             } else {
                 z.draw(g2d, player);
-                z.chasePlayer(player, g2d);
 
+                z.chasePlayer(player, g2d); //only follow player if they are within 500 blocks.
                 if (GamePanel.debugging) {
                     g2d.setColor(Color.RED);
                     g2d.drawString("X: " + z.x + " Y: " + z.y + " W: " + z.width + " H: " +

@@ -177,10 +177,7 @@ public class Player extends Entity implements GameObject {
         g2d.setTransform(GamePanel.oldTransformation);
 
         // draw score bottom left corner
-        g2d.setColor(Color.WHITE);
-        g2d.setFont(font30);
-        g2d.drawString("Score: " + score, GamePanel.screenWidth - 1180, GamePanel.screenHeight - 100);
-        g2d.drawString("Coins: " + money, GamePanel.screenWidth - 1180, GamePanel.screenHeight - 50);
+       
 
         if (GamePanel.debugging) {
             // draw map coordinates next to player for debugging
