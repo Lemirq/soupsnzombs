@@ -51,8 +51,21 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     private final int FPS = 120;
     private final double TIME_PER_TICK = 1000000000 / FPS;
 
-    Timer timer;
+    Timer deathScreenTimer = new Timer(1000, new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            seconds++;
+        }
+    });
     int seconds = 0;
+
+    Timer nameSelectTimer = new Timer(1000, new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            timeLeft--;
+        }
+    });
+    public static int timeLeft = 10;
+
+
     // private long time1 = 0;
     // private long time2 = 0;
     // private boolean gameOverHandled = false;
@@ -174,11 +187,21 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         }
 
         if (gameState == GameState.GAMEOVER) {
-            timer.start();
+            deathScreenTimer.start();
             if (seconds == 2) {
                 gameState = GameState.NAME_SELECT;
+                deathScreenTimer.stop();
                 seconds = 0;
-                timer.stop();
+                return;
+            }
+        }
+
+        if (gameState == GameState.NAME_SELECT) {
+            nameSelectTimer.start();
+            if (timeLeft == 0) {
+                gameState = GameState.MAIN_MENU;
+                nameSelectTimer.stop();
+                timeLeft = 10;
                 return;
             }
         }
@@ -285,12 +308,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     }
 
     GamePanel() {
-        timer = new Timer(1000, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                seconds++;
-            }
-        });
-
         setBackground(Theme.BG);
         setFocusable(true);
         requestFocusInWindow();

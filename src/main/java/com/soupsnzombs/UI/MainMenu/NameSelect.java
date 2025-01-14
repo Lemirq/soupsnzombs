@@ -1,5 +1,6 @@
 package com.soupsnzombs.UI.MainMenu;
 
+import static com.soupsnzombs.GamePanel.timeLeft;
 import static com.soupsnzombs.utils.FontLoader.font20;
 
 import java.awt.*;
@@ -128,10 +129,11 @@ public class NameSelect {
         g2d.setFont(FontLoader.font60);
         String instructionText = "Enter a name - Press P to enter";
         g2d.setColor(new Color(0, 102, 0));
-        g2d.drawString(instructionText, 52, 127);
+        g2d.drawString(instructionText, 77, 127);
         g2d.setColor(Color.WHITE);
-        g2d.drawString(instructionText, 50, 125);
-
+        g2d.drawString(instructionText, 75, 125);
+        g2d.setColor(Color.RED);
+        g2d.drawString(String.valueOf(timeLeft), GamePanel.screenWidth - 250, GamePanel.screenHeight - 685);
     }
 
     /**
