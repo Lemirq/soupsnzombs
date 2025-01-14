@@ -29,6 +29,7 @@ public class KeyHandler extends KeyAdapter {
     private boolean shootReleased = true;
     public static Timer shootCooldown;
     public static Timer automaticGunTimer;
+    public static Timer semiAutoCooldown;
     public boolean dropReleased = true;
     public static Rectangle proximity;
 
@@ -43,6 +44,7 @@ public class KeyHandler extends KeyAdapter {
         shootCooldown = new Timer(20, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                
                 Player.shotCoolDownTime -= 100 / (game.getPlayer().getGun().getFireRate() / 20); // 100 is the firerate
                                                                                                  // bar val, 20 is the
                                                                                                  // timer delay
@@ -52,6 +54,7 @@ public class KeyHandler extends KeyAdapter {
                     Player.showFireRateBar = false;
                     Player.shotCoolDownTime = 100;
                 }
+                
             }
         });
 
@@ -60,11 +63,23 @@ public class KeyHandler extends KeyAdapter {
             public void actionPerformed(ActionEvent e) {
                 if (canShoot) {
                     GamePanel.shootPressed = true;
-                    Player.showFireRateBar = true;
                     canShoot = false;
-                    Player.shotCoolDownTime = 100;
+                    Player.showFireRateBar = true;
                     shootCooldown.start(); // Start the cooldown timer
                 }
+            }
+        });
+
+        semiAutoCooldown = new Timer(80, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                    GamePanel.shootPressed = true; //this line fires the second shot, the first shot is when space is pressed
+                    canShoot = false;
+                    Player.showFireRateBar = true;
+                    shootCooldown.start();
+                     // Start the cooldown timer
+                    semiAutoCooldown.stop();
+                    
             }
         });
 
@@ -220,21 +235,33 @@ public class KeyHandler extends KeyAdapter {
                 break;
 
             case KeyEvent.VK_SPACE:
-                if (game.getPlayer().getGun().getAutomaticState() == -1) {
-                    if (shootReleased && canShoot) {
-                        GamePanel.shootPressed = true;
-                        Player.showFireRateBar = true;
-                        canShoot = false;
-                        shootCooldown.start();
-                    }
-                    shootReleased = false;
-                } else if (game.getPlayer().getGun().getAutomaticState() == 1) {
-                    if (!automaticGunTimer.isRunning()) {
-                        automaticGunTimer.start(); // start firing when space held, a timer will ensure shooting won't
-                                                   // get stuck when other keys are pressed
-                    }
-                    shootReleased = false;
-                }
+                switch (game.getPlayer().getGun().getAutomaticState()) {
+                    case -1:
+                        if (shootReleased && canShoot) {
+                            Player.shotCoolDownTime = 100;
+                            GamePanel.shootPressed = true;
+                            canShoot = false;
+                            Player.showFireRateBar = true;
+                            shootCooldown.start();
+                        }
+                        shootReleased = false;
+                        break;
+                    case 0:
+                        if (shootReleased && canShoot) {
+                            Player.shotCoolDownTime = 100;
+                            GamePanel.shootPressed = true;
+                            semiAutoCooldown.start();
+                        }
+                        shootReleased = false;
+                        break;
+                    case 1:
+                        if (!automaticGunTimer.isRunning()) {
+                            automaticGunTimer.start(); // start firing when space held, a timer will ensure shooting won't
+                                                    // get stuck when other keys are pressed
+                        }
+                        shootReleased = false;
+                        break;
+                } 
                 break;
 
             case KeyEvent.VK_C:

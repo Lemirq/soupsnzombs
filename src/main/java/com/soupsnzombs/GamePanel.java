@@ -161,7 +161,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             elapsedTime = 0; // Reset elapsed time
             player.alive = true; // Reset alive status
             player.setHealth(100); // Reset player health
-            Player.money = 0; // Reset player coins
+            Player.money = 90; // Reset player coins
+            //TODO: make money not 90
             Player.score = 0; // Reset player score
             player.x = GamePanel.screenWidth / 2 - player.width / 2;
             player.y = GamePanel.screenHeight / 2 - player.height / 2;
@@ -265,7 +266,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             if (player.getGun().getDamage() != 0) {
                 dropPressed = false;
                 player.dropGun();
-                player.setGun(new Gun(0, 0, 0, 0, 0, 0, null));
+                player.setGun(new Gun(0, 0, 0, 0, 0, -5, null));
             }
         }
 
@@ -299,7 +300,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         map = new GameMap();
 
-        player = new Player(new Gun(15, 200, 600, 5, 5, -1, pistolImage));
+        player = new Player(new Gun(15, 200, 200, 5, 5, -1, pistolImage));
         // gunDrops.add(new GunDrop(75, 500, new Gun(10, 100, 600, 0, 0, 0, 5, 1),
         // Color.YELLOW));
         // gunDrops.add(new GunDrop(50, 400, new Gun(50, 500, 600, 0, 0, 0, 5, -1),

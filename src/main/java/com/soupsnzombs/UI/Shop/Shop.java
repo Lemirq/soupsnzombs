@@ -28,7 +28,7 @@ public class Shop {
 
     public static final String[][] shopLayout = {
             { "Machine Gun", "Semi-Auto", "Sniper" },
-            { "Energy Drink", "Milk", "Soup" }
+            { "Energy Drink", "Damage", "Range" }
 
     };
     public static final ArrayList<BufferedImage> shopImages = new ArrayList<>();
@@ -196,11 +196,11 @@ public class Shop {
             case "Energy Drink":
                 cost = 2;
                 break;
-            case "Milk":
+            case "Damage":
                 cost = 5;
                 break;
-            case "Soup":
-                cost = 10;
+            case "Range":
+                cost = 5;
                 break;
             default:
                 cost = 0;
@@ -271,7 +271,7 @@ public class Shop {
         switch (selectedOption) {
             case "Machine Gun":
                 if (Player.money >= 5) {
-                    GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(10, 80, 600, 0,  5, 1, SMGImage), Color.YELLOW));
+                    GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(5, 100, 100, 0,  5, 1, SMGImage), Color.YELLOW));
                     Player.money-=5;
                 }
                 else System.out.println("Not enough money to purchase machine gun."); 
@@ -279,14 +279,14 @@ public class Shop {
                 break;
             case "Semi-Auto":
                 if (Player.money >= 15) {
-                    GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(20, 200, 600, 0, 5, 0, semiAutoImage), Color.RED));
+                    GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(20, 200, 200, 0, 5, 0, semiAutoImage), Color.RED));
                     Player.money-=15;
                 }
             else System.out.println("Not enough money to purchase sniper."); 
                 break;
             case "Sniper":
                 if (Player.money >= 20) {
-                    GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(80, 500, 600, 0, 5, -1, sniperImage), Color.RED));
+                    GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(80, 500, 300, 0, 5, -1, sniperImage), Color.RED));
                     Player.money-=20;
                 }
                 else System.out.println("Not enough money to purchase sniper."); 
@@ -297,13 +297,23 @@ public class Shop {
                 open = false;
                 GamePanel.gameState = GamePanel.GameState.GAME;
                 break;
-                case "Milk":
-                System.out.println("Purchased Milk!");
-                GamePanel.player.increaseHealth(20);
+            case "Damage":
+                if (Player.money >= 5 && GamePanel.player.getGun().getDamage() != 0) {
+                    System.out.println("Purchased Damage!");
+                    GamePanel.player.getGun().setDamage(GamePanel.player.getGun().getDamage()+10);
+                    Player.money-=5;
+                }
+                else System.out.println("player is holding no gun");
+                
                 break;
-            case "Soup":
-                System.out.println("Purchased Soup!");
-                GamePanel.player.increaseHealth(50);
+            case "Range":
+                if (Player.money >= 5 && GamePanel.player.getGun().getDamage() != 0) {
+                    System.out.println("Purchased Range!");
+                    GamePanel.player.getGun().setRange(GamePanel.player.getGun().getRange()+50);
+                    Player.money-=5;
+                }
+                else System.out.println("player is holding no gun");
+                
                 break;
             case "Energy Drink":
                 System.out.println("Purchased Energy Drink!");
