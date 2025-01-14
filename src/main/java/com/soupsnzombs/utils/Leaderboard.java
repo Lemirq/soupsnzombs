@@ -128,7 +128,7 @@ public class Leaderboard {
      */
     public static void writeScores() {
         try {
-            if (SwearFilter.isWordAccepted(NameSelect.name)) {
+            if (SwearFilter.isInputAccepted(NameSelect.name)) {
                 valid = true;
                 if (!leaderboard.exists()) {
                     leaderboard.createNewFile();
