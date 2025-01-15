@@ -109,7 +109,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public EntranceBuilding hut3 = new EntranceBuilding(-600, 1600, 450, 400, 200, 3, 30);
     public ShopBuilding shopEntity = new ShopBuilding(250, 1400, 400, 200);
     public ArrayList<EntranceBuilding> entranceBuildings = new ArrayList<>();
-    public Couch couch1 = new Couch(-600, 1600, 200, 200);
+    public Couch couch1 = new Couch(-310, 1725, 200, 200);
     public ArrayList<HealthDrop> healthDrops = new ArrayList<>();
     public Inventory inventory;
 
@@ -572,6 +572,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     //draw beda
     g2d.drawImage(bed, -4200 + offsetX, 1100 + offsetY, 250, 250, null);
     g2d.drawImage(bed, -2000 + offsetX, -700 + offsetY, 250, 250, null);
+    g2d.drawImage(bed, -600 + offsetX, 1700 + offsetY, 250, 250, null);
         
     
         // draw coins
