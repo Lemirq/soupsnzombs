@@ -53,7 +53,7 @@ public class AllZombies {
         //Rectangle FOV = new Rectangle((player.x + GamePanel.offsetX) - FOVWidth / 2, (player.y + GamePanel.offsetY) - FOVHeight / 2, FOVWidth, FOVHeight);
         int x, y;
         boolean validSpawn = true;
-        int numberOfZombies = waveNumber + 15;
+        int numberOfZombies = waveNumber + 25;
         for (int i = 0; i < numberOfZombies; i++) {
             int maxAttempts = 1000; // Maximum number of attempts to find a valid spawn location
             int attempts = 0;
@@ -82,21 +82,21 @@ public class AllZombies {
                      */
 
                     for (Building building : buildings) {
-                        if (building.getBounds().intersects(zombie.getBounds())) {
+                        if (building.getBounds().contains(zombie.getBounds())) {
                             validSpawn = false;
                             break;
                         }
                     }
 
                     for (Tree t : trees) {
-                        if (t.getBounds().intersects(zombie.getBounds())) {
+                        if (t.getBounds().contains(zombie.getBounds())) {
                             validSpawn = false;
                             break;
                         }
                     }
 
                     for (Wall w : walls) {
-                        if (w.getBounds().intersects(zombie.getBounds())) {
+                        if (w.getBounds().contains(zombie.getBounds())) {
                             validSpawn = false;
                             break;
                         }
@@ -115,9 +115,11 @@ public class AllZombies {
                 // zombies.add(new Zombie(x, y, ZombieType.DEFAULT));
                 // } else {
                 if (waveNumber % 5 == 0) {
+                    numberOfZombies = waveNumber / 5;
                     zombies.add(new Zombie(x, y, ZombieType.BOSS));
                 }
                 else {
+                    numberOfZombies = waveNumber + 25;
                     int kindOfZombie = random.nextInt(4) + 1;
 
                 switch (kindOfZombie) {
@@ -181,10 +183,10 @@ public class AllZombies {
 
                     case BOSS:
                         coins.add(new Coin(z.x, z.y + 5, 10, 10));
-                        coins.add(new Coin(z.x + 5, z.y + 5, 10, 10));
-                        coins.add(new Coin(z.x + 5, z.y + 5, 10, 10));
-                        coins.add(new Coin(z.x + 5, z.y + 5, 10, 10));
-                        coins.add(new Coin(z.x + 5, z.y + 5, 10, 10));
+                        coins.add(new Coin(z.x + 5, z.y, 10, 10));
+                        coins.add(new Coin(z.x + 2, z.y, 10, 10));
+                        coins.add(new Coin(z.x, z.y + 2, 10, 10));
+                        coins.add(new Coin(z.x + 2, z.y + 5, 10, 10));
                         break;
                 }
                 zombieIterator.remove();

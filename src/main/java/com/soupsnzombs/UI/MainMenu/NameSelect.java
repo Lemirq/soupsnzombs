@@ -127,7 +127,7 @@ public class NameSelect {
      */
     public void drawInstructions(Graphics2D g2d) {
         g2d.setFont(FontLoader.font60);
-        String instructionText = "Enter a name - Press P to enter";
+        String instructionText = "Enter a name - [P] to Enter/Skip";
         g2d.setColor(new Color(0, 102, 0));
         g2d.drawString(instructionText, 77, 127);
         g2d.setColor(Color.WHITE);

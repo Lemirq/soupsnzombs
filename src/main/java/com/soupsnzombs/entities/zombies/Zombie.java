@@ -64,7 +64,7 @@ public class Zombie extends Entity implements GameObject {
                 health = 200;
                 healthMax = 200;
                 this.damage = 35;
-                speed = 1;
+                speed = 1 + 5 * (waveNumber / 5);
                 pointsDropped = 20;
                 // TODO change loaded png file accordingly to the type of zomb
                 this.sprite = bigZombie;
@@ -74,7 +74,7 @@ public class Zombie extends Entity implements GameObject {
                 health = 75;
                 healthMax = 75;
                 this.damage = 5;
-                speed = 2;
+                speed = 2 + 5 * (waveNumber / 5);
                 pointsDropped = 5;
 
                 // TODO change loaded png file accordingly to the type of zomb
@@ -84,8 +84,8 @@ public class Zombie extends Entity implements GameObject {
             case BOSS:
                 health = 100 * waveNumber;
                 healthMax = 100 * waveNumber;
-                this.damage = 35 + (5 * waveNumber);
-                speed = 1;
+                this.damage = 35 + 5 * (waveNumber / 5);
+                speed = 1 + 5 * (waveNumber / 5);
                 this.sprite = kingZombie;
                 pointsDropped = 30;
                 break;

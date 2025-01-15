@@ -64,7 +64,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             timeLeft--;
         }
     });
-    public static int timeLeft = 10;
+    public static int timeLeft = 15;
 
     // private long time1 = 0;
     // private long time2 = 0;
@@ -210,7 +210,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             if (timeLeft == 0) {
                 gameState = GameState.MAIN_MENU;
                 nameSelectTimer.stop();
-                timeLeft = 10;
+                timeLeft = 15;
                 return;
             }
         }
@@ -461,6 +461,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         }
 
         if (gameState == GameState.GAMEOVER) {
+            SoundManager.stopAllSounds();
             g2d.setColor(Color.RED);
             g2d.setFont(font100);
             g2d.drawString("YOU DIED!", 360, 300);
