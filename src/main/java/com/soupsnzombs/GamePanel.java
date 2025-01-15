@@ -516,6 +516,30 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             drop.draw(g2d);
         }
 
+        //draw trash piles
+        g2d.drawImage(largeTrashPile, 1974 + offsetX, -214 + offsetY, 500, 500, null);
+        g2d.drawImage(largeTrashPile, 2300 + offsetX, -214 + offsetY, 500, 500, null);
+        g2d.drawImage(largeTrashPile, 2300 + offsetX, 0 + offsetY, 500, 500, null);
+
+        g2d.drawImage(largeTrashPile, 4600 + offsetX, -1367 + offsetY, 500, 500, null);
+        g2d.drawImage(largeTrashPile, 4600 + offsetX, -362 + offsetY, 500, 500, null);
+
+        g2d.drawImage(largeTrashPile, 3800 + offsetX, 1480 + offsetY, 500, 500, null);
+        g2d.drawImage(largeTrashPile, 3800 + offsetX, 2000 + offsetY, 500, 500, null);
+        g2d.drawImage(largeTrashPile, 4080 + offsetX, 1820 + offsetY, 500, 500, null);
+
+
+        g2d.drawImage(smallTrashPile, -4220 + offsetX, 1300 + offsetY, 150, 150, null);
+        g2d.drawImage(smallTrashPile, -3940 + offsetX, 1000 + offsetY, 150, 150, null);
+        g2d.drawImage(smallTrashPile, -4145 + offsetX, 1114 + offsetY, 150, 150, null);
+
+        g2d.drawImage(smallTrashPile, 3487 + offsetX, -900 + offsetY, 150, 150, null);
+        g2d.drawImage(smallTrashPile, 3800 + offsetX, -900 + offsetY, 150, 150, null);
+        g2d.drawImage(smallTrashPile, 3287 + offsetX, 120 + offsetY, 150, 150, null);
+        g2d.drawImage(smallTrashPile, 3700 + offsetX, 580 + offsetY, 150, 150, null);
+
+        g2d.drawImage(smallTrashPile, -326 + offsetX, 1845 + offsetY, 150, 150, null);
+
         // bottom right corner, bullet positions
         player.draw(g2d);
 
@@ -538,6 +562,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         buildings.drawTrees(g2d);
         // g2d.setFont(font30);
+
+        
 
         // UI stuff
         g2d.setColor(Color.WHITE);

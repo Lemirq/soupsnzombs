@@ -55,8 +55,8 @@ public class Shop {
         shopImages.add(semiAutoImage);
         shopImages.add(sniperImage);
         shopImages.add(energyDrink);
-        shopImages.add(milk);
-        shopImages.add(soup);
+        shopImages.add(damage);
+        shopImages.add(bulletRange);
 
         if (GamePanel.gameState == GamePanel.GameState.SHOP) {
             // Draw the background
@@ -151,12 +151,12 @@ public class Shop {
                         g2d.drawImage(shopImages.get(1), imageX, imageY, imageWidth, imageHeight, null);
                     } else if (shopLayout[row][col] == "Sniper") {
                         g2d.drawImage(shopImages.get(2), imageX, imageY, imageWidth, imageHeight, null);
-                    } else if (shopLayout[row][col] == "Milk") {
-                        g2d.drawImage(shopImages.get(4), imageX, imageY, imageWidth, imageHeight, null);
-                    } else if (shopLayout[row][col] == "Soup") {
-                        g2d.drawImage(shopImages.get(5), imageX, imageY, imageWidth, imageHeight, null);
                     } else if (shopLayout[row][col] == "Energy Drink") {
                         g2d.drawImage(shopImages.get(3), imageX, imageY, imageWidth, imageHeight, null);
+                    } else if (shopLayout[row][col] == "Damage") {
+                        g2d.drawImage(shopImages.get(4), imageX, imageY, imageWidth, imageHeight, null);
+                    } else if (shopLayout[row][col] == "Range") {
+                        g2d.drawImage(shopImages.get(5), imageX, imageY, imageWidth, imageHeight, null);
                     }
 
                     // draw cost

@@ -28,7 +28,10 @@ public class Images {
             smallZombie, kingZombie, tent, grayWall,
             playButton, creditsButton, scoresButton, arrowImage, instructions, credits, shopBackground, tempImage,
             ocean, pistolImage, SMGImage, sniperImage, scoresbg, grass, milk, soup, energyDrink, exit, semiAutoImage,
-            treelog;
+            treelog, damage,
+            bulletRange,
+            largeTrashPile,
+            smallTrashPile;
     public static HashMap<String, BufferedImage> spriteImages = new HashMap<>();
     public static HashMap<String, BufferedImage> tileImages = new HashMap<>();
 
@@ -62,6 +65,8 @@ public class Images {
             sniperImage = ImageIO.read(Images.class.getResource("/sniperGun.png"));
             semiAutoImage = ImageIO.read(Images.class.getResource("/semiAutoGun.png"));
             exit = ImageIO.read(Images.class.getResource("/exit.png"));
+            damage = ImageIO.read(Images.class.getResource("/damageIncrease.png"));
+            bulletRange = ImageIO.read(Images.class.getResource("/bulletRange.png"));
 
             // healing items
             energyDrink = ImageIO.read(Images.class.getResource("/Energy Drink.png"));
@@ -104,6 +109,10 @@ public class Images {
 
             // scores image
             scoresbg = ImageIO.read(Images.class.getResource("/SCORES.png"));
+
+            // misc
+            largeTrashPile = ImageIO.read(Images.class.getResource("/largeTrashPile.png"));
+            smallTrashPile = ImageIO.read(Images.class.getResource("/smallTrashPile.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
