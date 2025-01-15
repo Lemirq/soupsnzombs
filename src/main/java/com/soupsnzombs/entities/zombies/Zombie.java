@@ -10,6 +10,7 @@ import com.soupsnzombs.utils.Pathfinder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static com.soupsnzombs.entities.zombies.AllZombies.waveNumber;
@@ -328,7 +329,8 @@ public class Zombie extends Entity implements GameObject {
                     continue;
                 }
 
-                if (obstacle.intersects(checkPoint)) {
+                if (obstacle.intersects(checkPoint)) { 
+                    //System.out.println("help");
                     return false;
                 }
             }
@@ -397,6 +399,12 @@ public class Zombie extends Entity implements GameObject {
 
         ArrayList<Rectangle> collisions = new ArrayList<>(CollisionManager.collidables);
         collisions.remove(this);
+
+        Iterator<Rectangle> collidableIterator = collisions.iterator();
+        while (collidableIterator.hasNext()) {
+            Rectangle collidable = collidableIterator.next();
+            if (collidable.width == 25) collidableIterator.remove(); //use width == 25 to check if it is a tree log
+        }
 
         if (!CollisionManager.isColliding(nextPos, collisions)) {
             return true;
