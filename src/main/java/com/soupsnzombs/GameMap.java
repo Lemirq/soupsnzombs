@@ -3,6 +3,7 @@ package com.soupsnzombs;
 import static com.soupsnzombs.GamePanel.player;
 
 import java.awt.Color;
+import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -53,16 +54,21 @@ public class GameMap {
                         Images.ocean, 200, 200));
 
         // top
-        walls.add(new Wall(X_Bounds_left, Y_Bounds_top, (X_Bounds_right * 2) + centerX, centerY * 2, Images.ocean, 200,
+        walls.add(new Wall(X_Bounds_left, Y_Bounds_top, (X_Bounds_right * 2) + centerX, centerY * 2,
+                Images.ocean, 200,
                 200));
 
         // left
-        walls.add(new Wall(X_Bounds_left, Y_Bounds_top, centerX * 2, (Y_Bounds_bottom * 2) + centerY, Images.ocean, 200,
-                200));
+        walls.add(
+                new Wall(X_Bounds_left, Y_Bounds_top + centerY * 2, centerX * 2,
+                        (Y_Bounds_bottom * 2 - centerY * 2) + player.height,
+                        Images.ocean, 200,
+                        200));
 
         // right
         walls.add(
-                new Wall(X_Bounds_right + player.width, Y_Bounds_top, (centerX * 2), (Y_Bounds_bottom * 2) + centerY,
+                new Wall(X_Bounds_right + player.width, Y_Bounds_top + centerY * 2, (centerX * 2),
+                        (Y_Bounds_bottom * 2 - centerY * 2) + player.height,
                         Images.ocean, 200,
                         200));
 
