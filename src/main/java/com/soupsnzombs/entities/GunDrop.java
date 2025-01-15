@@ -76,8 +76,20 @@ public class GunDrop extends Rectangle {
     }
 
     public void drawInventoryVersion(Graphics2D g2d, int x, int y) {
-        g2d.drawImage(getGun().gunImage, GamePanel.screenWidth - 95, GamePanel.screenHeight - 110, this.width,
-                this.height, null);
+        int boxX = GamePanel.screenWidth - 120;
+        int boxY = GamePanel.screenHeight - 130;
+        int boxWidth = 80;
+        int boxHeight = 80;
+
+        int centerX = boxX + boxWidth / 2;
+        int centerY = boxY + boxHeight / 2;
+
+        g2d.rotate(Math.toRadians(-45), centerX, centerY);
+
+        g2d.drawImage(getGun().gunImage, centerX - 30, centerY - 30, 70, 70, null);
+
+        g2d.rotate(Math.toRadians(45), GamePanel.screenWidth - 95 + this.width / 2,
+                GamePanel.screenHeight - 110 + this.height / 2);
 
         /*
          * switch (gunStored.getAutomaticState()) {

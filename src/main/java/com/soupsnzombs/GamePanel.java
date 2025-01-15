@@ -619,5 +619,11 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             g2d.setColor(new Color(255, 0, 0, 100)); // Red color with transparency
             g2d.fillRect(0, 0, getWidth(), getHeight());
         }
+        // if the player is close to the bounds draw big text saying: THERE IS NO ESCAPE
+        if (offsetX < -4900 || offsetX > 4900 || offsetY < -1980 || offsetY > 1980) {
+            g2d.setColor(Color.RED);
+            g2d.setFont(font60);
+            g2d.drawString("THERE IS NO ESCAPE", screenWidth / 2 - 300, screenHeight / 2);
+        }
     }
 }
