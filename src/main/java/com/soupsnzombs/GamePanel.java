@@ -554,15 +554,15 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         g2d.drawImage(largeTrashPile, 4080 + offsetX, 1820 + offsetY, 500, 500, null);
 
         g2d.drawImage(smallTrashPile, -4220 + offsetX, 1300 + offsetY, 150, 150, null);
-        g2d.drawImage(smallTrashPile, -3940 + offsetX, 1000 + offsetY, 150, 150, null);
-        g2d.drawImage(smallTrashPile, -4145 + offsetX, 1114 + offsetY, 150, 150, null);
+       // g2d.drawImage(smallTrashPile, -3940 + offsetX, 1000 + offsetY, 150, 150, null);
+        //g2d.drawImage(smallTrashPile, -4145 + offsetX, 1114 + offsetY, 150, 150, null);
 
         g2d.drawImage(smallTrashPile, 3487 + offsetX, -900 + offsetY, 150, 150, null);
         g2d.drawImage(smallTrashPile, 3800 + offsetX, -900 + offsetY, 150, 150, null);
         g2d.drawImage(smallTrashPile, 3287 + offsetX, 120 + offsetY, 150, 150, null);
         g2d.drawImage(smallTrashPile, 3700 + offsetX, 580 + offsetY, 150, 150, null);
 
-        g2d.drawImage(smallTrashPile, -326 + offsetX, 1845 + offsetY, 150, 150, null);
+    //    g2d.drawImage(smallTrashPile, -326 + offsetX, 1845 + offsetY, 150, 150, null);
 
         // draw coins
         coins.draw(g2d, player);
@@ -618,7 +618,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         long currentTime = System.currentTimeMillis();
         if (currentTime - damageEffectStartTime < DAMAGE_EFFECT_DURATION) {
-            g2d.setColor(new Color(255, 0, 0, 100)); // Red color with transparency
+            g2d.setColor(new Color(255, 0, 0, 40)); // Red color with transparency
             g2d.fillRect(0, 0, getWidth(), getHeight());
         }
         // if the player is close to the bounds draw big text saying: THERE IS NO ESCAPE
