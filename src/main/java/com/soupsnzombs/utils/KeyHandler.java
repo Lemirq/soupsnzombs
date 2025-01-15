@@ -14,6 +14,7 @@ import com.soupsnzombs.UI.MainMenu.NameSelect;
 import com.soupsnzombs.UI.Shop.Shop;
 // import com.soupsnzombs.entities.Entity;
 import com.soupsnzombs.entities.Player;
+import com.soupsnzombs.utils.SoundManager.Sound;
 
 import javax.swing.Timer;
 

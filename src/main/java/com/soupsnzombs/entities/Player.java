@@ -62,7 +62,7 @@ public class Player extends Entity implements GameObject {
      */
     public void decreaseHealth(int healthAmount) {
         SoundManager.playSound(Sound.DAMAGE, false);
-
+        GamePanel.damageEffectStartTime = System.currentTimeMillis();
         this.health = Math.max(0, this.health - healthAmount);
         bar.setHealthValue(this.health);
 

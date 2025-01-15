@@ -111,6 +111,9 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public ArrayList<HealthDrop> healthDrops = new ArrayList<>();
     public Inventory inventory;
 
+    public static long damageEffectStartTime = 0;
+    private static final int DAMAGE_EFFECT_DURATION = 500; // Duration in milliseconds
+
     public ShopBuilding getShop() {
         return shopEntity;
     }
@@ -191,6 +194,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         }
 
         if (gameState == GameState.GAMEOVER) {
+            SoundManager.stopAllSounds();
             deathScreenTimer.start();
             if (seconds == 2) {
                 gameState = GameState.NAME_SELECT;
@@ -609,5 +613,11 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         player.bar.draw(g2d);
         inventory.draw(g2d, player.getGun());
         waveIndicator.draw(g2d, player);
+
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - damageEffectStartTime < DAMAGE_EFFECT_DURATION) {
+            g2d.setColor(new Color(255, 0, 0, 100)); // Red color with transparency
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+        }
     }
 }
