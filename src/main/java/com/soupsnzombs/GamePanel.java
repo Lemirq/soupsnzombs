@@ -189,6 +189,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             offsetX = -(player.x - (GamePanel.screenWidth / 2 - player.width / 2));
             offsetY = -(player.y - (GamePanel.screenHeight / 2 - player.height / 2)); // Reset player position
             zombies.clear(); // Removes all zombies
+            coins.clear(); // Removes all coins
             NameSelect.name = new StringBuilder(""); // Clears leaderboard name input stream
             AllZombies.waveNumber = 1; // Set zombie wave to 1
         }
