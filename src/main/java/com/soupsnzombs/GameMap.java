@@ -1,5 +1,7 @@
 package com.soupsnzombs;
 
+import static com.soupsnzombs.GamePanel.player;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -45,15 +47,24 @@ public class GameMap {
         int Y_Bounds_bottom = GamePanel.Y_Bounds[1] + centerY;
 
         walls = new ArrayList<Wall>();
+        // bottom
         walls.add(
-                new Wall(X_Bounds_left, Y_Bounds_bottom, (X_Bounds_right * 2) + centerX, 1000, Images.ocean, 200, 200));
-        walls.add(new Wall(X_Bounds_left, Y_Bounds_top, (X_Bounds_right * 2) + centerX, 950, Images.ocean, 200,
+                new Wall(X_Bounds_left, Y_Bounds_bottom + player.height, (X_Bounds_right * 2) + centerX, 1000,
+                        Images.ocean, 200, 200));
+
+        // top
+        walls.add(new Wall(X_Bounds_left, Y_Bounds_top, (X_Bounds_right * 2) + centerX, centerY * 2, Images.ocean, 200,
                 200));
 
-        walls.add(new Wall(X_Bounds_left, Y_Bounds_top, 1000, (Y_Bounds_bottom * 2) + centerY, Images.ocean, 200,
+        // left
+        walls.add(new Wall(X_Bounds_left, Y_Bounds_top, centerX * 2, (Y_Bounds_bottom * 2) + centerY, Images.ocean, 200,
                 200));
-        walls.add(new Wall(X_Bounds_right, Y_Bounds_top, 950, (Y_Bounds_bottom * 2) + centerY, Images.ocean, 200,
-                200));
+
+        // right
+        walls.add(
+                new Wall(X_Bounds_right + player.width, Y_Bounds_top, (centerX * 2), (Y_Bounds_bottom * 2) + centerY,
+                        Images.ocean, 200,
+                        200));
 
         for (Wall wall : walls) {
             wall.draw(g2d);

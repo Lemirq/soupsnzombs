@@ -11,7 +11,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static com.soupsnzombs.entities.zombies.AllZombies.waveNumber;
 import static com.soupsnzombs.utils.Images.*;
