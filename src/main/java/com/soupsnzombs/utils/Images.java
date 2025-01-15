@@ -31,7 +31,8 @@ public class Images {
             treelog, damage,
             bulletRange,
             largeTrashPile,
-            smallTrashPile;
+            smallTrashPile,
+            mudPuddle;
     public static HashMap<String, BufferedImage> spriteImages = new HashMap<>();
     public static HashMap<String, BufferedImage> tileImages = new HashMap<>();
 
@@ -113,6 +114,7 @@ public class Images {
             // misc
             largeTrashPile = ImageIO.read(Images.class.getResource("/largeTrashPile.png"));
             smallTrashPile = ImageIO.read(Images.class.getResource("/smallTrashPile.png"));
+            mudPuddle = ImageIO.read(Images.class.getResource("/mudPuddle.png"));
 
         } catch (IOException e) {
             e.printStackTrace();

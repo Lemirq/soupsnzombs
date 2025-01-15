@@ -542,6 +542,32 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         g2d.drawImage(smallTrashPile, -326 + offsetX, 1845 + offsetY, 150, 150, null);
 
+        // draw mud puddles
+        g2d.drawImage(mudPuddle, -4194 + offsetX, -1192 + offsetY, 250, 250, null);
+        g2d.drawImage(mudPuddle, -3212 + offsetX, 1595 + offsetY, 300, 300, null);
+        g2d.drawImage(mudPuddle, -4194 + offsetX, -1192 + offsetY, 400, 400, null);
+        g2d.drawImage(mudPuddle, -4194 + offsetX, -1192 + offsetY, 200, 200, null);
+        g2d.drawImage(mudPuddle, -4000 + offsetX, -1400 + offsetY, 500, 500, null);
+        g2d.drawImage(mudPuddle, -3500 + offsetX, 500 + offsetY, 250, 250, null);
+        g2d.drawImage(mudPuddle, -3000 + offsetX, -800 + offsetY, 450, 450, null);
+        g2d.drawImage(mudPuddle, -2500 + offsetX, 1200 + offsetY, 300, 300, null);
+        g2d.drawImage(mudPuddle, -2000 + offsetX, -300 + offsetY, 350, 350, null);
+        g2d.drawImage(mudPuddle, -1500 + offsetX, 900 + offsetY, 400, 400, null);
+        g2d.drawImage(mudPuddle, -1000 + offsetX, -1000 + offsetY, 450, 450, null);
+        g2d.drawImage(mudPuddle, -500 + offsetX, 1500 + offsetY, 500, 500, null);
+        g2d.drawImage(mudPuddle, 0 + offsetX, -500 + offsetY, 300, 300, null);
+        g2d.drawImage(mudPuddle, 500 + offsetX, 2000 + offsetY, 200, 200, null);
+        g2d.drawImage(mudPuddle, 1000 + offsetX, -200 + offsetY, 350, 350, null);
+        g2d.drawImage(mudPuddle, 1500 + offsetX, 1700 + offsetY, 400, 400, null);
+        g2d.drawImage(mudPuddle, 2000 + offsetX, -700 + offsetY, 450, 450, null);
+        g2d.drawImage(mudPuddle, 2500 + offsetX, 1300 + offsetY, 500, 500, null);
+        g2d.drawImage(mudPuddle, 3000 + offsetX, -1200 + offsetY, 300, 300, null);
+        g2d.drawImage(mudPuddle, 3500 + offsetX, 1100 + offsetY, 250, 250, null);
+        g2d.drawImage(mudPuddle, 4000 + offsetX, -400 + offsetY, 400, 400, null);
+        g2d.drawImage(mudPuddle, 4500 + offsetX, 1800 + offsetY, 450, 450, null);
+        g2d.drawImage(mudPuddle, 5000 + offsetX, -900 + offsetY, 500, 500, null);
+        g2d.drawImage(mudPuddle, 5500 + offsetX, 1600 + offsetY, 300, 300, null);
+
         // bottom right corner, bullet positions
         player.draw(g2d);
 
