@@ -110,7 +110,6 @@ public class Zombie extends Entity implements GameObject {
 
     public void takeDamage(int damage) {
         health -= damage;
-        SoundManager.playSound(Sound.DAMAGE, alive);
         if (health <= 0) {
             alive = false;
         }

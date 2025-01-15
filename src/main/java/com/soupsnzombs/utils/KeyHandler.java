@@ -186,7 +186,7 @@ public class KeyHandler extends KeyAdapter {
                 } else if (GamePanel.gameState == GameState.INSTRUCTIONS) {
                     GamePanel.gameState = GameState.GAME;
                     SoundManager.stopAllSounds();
-                    SoundManager.playSound(Sound.BGM, true);
+                    // SoundManager.playSound(Sound.BGM, true);
                 } else if (GamePanel.gameState == GameState.NAME_SELECT && !player.alive
                         && (NameSelect.name.length() != 0)) {
                     Leaderboard.writeScores();

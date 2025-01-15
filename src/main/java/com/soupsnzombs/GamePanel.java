@@ -308,6 +308,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
                 hd.setVisible(false);
                 hd.setAnimation(true);
                 player.increaseHealth(hd.getHealthDropVal());
+                SoundManager.playSound(Sound.COIN_PICKUP, false);
                 hd.startRespawnTimer();
             }
         }
@@ -604,7 +605,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         g2d.drawString("Coins: " + Player.money, GamePanel.screenWidth - 1180, GamePanel.screenHeight - 50);
 
         player.bar.draw(g2d);
-        inventory.draw(g2d, this, player.getGun());
+        inventory.draw(g2d, player.getGun());
         waveIndicator.draw(g2d, player);
     }
 }

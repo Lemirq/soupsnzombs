@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.Timer;
 import java.awt.event.*;
 import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.utils.FontLoader;
 import com.soupsnzombs.utils.Images;
 import java.util.Random;
 
@@ -12,8 +13,8 @@ public class HealthDrop extends Rectangle {
     int healthIncreaseVal;
     Color color;
     int[] healthVals = { 10, 20, 50 };
-    int[] spawnLocationsX = {-98, 458, 687, -345, 899, 1000 , 780, 1100, 1500};
-    int[] spawnLocationsY = {-45, 715, 862, 911, 49, 1000, 920, 1000, 900};
+    int[] spawnLocationsX = { -98, 458, 687, -345, 899, 1000, 780, 1100, 1500 };
+    int[] spawnLocationsY = { -45, 715, 862, 911, 49, 1000, 920, 1000, 900 };
     boolean visible;
     boolean animation;
     Timer respawnTimer, animationTimer;
@@ -22,8 +23,9 @@ public class HealthDrop extends Rectangle {
 
     /**
      * Constructor
-     * @param x x-position of health drop
-     * @param y y-position of helath drop
+     * 
+     * @param x        x-position of health drop
+     * @param y        y-position of helath drop
      * @param cooldown cooldown time for health drop respawn
      */
     public HealthDrop(int x, int y, int cooldown) {
@@ -52,7 +54,7 @@ public class HealthDrop extends Rectangle {
             }
         });
     }
-    
+
     public HealthDrop(int x, int y, int cooldown, int healthIncreaseVal) {
         super(x, y, 50, 50);
         this.healthIncreaseVal = healthIncreaseVal;
@@ -80,22 +82,25 @@ public class HealthDrop extends Rectangle {
         });
     }
 
-    
-
     /**
      * draws animation text for health pickup amount
+     * 
      * @param g2d passes in g2d object for rednering
      */
     public void animatePickUp(Graphics g2d) {
         animationTimer.start();
         g2d.setColor(Color.GREEN);
-        //g2d.drawString("+" + healthIncreaseVal + " HP", this.x + GamePanel.offsetX - 24, this.y + GamePanel.offsetY - 6 - yPos);
-        g2d.drawString("+" + healthIncreaseVal + " HP", this.x + GamePanel.offsetX - 24, this.y + GamePanel.offsetY - 6 - yPos);
-        //System.out.println("drew the msg " + yPos);
+        g2d.setFont(FontLoader.font30);
+        // g2d.drawString("+" + healthIncreaseVal + " HP", this.x + GamePanel.offsetX -
+        // 24, this.y + GamePanel.offsetY - 6 - yPos);
+        g2d.drawString("+" + healthIncreaseVal + " HP", this.x + GamePanel.offsetX - 24,
+                this.y + GamePanel.offsetY - 6 - yPos);
+        // System.out.println("drew the msg " + yPos);
     }
 
     /**
      * draws health drop
+     * 
      * @param g2d passes in Graphics2D object for rendeirng
      */
     public void draw(Graphics g2d) {
@@ -109,12 +114,12 @@ public class HealthDrop extends Rectangle {
 
         // System.out.println("healthVal: " + healthIncreaseVal);
         // for (int i = 0; i < 10; i++){
-        //     System.out.println(rand.nextInt(0,3));
+        // System.out.println(rand.nextInt(0,3));
         // }
 
         // System.out.println("x "+this.x + " y " + this.y);
 
-        //draw sprites
+        // draw sprites
         switch (healthIncreaseVal) {
             case 10:
                 g2d.drawImage(Images.milk, this.x + GamePanel.offsetX, this.y + GamePanel.offsetY, this.width,
@@ -141,6 +146,7 @@ public class HealthDrop extends Rectangle {
 
     /**
      * gets the bounds of the healthdrop
+     * 
      * @return returns the bounds
      */
     public Rectangle getBounds() {
@@ -149,6 +155,7 @@ public class HealthDrop extends Rectangle {
 
     /**
      * getter method for healthDropVal
+     * 
      * @return health drop val
      */
     public int getHealthDropVal() {
@@ -159,21 +166,22 @@ public class HealthDrop extends Rectangle {
      * sets new spawn locaiton for when health drop is collected
      */
     /*
-    public void setNewLocation(){
-        this.x = spawnLocationsX[rand.nextInt(0,spawnLocationsX.length)];
-        this.y = spawnLocationsY[rand.nextInt(0,spawnLocationsY.length)];
-    }
+     * public void setNewLocation(){
+     * this.x = spawnLocationsX[rand.nextInt(0,spawnLocationsX.length)];
+     * this.y = spawnLocationsY[rand.nextInt(0,spawnLocationsY.length)];
+     * }
      */
 
     /**
      * changes the heal type for when health drop is collected
      */
-    public void changeHealType(){
+    public void changeHealType() {
         this.healthIncreaseVal = healthVals[rand.nextInt(0, healthVals.length)];
     }
 
     /**
      * sets visible to true
+     * 
      * @param state passes in the state
      */
     public void setVisible(boolean state) {
@@ -182,6 +190,7 @@ public class HealthDrop extends Rectangle {
 
     /**
      * sets the animation to the state
+     * 
      * @param state
      */
     public void setAnimation(boolean state) {

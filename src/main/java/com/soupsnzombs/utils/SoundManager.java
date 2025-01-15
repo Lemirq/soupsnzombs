@@ -12,7 +12,7 @@ public class SoundManager {
     public enum Sound {
         GUNFIRE("gunfire.wav"),
         ZOMBIE_DEATH("zombie_death.wav"),
-        BGM("bgm.wav"),
+        BGM("bgm2.wav"),
         COIN_PICKUP("coin_pickup.wav"),
         DAMAGE("damage.wav");
 
@@ -34,7 +34,7 @@ public class SoundManager {
         // Initialize all game sounds
         loadSound("gunfire.wav");
         loadSound("zombie_death.wav");
-        loadSound("bgm.wav");
+        loadSound("bgm2.wav");
         loadSound("coin_pickup.wav");
         loadSound("damage.wav");
     }

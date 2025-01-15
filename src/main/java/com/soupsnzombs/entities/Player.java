@@ -6,6 +6,8 @@ import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.UI.HealthBar;
 import com.soupsnzombs.utils.Images;
 import com.soupsnzombs.utils.KeyHandler;
+import com.soupsnzombs.utils.SoundManager;
+import com.soupsnzombs.utils.SoundManager.Sound;
 
 import static com.soupsnzombs.utils.FontLoader.font30;
 
@@ -61,6 +63,8 @@ public class Player extends Entity implements GameObject {
      * @param healthAmount the health to set
      */
     public void decreaseHealth(int healthAmount) {
+        SoundManager.playSound(Sound.DAMAGE, false);
+
         this.health = Math.max(0, this.health - healthAmount);
         bar.setHealthValue(this.health);
 
@@ -160,24 +164,25 @@ public class Player extends Entity implements GameObject {
                 break;
         }
         switch (getGun().getAutomaticState()) {
-            case -1: 
-               if (getGun().getMaxAmmo() == 1) g2d.drawImage(spriteSniper, centerXPlayer, centerYPlayer, null);
-               else g2d.drawImage(spritePistol, centerXPlayer, centerYPlayer, null);
+            case -1:
+                if (getGun().getMaxAmmo() == 1)
+                    g2d.drawImage(spriteSniper, centerXPlayer, centerYPlayer, null);
+                else
+                    g2d.drawImage(spritePistol, centerXPlayer, centerYPlayer, null);
                 break;
-            case 0: 
+            case 0:
                 g2d.drawImage(spriteSniper, centerXPlayer, centerYPlayer, null);
                 break;
-            case 1: 
-                g2d.drawImage(spriteMachine, centerXPlayer, centerYPlayer, null); 
+            case 1:
+                g2d.drawImage(spriteMachine, centerXPlayer, centerYPlayer, null);
                 break;
-            default: 
+            default:
                 g2d.drawImage(spriteNoGun, centerXPlayer, centerYPlayer, null);
                 break;
         }
         g2d.setTransform(GamePanel.oldTransformation);
 
         // draw score bottom left corner
-       
 
         if (GamePanel.debugging) {
             // draw map coordinates next to player for debugging
