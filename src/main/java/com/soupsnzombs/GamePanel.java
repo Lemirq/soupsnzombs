@@ -326,6 +326,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // Color.RED));
         gunDrops.add(new GunDrop(-4100, 1025, new Gun(15, 200, 200, 5, 5, -1, pistolImage)));
         gunDrops.add(new GunDrop(-1800, -760, new Gun(25, 200, 300, 5, 5, -1, pistolImage)));
+
+        gunDrops.add(new GunDrop(4935, 765, new Gun(15, 200, 300, 5, 5, 0, semiAutoImage)));
         warehouseEntrance.removeWall(2);
 
         soupWarehouse.removeWallLeft(-1200, -400);
@@ -537,16 +539,16 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // g2d.setFont(font30);
 
         // UI stuff
+        g2d.setColor(Color.WHITE);
+        g2d.setFont(font30);
         g2d.drawString(String.format("Time Survived: %.2f", elapsedTime), 200, screenHeight - 100);
         if (getPlayer().getBounds().intersects(KeyHandler.proximity)) {
             g2d.drawString("[P] Shop", player.x + GamePanel.offsetX - 46,
                     player.y + GamePanel.offsetY - 20);
         }
 
-        // g2d.setColor(Color.WHITE);
-        // g2d.setFont(font30);
-        // g2d.drawString("Score: " + Player.score, GamePanel.screenWidth - 1180,140);
-        // g2d.drawString("Coins: " + Player.money, GamePanel.screenWidth - 1180,90);
+        g2d.drawString("Score: " + Player.score, GamePanel.screenWidth - 1180, GamePanel.screenHeight - 100);
+        g2d.drawString("Coins: " + Player.money, GamePanel.screenWidth - 1180, GamePanel.screenHeight - 50);
 
         player.bar.draw(g2d);
         inventory.draw(g2d, this, player.getGun());
