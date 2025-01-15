@@ -29,13 +29,13 @@ public class MenuGUI {
             }
 
             // Define the spacing between buttons
-            int buttonSpacing = 20; // Adjust the spacing as needed
+            int buttonSpacing = 200; // Adjust the spacing as needed
 
             // Calculate the starting x position for the first button
             int totalWidth = Images.playButton.getWidth() + Images.scoresButton.getWidth()
                     + Images.creditsButton.getWidth()
                     + 2 * buttonSpacing;
-            int startX = (GamePanel.screenWidth - totalWidth) / 2;
+            int startX = ((GamePanel.screenWidth - totalWidth) / 2)-(Images.playButton.getWidth()/2);
             int yPosition = 600;
 
             int playButtonX = startX;
@@ -45,20 +45,20 @@ public class MenuGUI {
 
             // Draw the "Play" button
             if (Images.playButton != null) {
-                g2d.drawImage(Images.playButton, playButtonX, yPosition, Images.playButton.getWidth(),
-                        Images.playButton.getHeight(), null);
+                g2d.drawImage(Images.playButton, playButtonX, yPosition, Images.playButton.getWidth()*2,
+                        Images.playButton.getHeight()*2, null);
             }
 
             // Draw the "Scores" button
             if (Images.scoresButton != null) {
-                g2d.drawImage(Images.scoresButton, scoresButtonX, yPosition, Images.scoresButton.getWidth(),
-                        Images.scoresButton.getHeight(), null);
+                g2d.drawImage(Images.scoresButton, scoresButtonX, yPosition, Images.scoresButton.getWidth()*2,
+                        Images.scoresButton.getHeight()*2, null);
             }
 
             // Draw the "Credits" button
             if (Images.creditsButton != null) {
-                g2d.drawImage(Images.creditsButton, creditsButtonX, yPosition, Images.creditsButton.getWidth(),
-                        Images.creditsButton.getHeight(), null);
+                g2d.drawImage(Images.creditsButton, creditsButtonX, yPosition, Images.creditsButton.getWidth()*2,
+                        Images.creditsButton.getHeight()*2, null);
             }
 
             // Draw arrows around the selected button
@@ -68,17 +68,17 @@ public class MenuGUI {
                 int arrowX, arrowYTop, arrowYBottom;
 
                 if (selected == 0) {
-                    arrowX = playButtonX + (Images.playButton.getWidth() - arrowWidth) / 2;
+                    arrowX = playButtonX + (Images.playButton.getWidth() - arrowWidth) / 2 + (Images.playButton.getWidth()/2);
                     arrowYTop = yPosition - arrowHeight - 5; // Adjust the spacing as needed
-                    arrowYBottom = yPosition + Images.playButton.getHeight() + 5; // Adjust the spacing as needed
+                    arrowYBottom = yPosition + Images.playButton.getHeight() + 55; // Adjust the spacing as needed
                 } else if (selected == 1) {
-                    arrowX = scoresButtonX + (Images.scoresButton.getWidth() - arrowWidth) / 2;
+                    arrowX = scoresButtonX + (Images.scoresButton.getWidth() - arrowWidth) / 2 + (Images.playButton.getWidth()/2);
                     arrowYTop = yPosition - arrowHeight - 5; // Adjust the spacing as needed
-                    arrowYBottom = yPosition + Images.scoresButton.getHeight() + 5; // Adjust the spacing as needed
+                    arrowYBottom = yPosition + Images.scoresButton.getHeight() + 55; // Adjust the spacing as needed
                 } else {
-                    arrowX = creditsButtonX + (Images.creditsButton.getWidth() - arrowWidth) / 2;
+                    arrowX = creditsButtonX + (Images.creditsButton.getWidth() - arrowWidth) / 2 + (Images.playButton.getWidth()/2);
                     arrowYTop = yPosition - arrowHeight - 5; // Adjust the spacing as needed
-                    arrowYBottom = yPosition + Images.creditsButton.getHeight() + 5; // Adjust the spacing as needed
+                    arrowYBottom = yPosition + Images.creditsButton.getHeight() + 55; // Adjust the spacing as needed
                 }
 
                 g2d.drawImage(Images.arrowImage, arrowX, arrowYTop, null);
