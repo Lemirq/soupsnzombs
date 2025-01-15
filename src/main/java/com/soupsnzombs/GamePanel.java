@@ -567,6 +567,10 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
     //draw couch
     couch1.draw(g2d);
+
+    //draw beda
+    g2d.drawImage(bed, -4200 + offsetX, 1100 + offsetY, 250, 250, null);
+    g2d.drawImage(bed, -2000 + offsetX, -700 + offsetY, 250, 250, null);
         
     
         // draw coins
