@@ -6,6 +6,8 @@ import com.soupsnzombs.utils.CollisionManager;
 import com.soupsnzombs.utils.Images;
 import com.soupsnzombs.utils.Node;
 import com.soupsnzombs.utils.Pathfinder;
+import com.soupsnzombs.utils.SoundManager;
+import com.soupsnzombs.utils.SoundManager.Sound;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -108,6 +110,7 @@ public class Zombie extends Entity implements GameObject {
 
     public void takeDamage(int damage) {
         health -= damage;
+        SoundManager.playSound(Sound.DAMAGE, alive);
         if (health <= 0) {
             alive = false;
         }
@@ -190,10 +193,10 @@ public class Zombie extends Entity implements GameObject {
         }
 
         // Replace the existing direct path check with:
-        // if (hasLineOfSight(p, g2d)) {
-        // chasePlayerDirectly(p, g2d);
-        // return;
-        // }
+        if (hasLineOfSight(p, g2d)) {
+            chasePlayerDirectly(p, g2d);
+            return;
+        }
 
         // Force path recalculation in these cases:
         boolean shouldRecalculatePath = pathNodes.isEmpty() ||

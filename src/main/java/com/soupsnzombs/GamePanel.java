@@ -8,6 +8,7 @@ import com.soupsnzombs.buildings.*;
 import com.soupsnzombs.entities.*;
 import com.soupsnzombs.entities.zombies.*;
 import com.soupsnzombs.utils.*;
+import com.soupsnzombs.utils.SoundManager.Sound;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -219,6 +220,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         if (shootPressed) {
             player.getGun().shootBullet(player);
+            // play sound
+            SoundManager.playSound(Sound.GUNFIRE, false);
             shootPressed = false;
         }
         player.getGun().updateBullets();
@@ -344,7 +347,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         }
 
         CollisionManager.addCollidable(player);
-
+        SoundManager.init();
         zombies = new AllZombies();
         inventory = new Inventory();
 
@@ -516,7 +519,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             drop.draw(g2d);
         }
 
-        //draw trash piles
+        // draw trash piles
         g2d.drawImage(largeTrashPile, 1974 + offsetX, -214 + offsetY, 500, 500, null);
         g2d.drawImage(largeTrashPile, 2300 + offsetX, -214 + offsetY, 500, 500, null);
         g2d.drawImage(largeTrashPile, 2300 + offsetX, 0 + offsetY, 500, 500, null);
@@ -527,7 +530,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         g2d.drawImage(largeTrashPile, 3800 + offsetX, 1480 + offsetY, 500, 500, null);
         g2d.drawImage(largeTrashPile, 3800 + offsetX, 2000 + offsetY, 500, 500, null);
         g2d.drawImage(largeTrashPile, 4080 + offsetX, 1820 + offsetY, 500, 500, null);
-
 
         g2d.drawImage(smallTrashPile, -4220 + offsetX, 1300 + offsetY, 150, 150, null);
         g2d.drawImage(smallTrashPile, -3940 + offsetX, 1000 + offsetY, 150, 150, null);
@@ -562,8 +564,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         buildings.drawTrees(g2d);
         // g2d.setFont(font30);
-
-        
 
         // UI stuff
         g2d.setColor(Color.WHITE);

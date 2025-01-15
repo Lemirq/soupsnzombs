@@ -4,6 +4,7 @@ import java.awt.*;
 
 import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.utils.Images;
+import com.soupsnzombs.utils.SoundManager;
 
 public class MenuGUI {
     public static int selected = 0;
@@ -17,6 +18,7 @@ public class MenuGUI {
 
     /**
      * Draws the menu screens main components
+     * 
      * @param g2d passes in the Graphics2D obejct for rendering
      */
     public void drawMenu(Graphics2D g2d) {
@@ -88,7 +90,6 @@ public class MenuGUI {
         }
     }
 
-
     /**
      * checks if the menu is closed(if play is clicked)
      */
@@ -108,7 +109,6 @@ public class MenuGUI {
             System.out.println(GamePanel.gameState);
         }
     }
-
 
     /**
      * checks if the credits menu button is clicked
