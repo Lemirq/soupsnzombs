@@ -24,8 +24,8 @@ public class Images {
     // public static ArrayList<BufferedImage> player_running = new ArrayList<>();
     // public static ArrayList<BufferedImage> gunfire = new ArrayList<>();
 
-    public static BufferedImage player_idle, circle, gun, bullet, tree, gameMenu, background, coin, shop, bigZombie, smallZombie, kingZombie, tent, grayWall,
-            playButton, creditsButton, scoresButton, arrowImage, instructions, credits, shopBackground, tempImage,
+    public static BufferedImage player_idle, circle, gun, bullet, tree, gameMenu, background, coin, shop,damage, bigZombie, smallZombie, kingZombie, tent, grayWall,
+            playButton, creditsButton, scoresButton, arrowImage, instructions, credits, shopBackground, bulletRange, tempImage,
             ocean, pistolImage, SMGImage, sniperImage, scoresbg, grass, milk, soup, energyDrink, exit, semiAutoImage, largeTrashPile, smallTrashPile;
     public static HashMap<String, BufferedImage> spriteImages = new HashMap<>();
     public static HashMap<String, BufferedImage> tileImages = new HashMap<>();
@@ -61,6 +61,8 @@ public class Images {
             sniperImage = ImageIO.read(Images.class.getResource("/sniperGun.png"));
             semiAutoImage = ImageIO.read(Images.class.getResource("/semiAutoGun.png"));
             exit = ImageIO.read(Images.class.getResource("/exit.png"));
+            damage = ImageIO.read(Images.class.getResource("/damageIncrease.png"));
+            bulletRange = ImageIO.read(Images.class.getResource("/bulletRange.png"));
 
             // healing items
             energyDrink = ImageIO.read(Images.class.getResource("/Energy Drink.png"));
