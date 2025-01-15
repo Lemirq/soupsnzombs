@@ -32,8 +32,8 @@ public class Player extends Entity implements GameObject {
         spriteMachine = Images.spriteImages.get("manBrown_machine.png");
         spriteSniper = Images.spriteImages.get("manBrown_silencer.png");
 
-        this.width = spriteNoGun.getWidth();
-        this.height = spriteNoGun.getHeight();
+        this.width = spriteNoGun.getWidth(); //+17
+        this.height = spriteNoGun.getHeight(); //-18
         this.x = GamePanel.screenWidth / 2 - width / 2 - 1000;
         this.y = GamePanel.screenHeight / 2 - height / 2 - 1000;
         money = 90;
@@ -133,8 +133,8 @@ public class Player extends Entity implements GameObject {
     public void draw(Graphics2D g2d) {
         // bar.draw(g2d);
         drawFireRateBar(g2d, x + GamePanel.offsetX + 8, y + GamePanel.offsetY - 13);
-        int centerXPlayer = GamePanel.screenWidth / 2 - width / 2;
-        int centerYPlayer = GamePanel.screenHeight / 2 - height / 2;
+        int centerXPlayer = (GamePanel.screenWidth / 2 - width / 2);
+        int centerYPlayer = (GamePanel.screenHeight / 2 - height / 2);
 
         // without image: testing
         // yellow Rectangle

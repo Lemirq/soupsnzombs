@@ -64,7 +64,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             timeLeft--;
         }
     });
-    public static int timeLeft = 10;
+    public static int timeLeft = 15;
 
     // private long time1 = 0;
     // private long time2 = 0;
@@ -189,6 +189,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             offsetX = -(player.x - (GamePanel.screenWidth / 2 - player.width / 2));
             offsetY = -(player.y - (GamePanel.screenHeight / 2 - player.height / 2)); // Reset player position
             zombies.clear(); // Removes all zombies
+            coins.clear(); // Removes all coins
             NameSelect.name = new StringBuilder(""); // Clears leaderboard name input stream
             AllZombies.waveNumber = 1; // Set zombie wave to 1
         }
@@ -209,7 +210,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             if (timeLeft == 0) {
                 gameState = GameState.MAIN_MENU;
                 nameSelectTimer.stop();
-                timeLeft = 10;
+                timeLeft = 15;
                 return;
             }
         }
@@ -460,6 +461,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         }
 
         if (gameState == GameState.GAMEOVER) {
+            SoundManager.stopAllSounds();
             g2d.setColor(Color.RED);
             g2d.setFont(font100);
             g2d.drawString("YOU DIED!", 360, 300);
@@ -530,7 +532,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         g2d.drawImage(mudPuddle, 2500 + offsetX, 1300 + offsetY, 500, 500, null);
         g2d.drawImage(mudPuddle, 3000 + offsetX, -1200 + offsetY, 300, 300, null);
         g2d.drawImage(mudPuddle, 3500 + offsetX, 1100 + offsetY, 250, 250, null);
-        g2d.drawImage(mudPuddle, 4000 + offsetX, -400 + offsetY, 400, 400, null);
+        //g2d.drawImage(mudPuddle, 4000 + offsetX, -400 + offsetY, 400, 400, null);
         g2d.drawImage(mudPuddle, 4500 + offsetX, 1800 + offsetY, 450, 450, null);
         g2d.drawImage(mudPuddle, 5000 + offsetX, -900 + offsetY, 500, 500, null);
         g2d.drawImage(mudPuddle, 5500 + offsetX, 1600 + offsetY, 300, 300, null);
@@ -552,15 +554,15 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         g2d.drawImage(largeTrashPile, 4080 + offsetX, 1820 + offsetY, 500, 500, null);
 
         g2d.drawImage(smallTrashPile, -4220 + offsetX, 1300 + offsetY, 150, 150, null);
-        g2d.drawImage(smallTrashPile, -3940 + offsetX, 1000 + offsetY, 150, 150, null);
-        g2d.drawImage(smallTrashPile, -4145 + offsetX, 1114 + offsetY, 150, 150, null);
+       // g2d.drawImage(smallTrashPile, -3940 + offsetX, 1000 + offsetY, 150, 150, null);
+        //g2d.drawImage(smallTrashPile, -4145 + offsetX, 1114 + offsetY, 150, 150, null);
 
         g2d.drawImage(smallTrashPile, 3487 + offsetX, -900 + offsetY, 150, 150, null);
         g2d.drawImage(smallTrashPile, 3800 + offsetX, -900 + offsetY, 150, 150, null);
         g2d.drawImage(smallTrashPile, 3287 + offsetX, 120 + offsetY, 150, 150, null);
         g2d.drawImage(smallTrashPile, 3700 + offsetX, 580 + offsetY, 150, 150, null);
 
-        g2d.drawImage(smallTrashPile, -326 + offsetX, 1845 + offsetY, 150, 150, null);
+    //    g2d.drawImage(smallTrashPile, -326 + offsetX, 1845 + offsetY, 150, 150, null);
 
         // draw coins
         coins.draw(g2d, player);
@@ -616,7 +618,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         long currentTime = System.currentTimeMillis();
         if (currentTime - damageEffectStartTime < DAMAGE_EFFECT_DURATION) {
-            g2d.setColor(new Color(255, 0, 0, 100)); // Red color with transparency
+            g2d.setColor(new Color(255, 0, 0, 40)); // Red color with transparency
             g2d.fillRect(0, 0, getWidth(), getHeight());
         }
         // if the player is close to the bounds draw big text saying: THERE IS NO ESCAPE

@@ -33,4 +33,8 @@ public class AllCoins {
         }
 
     }
+
+    public void clear() {
+        coins.clear();
+    }
 }

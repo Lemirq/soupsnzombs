@@ -10,6 +10,7 @@ import com.soupsnzombs.utils.Pathfinder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static com.soupsnzombs.entities.zombies.AllZombies.waveNumber;
@@ -64,7 +65,7 @@ public class Zombie extends Entity implements GameObject {
                 health = 200;
                 healthMax = 200;
                 this.damage = 35;
-                speed = 1;
+                speed = 1 + 5 * (waveNumber / 5);
                 pointsDropped = 20;
                 // TODO change loaded png file accordingly to the type of zomb
                 this.sprite = bigZombie;
@@ -74,7 +75,7 @@ public class Zombie extends Entity implements GameObject {
                 health = 75;
                 healthMax = 75;
                 this.damage = 5;
-                speed = 2;
+                speed = 2 + 5 * (waveNumber / 5);
                 pointsDropped = 5;
 
                 // TODO change loaded png file accordingly to the type of zomb
@@ -84,8 +85,8 @@ public class Zombie extends Entity implements GameObject {
             case BOSS:
                 health = 100 * waveNumber;
                 healthMax = 100 * waveNumber;
-                this.damage = 35 + (5 * waveNumber);
-                speed = 1;
+                this.damage = 35 + 5 * (waveNumber / 5);
+                speed = 1 + 5 * (waveNumber / 5);
                 this.sprite = kingZombie;
                 pointsDropped = 30;
                 break;
@@ -328,7 +329,8 @@ public class Zombie extends Entity implements GameObject {
                     continue;
                 }
 
-                if (obstacle.intersects(checkPoint)) {
+                if (obstacle.intersects(checkPoint)) { 
+                    //System.out.println("help");
                     return false;
                 }
             }
@@ -397,6 +399,12 @@ public class Zombie extends Entity implements GameObject {
 
         ArrayList<Rectangle> collisions = new ArrayList<>(CollisionManager.collidables);
         collisions.remove(this);
+
+        Iterator<Rectangle> collidableIterator = collisions.iterator();
+        while (collidableIterator.hasNext()) {
+            Rectangle collidable = collidableIterator.next();
+            if (collidable.width == 25) collidableIterator.remove(); //use width == 25 to check if it is a tree log
+        }
 
         if (!CollisionManager.isColliding(nextPos, collisions)) {
             return true;
