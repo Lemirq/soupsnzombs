@@ -532,7 +532,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         g2d.drawImage(mudPuddle, 2500 + offsetX, 1300 + offsetY, 500, 500, null);
         g2d.drawImage(mudPuddle, 3000 + offsetX, -1200 + offsetY, 300, 300, null);
         g2d.drawImage(mudPuddle, 3500 + offsetX, 1100 + offsetY, 250, 250, null);
-        g2d.drawImage(mudPuddle, 4000 + offsetX, -400 + offsetY, 400, 400, null);
+        //g2d.drawImage(mudPuddle, 4000 + offsetX, -400 + offsetY, 400, 400, null);
         g2d.drawImage(mudPuddle, 4500 + offsetX, 1800 + offsetY, 450, 450, null);
         g2d.drawImage(mudPuddle, 5000 + offsetX, -900 + offsetY, 500, 500, null);
         g2d.drawImage(mudPuddle, 5500 + offsetX, 1600 + offsetY, 300, 300, null);

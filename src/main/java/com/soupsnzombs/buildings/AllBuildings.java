@@ -57,6 +57,14 @@ public class AllBuildings {
 
         trees.add(new Tree(4935, 765, 25, 25));
 
+        for (Wall w : walls) {
+            CollisionManager.addCollidable(w);
+        }
+
+        for (Building building : buildings) {
+            CollisionManager.addCollidable(building);
+        }
+
         for (Tree t : trees) {
             bushes.add(new Bush(t.x - 60, t.y - 65, 150, 150));
         }
@@ -65,13 +73,9 @@ public class AllBuildings {
             CollisionManager.addCollidable(t);
         }
 
-        for (Wall w : walls) {
-            CollisionManager.addCollidable(w);
-        }
+        
 
-        for (Building building : buildings) {
-            CollisionManager.addCollidable(building);
-        }
+        
 
     }
 
@@ -85,10 +89,6 @@ public class AllBuildings {
     public void draw(Graphics2D g2d) {
         shopEntity.drawShop(g2d);
 
-        for (Tree t : trees) {
-            t.draw(g2d);
-        }
-
         for (Building b : buildings) {
             b.draw(g2d);
         }
@@ -96,6 +96,12 @@ public class AllBuildings {
         for (Wall w : walls) {
             w.draw(g2d);
         }
+
+        for (Tree t : trees) {
+            t.draw(g2d);
+        }
+
+        
 
         // draw rect x,y,w,h
         g2d.setColor(Color.RED);
