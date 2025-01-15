@@ -76,8 +76,8 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public static int MOVE_SPEED = 1; // Speed of movement
     public static AffineTransform oldTransformation;
     GameMap map;
-    public static int screenWidth = 1200;
-    public static int screenHeight = 900;
+    public static int screenWidth = 1920;
+    public static int screenHeight = 1080;
 
     // Grid variables
     public static final int[] X_Bounds = { -5000, 5000 };
@@ -102,14 +102,12 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public Credits credits = new Credits();
     public static ArrayList<GunDrop> gunDrops = new ArrayList<>();
     public EntranceBuilding soupWarehouse = new EntranceBuilding(3000, -1200, 1200, 2200, 800, 4, 60);
-    
-    public EntranceBuilding warehouseEntrance = new EntranceBuilding(1940, -1200, 1350, 800, 450, 1, 60);
-    public EntranceBuilding hut1 = new EntranceBuilding(-4200, 1020, 450, 400, 200, 2, 30);
+    public EntranceBuilding warehouseEntrance = new EntranceBuilding(1940, -1200, 1000, 800, 450, 1, 60);
+    public EntranceBuilding hut1 = new EntranceBuilding(-3500, 1020, 450, 400, 200, 2, 30);
     public EntranceBuilding hut2 = new EntranceBuilding(-2000, -800, 450, 400, 200, 4, 30);
     public EntranceBuilding hut3 = new EntranceBuilding(-600, 1600, 450, 400, 200, 3, 30);
     public ShopBuilding shopEntity = new ShopBuilding(250, 1400, 400, 200);
     public ArrayList<EntranceBuilding> entranceBuildings = new ArrayList<>();
-    public Couch couch1 = new Couch(-600, 1600, 200, 200);
     public ArrayList<HealthDrop> healthDrops = new ArrayList<>();
     public Inventory inventory;
 
@@ -193,7 +191,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             zombies.clear(); // Removes all zombies
             coins.clear(); // Removes all coins
             NameSelect.name = new StringBuilder(""); // Clears leaderboard name input stream
-            AllZombies.waveNumber = 1; // Set zombie wave to 1
+            AllZombies.waveNumber = 0; // Set zombie wave to 0
         }
 
         if (gameState == GameState.GAMEOVER) {
@@ -566,10 +564,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
     //    g2d.drawImage(smallTrashPile, -326 + offsetX, 1845 + offsetY, 150, 150, null);
 
-    //draw couch
-    couch1.draw(g2d);
-        
-    
         // draw coins
         coins.draw(g2d, player);
 
@@ -609,14 +603,18 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // UI stuff
         g2d.setColor(Color.WHITE);
         g2d.setFont(font30);
-        g2d.drawString(String.format("Time Survived: %.2f", elapsedTime), 200, screenHeight - 100);
+        g2d.drawString(String.format("Time Survived: %.2f", elapsedTime), 80, screenHeight - 100);
         if (getPlayer().getBounds().intersects(KeyHandler.proximity)) {
             g2d.drawString("[P] Shop", player.x + GamePanel.offsetX - 46,
                     player.y + GamePanel.offsetY - 20);
         }
+// rectangle in the bottom middle of the screen that houses both the coin and the score
+int rectX = (GamePanel.screenWidth - 150) / 2;
+int rectY = GamePanel.screenHeight - 150;
+g2d.drawRect(rectX, rectY, 150, 50);
+g2d.drawImage(Images.coin, rectX + 10, rectY, 50, 50, null);
+g2d.drawString("" + Player.money, rectX + 80, rectY + 30);
 
-        g2d.drawString("Score: " + Player.score, GamePanel.screenWidth - 1180, GamePanel.screenHeight - 100);
-        g2d.drawString("Coins: " + Player.money, GamePanel.screenWidth - 1180, GamePanel.screenHeight - 50);
 
         player.bar.draw(g2d);
         inventory.draw(g2d, player.getGun());

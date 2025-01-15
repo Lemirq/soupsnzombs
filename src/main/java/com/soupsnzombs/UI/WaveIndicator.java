@@ -12,12 +12,7 @@ public class WaveIndicator {
         g2d.setColor(Color.RED);
         g2d.setFont(FontLoader.font30);
         if (AllZombies.zombies.isEmpty()) {
-            if (AllZombies.zombieSpawnDelay > 0) {
 
-                g2d.drawString(
-                        "WAVE #" + AllZombies.waveNumber + " STARTING IN: " + AllZombies.zombieSpawnDelay + " sec", 20,
-                        50);
-            }
 
             if (AllZombies.zombieSpawnDelay < 0) {
                 AllZombies.zombieSpawnDelay = 3;
@@ -27,6 +22,14 @@ public class WaveIndicator {
             if (AllZombies.zombieSpawnDelay == 0) {
                 AllZombies.waveNumber++;
                 AllZombies.spawnZombies(player);
+                AllZombies.zombieSpawnDelay = -1;
+            }
+
+            if (AllZombies.zombieSpawnDelay > 0) {
+                int nextWave = AllZombies.waveNumber+1;
+                g2d.drawString(
+                        "WAVE #" + nextWave + " STARTING IN: " + AllZombies.zombieSpawnDelay + " sec", 20,
+                        50);
             }
 
         } else

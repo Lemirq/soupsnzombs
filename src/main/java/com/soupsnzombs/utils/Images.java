@@ -28,7 +28,7 @@ public class Images {
             smallZombie, kingZombie, tent, grayWall,
             playButton, creditsButton, scoresButton, arrowImage, instructions, credits, shopBackground, tempImage,
             ocean, pistolImage, SMGImage, sniperImage, scoresbg, grass, milk, soup, energyDrink, exit, semiAutoImage,
-            treelog, damage, couch,
+            treelog, damage, couch, bed,
             bulletRange,
             largeTrashPile,
             smallTrashPile,
@@ -116,6 +116,8 @@ public class Images {
             smallTrashPile = ImageIO.read(Images.class.getResource("/smallTrashPile.png"));
             mudPuddle = ImageIO.read(Images.class.getResource("/mudPuddle.png"));
             couch = ImageIO.read(Images.class.getResource("/couch.png"));
+            bed = ImageIO.read(Images.class.getResource("/bed.png"));
+
 
         } catch (IOException e) {
             e.printStackTrace();
