@@ -185,16 +185,18 @@ public class Zombie extends Entity implements GameObject {
         double deltaY = p.y - this.y;
         double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
-        // If the player is too far away, don't bother with pathfinding
-        if (distance > 1200) {
-            return;
-        }
 
         // Replace the existing direct path check with:
         if (hasLineOfSight(p, g2d)) {
             chasePlayerDirectly(p, g2d);
             return;
         }
+
+        // If the player is too far away, don't bother with pathfinding
+        if (distance > 1200) {
+            return;
+        }
+
 
         // Force path recalculation in these cases:
         boolean shouldRecalculatePath = pathNodes.isEmpty() ||

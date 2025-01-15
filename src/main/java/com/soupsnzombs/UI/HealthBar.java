@@ -7,10 +7,8 @@ import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 
 import com.soupsnzombs.GamePanel;
-import com.soupsnzombs.utils.Theme;
-
-
 import static com.soupsnzombs.utils.FontLoader.font40;
+import com.soupsnzombs.utils.Theme;
 
 public class HealthBar {
     // Constants for the health bar dimensions and position
@@ -42,7 +40,7 @@ public class HealthBar {
         } else {
             fillColor = Theme.HEALTH_BAR_FG; // 75% or more health
         }
-        int X_POSITION = 30;
+        int X_POSITION = 100;
         int Y_POSITION = (GamePanel.screenHeight) - 175;
 
         // Save the original transform
