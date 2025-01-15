@@ -30,7 +30,7 @@ public class WaveIndicator {
             }
 
         } else
-            g2d.drawString(String.format("WAVE #%d", AllZombies.waveNumber - 1), 20, 50);
+            g2d.drawString(String.format("WAVE #%d", AllZombies.waveNumber), 20, 50);
 
     }
 }
