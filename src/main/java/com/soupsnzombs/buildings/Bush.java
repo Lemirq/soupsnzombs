@@ -31,8 +31,10 @@ public class Bush extends Building {
         g2d.setColor(Color.CYAN);
         // Set transparency to 70%
         float transparency = 0.7f;
-        if (getBounds().intersects(GamePanel.player.getBounds())) g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, transparency));
-
+        if (getBounds().intersects(GamePanel.player.getBounds())) {
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, transparency));
+            
+        }
         g2d.drawImage(bushSprite, bushX, bushY, width, height, null);
 
         // Restore original composite

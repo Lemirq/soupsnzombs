@@ -23,8 +23,8 @@ public class AllZombies {
     //public static int FOVWidth = GamePanel.screenWidth + 50;
     //public static int FOVHeight = GamePanel.screenHeight + 50;
     public static ArrayList<Zombie> zombies = new ArrayList<>();
-    public static int waveNumber = 1;
-    public static final int spawnRadius = 1500;
+    public static int waveNumber = 0;
+    public static final int spawnRadius = 750;
     public static final Random random = new Random();
     public static Timer waveTimer = new Timer(1000, new ActionListener() {
         public void actionPerformed(ActionEvent e) {
