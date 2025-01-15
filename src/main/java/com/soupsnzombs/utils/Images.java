@@ -26,7 +26,8 @@ public class Images {
 
     public static BufferedImage player_idle, circle, gun, bullet, tree, gameMenu, background, coin, shop,damage, bigZombie, smallZombie, kingZombie, tent, grayWall,
             playButton, creditsButton, scoresButton, arrowImage, instructions, credits, shopBackground, bulletRange, tempImage,
-            ocean, pistolImage, SMGImage, sniperImage, scoresbg, grass, milk, soup, energyDrink, exit, semiAutoImage, largeTrashPile, smallTrashPile;
+            ocean, pistolImage, SMGImage, sniperImage, scoresbg, grass, milk, soup, energyDrink, exit, semiAutoImage, largeTrashPile, smallTrashPile,
+            mudPuddle;
     public static HashMap<String, BufferedImage> spriteImages = new HashMap<>();
     public static HashMap<String, BufferedImage> tileImages = new HashMap<>();
 
@@ -107,6 +108,7 @@ public class Images {
             //misc
             largeTrashPile = ImageIO.read(Images.class.getResource("/largeTrashPile.png"));
             smallTrashPile = ImageIO.read(Images.class.getResource("/smallTrashPile.png"));
+            mudPuddle = ImageIO.read(Images.class.getResource("/mudPuddle.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
