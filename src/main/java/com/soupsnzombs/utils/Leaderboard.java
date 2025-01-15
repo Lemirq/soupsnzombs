@@ -1,6 +1,5 @@
 package com.soupsnzombs.utils;
 
-import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.UI.MainMenu.NameSelect;
 import com.soupsnzombs.entities.Player;
 
@@ -70,7 +69,9 @@ public class Leaderboard {
 
     /**
      * reads scores
-     * @return the sorted leaderboard map in order to display from highest to lowest score
+     * 
+     * @return the sorted leaderboard map in order to display from highest to lowest
+     *         score
      */
     public static HashMap<String, Integer> readScores() {
         HashMap<String, Integer> leaderboardMap = new HashMap<>();
@@ -124,7 +125,8 @@ public class Leaderboard {
     /**
      * writes the scores to the file
      * implements the swear filter class to ensure no innapropriate words are used
-     * swear filter wrongfully blocks some words that shouldnt be, but is the best possible solution we currently have
+     * swear filter wrongfully blocks some words that shouldnt be, but is the best
+     * possible solution we currently have
      */
     public static void writeScores() {
         try {
@@ -141,7 +143,8 @@ public class Leaderboard {
                 fw.close();
             } else {
                 NameSelect.message = true;
-                // JOptionPane.showMessageDialog(null, "The name contains inappropriate language. Please choose a different name."); // temporary
+                // JOptionPane.showMessageDialog(null, "The name contains inappropriate
+                // language. Please choose a different name."); // temporary
                 NameSelect.name.setLength(0);
 
             }

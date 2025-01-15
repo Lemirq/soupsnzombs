@@ -9,8 +9,6 @@ import com.soupsnzombs.utils.KeyHandler;
 import com.soupsnzombs.utils.SoundManager;
 import com.soupsnzombs.utils.SoundManager.Sound;
 
-import static com.soupsnzombs.utils.FontLoader.font30;
-
 public class Player extends Entity implements GameObject {
     public static int money;
     public static int score = 0;

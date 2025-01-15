@@ -4,7 +4,6 @@ import com.soupsnzombs.GamePanel;
 import java.awt.*;
 
 import static com.soupsnzombs.utils.Images.shop;
-import static com.soupsnzombs.utils.Images.tent;
 
 public class ShopBuilding extends Building {
     int mapX, mapY, shopX, shopY;
@@ -23,7 +22,7 @@ public class ShopBuilding extends Building {
         shopX = mapX + GamePanel.offsetX;
         shopY = mapY + GamePanel.offsetY;
 
-        //g2d.drawImage(tent, shopX, shopY, width, height, null);
+        // g2d.drawImage(tent, shopX, shopY, width, height, null);
         g2d.drawImage(shop, shopX, shopY, width, height, null);
 
         if (GamePanel.debugging) {

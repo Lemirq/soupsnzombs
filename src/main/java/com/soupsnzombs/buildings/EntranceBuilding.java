@@ -5,7 +5,6 @@ import java.awt.*;
 import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.utils.CollisionManager;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class EntranceBuilding extends Building {
     Wall left;

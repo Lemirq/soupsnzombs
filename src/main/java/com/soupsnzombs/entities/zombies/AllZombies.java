@@ -16,11 +16,8 @@ import com.soupsnzombs.utils.CollisionManager;
 
 import javax.swing.*;
 
-import static com.soupsnzombs.GamePanel.GameState.GAMEOVER;
 import static com.soupsnzombs.buildings.AllBuildings.*;
 import static com.soupsnzombs.entities.AllCoins.coins;
-import static com.soupsnzombs.entities.zombies.Zombie.ZombieType.*;
-import static com.soupsnzombs.utils.FontLoader.font30;
 
 public class AllZombies {
     public static int FOVWidth = GamePanel.screenWidth + 50;

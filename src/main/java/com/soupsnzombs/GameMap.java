@@ -3,7 +3,6 @@ package com.soupsnzombs;
 import static com.soupsnzombs.GamePanel.player;
 
 import java.awt.Color;
-import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

@@ -6,8 +6,6 @@ import com.soupsnzombs.utils.CollisionManager;
 import com.soupsnzombs.utils.Images;
 import com.soupsnzombs.utils.Node;
 import com.soupsnzombs.utils.Pathfinder;
-import com.soupsnzombs.utils.SoundManager;
-import com.soupsnzombs.utils.SoundManager.Sound;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -51,8 +49,8 @@ public class Zombie extends Entity implements GameObject {
         this.x = startX + GamePanel.offsetX;
         this.y = startY + GamePanel.offsetY;
 
-        this.zombieType = type;
-        switch (this.zombieType) {
+        Zombie.zombieType = type;
+        switch (Zombie.zombieType) {
             case DEFAULT:
                 health = 100;
                 healthMax = 100;

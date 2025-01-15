@@ -115,6 +115,8 @@ public class GridVisualizer extends JFrame {
                         case WALL:
                             wallCount++;
                             break;
+                        default:
+                            break;
                     }
                 }
             }

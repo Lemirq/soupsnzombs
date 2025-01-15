@@ -1,7 +1,6 @@
 package com.soupsnzombs.buildings;
 
 import com.soupsnzombs.GamePanel;
-import com.soupsnzombs.entities.Player;
 import com.soupsnzombs.utils.Images;
 
 import java.awt.*;

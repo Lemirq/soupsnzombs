@@ -117,7 +117,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
     public Player getPlayer() {
         // TODO: fix this
-        return this.player;
+        return GamePanel.player;
     }
 
     public synchronized void start() {
@@ -532,7 +532,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         g2d.drawImage(mudPuddle, 5500 + offsetX, 1600 + offsetY, 300, 300, null);
         buildings.draw(g2d);
 
-        //draw zombies
+        // draw zombies
         zombies.draw(g2d, player);
 
         // draw trash piles
@@ -558,7 +558,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         g2d.drawImage(smallTrashPile, -326 + offsetX, 1845 + offsetY, 150, 150, null);
 
-        //draw coins
+        // draw coins
         coins.draw(g2d, player);
 
         for (GunDrop gd : gunDrops) {
