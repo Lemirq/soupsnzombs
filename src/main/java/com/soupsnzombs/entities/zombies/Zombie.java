@@ -382,8 +382,16 @@ public class Zombie extends Entity implements GameObject {
                 y + vy,
                 width,
                 height);
-        // draw this retangle in orange
 
+        // Check if next position would be out of bounds
+        if (nextPos.x < GamePanel.X_Bounds[0] ||
+                nextPos.x + nextPos.width > GamePanel.X_Bounds[1] ||
+                nextPos.y < GamePanel.Y_Bounds[0] ||
+                nextPos.y + nextPos.height > GamePanel.Y_Bounds[1]) {
+            return false;
+        }
+
+        // Draw this rectangle in orange (for debugging)
         g2d.setColor(Color.ORANGE);
         g2d.drawRect(nextPos.x + GamePanel.offsetX, nextPos.y + GamePanel.offsetY, nextPos.width, nextPos.height);
 
