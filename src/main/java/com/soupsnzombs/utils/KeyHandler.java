@@ -9,7 +9,6 @@ import java.awt.event.KeyEvent;
 import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.GamePanel.GameState;
 import com.soupsnzombs.GamePanel.PlayerDir;
-import com.soupsnzombs.MainFrame;
 import com.soupsnzombs.UI.MainMenu.MenuGUI;
 import com.soupsnzombs.UI.MainMenu.NameSelect;
 import com.soupsnzombs.UI.Shop.Shop;
@@ -44,7 +43,7 @@ public class KeyHandler extends KeyAdapter {
         shootCooldown = new Timer(20, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+
                 Player.shotCoolDownTime -= 100 / (game.getPlayer().getGun().getFireRate() / 20); // 100 is the firerate
                                                                                                  // bar val, 20 is the
                                                                                                  // timer delay
@@ -54,7 +53,7 @@ public class KeyHandler extends KeyAdapter {
                     Player.showFireRateBar = false;
                     Player.shotCoolDownTime = 100;
                 }
-                
+
             }
         });
 
@@ -73,13 +72,14 @@ public class KeyHandler extends KeyAdapter {
         semiAutoCooldown = new Timer(80, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    GamePanel.shootPressed = true; //this line fires the second shot, the first shot is when space is pressed
-                    canShoot = false;
-                    Player.showFireRateBar = true;
-                    shootCooldown.start();
-                     // Start the cooldown timer
-                    semiAutoCooldown.stop();
-                    
+                GamePanel.shootPressed = true; // this line fires the second shot, the first shot is when space is
+                                               // pressed
+                canShoot = false;
+                Player.showFireRateBar = true;
+                shootCooldown.start();
+                // Start the cooldown timer
+                semiAutoCooldown.stop();
+
             }
         });
 
@@ -256,12 +256,13 @@ public class KeyHandler extends KeyAdapter {
                         break;
                     case 1:
                         if (!automaticGunTimer.isRunning()) {
-                            automaticGunTimer.start(); // start firing when space held, a timer will ensure shooting won't
-                                                    // get stuck when other keys are pressed
+                            automaticGunTimer.start(); // start firing when space held, a timer will ensure shooting
+                                                       // won't
+                                                       // get stuck when other keys are pressed
                         }
                         shootReleased = false;
                         break;
-                } 
+                }
                 break;
 
             case KeyEvent.VK_C:
@@ -281,16 +282,13 @@ public class KeyHandler extends KeyAdapter {
         int key = e.getKeyCode();
         switch (key) {
             case KeyEvent.VK_W:
-
                 GamePanel.upPressed = false;
                 break;
 
             case KeyEvent.VK_S:
-
                 GamePanel.downPressed = false;
                 break;
             case KeyEvent.VK_A:
-
                 GamePanel.leftPressed = false;
                 break;
 
@@ -300,6 +298,7 @@ public class KeyHandler extends KeyAdapter {
             case KeyEvent.VK_P:
                 MenuGUI.pressed = false;
                 break;
+
             case KeyEvent.VK_SPACE:
                 shootReleased = true;
                 if (game.getPlayer().getGun().getAutomaticState() == 1)

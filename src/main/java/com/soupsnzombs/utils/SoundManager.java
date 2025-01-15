@@ -24,7 +24,7 @@ public class SoundManager {
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
                 clip.start();
             } else {
-                InputStream audioSrc = SoundManager.class.getResourceAsStream("/" + filePath);
+                InputStream audioSrc = SoundManager.class.getResourceAsStream("/sfx/" + filePath);
                 if (audioSrc == null) {
                     throw new IOException("File not found: " + filePath);
                 }

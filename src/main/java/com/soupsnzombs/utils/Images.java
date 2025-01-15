@@ -24,9 +24,11 @@ public class Images {
     // public static ArrayList<BufferedImage> player_running = new ArrayList<>();
     // public static ArrayList<BufferedImage> gunfire = new ArrayList<>();
 
-    public static BufferedImage player_idle, circle, gun, bullet, tree, gameMenu, background, coin, shop, bigZombie, smallZombie, kingZombie, tent, grayWall,
+    public static BufferedImage player_idle, circle, gun, bullet, tree, gameMenu, background, coin, shop, bigZombie,
+            smallZombie, kingZombie, tent, grayWall,
             playButton, creditsButton, scoresButton, arrowImage, instructions, credits, shopBackground, tempImage,
-            ocean, pistolImage, SMGImage, sniperImage, scoresbg, grass, milk, soup, energyDrink, exit, semiAutoImage;
+            ocean, pistolImage, SMGImage, sniperImage, scoresbg, grass, milk, soup, energyDrink, exit, semiAutoImage,
+            treelog;
     public static HashMap<String, BufferedImage> spriteImages = new HashMap<>();
     public static HashMap<String, BufferedImage> tileImages = new HashMap<>();
 
@@ -45,7 +47,6 @@ public class Images {
             arrowImage = ImageIO.read(Images.class.getResource("/arrow.png"));
             instructions = ImageIO.read(Images.class.getResource("/instructions.png"));
             credits = ImageIO.read(Images.class.getResource("/credits.png"));
-            ocean = ImageIO.read(Images.class.getResource("/ocean.png"));
 
             // scale main menu images
             playButton = scaleImage(playButton, 150, 50);
@@ -82,6 +83,8 @@ public class Images {
             // map
             grass = ImageIO.read(Images.class.getResource("/grass.png"));
             grayWall = ImageIO.read(Images.class.getResource("/grayWall.png"));
+            ocean = ImageIO.read(Images.class.getResource("/ocean.png"));
+            // treelog = ImageIO.read(Images.class.getResource("/treelog.png"));
 
             // get the spritesheet, crop image, and set the spriteImages hashmap
             BufferedImage spriteSheet = ImageIO.read(Images.class.getResource("/spritesheet.png"));

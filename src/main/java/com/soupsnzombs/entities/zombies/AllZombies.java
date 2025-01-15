@@ -23,20 +23,20 @@ import static com.soupsnzombs.entities.zombies.Zombie.ZombieType.*;
 import static com.soupsnzombs.utils.FontLoader.font30;
 
 public class AllZombies {
-    int FOVWidth = GamePanel.screenWidth + 50;
-    int FOVHeight = GamePanel.screenHeight + 50;
+    public static int FOVWidth = GamePanel.screenWidth + 50;
+    public static int FOVHeight = GamePanel.screenHeight + 50;
     public static ArrayList<Zombie> zombies = new ArrayList<>();
     public static int waveNumber = 1;
-    private final int spawnRadius = 1500;
-    private final Random random = new Random();
+    public static final int spawnRadius = 1500;
+    public static final Random random = new Random();
     private int dropCoin;
-    private final Timer waveTimer = new Timer(1000, new ActionListener() {
+    public static Timer waveTimer = new Timer(1000, new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            seconds--;
+            zombieSpawnDelay--;
         }
     });
 
-    int seconds = 3;
+    public static int zombieSpawnDelay = 3;
 
     public void addZombie(Zombie z) {
         zombies.add(z);
@@ -53,7 +53,7 @@ public class AllZombies {
         }
     }
 
-    private void spawnZombies(Player player) {
+    public static void spawnZombies(Player player) {
         Rectangle FOV = new Rectangle((player.x + GamePanel.offsetX) - FOVWidth / 2,
                 (player.y + GamePanel.offsetY) - FOVHeight / 2, FOVWidth, FOVHeight);
         int x, y;
@@ -118,27 +118,27 @@ public class AllZombies {
 
             } while (!validSpawn);
             if (validSpawn) {
-                //if (waveNumber <= 9) {
-                    //zombies.add(new Zombie(x, y, ZombieType.DEFAULT));
-                //} else {
+                // if (waveNumber <= 9) {
+                // zombies.add(new Zombie(x, y, ZombieType.DEFAULT));
+                // } else {
                 if (waveNumber % 5 == 0) {
                     zombies.add(new Zombie(x, y, ZombieType.BOSS));
                 }
-                    int kindOfZombie = random.nextInt(4) + 1;
-                    switch (kindOfZombie) {
-                        case 1:
-                            zombies.add(new Zombie(x, y, ZombieType.DEFAULT));
-                            break;
-                        case 2:
-                            zombies.add(new Zombie(x, y, ZombieType.DEFAULT));
-                            break;
-                        case 3:
-                            zombies.add(new Zombie(x, y, ZombieType.FAT));
-                            break;
-                        case 4:
-                            zombies.add(new Zombie(x, y, ZombieType.SMALL));
-                            break;
-                 //   }
+                int kindOfZombie = random.nextInt(4) + 1;
+                switch (kindOfZombie) {
+                    case 1:
+                        zombies.add(new Zombie(x, y, ZombieType.DEFAULT));
+                        break;
+                    case 2:
+                        zombies.add(new Zombie(x, y, ZombieType.DEFAULT));
+                        break;
+                    case 3:
+                        zombies.add(new Zombie(x, y, ZombieType.FAT));
+                        break;
+                    case 4:
+                        zombies.add(new Zombie(x, y, ZombieType.SMALL));
+                        break;
+                    // }
                 }
 
             } else {
@@ -150,7 +150,7 @@ public class AllZombies {
         System.out.println("Wave " + waveNumber + ": " + numberOfZombies + " zombies spawned");
     }
 
-    private boolean isInPlayerFOV(Player player, int x, int y) {
+    public static boolean isInPlayerFOV(Player player, int x, int y) {
         Rectangle FOV = new Rectangle((player.x + GamePanel.offsetX) - FOVWidth / 2,
                 (player.y + GamePanel.offsetY) - FOVHeight / 2, FOVWidth, FOVHeight);
         return FOV.contains(x, y);
@@ -199,11 +199,10 @@ public class AllZombies {
                 zombieIterator.remove();
                 break;
 
-
             } else {
                 z.draw(g2d, player);
 
-                z.chasePlayer(player, g2d); //only follow player if they are within 500 blocks.
+                z.chasePlayer(player, g2d); // only follow player if they are within 500 blocks.
                 if (GamePanel.debugging) {
                     g2d.setColor(Color.RED);
                     g2d.drawString("X: " + z.x + " Y: " + z.y + " W: " + z.width + " H: " +
@@ -216,27 +215,6 @@ public class AllZombies {
             }
 
         }
-
-        g2d.setColor(Color.RED);
-        g2d.setFont(font30);
-        if (zombies.isEmpty()) {
-            if (seconds > 0) {
-
-                g2d.drawString("WAVE #" + waveNumber + " STARTING IN: " + seconds + " sec", 20, 50);
-            }
-
-            if (seconds < 0) {
-                seconds = 3;
-            }
-            waveTimer.start();
-
-            if (seconds == 0) {
-                waveNumber++;
-                spawnZombies(player);
-            }
-
-        } else
-            g2d.drawString(String.format("WAVE #%d", waveNumber - 1), 20, 50);
 
         /*
          * 

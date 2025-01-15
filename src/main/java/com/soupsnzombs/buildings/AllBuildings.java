@@ -51,16 +51,14 @@ public class AllBuildings {
     public AllBuildings() {
         buildings.add(shopEntity);
 
-        
         // walls.add(new Wall(-1000, 500, 1000, 1000));
         // trees.add(new Tree (-1000, 1500, 1000, 1000));
         generateTrees();
 
         trees.add(new Tree(4935, 765, 25, 25));
-        
 
-        for (Tree t: trees) {
-            bushes.add(new Bush(t.x-50, t.y-60, 150, 150));
+        for (Tree t : trees) {
+            bushes.add(new Bush(t.x - 60, t.y - 65, 150, 150));
         }
 
         for (Tree t : trees) {
@@ -81,7 +79,7 @@ public class AllBuildings {
         for (Bush bush : bushes) {
             bush.draw(g2d);
         }
-        
+
     }
 
     public void draw(Graphics2D g2d) {
@@ -99,9 +97,6 @@ public class AllBuildings {
             w.draw(g2d);
         }
 
-        
-
-        
         // draw rect x,y,w,h
         g2d.setColor(Color.RED);
         // if (GamePanel.debugging) {

@@ -11,7 +11,7 @@ public abstract class Building extends Rectangle implements GameObject {
 
     public Building(int x, int y, int width, int height) {
         super(x, y, width, height);
-        System.out.println("Building created at x: " + x + " y: " + y);
+        // System.out.println("Building created at x: " + x + " y: " + y);
     }
 
     public void setPosition(int x, int y) {

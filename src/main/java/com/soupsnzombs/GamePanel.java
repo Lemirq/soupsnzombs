@@ -84,6 +84,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     AllBuildings buildings = new AllBuildings();
     AllCoins coins = new AllCoins();
     AllZombies zombies;
+    WaveIndicator waveIndicator = new WaveIndicator();
     public static boolean upPressed = false;
     public static boolean downPressed = false;
     public static boolean leftPressed = false;
@@ -552,5 +553,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         player.bar.draw(g2d);
         inventory.draw(g2d, this, player.getGun());
+        waveIndicator.draw(g2d, player);
     }
 }
