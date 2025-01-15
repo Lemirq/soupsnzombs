@@ -12,7 +12,7 @@ public class Tree extends Building {
 
     public Tree(int x, int y, int width, int height) {
         super(x, y, width, height);
-        treeSprite = Images.spriteImages.get("manBlue_gun.png");
+      //  treeSprite = Images.spriteImages.get("manBlue_gun.png");
         mapX = x;
         mapY = y;
     }
@@ -22,15 +22,12 @@ public class Tree extends Building {
     }
 
     public void draw(Graphics2D g2d) {
-        treeSprite = Images.tileImages.get("greenBush");
-        treeX = mapX + GamePanel.offsetX;
-        treeY = mapY + GamePanel.offsetY;
-
-        g2d.setColor(Color.CYAN);
+      //  treeSprite = Images.tileImages.get("greenBush");
+        
         // g2d.drawImage(treeSprite, treeX, treeY, width, height, null);
         // instead fill abrown rectangle
         g2d.setColor(new Color(139, 69, 19));
-        g2d.fillOval(treeX, treeY, width, height);
+        g2d.fillOval(treeX+GamePanel.offsetX, treeY+GamePanel.offsetY, width, height);
 
         if (treeSprite == null) {
             System.out.println("treeSprite is null");
@@ -42,7 +39,7 @@ public class Tree extends Building {
             // Draw the building's border
             g2d.setColor(Color.RED);
             g2d.setStroke(new BasicStroke(1));
-            g2d.drawRect(treeX, treeY, width, height);
+            g2d.drawRect(treeX+GamePanel.offsetX, treeY+GamePanel.offsetY, width, height);
 
             // For debugging: draw the building's rectangle
             g2d.setColor(Color.GREEN);
