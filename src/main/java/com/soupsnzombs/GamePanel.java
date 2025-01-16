@@ -335,7 +335,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // Color.YELLOW));
         // gunDrops.add(new GunDrop(50, 400, new Gun(50, 500, 600, 0, 0, 0, 5, -1),
         // Color.RED));
-        gunDrops.add(new GunDrop(-4100, 1025, new Gun(15, 200, 200, 5, 5, -1, pistolImage)));
+        gunDrops.add(new GunDrop(-3450, 1025, new Gun(15, 200, 200, 5, 5, -1, pistolImage)));
         gunDrops.add(new GunDrop(-1800, -760, new Gun(25, 200, 300, 5, 5, -1, pistolImage)));
 
         gunDrops.add(new GunDrop(4935, 765, new Gun(15, 200, 300, 5, 5, 0, semiAutoImage)));
@@ -554,7 +554,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         g2d.drawImage(largeTrashPile, 3800 + offsetX, 2000 + offsetY, 500, 500, null);
         g2d.drawImage(largeTrashPile, 4080 + offsetX, 1820 + offsetY, 500, 500, null);
 
-        g2d.drawImage(smallTrashPile, -4220 + offsetX, 1300 + offsetY, 150, 150, null);
+        g2d.drawImage(smallTrashPile, -3500 + offsetX, 1300 + offsetY, 150, 150, null);
        // g2d.drawImage(smallTrashPile, -3940 + offsetX, 1000 + offsetY, 150, 150, null);
         //g2d.drawImage(smallTrashPile, -4145 + offsetX, 1114 + offsetY, 150, 150, null);
 
@@ -569,7 +569,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     couch1.draw(g2d);
 
     //draw beda
-    g2d.drawImage(bed, -4200 + offsetX, 1100 + offsetY, 250, 250, null);
+    g2d.drawImage(bed, -3500 + offsetX, 1100 + offsetY, 250, 250, null);
     g2d.drawImage(bed, -2000 + offsetX, -700 + offsetY, 250, 250, null);
     g2d.drawImage(bed, -600 + offsetX, 1700 + offsetY, 250, 250, null);
         
