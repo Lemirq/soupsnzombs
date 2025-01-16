@@ -335,7 +335,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // Color.YELLOW));
         // gunDrops.add(new GunDrop(50, 400, new Gun(50, 500, 600, 0, 0, 0, 5, -1),
         // Color.RED));
-        gunDrops.add(new GunDrop(-4100, 1025, new Gun(15, 200, 200, 5, 5, -1, pistolImage)));
+        gunDrops.add(new GunDrop(-3450, 1025, new Gun(15, 200, 200, 5, 5, -1, pistolImage)));
         gunDrops.add(new GunDrop(-1800, -760, new Gun(25, 200, 300, 5, 5, -1, pistolImage)));
 
         gunDrops.add(new GunDrop(4935, 765, new Gun(15, 200, 300, 5, 5, 0, semiAutoImage)));
@@ -465,9 +465,22 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             SoundManager.stopAllSounds();
             g2d.setColor(Color.RED);
             g2d.setFont(font100);
-            g2d.drawString("YOU DIED!", 360, 300);
+
+            // Center "YOU DIED!" text
+            String youDiedText = "YOU DIED!";
+            FontMetrics metrics = g2d.getFontMetrics(g2d.getFont());
+            int textWidth = metrics.stringWidth(youDiedText);
+            int xPosition = (GamePanel.screenWidth - textWidth) / 2;
+            g2d.drawString(youDiedText, xPosition, 300);
+
             g2d.setFont(font50);
-            g2d.drawString("Game Over", 475, 500);
+
+            // Center "Game Over" text
+            String gameOverText = "Game Over";
+            metrics = g2d.getFontMetrics(g2d.getFont());
+            textWidth = metrics.stringWidth(gameOverText);
+            xPosition = (GamePanel.screenWidth - textWidth) / 2;
+            g2d.drawString(gameOverText, xPosition, 500);
             return;
         }
 
@@ -533,7 +546,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         g2d.drawImage(mudPuddle, 2500 + offsetX, 1300 + offsetY, 500, 500, null);
         g2d.drawImage(mudPuddle, 3000 + offsetX, -1200 + offsetY, 300, 300, null);
         g2d.drawImage(mudPuddle, 3500 + offsetX, 1100 + offsetY, 250, 250, null);
-        //g2d.drawImage(mudPuddle, 4000 + offsetX, -400 + offsetY, 400, 400, null);
+        // g2d.drawImage(mudPuddle, 4000 + offsetX, -400 + offsetY, 400, 400, null);
         g2d.drawImage(mudPuddle, 4500 + offsetX, 1800 + offsetY, 450, 450, null);
         g2d.drawImage(mudPuddle, 5000 + offsetX, -900 + offsetY, 500, 500, null);
         g2d.drawImage(mudPuddle, 5500 + offsetX, 1600 + offsetY, 300, 300, null);
@@ -554,26 +567,28 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         g2d.drawImage(largeTrashPile, 3800 + offsetX, 2000 + offsetY, 500, 500, null);
         g2d.drawImage(largeTrashPile, 4080 + offsetX, 1820 + offsetY, 500, 500, null);
 
-        g2d.drawImage(smallTrashPile, -4220 + offsetX, 1300 + offsetY, 150, 150, null);
-       // g2d.drawImage(smallTrashPile, -3940 + offsetX, 1000 + offsetY, 150, 150, null);
-        //g2d.drawImage(smallTrashPile, -4145 + offsetX, 1114 + offsetY, 150, 150, null);
+        g2d.drawImage(smallTrashPile, -3500 + offsetX, 1300 + offsetY, 150, 150, null);
+        // g2d.drawImage(smallTrashPile, -3940 + offsetX, 1000 + offsetY, 150, 150,
+        // null);
+        // g2d.drawImage(smallTrashPile, -4145 + offsetX, 1114 + offsetY, 150, 150,
+        // null);
 
         g2d.drawImage(smallTrashPile, 3487 + offsetX, -900 + offsetY, 150, 150, null);
         g2d.drawImage(smallTrashPile, 3800 + offsetX, -900 + offsetY, 150, 150, null);
         g2d.drawImage(smallTrashPile, 3287 + offsetX, 120 + offsetY, 150, 150, null);
         g2d.drawImage(smallTrashPile, 3700 + offsetX, 580 + offsetY, 150, 150, null);
 
-    //    g2d.drawImage(smallTrashPile, -326 + offsetX, 1845 + offsetY, 150, 150, null);
+        // g2d.drawImage(smallTrashPile, -326 + offsetX, 1845 + offsetY, 150, 150,
+        // null);
 
-    //draw couch
-    couch1.draw(g2d);
+        // draw couch
+        couch1.draw(g2d);
 
-    //draw beda
-    g2d.drawImage(bed, -4200 + offsetX, 1100 + offsetY, 250, 250, null);
-    g2d.drawImage(bed, -2000 + offsetX, -700 + offsetY, 250, 250, null);
-    g2d.drawImage(bed, -600 + offsetX, 1700 + offsetY, 250, 250, null);
-        
-    
+        // draw beda
+        g2d.drawImage(bed, -3500 + offsetX, 1100 + offsetY, 250, 250, null);
+        g2d.drawImage(bed, -2000 + offsetX, -700 + offsetY, 250, 250, null);
+        g2d.drawImage(bed, -600 + offsetX, 1700 + offsetY, 250, 250, null);
+
         // draw coins
         coins.draw(g2d, player);
 
@@ -618,13 +633,18 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             g2d.drawString("[P] Shop", player.x + GamePanel.offsetX - 46,
                     player.y + GamePanel.offsetY - 20);
         }
-// rectangle in the bottom middle of the screen that houses both the coin and the score
-int rectX = (GamePanel.screenWidth - 150) / 2;
-int rectY = GamePanel.screenHeight - 150;
-g2d.drawRect(rectX, rectY, 150, 50);
-g2d.drawImage(Images.coin, rectX + 10, rectY, 50, 50, null);
-g2d.drawString("" + Player.money, rectX + 80, rectY + 30);
+        // rectangle in the bottom middle of the screen that houses both the coin and
+        // the score
+        int rectX = (GamePanel.screenWidth - 150) / 2;
+        int rectY = GamePanel.screenHeight - 150;
+        g2d.drawRect(rectX, rectY, 150, 50);
+        g2d.drawImage(Images.coin, rectX + 10, rectY, 50, 50, null);
+        g2d.drawString("" + Player.money, rectX + 80, rectY + 30);
 
+        // draw escape key instructions
+        g2d.setColor(Color.orange);
+        g2d.setFont(font30);
+        g2d.drawString("Press [Z] to return to main menu", 80, screenHeight - 50);
 
         player.bar.draw(g2d);
         inventory.draw(g2d, player.getGun());

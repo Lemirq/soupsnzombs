@@ -230,7 +230,7 @@ public class KeyHandler extends KeyAdapter {
                 GamePanel.debugging = !GamePanel.debugging;
                 break;
 
-            case KeyEvent.VK_ESCAPE:
+            case KeyEvent.VK_Z:
                 if (GamePanel.gameState == GameState.GAME) {
                     player.alive = false;
                     System.out.println("Player died.");
