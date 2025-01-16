@@ -95,7 +95,7 @@ public class Zombie extends Entity implements GameObject {
 
     }
     /*
-     * public void dropCoins() {
+     * public void dropCoins() {F
      * if (health == 0) {
      * //if (randInt == 1) {
      * Coin coin = new Coin(x, y, 10, 10, 1);
@@ -326,7 +326,7 @@ public class Zombie extends Entity implements GameObject {
 
             for (Rectangle obstacle : CollisionManager.collidables) {
                 // Skip checking collision with self
-                if (obstacle.equals(getBounds())) {
+                if (obstacle.equals(getBounds()) && obstacle.width != 25) {
                     continue;
                 }
 
@@ -387,12 +387,12 @@ public class Zombie extends Entity implements GameObject {
                 height);
 
         // Check if next position would be out of bounds
-        if (nextPos.x < GamePanel.X_Bounds[0] ||
-                nextPos.x + nextPos.width > GamePanel.X_Bounds[1] ||
-                nextPos.y < GamePanel.Y_Bounds[0] ||
-                nextPos.y + nextPos.height > GamePanel.Y_Bounds[1]) {
-            return false;
-        }
+        // if (nextPos.x < GamePanel.X_Bounds[0] ||
+        //         nextPos.x + nextPos.width > GamePanel.X_Bounds[1] ||
+        //         nextPos.y < GamePanel.Y_Bounds[0] ||
+        //         nextPos.y + nextPos.height > GamePanel.Y_Bounds[1]) {
+        //     return false;
+        // }
 
         // Draw this rectangle in orange (for debugging)
         g2d.setColor(Color.ORANGE);

@@ -22,7 +22,9 @@ public class Instructions {
         // GamePanel.screenWidth - GamePanel.screenWidth / 5, GamePanel.screenHeight -
         // GamePanel.screenHeight / 5);
         g2d.setColor(Color.WHITE);
-        g2d.setFont(new Font("Lucida Console", Font.BOLD, 45));
+        // g2d.setFont(new Font("Lucida Console", Font.BOLD, 45));
+        // g2d.drawString("Instructions B to exit", GamePanel.screenWidth / 2 -
+        // ("Instructions B to exit".length() * 28) / 2, GamePanel.screenHeight / 15);
 
     }
 
