@@ -1,12 +1,14 @@
 package com.soupsnzombs.UI.MainMenu;
 
 // import static com.soupsnzombs.GamePanel.timeLeft;
-import static com.soupsnzombs.utils.FontLoader.font20;
-
-import java.awt.*;
+import java.awt.Color;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
 
 import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.utils.FontLoader;
+import static com.soupsnzombs.utils.FontLoader.font20;
+import static com.soupsnzombs.utils.FontLoader.font50;
 
 public class NameSelect {
 
@@ -134,15 +136,16 @@ public class NameSelect {
     public void drawInstructions(Graphics2D g2d) {
         g2d.setFont(FontLoader.font30);
         FontMetrics metrics = g2d.getFontMetrics(g2d.getFont());
-        String instructionText = "Enter a name - [B] to Enter/Skip, [C] to select word";
+        String instructionText = "Enter a Name - [B] to Enter/Skip, Move Joystick to Hover Over a Letter, [C] to Select";
         int textWidth = metrics.stringWidth(instructionText);
         int xPosition = (GamePanel.screenWidth - textWidth) / 2;
         g2d.setColor(new Color(0, 102, 0));
         g2d.drawString(instructionText, xPosition + 2, 127);
         g2d.setColor(Color.WHITE);
         g2d.drawString(instructionText, xPosition, 125);
-        // g2d.setColor(Color.RED);
-        // g2d.drawString(String.valueOf(timeLeft), GamePanel.screenWidth - 250, GamePanel.screenHeight - 685);
+        g2d.setColor(Color.RED);
+        g2d.setFont(font50);
+        g2d.drawString(String.valueOf(GamePanel.timeLeft), GamePanel.screenWidth - 500, GamePanel.screenHeight - 870);
     }
 
     /**

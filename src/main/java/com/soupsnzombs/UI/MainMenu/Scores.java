@@ -1,16 +1,12 @@
 package com.soupsnzombs.UI.MainMenu;
 
-import com.soupsnzombs.GamePanel;
-import java.awt.*;
-// import java.io.BufferedReader;
-// import java.io.File;
-// import java.io.FileReader;
-// import java.io.IOException;
-// import java.util.ArrayList;
+import java.awt.Color;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
 import java.util.HashMap;
-// import java.util.HashSet;
 import java.util.Map;
 
+import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.utils.FontLoader;
 import com.soupsnzombs.utils.Leaderboard;
 
@@ -39,7 +35,7 @@ public class Scores {
             // GamePanel.screenHeight / 5);
 
             g2d.setFont(FontLoader.font80);
-            String instructionText = "High Scores - B to EXIT";
+            String instructionText = "High Scores - [B] to EXIT";
             g2d.setColor(Color.ORANGE);
             FontMetrics metrics = g2d.getFontMetrics(g2d.getFont());
             int textWidth = metrics.stringWidth(instructionText);

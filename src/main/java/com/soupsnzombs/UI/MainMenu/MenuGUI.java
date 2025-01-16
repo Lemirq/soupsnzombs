@@ -1,10 +1,9 @@
 package com.soupsnzombs.UI.MainMenu;
 
-import java.awt.*;
+import java.awt.Graphics2D;
 
 import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.utils.Images;
-import com.soupsnzombs.utils.SoundManager;
 
 public class MenuGUI {
     public static int selected = 0;
@@ -23,6 +22,7 @@ public class MenuGUI {
      */
     public void drawMenu(Graphics2D g2d) {
         if (GamePanel.gameState == GamePanel.GameState.MAIN_MENU) {
+
             // Draw the background
             if (Images.background != null) {
                 g2d.drawImage(Images.background, 0, 0, GamePanel.screenWidth, GamePanel.screenHeight, null);
@@ -36,7 +36,7 @@ public class MenuGUI {
                     + Images.creditsButton.getWidth()
                     + 2 * buttonSpacing;
             int startX = ((GamePanel.screenWidth - totalWidth) / 2)-(Images.playButton.getWidth()/2);
-            int yPosition = 600;
+            int yPosition = 850;
 
             int playButtonX = startX;
             int scoresButtonX = startX + Images.playButton.getWidth() + buttonSpacing;
@@ -48,17 +48,23 @@ public class MenuGUI {
                 g2d.drawImage(Images.playButton, playButtonX, yPosition, Images.playButton.getWidth()*2,
                         Images.playButton.getHeight()*2, null);
             }
-
+            
             // Draw the "Scores" button
             if (Images.scoresButton != null) {
                 g2d.drawImage(Images.scoresButton, scoresButtonX, yPosition, Images.scoresButton.getWidth()*2,
                         Images.scoresButton.getHeight()*2, null);
             }
 
+                        
             // Draw the "Credits" button
             if (Images.creditsButton != null) {
                 g2d.drawImage(Images.creditsButton, creditsButtonX, yPosition, Images.creditsButton.getWidth()*2,
                         Images.creditsButton.getHeight()*2, null);
+            }
+
+            // Draw the "Quit Game" Message
+            if (Images.quitMessage != null) {
+                g2d.drawImage(Images.quitMessage, GamePanel.screenWidth - 510, GamePanel.screenHeight - 50, 500, 50, null);
             }
 
             // Draw arrows around the selected button
