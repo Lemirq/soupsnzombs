@@ -88,12 +88,12 @@ public class AllZombies {
                         }
                     }
 
-                    for (Tree t : trees) {
-                        if (t.getBounds().contains(zombie.getBounds())) {
-                            validSpawn = false;
-                            break;
-                        }
-                    }
+                  //  for (Tree t : trees) {
+                    //    if (t.getBounds().contains(zombie.getBounds())) {
+                      //      validSpawn = false;
+                        //    break;
+                        //}
+                    //}
 
                     for (Wall w : walls) {
                         if (w.getBounds().contains(zombie.getBounds())) {
