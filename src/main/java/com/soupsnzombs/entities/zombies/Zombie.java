@@ -43,8 +43,6 @@ public class Zombie extends Entity implements GameObject {
         DEFAULT, FAT, SMALL, BOSS;
     }
 
-    private static int maxDistance = 800; // max following distance between zombie and player
-
     public Zombie(int startX, int startY, ZombieType type) {
         super(startX, startY, 0, 0, 100, 1);
         this.x = startX + GamePanel.offsetX;
@@ -178,24 +176,28 @@ public class Zombie extends Entity implements GameObject {
 
     public void chasePlayer(Player p, Graphics2D g2d) {
         pathRefreshCounter++;
-
         // calculate the disatnce between the player and the zombie
         // Calculate direction to target
         double deltaX = p.x - this.x;
         double deltaY = p.y - this.y;
         double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
+        
 
         // Replace the existing direct path check with:
-        if (hasLineOfSight(p, g2d)) {
-            chasePlayerDirectly(p, g2d);
-            return;
+        if (distance < 1200 ) {
+            if (hasLineOfSight(p, g2d)) {
+                chasePlayerDirectly(p, g2d);
+                return;
+            }
         }
 
         // If the player is too far away, don't bother with pathfinding
-        if (distance > 1200) {
+        if (distance > 800) {
+           // System.out.println(distance);
             return;
         }
+
+        
 
 
         // Force path recalculation in these cases:
@@ -234,7 +236,7 @@ public class Zombie extends Entity implements GameObject {
             double targetX = gridOriginX + (currentTarget.getX() * gridSize);
             double targetY = gridOriginY + (currentTarget.getY() * gridSize);
 
-            if (distance > 0 && distance < maxDistance) {
+            if (distance > 0) {
                 followPath(currentTarget, gridSize, g2d, gridOriginX, gridOriginY);
             }
 
@@ -256,6 +258,8 @@ public class Zombie extends Entity implements GameObject {
     }
 
     private boolean hasLineOfSight(Player p, Graphics2D g2d) {
+        
+
         // Define corners for zombie
         double[][] zombiePoints = {
                 { x, y }, // Top-left
@@ -310,7 +314,7 @@ public class Zombie extends Entity implements GameObject {
                 (int) endY + GamePanel.offsetY);
         // }
 
-        while (distance > 0 && distance < maxDistance) {
+        while (distance > 0) {
             Rectangle checkPoint = new Rectangle(
                     (int) currentX - 1,
                     (int) currentY - 1,
@@ -355,7 +359,7 @@ public class Zombie extends Entity implements GameObject {
         double dy = targetY - y;
         double distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance > 0 && distance < maxDistance) {
+        if (distance > 0) {
             // Normalize and apply speed
             double vx = (dx / distance) * speed;
             double vy = (dy / distance) * speed;
