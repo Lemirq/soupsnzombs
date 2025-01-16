@@ -175,6 +175,11 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         if (!player.alive && gameState != GameState.GAMEOVER && gameState != GameState.NAME_SELECT
                 && gameState != GameState.MAIN_MENU) {
             gameState = GameState.GAMEOVER;
+            player.setGun(new Gun(0, 0, 0, 0, 0, -5, null));
+            gunDrops.clear();
+            gunDrops.add(new GunDrop(-3450, 1025, new Gun(15, 200, 200, 5, 5, -1, pistolImage)));
+            gunDrops.add(new GunDrop(-1800, -760, new Gun(25, 200, 300, 5, 5, -1, pistolImage)));
+            gunDrops.add(new GunDrop(4935, 765, new Gun(15, 200, 300, 5, 5, 0, semiAutoImage)));
             return;
         }
 
