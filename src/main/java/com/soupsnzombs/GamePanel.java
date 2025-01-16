@@ -211,16 +211,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             }
         }
 
-        if (gameState == GameState.NAME_SELECT) {
-            nameSelectTimer.start();
-            if (timeLeft == 0) {
-                gameState = GameState.MAIN_MENU;
-                nameSelectTimer.stop();
-                timeLeft = 15;
-                return;
-            }
-        }
-
+       
         /*
          * int delay = 5000; // number of milliseconds to sleep
          * long start = System.currentTimeMillis();

@@ -142,7 +142,7 @@ public class NameSelect {
         g2d.setColor(Color.WHITE);
         g2d.drawString(instructionText, xPosition, 125);
         g2d.setColor(Color.RED);
-        g2d.drawString(String.valueOf(timeLeft), GamePanel.screenWidth - 250, GamePanel.screenHeight - 685);
+        //g2d.drawString(String.valueOf(timeLeft), GamePanel.screenWidth - 250, GamePanel.screenHeight - 685);
     }
 
     /**
