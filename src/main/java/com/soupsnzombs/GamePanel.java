@@ -102,7 +102,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
     public Credits credits = new Credits();
     public static ArrayList<GunDrop> gunDrops = new ArrayList<>();
     public EntranceBuilding soupWarehouse = new EntranceBuilding(3000, -1200, 1200, 2200, 800, 4, 60);
-    public EntranceBuilding warehouseEntrance = new EntranceBuilding(1940, -1200, 1000, 800, 450, 1, 60);
+    public EntranceBuilding warehouseEntrance = new EntranceBuilding(1940, -1200, 1350, 800, 450, 1, 60);
     public EntranceBuilding hut1 = new EntranceBuilding(-3500, 1020, 450, 400, 200, 2, 30);
     public EntranceBuilding hut2 = new EntranceBuilding(-2000, -800, 450, 400, 200, 4, 30);
     public EntranceBuilding hut3 = new EntranceBuilding(-600, 1600, 450, 400, 200, 3, 30);

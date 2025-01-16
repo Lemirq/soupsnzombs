@@ -234,7 +234,7 @@ public class Zombie extends Entity implements GameObject {
             double targetX = gridOriginX + (currentTarget.getX() * gridSize);
             double targetY = gridOriginY + (currentTarget.getY() * gridSize);
 
-            if (distance > 0) {
+            if (distance > 0 && distance < maxDistance) {
                 followPath(currentTarget, gridSize, g2d, gridOriginX, gridOriginY);
             }
 

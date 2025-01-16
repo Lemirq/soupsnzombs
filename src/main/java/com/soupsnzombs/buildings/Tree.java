@@ -8,7 +8,6 @@ import java.awt.image.*;
 
 public class Tree extends Building {
     int mapX, mapY, treeX, treeY;
-    BufferedImage treeSprite;
 
     public Tree(int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -30,10 +29,6 @@ public class Tree extends Building {
         // instead fill abrown rectangle
         g2d.setColor(new Color(139, 69, 19));
         if (GamePanel.player.intersects(new Rectangle(this.x-60, this.y-65, 150, 150))) g2d.fillOval(treeX, treeY, width, height);
-
-        if (treeSprite == null) {
-            System.out.println("treeSprite is null");
-        }
 
         // System.out.println("bush drawn");
         if (GamePanel.debugging) {
