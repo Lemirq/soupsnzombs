@@ -1,6 +1,6 @@
 package com.soupsnzombs.UI.MainMenu;
 
-import static com.soupsnzombs.GamePanel.timeLeft;
+// import static com.soupsnzombs.GamePanel.timeLeft;
 import static com.soupsnzombs.utils.FontLoader.font20;
 
 import java.awt.*;
@@ -141,8 +141,8 @@ public class NameSelect {
         g2d.drawString(instructionText, xPosition + 2, 127);
         g2d.setColor(Color.WHITE);
         g2d.drawString(instructionText, xPosition, 125);
-        g2d.setColor(Color.RED);
-        g2d.drawString(String.valueOf(timeLeft), GamePanel.screenWidth - 250, GamePanel.screenHeight - 685);
+        // g2d.setColor(Color.RED);
+        // g2d.drawString(String.valueOf(timeLeft), GamePanel.screenWidth - 250, GamePanel.screenHeight - 685);
     }
 
     /**

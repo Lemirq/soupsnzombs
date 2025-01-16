@@ -61,10 +61,10 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
     Timer nameSelectTimer = new Timer(1000, new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            timeLeft--;
+            // timeLeft--;
         }
     });
-    public static int timeLeft = 15;
+    // public static int timeLeft = 15;
 
     // private long time1 = 0;
     // private long time2 = 0;
@@ -211,15 +211,15 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             }
         }
 
-        if (gameState == GameState.NAME_SELECT) {
-            nameSelectTimer.start();
-            if (timeLeft == 0) {
-                gameState = GameState.MAIN_MENU;
-                nameSelectTimer.stop();
-                timeLeft = 15;
-                return;
-            }
-        }
+        // if (gameState == GameState.NAME_SELECT) {
+        //     nameSelectTimer.start();
+        //     if (timeLeft == 0) {
+        //         gameState = GameState.MAIN_MENU;
+        //         nameSelectTimer.stop();
+        //         timeLeft = 15;
+        //         return;
+        //     }
+        // }
 
         /*
          * int delay = 5000; // number of milliseconds to sleep
