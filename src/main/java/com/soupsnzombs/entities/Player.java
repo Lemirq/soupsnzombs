@@ -32,8 +32,8 @@ public class Player extends Entity implements GameObject {
         spriteMachine = Images.spriteImages.get("manBrown_machine.png");
         spriteSniper = Images.spriteImages.get("manBrown_silencer.png");
 
-        this.width = spriteNoGun.getWidth(); //+17
-        this.height = spriteNoGun.getHeight(); //-18
+        this.width = spriteNoGun.getWidth(); 
+        this.height = spriteNoGun.getHeight(); 
         this.x = GamePanel.screenWidth / 2 - width / 2 - 1000;
         this.y = GamePanel.screenHeight / 2 - height / 2 - 1000;
         money = 90;
@@ -126,7 +126,7 @@ public class Player extends Entity implements GameObject {
             // g2d.fillRoundRect(x-10, y-2, barWidth, barHeight, 10, 10);
 
             g2d.setColor(Color.WHITE);
-            g2d.fillRoundRect(x - 10, y - 2, fireRateBarWidth, barHeight, 10, 10);
+            g2d.fillRoundRect(x - 20, y - 15, fireRateBarWidth, barHeight, 10, 10);
         }
     }
 
@@ -191,7 +191,7 @@ public class Player extends Entity implements GameObject {
                     100);
 
             // draw Rectangle x,y,w,h
-            g2d.drawString("X: " + x + " Y: " + y + " W: " + width + " H: " + height, GamePanel.screenWidth - 300, 40);
+            g2d.drawString("X: " + x + " Y: " + y + " W: " + width + " H: " + height, 20, 300);
 
             g2d.setColor(Color.green);
             g2d.drawRect(x, y, width, height);
