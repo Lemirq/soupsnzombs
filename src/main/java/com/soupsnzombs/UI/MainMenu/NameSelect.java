@@ -5,7 +5,6 @@ import static com.soupsnzombs.utils.FontLoader.font20;
 
 import java.awt.*;
 
-import com.soupsnzombs.GameMap;
 import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.utils.FontLoader;
 
