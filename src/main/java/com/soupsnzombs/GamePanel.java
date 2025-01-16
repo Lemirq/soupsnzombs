@@ -625,6 +625,11 @@ g2d.drawRect(rectX, rectY, 150, 50);
 g2d.drawImage(Images.coin, rectX + 10, rectY, 50, 50, null);
 g2d.drawString("" + Player.money, rectX + 80, rectY + 30);
 
+// draw escape key instructions
+g2d.setColor(Color.orange);
+g2d.setFont(font30);
+g2d.drawString("Press [Z] to return to main menu", 80, screenHeight - 50);
+
 
         player.bar.draw(g2d);
         inventory.draw(g2d, player.getGun());
