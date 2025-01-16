@@ -65,9 +65,9 @@ public class GunDrop extends Rectangle {
             g2d.setFont(font20);
             g2d.setColor(Color.WHITE);
             if (p.getGun().getDamage() != 0)
-                g2d.drawString("[C] Swap", this.x + GamePanel.offsetX - 24, this.y + GamePanel.offsetY - 24);
+                g2d.drawString("[X] Swap", this.x + GamePanel.offsetX - 24, this.y + GamePanel.offsetY - 24);
             else
-                g2d.drawString("[C] Grab", this.x + GamePanel.offsetX - 22, this.y + GamePanel.offsetY - 24);
+                g2d.drawString("[X] Grab", this.x + GamePanel.offsetX - 22, this.y + GamePanel.offsetY - 24);
             g2d.drawString(String.format("Dmg: %d Range: %d", getGun().getDamage(), getGun().getRange()),
                     this.x + GamePanel.offsetX - 65, this.y + GamePanel.offsetY);
         }
