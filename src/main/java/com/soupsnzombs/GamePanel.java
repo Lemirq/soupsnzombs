@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         UP, DOWN, LEFT, RIGHT
     }
 
-    public static boolean debugging = false;
+    public static boolean debugging = true;
 
     public static GameState gameState = GameState.MAIN_MENU;
 
@@ -212,13 +212,13 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         }
 
         // if (gameState == GameState.NAME_SELECT) {
-        //     nameSelectTimer.start();
-        //     if (timeLeft == 0) {
-        //         gameState = GameState.MAIN_MENU;
-        //         nameSelectTimer.stop();
-        //         timeLeft = 15;
-        //         return;
-        //     }
+        // nameSelectTimer.start();
+        // if (timeLeft == 0) {
+        // gameState = GameState.MAIN_MENU;
+        // nameSelectTimer.stop();
+        // timeLeft = 15;
+        // return;
+        // }
         // }
 
         /*

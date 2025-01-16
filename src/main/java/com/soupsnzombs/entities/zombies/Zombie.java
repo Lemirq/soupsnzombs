@@ -28,7 +28,7 @@ public class Zombie extends Entity implements GameObject {
     Pathfinder pathfinder = new Pathfinder();
     // linked list of path nodes, already converted to world coordinates
     private int pathRefreshCounter = 0;
-    private static final int PATH_REFRESH_INTERVAL = 120; // Refresh path every 60 updates
+    private static final int PATH_REFRESH_INTERVAL = 1200; // Refresh path every 60 updates
     private static final double PLAYER_MOVE_THRESHOLD = 30.0;
     private double lastPlayerX = -1;
     private double lastPlayerY = -1;
@@ -114,8 +114,15 @@ public class Zombie extends Entity implements GameObject {
 
     public void draw(Graphics2D g2d, Player p) {
         // TODO Make pathfinding stuff toggleable
-        pathfinder.updateGrid(p, this);
-        pathfinder.draw(g2d);
+        double deltaX = p.x - this.x;
+        double deltaY = p.y - this.y;
+        double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        // Replace the existing direct path check with:
+        if (distance < 1200) {
+            pathfinder.updateGrid(p, this);
+            pathfinder.draw(g2d);
+        }
 
         // Calculate the screen position based on the world position and camera offsets
         screenX = x + GamePanel.offsetX;
@@ -203,7 +210,7 @@ public class Zombie extends Entity implements GameObject {
                 pathRefreshCounter >= PATH_REFRESH_INTERVAL;
 
         if (shouldRecalculatePath) {
-            pathfinder.updateGrid(p, this);
+            // pathfinder.updateGrid(p, this);
             boolean pathFound = pathfinder.findPath();
             pathRefreshCounter = 0;
             lastPlayerX = p.x;
@@ -241,17 +248,9 @@ public class Zombie extends Entity implements GameObject {
                 pathNodes.remove(0);
             }
         }
-
-        // Debug visualization
-        if (GamePanel.debugging) {
-            g2d.setColor(Color.YELLOW);
-            for (Node node : pathNodes) {
-                int x = (pathfinder.getGridOriginX() + (node.getX() * pathfinder.getGridSize())) + GamePanel.offsetX;
-                int y = (pathfinder.getGridOriginY() + (node.getY() * pathfinder.getGridSize())) + GamePanel.offsetY;
-                g2d.fillRect(x, y, pathfinder.getGridSize(), pathfinder.getGridSize());
-            }
-        }
     }
+
+    // Debug visualization
 
     private boolean hasLineOfSight(Player p, Graphics2D g2d) {
 
@@ -388,15 +387,17 @@ public class Zombie extends Entity implements GameObject {
 
         // Check if next position would be out of bounds
         // if (nextPos.x < GamePanel.X_Bounds[0] ||
-        //         nextPos.x + nextPos.width > GamePanel.X_Bounds[1] ||
-        //         nextPos.y < GamePanel.Y_Bounds[0] ||
-        //         nextPos.y + nextPos.height > GamePanel.Y_Bounds[1]) {
-        //     return false;
+        // nextPos.x + nextPos.width > GamePanel.X_Bounds[1] ||
+        // nextPos.y < GamePanel.Y_Bounds[0] ||
+        // nextPos.y + nextPos.height > GamePanel.Y_Bounds[1]) {
+        // return false;
         // }
 
         // Draw this rectangle in orange (for debugging)
-        g2d.setColor(Color.ORANGE);
-        g2d.drawRect(nextPos.x + GamePanel.offsetX, nextPos.y + GamePanel.offsetY, nextPos.width, nextPos.height);
+        if (GamePanel.debugging) {
+            g2d.setColor(Color.ORANGE);
+            g2d.drawRect(nextPos.x + GamePanel.offsetX, nextPos.y + GamePanel.offsetY, nextPos.width, nextPos.height);
+        }
 
         ArrayList<Rectangle> collisions = new ArrayList<>(CollisionManager.collidables);
         collisions.remove(this);

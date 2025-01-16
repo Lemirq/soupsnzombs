@@ -13,7 +13,7 @@ import com.soupsnzombs.entities.zombies.Zombie;
 public class Pathfinder {
 
     AStar a = new AStar();
-    public static GridVisualizer g = new GridVisualizer();
+    // public static GridVisualizer g = new GridVisualizer();
     public static Node[][] grid;
     private Node startNode;
     private Node endNode;
@@ -25,14 +25,14 @@ public class Pathfinder {
         if (GamePanel.debugging) {
             // g.setVisible(true);
         } else {
-            g.dispose();
+            // g.dispose();
             // g = null;
         }
     }
 
     public void setGrid(Node[][] grid, Node startNode, Node endNode) {
         a.setGrid(grid, startNode, endNode);
-        g.setGrid(grid);
+        // g.setGrid(grid);
     }
 
     public void updateGrid(Player p, Zombie z) {
@@ -50,7 +50,7 @@ public class Pathfinder {
         maxY += padding;
 
         this.gridSize = 10; // increased grid size for better pathfinding
-        Pathfinder.g.gridSize = gridSize;
+        // Pathfinder.g.gridSize = gridSize;
 
         // Calculate grid dimensions
         int gridWidth = (int) Math.ceil((maxX - minX) / (double) gridSize);
@@ -120,8 +120,8 @@ public class Pathfinder {
         this.gridOriginY = minY;
 
         setGrid(grid, startNode, endNode);
-        if (g != null)
-            g.setGrid(grid);
+        // if (g != null)
+        // g.setGrid(grid);
     }
 
     public boolean findPath() {
@@ -138,9 +138,9 @@ public class Pathfinder {
 
     public void resetPath(Player p, Zombie z) {
         // Update grid and recalculate path immediately
-        updateGrid(p, z);
+        // updateGrid(p, z);
         findPath();
-        Pathfinder.g.setGrid(grid);
+        // Pathfinder.g.setGrid(grid);
     }
 
     public int getGridOriginX() {

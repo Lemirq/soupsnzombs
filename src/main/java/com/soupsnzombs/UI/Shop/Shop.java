@@ -57,7 +57,7 @@ public class Shop {
      * @param g2d passes in g2d for rendering
      */
     public void drawShop(Graphics2D g2d) {
-        
+
         shopImages.add(SMGImage);
         shopImages.add(semiAutoImage);
         shopImages.add(sniperImage);
@@ -88,7 +88,7 @@ public class Shop {
             g2d.drawString(title, titleX, titleY);
 
             // Draw exit message
-            String exitMessage = "Press [Y] to Exit Shop";
+            String exitMessage = "Press [B] to Exit Shop";
             int exitX = GamePanel.screenWidth - 925;
             int exitY = GamePanel.screenHeight - 50;
             g2d.setFont(FontLoader.font60);
@@ -169,7 +169,7 @@ public class Shop {
                     // draw cost
                     g2d.setFont(font60);
                     g2d.setColor(new Color(4, 71, 22));// dark green
-                    g2d.drawString("Cost: " + cost, 93, (GamePanel.screenHeight / 5)+3);
+                    g2d.drawString("Cost: " + cost, 93, (GamePanel.screenHeight / 5) + 3);
                     g2d.setColor(Color.WHITE);
                     g2d.drawString("Cost: " + cost, 90, GamePanel.screenHeight / 5);
                 }
@@ -278,25 +278,28 @@ public class Shop {
         switch (selectedOption) {
             case "Machine Gun":
                 if (Player.money >= 5) {
-                    GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(5, 100, 100, 0,  5, 1, SMGImage)));
-                    Player.money-=5;
-                }
-                else System.out.println("Not enough money to purchase machine gun."); 
+                    GamePanel.gunDrops.add(new GunDrop((int) game.getPlayer().getX(), (int) game.getPlayer().getY(),
+                            new Gun(5, 100, 100, 0, 5, 1, SMGImage)));
+                    Player.money -= 5;
+                } else
+                    System.out.println("Not enough money to purchase machine gun.");
                 // Add logic
                 break;
             case "Semi-Auto":
                 if (Player.money >= 15) {
-                    GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(20, 200, 200, 0, 5, 0, semiAutoImage)));
-                    Player.money-=15;
-                }
-            else System.out.println("Not enough money to purchase sniper."); 
+                    GamePanel.gunDrops.add(new GunDrop((int) game.getPlayer().getX(), (int) game.getPlayer().getY(),
+                            new Gun(20, 200, 200, 0, 5, 0, semiAutoImage)));
+                    Player.money -= 15;
+                } else
+                    System.out.println("Not enough money to purchase sniper.");
                 break;
             case "Sniper":
                 if (Player.money >= 20) {
-                    GamePanel.gunDrops.add(new GunDrop((int)game.getPlayer().getX(), (int)game.getPlayer().getY(), new Gun(80, 500, 300, 0, 1, -1, sniperImage)));
-                    Player.money-=20;
-                }
-                else System.out.println("Not enough money to purchase sniper."); 
+                    GamePanel.gunDrops.add(new GunDrop((int) game.getPlayer().getX(), (int) game.getPlayer().getY(),
+                            new Gun(80, 500, 300, 0, 1, -1, sniperImage)));
+                    Player.money -= 20;
+                } else
+                    System.out.println("Not enough money to purchase sniper.");
                 // Add logic
                 break;
             case "Exit":
@@ -307,35 +310,34 @@ public class Shop {
             case "Damage":
                 if (Player.money >= 5 && GamePanel.player.getGun().getDamage() != 0) {
                     System.out.println("Purchased Damage!");
-                    GamePanel.player.getGun().setDamage(GamePanel.player.getGun().getDamage()+5);
-                    Player.money-=5;
-                }
-                else System.out.println("player is holding no gun");
-                
+                    GamePanel.player.getGun().setDamage(GamePanel.player.getGun().getDamage() + 5);
+                    Player.money -= 5;
+                } else
+                    System.out.println("player is holding no gun");
+
                 break;
             case "Range":
                 if (Player.money >= 5 && GamePanel.player.getGun().getDamage() != 0) {
                     System.out.println("Purchased Range!");
-                    GamePanel.player.getGun().setRange(GamePanel.player.getGun().getRange()+50);
-                    Player.money-=5;
-                }
-                else System.out.println("player is holding no gun");
-                
+                    GamePanel.player.getGun().setRange(GamePanel.player.getGun().getRange() + 50);
+                    Player.money -= 5;
+                } else
+                    System.out.println("player is holding no gun");
+
                 break;
             case "Energy Drink":
                 if (Player.money >= 2 && GamePanel.player.getHealth() < 100) {
                     GamePanel.player.increaseHealth(5);
-                    Player.money-=2;
-                }
-                else System.out.println("player has max health");
-                
-                
+                    Player.money -= 2;
+                } else
+                    System.out.println("player has max health");
+
                 break;
             default:
                 System.out.println("Unknown selection.");
                 break;
-            }
-            
+        }
+
         game.repaint();
         game.revalidate();
     }
