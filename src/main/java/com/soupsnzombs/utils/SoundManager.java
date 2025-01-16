@@ -27,21 +27,17 @@ public class SoundManager {
         }
     }
 
-    private static Map<String, Clip> clips = new HashMap<>();
+    private static Map<String, Clip> loopingClips = new HashMap<>();
     private static boolean disabled = false;
 
     public static void init() {
-        // Initialize all game sounds
-        loadSound("gunfire.wav");
-        loadSound("zombie_death.wav");
-        loadSound("bgm2.wav");
-        loadSound("coin_pickup.wav");
-        loadSound("damage.wav");
+        // Initialize looping sounds only (like BGM)
+        loadLoopingSound("bgm2.wav");
     }
 
-    private static void loadSound(String filePath) {
+    private static void loadLoopingSound(String filePath) {
         try {
-            InputStream audioSrc = SoundManager.class.getResourceAsStream("/sfx/" + filePath);
+            InputStream audioSrc = SoundManager.class.getResourceAsStream("/sounds/" + filePath);
             if (audioSrc == null) {
                 throw new IOException("File not found: " + filePath);
             }
@@ -49,26 +45,52 @@ public class SoundManager {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(bufferedIn);
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
-            clips.put(filePath, clip);
+            loopingClips.put(filePath, clip);
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
     }
 
+    private static Clip createClip(String filePath) {
+        try {
+            InputStream audioSrc = SoundManager.class.getResourceAsStream("/sounds/" + filePath);
+            if (audioSrc == null) {
+                throw new IOException("File not found: " + filePath);
+            }
+            InputStream bufferedIn = new BufferedInputStream(audioSrc);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(bufferedIn);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            return clip;
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static void playSound(Sound sound, boolean loop) {
         if (disabled)
             return;
+
+        String filePath = sound.getFilePath();
         try {
-            if (clips.containsKey(sound.getFilePath())) {
-                Clip clip = clips.get(sound.getFilePath());
-                if (clip.isRunning()) {
-                    clip.stop();
-                }
-                clip.setFramePosition(0);
-                if (loop) {
+            if (loop) {
+                // Play or restart looping sound
+                Clip clip = loopingClips.get(filePath);
+                if (clip != null) {
+                    if (clip.isRunning()) {
+                        clip.stop();
+                    }
+                    clip.setFramePosition(0);
                     clip.loop(Clip.LOOP_CONTINUOUSLY);
+                    clip.start();
                 }
-                clip.start();
+            } else {
+                // Create a new Clip instance for non-looping sounds
+                Clip clip = createClip(filePath);
+                if (clip != null) {
+                    clip.start();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,14 +102,14 @@ public class SoundManager {
     }
 
     public static void stopSound(String filePath) {
-        Clip clip = clips.get(filePath);
+        Clip clip = loopingClips.get(filePath);
         if (clip != null && clip.isRunning()) {
             clip.stop();
         }
     }
 
     public static void stopAllSounds() {
-        for (Clip clip : clips.values()) {
+        for (Clip clip : loopingClips.values()) {
             if (clip.isRunning()) {
                 clip.stop();
             }
