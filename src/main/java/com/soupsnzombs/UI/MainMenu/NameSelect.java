@@ -134,7 +134,7 @@ public class NameSelect {
     public void drawInstructions(Graphics2D g2d) {
         g2d.setFont(FontLoader.font30);
         FontMetrics metrics = g2d.getFontMetrics(g2d.getFont());
-        String instructionText = "Enter a name - [B] to Enter/Skip, [C] to select";
+        String instructionText = "Enter a name - [B] to Enter/Skip, [C] to select word";
         int textWidth = metrics.stringWidth(instructionText);
         int xPosition = (GamePanel.screenWidth - textWidth) / 2;
         g2d.setColor(new Color(0, 102, 0));
