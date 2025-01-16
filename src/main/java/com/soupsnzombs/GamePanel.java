@@ -171,7 +171,53 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         NONE, TOP, BOTTOM, LEFT, RIGHT
     }
 
+    private boolean isWalking = false;
+    private long walkingStartTime = 0;
+    private static final long WALKING_SOUND_DELAY = 517; // 2 seconds
+    // private boolean oceanSoundPlaying = false;
+
     private void update() {
+
+        boolean currentlyWalking = upPressed || downPressed || leftPressed || rightPressed;
+
+        if (currentlyWalking) {
+            if (!isWalking) {
+                // Player just started walking
+                isWalking = true;
+                walkingStartTime = System.currentTimeMillis();
+
+            } else {
+                // Player is already walking, check the duration
+                long currentTime = System.currentTimeMillis();
+                if (currentTime - walkingStartTime >= WALKING_SOUND_DELAY) {
+                    // Play walking sound
+                    SoundManager.playSound(Sound.WALKING, false, -20.0f);
+
+                    walkingStartTime = currentTime; // Reset the timer to play sound periodically
+                }
+            }
+        } else {
+            // Player stopped walking
+            isWalking = false;
+            // SoundManager.stopSound(Sound.WALKING);
+        }
+
+        // // Check if the player is near the map boundary
+        // int mapBoundaryThreshold = 300;
+
+        // if ((offsetX <= X_Bounds[0] + mapBoundaryThreshold || offsetX >= X_Bounds[1]
+        // - mapBoundaryThreshold ||
+        // offsetY <= Y_Bounds[0] + mapBoundaryThreshold || offsetY >= Y_Bounds[1] -
+        // mapBoundaryThreshold)) {
+        // if (!oceanSoundPlaying) {
+        // oceanSoundPlaying = true;
+        // SoundManager.playSound(Sound.OCEAN, false, -20.0f);
+        // }
+        // } else {
+        // oceanSoundPlaying = false;
+        // SoundManager.stopSound(Sound.OCEAN);
+        // }
+
         if (!player.alive && gameState != GameState.GAMEOVER && gameState != GameState.NAME_SELECT
                 && gameState != GameState.MAIN_MENU) {
             gameState = GameState.GAMEOVER;
@@ -233,7 +279,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         if (shootPressed) {
             player.getGun().shootBullet(player);
             // play sound
-            SoundManager.playSound(Sound.GUNFIRE, false);
+            SoundManager.playSound(Sound.GUNFIRE, false, -5f);
             shootPressed = false;
         }
         player.getGun().updateBullets();
@@ -361,6 +407,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         CollisionManager.addCollidable(player);
         SoundManager.init();
+        SoundManager.playSound(Sound.AMBIENCE, true);
         zombies = new AllZombies();
         inventory = new Inventory();
 
