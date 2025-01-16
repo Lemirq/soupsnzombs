@@ -1,6 +1,9 @@
 package com.soupsnzombs.UI.MainMenu;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+
 import com.soupsnzombs.GamePanel;
-import java.awt.*;
 import com.soupsnzombs.utils.Images;
 
 // import com.soupsnzombs.utils.Images;
