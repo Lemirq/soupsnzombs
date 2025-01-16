@@ -642,9 +642,13 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // the score
         int rectX = (GamePanel.screenWidth - 150) / 2;
         int rectY = GamePanel.screenHeight - 150;
-        g2d.drawRect(rectX, rectY, 150, 50);
-        g2d.drawImage(Images.coin, rectX + 10, rectY, 50, 50, null);
-        g2d.drawString("" + Player.money, rectX + 80, rectY + 30);
+        g2d.setStroke(new BasicStroke(7));
+        g2d.drawRoundRect(rectX, rectY, 300, 80, 20, 20);
+        g2d.drawImage(Images.coin, rectX + 10, rectY + 15, 50, 50, null);
+        g2d.drawString("" + Player.money, rectX + 80, rectY + 50);
+
+        // draw score to the right
+        g2d.drawString("Score: " + Player.score, rectX + 150, rectY + 50);
 
         // draw escape key instructions
         g2d.setColor(Color.orange);
