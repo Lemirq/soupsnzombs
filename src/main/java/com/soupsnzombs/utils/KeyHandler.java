@@ -187,12 +187,10 @@ public class KeyHandler extends KeyAdapter {
                     GamePanel.gameState = GameState.GAME;
                     SoundManager.stopAllSounds();
                     // SoundManager.playSound(Sound.BGM, true);
-                }
-                else if (GamePanel.gameState == GameState.NAME_SELECT && !player.alive
+                } else if (GamePanel.gameState == GameState.NAME_SELECT && !player.alive
                         && NameSelect.name.isEmpty()) {
                     GamePanel.gameState = GameState.MAIN_MENU;
-                }
-                else if (GamePanel.gameState == GameState.NAME_SELECT && !player.alive
+                } else if (GamePanel.gameState == GameState.NAME_SELECT && !player.alive
                         && (NameSelect.name.length() != 0)) {
                     Leaderboard.writeScores();
                     if (Leaderboard.valid) {

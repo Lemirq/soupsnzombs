@@ -61,10 +61,10 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
     Timer nameSelectTimer = new Timer(1000, new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            timeLeft--;
+            // timeLeft--;
         }
     });
-    public static int timeLeft = 15;
+    // public static int timeLeft = 15;
 
     // private long time1 = 0;
     // private long time2 = 0;
@@ -211,7 +211,16 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             }
         }
 
-       
+        // if (gameState == GameState.NAME_SELECT) {
+        //     nameSelectTimer.start();
+        //     if (timeLeft == 0) {
+        //         gameState = GameState.MAIN_MENU;
+        //         nameSelectTimer.stop();
+        //         timeLeft = 15;
+        //         return;
+        //     }
+        // }
+
         /*
          * int delay = 5000; // number of milliseconds to sleep
          * long start = System.currentTimeMillis();
@@ -633,9 +642,13 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         // the score
         int rectX = (GamePanel.screenWidth - 150) / 2;
         int rectY = GamePanel.screenHeight - 150;
-        g2d.drawRect(rectX, rectY, 150, 50);
-        g2d.drawImage(Images.coin, rectX + 10, rectY, 50, 50, null);
-        g2d.drawString("" + Player.money, rectX + 80, rectY + 30);
+        g2d.setStroke(new BasicStroke(7));
+        g2d.drawRoundRect(rectX, rectY, 300, 80, 20, 20);
+        g2d.drawImage(Images.coin, rectX + 10, rectY + 15, 50, 50, null);
+        g2d.drawString("" + Player.money, rectX + 80, rectY + 50);
+
+        // draw score to the right
+        g2d.drawString("Score: " + Player.score, rectX + 150, rectY + 50);
 
         // draw escape key instructions
         g2d.setColor(Color.orange);

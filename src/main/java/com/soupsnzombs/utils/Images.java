@@ -118,7 +118,6 @@ public class Images {
             couch = ImageIO.read(Images.class.getResource("/couch.png"));
             bed = ImageIO.read(Images.class.getResource("/bed.png"));
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -32,8 +32,8 @@ public class Player extends Entity implements GameObject {
         spriteMachine = Images.spriteImages.get("manBrown_machine.png");
         spriteSniper = Images.spriteImages.get("manBrown_silencer.png");
 
-        this.width = spriteNoGun.getWidth(); 
-        this.height = spriteNoGun.getHeight(); 
+        this.width = spriteNoGun.getWidth();
+        this.height = spriteNoGun.getHeight();
         this.x = GamePanel.screenWidth / 2 - width / 2 - 1000;
         this.y = GamePanel.screenHeight / 2 - height / 2 - 1000;
         money = 90;
