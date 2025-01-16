@@ -49,7 +49,7 @@ public class Images {
             scoresButton = ImageIO.read(Images.class.getResource("/buttons/scores.png"));
             creditsButton = ImageIO.read(Images.class.getResource("/buttons/credits.png"));
             arrowImage = ImageIO.read(Images.class.getResource("/arrow.png"));
-            instructions = ImageIO.read(Images.class.getResource("/instructions.png"));
+            instructions = ImageIO.read(Images.class.getResource("/Instructions.png"));
             credits = ImageIO.read(Images.class.getResource("/credits.png"));
 
             // scale main menu images

@@ -1,6 +1,9 @@
 package com.soupsnzombs.UI.MainMenu;
+import java.awt.Color;
+import java.awt.Graphics2D;
+
 import com.soupsnzombs.GamePanel;
-import java.awt.*;
+import static com.soupsnzombs.utils.FontLoader.font30;
 import com.soupsnzombs.utils.Images;
 
 // import com.soupsnzombs.utils.Images;
@@ -17,8 +20,8 @@ public class Credits {
             // g2d.setColor(Color.DARK_GRAY);
             // g2d.fillRect(GamePanel.screenWidth / 10, GamePanel.screenHeight / 10, GamePanel.screenWidth - GamePanel.screenWidth / 5, GamePanel.screenHeight - GamePanel.screenHeight / 5);
             g2d.setColor(Color.BLACK);
-            g2d.setFont(new Font("Lucida Console", Font.BOLD, 45));
-            g2d.drawString("P to exit", GamePanel.screenWidth / 2 - ("P to exit".length() * 28) / 2, GamePanel.screenHeight / 15);
+            g2d.setFont(font30);
+            g2d.drawString("[Z] to Exit", GamePanel.screenWidth / 2 - ("[Z] to Exit".length() * 28) / 2, GamePanel.screenHeight / 15);
 
         }
     }

@@ -9,19 +9,26 @@
 
 package com.soupsnzombs.UI.Shop;
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-// import java.util.Arrays;
 
 import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.entities.Gun;
 import com.soupsnzombs.entities.GunDrop;
 import com.soupsnzombs.entities.Player;
 import com.soupsnzombs.utils.FontLoader;
-import com.soupsnzombs.utils.Images;
 import static com.soupsnzombs.utils.FontLoader.font60;
-import static com.soupsnzombs.utils.Images.*;
+import com.soupsnzombs.utils.Images;
+import static com.soupsnzombs.utils.Images.SMGImage;
+import static com.soupsnzombs.utils.Images.bulletRange;
+import static com.soupsnzombs.utils.Images.damage;
+import static com.soupsnzombs.utils.Images.energyDrink;
+import static com.soupsnzombs.utils.Images.semiAutoImage;
+import static com.soupsnzombs.utils.Images.sniperImage;
 
 public class Shop {
     public static boolean open = false;
@@ -81,7 +88,7 @@ public class Shop {
             g2d.drawString(title, titleX, titleY);
 
             // Draw exit message
-            String exitMessage = "Press 'P' to Exit Shop";
+            String exitMessage = "Press [Y] to Exit Shop";
             int exitX = GamePanel.screenWidth - 925;
             int exitY = GamePanel.screenHeight - 50;
             g2d.setFont(FontLoader.font60);

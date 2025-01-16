@@ -630,7 +630,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         g2d.setFont(font30);
         g2d.drawString(String.format("Time Survived: %.2f", elapsedTime), 80, screenHeight - 100);
         if (getPlayer().getBounds().intersects(KeyHandler.proximity)) {
-            g2d.drawString("[P] Shop", player.x + GamePanel.offsetX - 46,
+            g2d.drawString("[Y] Shop", player.x + GamePanel.offsetX - 46,
                     player.y + GamePanel.offsetY - 20);
         }
         // rectangle in the bottom middle of the screen that houses both the coin and
