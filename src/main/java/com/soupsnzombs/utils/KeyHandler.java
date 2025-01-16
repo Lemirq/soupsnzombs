@@ -173,26 +173,24 @@ public class KeyHandler extends KeyAdapter {
                     GamePanel.direction = PlayerDir.RIGHT;
                 }
                 break;
-            case KeyEvent.VK_ENTER:
+            case KeyEvent.VK_O:
                 if (GamePanel.gameState == GameState.NAME_SELECT) {
                     NameSelect.selectEnter(game);
                 } else if (GamePanel.gameState == GameState.SHOP) {
                     Shop.selectEnter(game);
                 }
                 break;
-            case KeyEvent.VK_P:
+            case KeyEvent.VK_I:
                 if (GamePanel.gameState == GameState.SCORES) {
                     GamePanel.gameState = GameState.MAIN_MENU;
                 } else if (GamePanel.gameState == GameState.INSTRUCTIONS) {
                     GamePanel.gameState = GameState.GAME;
                     SoundManager.stopAllSounds();
                     // SoundManager.playSound(Sound.BGM, true);
-                }
-                else if (GamePanel.gameState == GameState.NAME_SELECT && !player.alive
+                } else if (GamePanel.gameState == GameState.NAME_SELECT && !player.alive
                         && NameSelect.name.isEmpty()) {
                     GamePanel.gameState = GameState.MAIN_MENU;
-                }
-                else if (GamePanel.gameState == GameState.NAME_SELECT && !player.alive
+                } else if (GamePanel.gameState == GameState.NAME_SELECT && !player.alive
                         && (NameSelect.name.length() != 0)) {
                     Leaderboard.writeScores();
                     if (Leaderboard.valid) {
@@ -230,7 +228,7 @@ public class KeyHandler extends KeyAdapter {
                 GamePanel.debugging = !GamePanel.debugging;
                 break;
 
-            case KeyEvent.VK_Z:
+            case KeyEvent.VK_L:
                 if (GamePanel.gameState == GameState.GAME) {
                     player.alive = false;
                     System.out.println("Player died.");
@@ -240,7 +238,7 @@ public class KeyHandler extends KeyAdapter {
                 }
                 break;
 
-            case KeyEvent.VK_SPACE:
+            case KeyEvent.VK_U:
                 switch (game.getPlayer().getGun().getAutomaticState()) {
                     case -1:
                         if (shootReleased && canShoot) {
@@ -271,7 +269,7 @@ public class KeyHandler extends KeyAdapter {
                 }
                 break;
 
-            case KeyEvent.VK_C:
+            case KeyEvent.VK_J:
                 if (dropReleased) {
                     GamePanel.dropPressed = true;
                 }
@@ -301,16 +299,16 @@ public class KeyHandler extends KeyAdapter {
             case KeyEvent.VK_D:
                 GamePanel.rightPressed = false;
                 break;
-            case KeyEvent.VK_P:
+            case KeyEvent.VK_I:
                 MenuGUI.pressed = false;
                 break;
 
-            case KeyEvent.VK_SPACE:
+            case KeyEvent.VK_U:
                 shootReleased = true;
                 if (game.getPlayer().getGun().getAutomaticState() == 1)
                     automaticGunTimer.stop(); // stop firing when space released
                 break;
-            case KeyEvent.VK_C:
+            case KeyEvent.VK_J:
                 GamePanel.dropPressed = false;
                 dropReleased = true;
                 break;

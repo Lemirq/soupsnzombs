@@ -181,10 +181,9 @@ public class Zombie extends Entity implements GameObject {
         double deltaX = p.x - this.x;
         double deltaY = p.y - this.y;
         double distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        
 
         // Replace the existing direct path check with:
-        if (distance < 1200 ) {
+        if (distance < 1200) {
             if (hasLineOfSight(p, g2d)) {
                 chasePlayerDirectly(p, g2d);
                 return;
@@ -193,12 +192,9 @@ public class Zombie extends Entity implements GameObject {
 
         // If the player is too far away, don't bother with pathfinding
         if (distance > 800) {
-           // System.out.println(distance);
+            // System.out.println(distance);
             return;
         }
-
-        
-
 
         // Force path recalculation in these cases:
         boolean shouldRecalculatePath = pathNodes.isEmpty() ||
@@ -258,7 +254,6 @@ public class Zombie extends Entity implements GameObject {
     }
 
     private boolean hasLineOfSight(Player p, Graphics2D g2d) {
-        
 
         // Define corners for zombie
         double[][] zombiePoints = {
@@ -335,8 +330,8 @@ public class Zombie extends Entity implements GameObject {
                     continue;
                 }
 
-                if (obstacle.intersects(checkPoint)) { 
-                    //System.out.println("help");
+                if (obstacle.intersects(checkPoint)) {
+                    // System.out.println("help");
                     return false;
                 }
             }
@@ -409,7 +404,8 @@ public class Zombie extends Entity implements GameObject {
         Iterator<Rectangle> collidableIterator = collisions.iterator();
         while (collidableIterator.hasNext()) {
             Rectangle collidable = collidableIterator.next();
-            if (collidable.width == 25) collidableIterator.remove(); //use width == 25 to check if it is a tree log
+            if (collidable.width == 25)
+                collidableIterator.remove(); // use width == 25 to check if it is a tree log
         }
 
         if (!CollisionManager.isColliding(nextPos, collisions)) {
