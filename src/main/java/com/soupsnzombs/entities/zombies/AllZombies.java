@@ -53,9 +53,9 @@ public class AllZombies {
         //Rectangle FOV = new Rectangle((player.x + GamePanel.offsetX) - FOVWidth / 2, (player.y + GamePanel.offsetY) - FOVHeight / 2, FOVWidth, FOVHeight);
         int x, y;
         boolean validSpawn = true;
-        int numberOfZombies = waveNumber + 25;
+        int numberOfZombies = waveNumber + 2;
         for (int i = 0; i < numberOfZombies; i++) {
-            int maxAttempts = 1000; // Maximum number of attempts to find a valid spawn location
+            int maxAttempts = 10000; // Maximum number of attempts to find a valid spawn location
             int attempts = 0;
 
             do {
@@ -119,7 +119,6 @@ public class AllZombies {
                     zombies.add(new Zombie(x, y, ZombieType.BOSS));
                 }
                 else {
-                    numberOfZombies = waveNumber + 25;
                     int kindOfZombie = random.nextInt(4) + 1;
 
                 switch (kindOfZombie) {

@@ -1,20 +1,26 @@
 package com.soupsnzombs.entities.zombies;
 
-import com.soupsnzombs.GamePanel;
-import com.soupsnzombs.entities.*;
-import com.soupsnzombs.utils.CollisionManager;
-import com.soupsnzombs.utils.Images;
-import com.soupsnzombs.utils.Node;
-import com.soupsnzombs.utils.Pathfinder;
-
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.soupsnzombs.GamePanel;
+import com.soupsnzombs.entities.Entity;
+import com.soupsnzombs.entities.GameObject;
+import com.soupsnzombs.entities.Player;
 import static com.soupsnzombs.entities.zombies.AllZombies.waveNumber;
-import static com.soupsnzombs.utils.Images.*;
+import com.soupsnzombs.utils.CollisionManager;
+import com.soupsnzombs.utils.Images;
+import static com.soupsnzombs.utils.Images.bigZombie;
+import static com.soupsnzombs.utils.Images.kingZombie;
+import static com.soupsnzombs.utils.Images.smallZombie;
+import com.soupsnzombs.utils.Node;
+import com.soupsnzombs.utils.Pathfinder;
 
 public class Zombie extends Entity implements GameObject {
     // private static int direction;
@@ -56,6 +62,7 @@ public class Zombie extends Entity implements GameObject {
                 // TODO change loaded png file accordingly to the type of zomb
                 this.sprite = Images.spriteImages.get("zoimbie1_stand.png");
                 this.damage = 10;
+                speed = 2;
                 pointsDropped = 10;
                 break;
 
@@ -63,7 +70,7 @@ public class Zombie extends Entity implements GameObject {
                 health = 200;
                 healthMax = 200;
                 this.damage = 35;
-                speed = 1 + 5 * (waveNumber / 5);
+                speed = 1;
                 pointsDropped = 20;
                 // TODO change loaded png file accordingly to the type of zomb
                 this.sprite = bigZombie;
@@ -73,7 +80,7 @@ public class Zombie extends Entity implements GameObject {
                 health = 75;
                 healthMax = 75;
                 this.damage = 5;
-                speed = 2 + 5 * (waveNumber / 5);
+                speed = 3;
                 pointsDropped = 5;
 
                 // TODO change loaded png file accordingly to the type of zomb
@@ -84,7 +91,7 @@ public class Zombie extends Entity implements GameObject {
                 health = 100 * waveNumber;
                 healthMax = 100 * waveNumber;
                 this.damage = 35 + 5 * (waveNumber / 5);
-                speed = 1 + 5 * (waveNumber / 5);
+                speed = 1;
                 this.sprite = kingZombie;
                 pointsDropped = 30;
                 break;
