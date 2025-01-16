@@ -8,7 +8,6 @@ import java.awt.*;
 // import java.util.ArrayList;
 import java.util.HashMap;
 // import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 
 import com.soupsnzombs.utils.FontLoader;
@@ -37,39 +36,27 @@ public class Scores {
             g2d.setFont(FontLoader.font80);
             String instructionText = "High Scores - P to EXIT";
             g2d.setColor(Color.ORANGE);
-            g2d.drawString(instructionText, 107, 117);
+            FontMetrics metrics = g2d.getFontMetrics(g2d.getFont());
+            int textWidth = metrics.stringWidth(instructionText);
+            int xPosition = (GamePanel.screenWidth - textWidth) / 2;
+            g2d.drawString(instructionText, xPosition + 2, 117);
             g2d.setColor(Color.RED);
-            g2d.drawString(instructionText, 105, 115);
+            g2d.drawString(instructionText, xPosition, 115);
     
             leaderboardMap = Leaderboard.readScores();
-                 
-            Iterator hmIterator = leaderboardMap.entrySet().iterator();
             
-            int yPosition = 200; 
-            
-            int count = 0;
-
             g2d.setFont(FontLoader.font40);
-
-            while (hmIterator.hasNext()) {
-                Map.Entry mapElement = (Map.Entry) hmIterator.next();
-                int marks = ((int) mapElement.getValue() + 10);
-                count++;
-                
-                String scoreText = count + ". " + mapElement.getKey() + " : " + marks;
+            int yPosition = 200; // Starting Y position for the leaderboard entries
+            for (Map.Entry<String, Integer> entry : leaderboardMap.entrySet()) {
+                String scoreText = entry.getKey() + ": " + entry.getValue();
+                textWidth = metrics.stringWidth(scoreText);
+                xPosition = (GamePanel.screenWidth - textWidth) / 2;
                 g2d.setColor(Color.CYAN);
-                g2d.drawString(scoreText, 402, yPosition+2);
+                g2d.drawString(scoreText, xPosition+2, yPosition+2);
                 g2d.setColor(Color.BLUE);
-                g2d.drawString(scoreText, 400, yPosition);
-                
-                yPosition += 70; 
+                g2d.drawString(scoreText, xPosition, yPosition);
+                yPosition += 50; // Adjust the spacing between entries as needed
             }
         }
     }
-    
-
-    
-
-
-    
 }
