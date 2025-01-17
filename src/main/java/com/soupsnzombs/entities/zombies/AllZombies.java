@@ -20,8 +20,8 @@ import static com.soupsnzombs.buildings.AllBuildings.*;
 import static com.soupsnzombs.entities.AllCoins.coins;
 
 public class AllZombies {
-    //public static int FOVWidth = GamePanel.screenWidth + 50;
-    //public static int FOVHeight = GamePanel.screenHeight + 50;
+    // public static int FOVWidth = GamePanel.screenWidth + 50;
+    // public static int FOVHeight = GamePanel.screenHeight + 50;
     public static ArrayList<Zombie> zombies = new ArrayList<>();
     public static int waveNumber = 0;
     public static final int spawnRadius = 750;
@@ -43,14 +43,15 @@ public class AllZombies {
     }
 
     public AllZombies() {
-        System.out.println("Zombie size: " + zombies.size());
+        // System.out.println("Zombie size: " + zombies.size());
         for (Zombie z : zombies) {
             CollisionManager.addCollidable(z);
         }
     }
 
     public static void spawnZombies(Player player) {
-        //Rectangle FOV = new Rectangle((player.x + GamePanel.offsetX) - FOVWidth / 2, (player.y + GamePanel.offsetY) - FOVHeight / 2, FOVWidth, FOVHeight);
+        // Rectangle FOV = new Rectangle((player.x + GamePanel.offsetX) - FOVWidth / 2,
+        // (player.y + GamePanel.offsetY) - FOVHeight / 2, FOVWidth, FOVHeight);
         int x, y;
         boolean validSpawn = true;
         int numberOfZombies = waveNumber + 2;
@@ -60,25 +61,26 @@ public class AllZombies {
 
             do {
                 x = random.nextInt(spawnRadius * 2) - spawnRadius + (player.x + GamePanel.offsetX);
-                        //random.nextInt(spawnRadius * 2) - spawnRadius + (player.x + GamePanel.offsetX);
+                // random.nextInt(spawnRadius * 2) - spawnRadius + (player.x +
+                // GamePanel.offsetX);
                 y = random.nextInt(spawnRadius * 2) - spawnRadius + (player.y + GamePanel.offsetY);
-                        //random.nextInt(spawnRadius * 2) - spawnRadius + (player.y + GamePanel.offsetY);
-
+                // random.nextInt(spawnRadius * 2) - spawnRadius + (player.y +
+                // GamePanel.offsetY);
 
                 for (Zombie zombie : zombies) {
 
                     /*
-                    if (isInPlayerFOV(player, x, y)) {
-                        validSpawn = false;
-                        continue;
-
-                    }
-
-                    if (FOV.contains(zombie)) {
-                        validSpawn = false;
-                        continue;
-                    }
-
+                     * if (isInPlayerFOV(player, x, y)) {
+                     * validSpawn = false;
+                     * continue;
+                     * 
+                     * }
+                     * 
+                     * if (FOV.contains(zombie)) {
+                     * validSpawn = false;
+                     * continue;
+                     * }
+                     * 
                      */
 
                     for (Building building : buildings) {
@@ -88,12 +90,12 @@ public class AllZombies {
                         }
                     }
 
-                  //  for (Tree t : trees) {
-                    //    if (t.getBounds().contains(zombie.getBounds())) {
-                      //      validSpawn = false;
-                        //    break;
-                        //}
-                    //}
+                    // for (Tree t : trees) {
+                    // if (t.getBounds().contains(zombie.getBounds())) {
+                    // validSpawn = false;
+                    // break;
+                    // }
+                    // }
 
                     for (Wall w : walls) {
                         if (w.getBounds().contains(zombie.getBounds())) {
@@ -117,23 +119,22 @@ public class AllZombies {
                 if (waveNumber % 5 == 0) {
                     numberOfZombies = waveNumber / 5;
                     zombies.add(new Zombie(x, y, ZombieType.BOSS));
-                }
-                else {
+                } else {
                     int kindOfZombie = random.nextInt(4) + 1;
 
-                switch (kindOfZombie) {
-                    case 1:
-                        zombies.add(new Zombie(x, y, ZombieType.DEFAULT));
-                        break;
-                    case 2:
-                        zombies.add(new Zombie(x, y, ZombieType.DEFAULT));
-                        break;
-                    case 3:
-                        zombies.add(new Zombie(x, y, ZombieType.FAT));
-                        break;
-                    case 4:
-                        zombies.add(new Zombie(x, y, ZombieType.SMALL));
-                        break;
+                    switch (kindOfZombie) {
+                        case 1:
+                            zombies.add(new Zombie(x, y, ZombieType.DEFAULT));
+                            break;
+                        case 2:
+                            zombies.add(new Zombie(x, y, ZombieType.DEFAULT));
+                            break;
+                        case 3:
+                            zombies.add(new Zombie(x, y, ZombieType.FAT));
+                            break;
+                        case 4:
+                            zombies.add(new Zombie(x, y, ZombieType.SMALL));
+                            break;
                     }
                 }
             } else {
@@ -145,13 +146,12 @@ public class AllZombies {
         System.out.println("Wave " + waveNumber + ": " + numberOfZombies + " zombies spawned");
     }
 
-
     /*
-    public static boolean isInPlayerFOV(Player player, int x, int y) {
-        Rectangle FOV = new Rectangle((player.x + GamePanel.offsetX) - FOVWidth / 2,
-                (player.y + GamePanel.offsetY) - FOVHeight / 2, FOVWidth, FOVHeight);
-        return FOV.contains(x, y);
-    }
+     * public static boolean isInPlayerFOV(Player player, int x, int y) {
+     * Rectangle FOV = new Rectangle((player.x + GamePanel.offsetX) - FOVWidth / 2,
+     * (player.y + GamePanel.offsetY) - FOVHeight / 2, FOVWidth, FOVHeight);
+     * return FOV.contains(x, y);
+     * }
      */
 
     public void draw(Graphics2D g2d, Player player) {
@@ -193,7 +193,7 @@ public class AllZombies {
 
             } else {
                 z.draw(g2d, player);
-                z.chasePlayer(player, g2d); 
+                z.chasePlayer(player, g2d);
 
                 if (GamePanel.debugging) {
                     g2d.setColor(Color.RED);
