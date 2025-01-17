@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         UP, DOWN, LEFT, RIGHT
     }
 
-    public static boolean debugging = true;
+    public static boolean debugging = false;
 
     public static GameState gameState = GameState.MAIN_MENU;
 
