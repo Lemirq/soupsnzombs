@@ -61,10 +61,10 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
     Timer nameSelectTimer = new Timer(1000, new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            // timeLeft--;
+            timeLeft--;
         }
     });
-    // public static int timeLeft = 15;
+    public static int timeLeft = 30;
 
     // private long time1 = 0;
     // private long time2 = 0;
@@ -171,7 +171,53 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         NONE, TOP, BOTTOM, LEFT, RIGHT
     }
 
+    private boolean isWalking = false;
+    private long walkingStartTime = 0;
+    private static final long WALKING_SOUND_DELAY = 517; // 2 seconds
+    // private boolean oceanSoundPlaying = false;
+
     private void update() {
+
+        boolean currentlyWalking = upPressed || downPressed || leftPressed || rightPressed;
+
+        if (currentlyWalking) {
+            if (!isWalking) {
+                // Player just started walking
+                isWalking = true;
+                walkingStartTime = System.currentTimeMillis();
+
+            } else {
+                // Player is already walking, check the duration
+                long currentTime = System.currentTimeMillis();
+                if (currentTime - walkingStartTime >= WALKING_SOUND_DELAY) {
+                    // Play walking sound
+                    SoundManager.playSound(Sound.WALKING, false, -20.0f);
+
+                    walkingStartTime = currentTime; // Reset the timer to play sound periodically
+                }
+            }
+        } else {
+            // Player stopped walking
+            isWalking = false;
+            // SoundManager.stopSound(Sound.WALKING);
+        }
+
+        // // Check if the player is near the map boundary
+        // int mapBoundaryThreshold = 300;
+
+        // if ((offsetX <= X_Bounds[0] + mapBoundaryThreshold || offsetX >= X_Bounds[1]
+        // - mapBoundaryThreshold ||
+        // offsetY <= Y_Bounds[0] + mapBoundaryThreshold || offsetY >= Y_Bounds[1] -
+        // mapBoundaryThreshold)) {
+        // if (!oceanSoundPlaying) {
+        // oceanSoundPlaying = true;
+        // SoundManager.playSound(Sound.OCEAN, false, -20.0f);
+        // }
+        // } else {
+        // oceanSoundPlaying = false;
+        // SoundManager.stopSound(Sound.OCEAN);
+        // }
+
         if (!player.alive && gameState != GameState.GAMEOVER && gameState != GameState.NAME_SELECT
                 && gameState != GameState.MAIN_MENU) {
             gameState = GameState.GAMEOVER;
@@ -201,6 +247,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         }
 
         if (gameState == GameState.GAMEOVER) {
+            timeLeft = 30;
             SoundManager.stopAllSounds();
             deathScreenTimer.start();
             if (seconds == 2) {
@@ -211,15 +258,15 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             }
         }
 
-        // if (gameState == GameState.NAME_SELECT) {
-        //     nameSelectTimer.start();
-        //     if (timeLeft == 0) {
-        //         gameState = GameState.MAIN_MENU;
-        //         nameSelectTimer.stop();
-        //         timeLeft = 15;
-        //         return;
-        //     }
-        // }
+        if (gameState == GameState.NAME_SELECT) {
+            nameSelectTimer.start();
+            if (timeLeft == 0) {
+                gameState = GameState.MAIN_MENU;
+                nameSelectTimer.stop();
+                timeLeft = 30;
+                return;
+            }
+        }
 
         /*
          * int delay = 5000; // number of milliseconds to sleep
@@ -232,7 +279,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         if (shootPressed) {
             player.getGun().shootBullet(player);
             // play sound
-            SoundManager.playSound(Sound.GUNFIRE, false);
+            SoundManager.playSound(Sound.GUNFIRE, false, -5f);
             shootPressed = false;
         }
         player.getGun().updateBullets();
@@ -360,6 +407,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
 
         CollisionManager.addCollidable(player);
         SoundManager.init();
+        SoundManager.playSound(Sound.AMBIENCE, true);
         zombies = new AllZombies();
         inventory = new Inventory();
 
@@ -643,17 +691,17 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         int rectX = (GamePanel.screenWidth - 150) / 2;
         int rectY = GamePanel.screenHeight - 150;
         g2d.setStroke(new BasicStroke(7));
-        g2d.drawRoundRect(rectX, rectY, 300, 80, 20, 20);
+        g2d.drawRoundRect(rectX, rectY, 350, 80, 20, 20);
         g2d.drawImage(Images.coin, rectX + 10, rectY + 15, 50, 50, null);
-        g2d.drawString("" + Player.money, rectX + 80, rectY + 50);
+        g2d.drawString("" + Player.money, rectX + 65, rectY + 50);
 
         // draw score to the right
-        g2d.drawString("Score: " + Player.score, rectX + 150, rectY + 50);
+        g2d.drawString("Score: " + Player.score, rectX + 135, rectY + 50);
 
         // draw escape key instructions
         g2d.setColor(Color.orange);
         g2d.setFont(font30);
-        g2d.drawString("Press [Z] to return to main menu", 80, screenHeight - 50);
+        g2d.drawString("Press [Z] to Return to Main Menu", 80, screenHeight - 50);
 
         player.bar.draw(g2d);
         inventory.draw(g2d, player.getGun());

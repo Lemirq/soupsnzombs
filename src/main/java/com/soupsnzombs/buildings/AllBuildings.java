@@ -73,10 +73,6 @@ public class AllBuildings {
             CollisionManager.addCollidable(t);
         }
 
-        
-
-        
-
     }
 
     public void drawTrees(Graphics2D g2d) {
@@ -100,8 +96,6 @@ public class AllBuildings {
         for (Tree t : trees) {
             t.draw(g2d);
         }
-
-        
 
         // draw rect x,y,w,h
         g2d.setColor(Color.RED);

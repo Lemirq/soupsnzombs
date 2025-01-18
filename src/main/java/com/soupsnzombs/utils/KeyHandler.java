@@ -221,7 +221,9 @@ public class KeyHandler extends KeyAdapter {
                 break;
 
             case KeyEvent.VK_K:
-                zombies.clear();
+                if (GamePanel.debugging) {
+                    zombies.clear();
+                }
                 break;
 
             case KeyEvent.VK_F:

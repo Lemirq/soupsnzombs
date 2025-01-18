@@ -25,7 +25,7 @@ public class Images {
     // public static ArrayList<BufferedImage> gunfire = new ArrayList<>();
 
     public static BufferedImage player_idle, circle, gun, bullet, tree, gameMenu, background, coin, shop, bigZombie,
-            smallZombie, kingZombie, tent, grayWall,
+            smallZombie, kingZombie, tent, grayWall, quitMessage,
             playButton, creditsButton, scoresButton, arrowImage, instructions, credits, shopBackground, tempImage,
             ocean, pistolImage, SMGImage, sniperImage, scoresbg, grass, milk, soup, energyDrink, exit, semiAutoImage,
             treelog, damage, couch, bed,
@@ -44,13 +44,14 @@ public class Images {
         ArrayList<SpriteImage> tilesheet = readXML("t.xml");
         try {
             // main main menu images
-            background = ImageIO.read(Images.class.getResource("/bg.jpeg"));
+            background = ImageIO.read(Images.class.getResource("/bg.jpg"));
             playButton = ImageIO.read(Images.class.getResource("/buttons/play.png"));
             scoresButton = ImageIO.read(Images.class.getResource("/buttons/scores.png"));
             creditsButton = ImageIO.read(Images.class.getResource("/buttons/credits.png"));
             arrowImage = ImageIO.read(Images.class.getResource("/arrow.png"));
-            instructions = ImageIO.read(Images.class.getResource("/Instructions.png"));
+            instructions = ImageIO.read(Images.class.getResource("/InstructionsFinal.jpg"));
             credits = ImageIO.read(Images.class.getResource("/credits.png"));
+            quitMessage = ImageIO.read(Images.class.getResource("/quitMessage.png"));
 
             // scale main menu images
             playButton = scaleImage(playButton, 150, 50);

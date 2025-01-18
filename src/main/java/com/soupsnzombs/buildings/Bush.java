@@ -2,6 +2,8 @@ package com.soupsnzombs.buildings;
 
 import com.soupsnzombs.GamePanel;
 import com.soupsnzombs.utils.Images;
+import com.soupsnzombs.utils.SoundManager;
+import com.soupsnzombs.utils.SoundManager.Sound;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -9,6 +11,7 @@ import java.awt.image.BufferedImage;
 public class Bush extends Building {
     BufferedImage bushSprite;
     int mapX, mapY, bushX, bushY;
+    boolean soundPlayed = false;
 
     public Bush(int x, int y, int width, int height) {
         super(x, y, width, height);
@@ -28,10 +31,14 @@ public class Bush extends Building {
         // Store original composite
         Composite originalComposite = g2d.getComposite();
 
-        //g2d.setColor(Color.CYAN);
+        // g2d.setColor(Color.CYAN);
         // Set transparency to 70%
         float transparency = 0.7f;
         if (getBounds().intersects(GamePanel.player.getBounds())) {
+            if (!soundPlayed) { // Check if the sound has already been played
+                SoundManager.playSound(Sound.RUSTLE, false);
+                soundPlayed = true;
+            }
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, transparency));
 
         }
