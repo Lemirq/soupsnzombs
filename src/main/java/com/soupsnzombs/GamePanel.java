@@ -221,6 +221,7 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
         if (!player.alive && gameState != GameState.GAMEOVER && gameState != GameState.NAME_SELECT
                 && gameState != GameState.MAIN_MENU) {
             gameState = GameState.GAMEOVER;
+            zombies.clear(); // Removes all zombies
             player.setGun(new Gun(0, 0, 0, 0, 0, -5, null));
             gunDrops.clear();
             gunDrops.add(new GunDrop(-3450, 1025, new Gun(15, 200, 200, 5, 5, -1, pistolImage)));
@@ -240,7 +241,6 @@ public class GamePanel extends JPanel implements Runnable, ActionListener {
             player.y = 1540;
             offsetX = -(player.x - (GamePanel.screenWidth / 2 - player.width / 2));
             offsetY = -(player.y - (GamePanel.screenHeight / 2 - player.height / 2)); // Reset player position
-            zombies.clear(); // Removes all zombies
             coins.clear(); // Removes all coins
             NameSelect.name = new StringBuilder(""); // Clears leaderboard name input stream
             AllZombies.waveNumber = 0; // Set zombie wave to 0
